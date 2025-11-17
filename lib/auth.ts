@@ -8,7 +8,21 @@ function getGoogleProvider() {
   const clientId = process.env.GOOGLE_CLIENT_ID;
   const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
 
+  // During build phase, allow missing credentials to prevent build failures
+  const isBuildPhase = process.env.NEXT_PHASE === "phase-production-build";
+
   if (!clientId || !clientSecret) {
+    if (isBuildPhase) {
+      console.warn(
+        "Warning: GOOGLE_CLIENT_ID or GOOGLE_CLIENT_SECRET not set during build. Google auth will not work until configured."
+      );
+      // Return a minimal provider config that won't break the build
+      // but will fail at runtime if actually used
+      return GoogleProvider({
+        clientId: "placeholder",
+        clientSecret: "placeholder",
+      });
+    }
     throw new Error(
       "Missing GOOGLE_CLIENT_ID or GOOGLE_CLIENT_SECRET environment variables."
     );
@@ -20,9 +34,11 @@ function getGoogleProvider() {
   });
 }
 
+const googleProvider = getGoogleProvider();
+
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
-  providers: [getGoogleProvider()],
+  providers: [googleProvider],
   session: {
     strategy: "database",
   },

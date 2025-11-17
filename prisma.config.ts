@@ -10,7 +10,4 @@ export default defineConfig({
     url: env("DATABASE_URL"),
     directUrl: env("DIRECT_URL"),
   },
-  seed: {
-    run: "npm run db:seed",
-  },
 });
