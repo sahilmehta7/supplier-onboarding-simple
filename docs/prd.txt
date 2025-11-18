@@ -1,0 +1,658 @@
+## 1. Product Overview
+
+**Product Name (working):** Supplier Self-Serve Onboarding Portal
+**Owner:** Procurement / Product
+**Tech Stack:** Next.js, Supabase (Postgres + Auth + RLS), Prisma, Zod
+**Target Users:** External suppliers, internal procurement team, internal master data team (MDM), admins
+
+This product is a **self-service onboarding portal** where suppliers can register, submit all required information (per geography & legal entity), upload documents, and track their onboarding status. Internal teams review, request clarifications, and approve. Once approved, the system automatically creates a **Freshdesk ticket** for the internal master data team to complete ERP onboarding.
+
+Platform must support:
+
+* **Multiple legal entities**: Zetwerk, Unimacts, Spectrum
+* **Multiple geographies**: US, EU/UK, India, etc., each with **different required fields & documents** configurable via admin
+* **RBAC** for external vs internal vs admin users
+* **Auditability** and a clean, guided UX that reduces back-and-forth emails, in line with modern vendor onboarding and portal best practices (self-service portal, automated alerts, compliance checks, and ERP integration). ([Newgen][1])
+
+Designed so that tools like **Cursor** can read this PRD and generate code/features in small, well-defined chunks. ([ChatPRD][2])
+
+---
+
+## 2. Goals & Non-Goals
+
+### 2.1 Goals
+
+1. **Self-serve supplier intake**
+
+   * Vendors sign up, select legal entity + geography, and complete a multi-step form aligned to the **current US “Supplier Master Setup Form”** and similar forms for other geos.
+   * Support **save as draft** and resume later.
+
+2. **Configurable field schemas by entity + geography**
+
+   * Admins define **field sets, validation rules, and required documents** per combination:
+
+     * (Entity: Zetwerk / Unimacts / Spectrum) × (Geo: US / EU / India / …).
+
+3. **Review & approval workflow**
+
+   * Procurement team reviews submission, requests clarifications, and either **approve** or **reject with reason**.
+   * On approval, auto-create **Freshdesk ticket** for MDM team with all relevant data.
+
+4. **Excellent supplier UX**
+
+   * Guided steps, progress indicator, checklist, and clear status—leveraging proven onboarding UX patterns like progress bars and contextual tips. ([Uitop][3])
+
+5. **Data quality & compliance**
+
+   * Strong validation (Zod schemas), required document enforcement, and audit trail.
+   * Basis for future risk/compliance checks (e.g., sanctions, KYC) and standardized onboarding metrics like cycle time, data quality, and SLA adherence. ([HICX.com][4])
+
+### 2.2 Non-Goals (for v1)
+
+* Full **supplier performance management** (scorecards, OTIF, etc.).
+* Complex **contract management** lifecycle (e-sign, amendments). ([insights.simplifyvms.com][5])
+* Deep ERP bi-directional sync; v1 only needs:
+
+  * Freshdesk ticket creation with payload
+  * Ability to add ERP IDs later via MDM manually in the portal.
+
+---
+
+## 3. Users & Roles (RBAC)
+
+We’ll use Supabase Auth + Postgres **Row Level Security (RLS)** for multi-tenant and role-based access. ([Clerk][6])
+
+### 3.1 Roles
+
+1. **Supplier User (EXTERNAL_SUPPLIER)**
+
+   * Belongs to a **supplier organization**.
+   * Can:
+
+     * Register & log in
+     * Create/edit supplier profile for their own organization
+     * Manage draft onboarding submissions
+     * Upload documents
+     * Respond to clarifications
+     * View read-only approved data & status.
+
+2. **Procurement User (INTERNAL_PROCUREMENT)**
+
+   * Internal employee.
+   * Can:
+
+     * View and filter all supplier onboarding cases for their legal entities
+     * Review submissions
+     * Comment / request clarifications
+     * Approve / Reject
+     * See full history and documents.
+
+3. **Master Data User (INTERNAL_MDM)**
+
+   * Internal data team (may sit in FinOps or MDM).
+   * Can:
+
+     * View suppliers that are **Approved** with Freshdesk ticket IDs
+     * Add ERP supplier IDs (e.g., D365 vendor ID)
+     * Mark ERP onboarding complete.
+
+4. **Admin (INTERNAL_ADMIN)**
+
+   * Superuser.
+   * Can:
+
+     * Manage **field configuration** by entity + geography
+     * Manage legal entities & geographies
+     * Manage roles & user mappings
+     * Configure integrations (Freshdesk API keys, ERP codes)
+     * View system settings & metrics dashboards.
+
+---
+
+## 4. High-Level User Flows
+
+### 4.1 Supplier Registration & Login
+
+1. Supplier clicks “Register as Supplier”.
+2. Enters:
+
+   * Email, password
+   * Company name (optional initial)
+   * Legal entity they’re onboarding for (Zetwerk / Unimacts / Spectrum)
+   * Geography (US / EU / India / …).
+3. Email verification via Supabase Auth.
+4. On first login:
+
+   * Supplier organization record created.
+   * Supplier user assigned to that organization.
+   * Redirect to **Onboarding Wizard**.
+
+### 4.2 Onboarding Wizard (Supplier View)
+
+Wizard steps (configurable per entity/geo, but base US example from the Excel form):
+
+1. **Requestor & Context (US example)**
+
+   * ENTITY (Unimacts / other legal entity)
+   * Request type:
+
+     * New Supplier / Add New Site / Update Supplier Information (with reason)
+   * Submitted By, Date, Position, Signature (digital acknowledgment).
+
+2. **Supplier Information**
+
+   * Supplier Name
+   * Payment Terms
+   * Payment/Invoice Currency
+   * Payment Method (e.g., ACH, Wire, Check)
+   * Incoterms + Named Place
+   * Supplier Sales Contact Name, Email, Phone
+
+3. **Addresses (Remit To / Order Address)**
+
+   * Remit-To Name (if different)
+   * Address Line 1, Line 2
+   * City, State, Postal Code, County, Country
+   * Ordering Address (mirrored or separate fields).
+
+4. **Bank Information (US example)**
+
+   * Bank Name, Branch
+   * Address Line 1, Address Line 2, City, State, Country
+   * US Routing (ABA) # via Wire
+   * US Routing (ABA) # via ACH
+   * Bank Account Number
+   * IBAN, BIC/SWIFT, IFSC (where applicable)
+   * Remittance Email Address
+
+5. **Documents Upload**
+
+   * Geo specific:
+
+     * US: W-9 / W-8BEN, bank letter/void cheque, company registration docs
+     * EU: VAT registration, IBAN confirmation, proof of address
+     * India: PAN, GST, cancelled cheque, MSME certificate, etc.
+   * Admin config defines:
+
+     * Required / optional
+     * File types, max size
+     * Expiry dates (e.g., certificates).
+
+6. **Review & Submit**
+
+   * Summary of all sections.
+   * Explicit acceptance of T&Cs.
+   * On submit:
+
+     * Status moves from `DRAFT` → `SUBMITTED`.
+     * Email acknowledgment sent.
+
+Supplier can **save as draft** at any step; progress and a checklist are visible. ([Uitop][3])
+
+### 4.3 Procurement Review Flow
+
+1. Procurement dashboard lists:
+
+   * New submissions (`SUBMITTED`)
+   * In review (`IN_REVIEW`)
+   * Waiting for supplier (`PENDING_SUPPLIER`)
+   * Approved / Rejected.
+
+2. Procurement opens a submission:
+
+   * Sees all fields grouped by section.
+   * Can **compare changes** vs older submissions (for updates).
+   * Can add **internal notes** (not visible to supplier).
+   * Can create **clarification requests**:
+
+     * Comment thread per field or section.
+     * Mark specific fields as “Needs Clarification”.
+
+3. Supplier receives notification, updates data, and replies.
+
+4. Once satisfied, procurement marks as:
+
+   * **Approved** → trigger Freshdesk ticket.
+   * **Rejected** (with reason visible to supplier).
+
+### 4.4 Freshdesk Ticket Creation (MDM Handoff)
+
+On approval:
+
+1. System calls Freshdesk API to create a **ticket** with:
+
+   * Supplier name, entity, geography
+   * All structured data as JSON
+   * Links to documents in secure storage
+   * Portal link back to the supplier record.
+
+2. Ticket ID is stored on the supplier onboarding record.
+
+3. MDM team works in Freshdesk + ERP to create vendor in D365 (or other system).
+
+4. Once done, MDM user updates in portal:
+
+   * ERP Supplier/Vendor ID
+   * Date onboarded
+   * Any additional metadata (e.g., vendor group).
+
+### 4.5 Admin Configuration Flow
+
+1. Admin logs in → Admin panel.
+2. Can manage:
+
+   * **Entities & Geos**
+
+     * Create & edit legal entities.
+     * Map supported geographies for each.
+
+   * **Form Configurations**
+
+     * For each (entity, geo, form version):
+
+       * Define sections (e.g., Supplier Info, Bank Info).
+       * For each field:
+
+         * Field key (machine name)
+         * Label, help text, tooltip
+         * Field type (text, number, select, multi-select, date, file, boolean)
+         * Validation rules (required, regex, min/max, conditional required)
+         * Visibility rules (show/hide based on other fields).
+
+   * **Document Types**
+
+     * Define document category (Tax, Bank, Legal).
+     * Per entity/geo: required/optional flags.
+
+   * **Roles & Permissions**
+
+     * Assign roles to internal users.
+     * Map which legal entities they can see.
+
+   * **Integrations**
+
+     * Freshdesk domain + API key + default group.
+     * (Future) ERP integration configs.
+
+---
+
+## 5. Functional Requirements
+
+### 5.1 Authentication & RBAC
+
+* Use **Supabase Auth** for registration, login, password reset, email verification. ([Permit][7])
+* Map Supabase user to `profiles` table with a `role` field and `org_id` (supplier org or internal).
+* Use **Postgres RLS** so:
+
+  * Suppliers can only access rows where `org_id` = their org and role = EXTERNAL_SUPPLIER.
+  * Internal users can see suppliers for allowed entities/geos.
+* Roles should be enum-like:
+
+  * `EXTERNAL_SUPPLIER`, `INTERNAL_PROCUREMENT`, `INTERNAL_MDM`, `INTERNAL_ADMIN`.
+
+### 5.2 Supplier Organization Management
+
+* A **supplier organization** is a logical entity representing a vendor.
+* Fields:
+
+  * `id`, `name`, `primary_email`, `country`, `status` (Active/Inactive).
+* A supplier user can:
+
+  * Update organization metadata (subject to approval for certain fields).
+* Future: support multiple users per supplier org with invitation flow.
+
+### 5.3 Onboarding Case / Application
+
+Each onboarding attempt is an **application/case**, separate from static org record.
+
+* Core fields:
+
+  * `id`
+  * `supplier_org_id`
+  * `entity_id`
+  * `geography_code`
+  * `version` (form version)
+  * `status`:
+
+    * `DRAFT`, `SUBMITTED`, `IN_REVIEW`, `PENDING_SUPPLIER`, `APPROVED`, `REJECTED`
+  * `created_by`, `created_at`, `updated_at`
+  * `approved_by`, `approved_at`
+  * `rejected_by`, `rejected_at`, `rejection_reason`
+  * `freshdesk_ticket_id`
+  * `erp_vendor_id` (populated by MDM)
+  * `data_json` – normalized application data (or split into relational tables if needed).
+
+* Actions:
+
+  * Supplier:
+
+    * Create / update `DRAFT`.
+    * Submit → `SUBMITTED`.
+    * Edit while `PENDING_SUPPLIER`.
+  * Procurement:
+
+    * Move from `SUBMITTED` → `IN_REVIEW`.
+    * Request clarifications → `PENDING_SUPPLIER`.
+    * Approve / Reject.
+  * MDM:
+
+    * Add `erp_vendor_id`.
+    * Mark as `ONBOARDED` (optional additional status).
+
+### 5.4 Field & Form Configuration
+
+**Goal:** No code changes for typical field additions per geography: fully admin-driven schema.
+
+Data model sketch:
+
+* `entity`
+
+  * `id`, `name` (Zetwerk, Unimacts, Spectrum), `code`
+
+* `geography`
+
+  * `id`, `code` (US, EU, IN...), `name`
+
+* `form_config`
+
+  * `id`, `entity_id`, `geography_id`, `version`, `is_active`
+  * `title`, `description`
+
+* `form_section`
+
+  * `id`, `form_config_id`, `key`, `label`, `order`
+
+* `form_field`
+
+  * `id`, `section_id`, `key`, `label`, `type`, `placeholder`, `help_text`, `required`, `options_json`, `validation_json`, `visibility_rules_json`, `order`, `is_sensitive` (for masked display).
+
+* `document_type`
+
+  * `id`, `key`, `label`, `category`, `description`
+
+* `form_document_requirement`
+
+  * `id`, `form_config_id`, `document_type_id`, `required`, `help_text`.
+
+At runtime:
+
+* Next.js fetches form_config for (entity, geo).
+* Builds a **Zod schema** dynamically for validation on both client and server.
+* On save/submit, data is validated against generated Zod schema.
+
+### 5.5 Document Management
+
+* Integration with Supabase storage:
+
+  * Bucket: `supplier-documents`.
+  * Folder structure: `/org_{supplier_org_id}/application_{id}/{document_type_key}/filename`.
+* For each uploaded doc:
+
+  * `id`, `application_id`, `document_type_id`, `file_url`, `file_name`, `mime_type`, `uploaded_at`, `uploaded_by`, optional `expires_at`.
+* Access control:
+
+  * Only supplier users for that org + internal users for that entity.
+* Optional future: virus scanning, auto-redaction.
+
+### 5.6 Clarifications & Comments
+
+Two levels:
+
+1. **Supplier–Procurement Conversations (visible to supplier)**
+
+   * `id`, `application_id`, `created_by`, `created_at`, `visibility` (supplier_visible), `message`, `field_key` (optional).
+   * Drive a comment thread shown in UI.
+   * Supplier replies and updates fields accordingly.
+
+2. **Internal Notes (procurement + MDM only)**
+
+   * Same structure, `visibility` = internal_only.
+
+Notifications (email) on:
+
+* New comment on your application.
+* Clarification requested.
+* Status changes (approved/rejected).
+
+### 5.7 Dashboards & Reporting (MVP)
+
+* Procurement/MDM views:
+
+  * Filters: entity, geography, status, date ranges.
+  * Columns: supplier name, application ID, status, submitted date, approved date, cycle time.
+* Admin metrics (read-only for v1):
+
+  * # suppliers onboarded by entity & geo.
+  * Average onboarding cycle time.
+  * Rejection rate.
+  * Top reasons for rejection.
+
+These align with supplier onboarding metrics like cycle time, data quality, and SLA adherence. ([HICX.com][4])
+
+---
+
+## 6. UX & UI Requirements
+
+In addition to baseline functional UX, explicitly include modern **portal + onboarding UX patterns**: ([stackerhq.com][8])
+
+### 6.1 Supplier UX
+
+* **Branding:** Company logo, colors, and friendly copy.
+* **Guided Wizard:**
+
+  * Stepper/progress bar showing sections: Requestor → Supplier Info → Addresses → Bank → Documents → Review.
+  * Clear labels and helper text (pulled from config).
+* **Checklists & Status:**
+
+  * Checklist of required sections/documents.
+  * Status badge (Draft, Submitted, In Review, Pending Supplier, Approved, Rejected).
+* **Contextual Help:**
+
+  * Tooltips explaining fields like Incoterms, routing vs IBAN.
+  * Link to “How to fill this form” knowledge base article.
+* **Validation Feedback:**
+
+  * Real-time client-side validation (Zod) and friendly error messages.
+  * On submit, scroll to first error.
+
+### 6.2 Internal UX
+
+* **Queue View for Procurement:**
+
+  * Table with filters & sorting.
+  * Quick actions: Open, Approve, Request Clarification.
+* **Detail View:**
+
+  * Collapsible sections; highlight fields changed vs previous application (for updates).
+  * Side panel showing comments & history.
+* **MDM View:**
+
+  * Filter for Approved but not yet onboarded.
+  * Inline edit for ERP Vendor ID.
+
+### 6.3 Accessibility & Responsiveness
+
+* WCAG-aligned: proper labels, keyboard navigation, focus states.
+* Fully responsive: Suppliers can complete onboarding from mobile.
+
+---
+
+## 7. Integrations
+
+### 7.1 Freshdesk
+
+* Configuration in Admin:
+
+  * `freshdesk_base_url`, `freshdesk_api_key`, `default_group_id`, `default_priority`, `default_status`.
+* When application moves to `APPROVED`:
+
+  * Create ticket via Freshdesk API:
+
+    * Subject: `[Vendor Onboarding] {Supplier Name} – {Entity} – {Geo}`
+    * Description: formatted summary + JSON payload link.
+    * Custom fields: entity, geography, portal application ID.
+  * Store `freshdesk_ticket_id` on application record.
+* Handle error scenarios:
+
+  * If API call fails, mark `freshdesk_status = FAILED` and show banner to admin to retry.
+
+### 7.2 ERP (Future)
+
+* Scope out later; v1 only needs ability to store ERP Vendor ID manually.
+
+---
+
+## 8. Non-Functional Requirements
+
+* **Security**
+
+  * All requests over HTTPS.
+  * RLS rules in Supabase to enforce tenant isolation.
+  * Role-based permissions enforced at DB and app level.
+  * Sensitive fields (e.g., bank account, routing) masked in UI for non-essential roles.
+
+* **Performance**
+
+  * Target < 300ms server response time for typical operations.
+  * Pagination on listings.
+
+* **Reliability**
+
+  * Graceful error handling around external APIs (Freshdesk).
+  * Logs for key actions (submit, approve, reject, ticket creation).
+
+* **Auditability**
+
+  * `audit_log` table:
+
+    * `id`, `actor_id`, `actor_role`, `application_id`, `action`, `details_json`, `created_at`.
+  * Actions: created, updated, submitted, approved, rejected, ticket creation, ERP ID update, etc.
+
+---
+
+## 9. Tech & Architecture Notes (for Cursor)
+
+### 9.1 Project Structure (Next.js App Router)
+
+High-level recommended structure (non-binding, for Cursor to reference):
+
+* `/app`
+
+  * `/onboarding` – supplier flows (wizard, status pages)
+  * `/dashboard/procurement`
+  * `/dashboard/mdm`
+  * `/admin`
+  * `/api` – route handlers (CRUD, Freshdesk webhooks if any)
+* `/lib`
+
+  * `db.ts` – Prisma client
+  * `auth.ts` – Supabase auth helper
+  * `zodSchemas/` – generated or static Zod schemas
+  * `services/` – Freshdesk service, notification service
+* `/prisma`
+
+  * `schema.prisma`
+* `/components`
+
+  * UI primitives (Form, Stepper, StatusBadge, CommentThread, etc.)
+
+### 9.2 Prisma & Supabase
+
+* Use Prisma with Supabase Postgres; keep naming consistent.
+* Enable **RLS** and design `policies` per table.
+* Use migrations for:
+
+  * User profile + roles
+  * Supplier organizations
+  * Applications & data
+  * Config tables (form_config, form_field, etc.)
+  * Comments, audit logs, document records.
+
+### 9.3 Validation with Zod
+
+* For each active `form_config`, generate a Zod schema server-side that:
+
+  * Respects required flags, types, regex, min/max.
+  * Used both:
+
+    * On API routes (server validation).
+    * On client via shared schema (if feasible) or JSON→Zod builder.
+
+---
+
+## 10. Work Breakdown for Cursor
+
+When using this PRD in Cursor, treat each feature as a **separate task**. ([ChatPRD][2])
+
+Suggested implementation order:
+
+1. **Core setup**
+
+   * Next.js + Supabase Auth integration.
+   * Prisma schema for `profiles`, `roles`, `entity`, `geography`, `supplier_org`, `application`.
+
+2. **RBAC & RLS**
+
+   * Define roles in DB and in code.
+   * Implement policies for supplier vs internal users.
+
+3. **Admin: Entities & Geos**
+
+   * CRUD for entities/geos.
+   * Basic admin UI.
+
+4. **Admin: Form & Field Config**
+
+   * Schema + CRUD UI.
+   * JSON-based validation config.
+
+5. **Supplier Onboarding Wizard**
+
+   * Fetch config, build form, save draft, submit.
+   * US form v1 matching Excel fields (as closely as possible).
+
+6. **Procurement Review UI**
+
+   * Listing, detail view.
+   * Approve/Reject + clarifications.
+
+7. **Comments & Notifications**
+
+   * Comment model & UI.
+   * Email notifications (simple template).
+
+8. **Freshdesk Integration**
+
+   * Service wrapper.
+   * Ticket creation on approval.
+   * Retry pathway.
+
+9. **MDM View**
+
+   * Listing of approved applications.
+   * ERP vendor ID capture.
+
+10. **Metrics & Audit Log**
+
+    * Basic dashboards.
+    * Audit logging for key events.
+
+---
+
+## 11. Open Questions / V2 Ideas
+
+* Auto-integration with D365 / other ERPs for supplier master creation.
+* Automated **risk & compliance checks** (e.g., via external APIs) during onboarding. ([insights.simplifyvms.com][5])
+* Supplier lifecycle features (cert expiry reminders, performance KPIs).
+* Multi-language support for suppliers in EU/Asia.
+* Auto-approval flows for low-risk suppliers.
+
+
+[1]: https://newgensoft.com/in/marketplace/vendor-onboarding/?utm_source=chatgpt.com "Vendor Onboarding | Newgen (India)"
+[2]: https://chatprd.ai/resources/PRD-for-Cursor?utm_source=chatgpt.com "Resources / Best Practices for Using PRDs with Cursor"
+[3]: https://uitop.design/blog/design/saas-onboarding-ux/?utm_source=chatgpt.com "SaaS Onboarding UX: Best Practices"
+[4]: https://www.hicx.com/blog/supplier-onboarding-best-practices-solutions/?utm_source=chatgpt.com "Supplier Onboarding Best Practices: Supplier Portals"
+[5]: https://insights.simplifyvms.com/resources/vendor-onboarding-software-a-comprehensive-guide?utm_source=chatgpt.com "Vendor Onboarding Software: A Comprehensive Guide"
+[6]: https://clerk.com/blog/multi-tenant-vs-single-tenant?utm_source=chatgpt.com "Choosing the right SaaS architecture: Multi-Tenant vs. ..."
+[7]: https://www.permit.io/blog/supabase-authentication-and-authorization-in-nextjs-implementation-guide?utm_source=chatgpt.com "Supabase Authentication and Authorization in Next.js"
+[8]: https://stackerhq.com/blog/best-practices-for-implementing-vendor-portals?utm_source=chatgpt.com "Best Practices for Implementing Vendor Portals"

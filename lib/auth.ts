@@ -46,10 +46,71 @@ export const authOptions: NextAuthOptions = {
     signIn: "/signin",
   },
   callbacks: {
-    session({ session, user }) {
-      if (session.user) {
-        session.user.id = user.id;
+    async jwt({ token, user }) {
+      if (user) {
+        const memberships = await prisma.membership.findMany({
+          where: { userId: user.id },
+          select: {
+            organizationId: true,
+            role: true,
+          },
+        });
+
+        token.organizationRoles = memberships.map((membership) => ({
+          organizationId: membership.organizationId,
+          role: membership.role,
+        }));
       }
+
+      return token;
+    },
+    async session({ session, token, user }) {
+      if (!session.user) {
+        return session;
+      }
+
+      const resolvedUserId =
+        token?.sub ??
+        user?.id ??
+        session.user.id ??
+        (session.user.email
+          ? (
+              await prisma.user.findUnique({
+                where: { email: session.user.email },
+                select: { id: true },
+              })
+            )?.id
+          : undefined);
+
+      if (resolvedUserId) {
+        session.user.id = resolvedUserId;
+      }
+
+      if (token?.organizationRoles) {
+        session.user.organizationRoles = token.organizationRoles as Array<{
+          organizationId: string;
+          role: string;
+        }>;
+        return session;
+      }
+
+      if (!resolvedUserId) {
+        session.user.organizationRoles = [];
+        return session;
+      }
+
+      const memberships = await prisma.membership.findMany({
+        where: { userId: resolvedUserId },
+        select: {
+          organizationId: true,
+          role: true,
+        },
+      });
+
+      session.user.organizationRoles = memberships.map((membership) => ({
+        organizationId: membership.organizationId,
+        role: membership.role,
+      }));
 
       return session;
     },
