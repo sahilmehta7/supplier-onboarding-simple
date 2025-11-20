@@ -15,7 +15,7 @@
 | 3. Wizard UI | `DynamicFormWizard`, navigation, error summary, resume dialog host (`FormWizardClient`) | ✅ Complete | `components/forms/dynamic-form-wizard.tsx` wired to server routes |
 | 4. Validation | Zod schema builder, step validation, error summaries, unit tests | ✅ Complete | `lib/forms/form-validator.ts`, `tests/form-validation.test.ts` |
 | 5. State & Drafts | `hooks/use-form-state`, `hooks/use-autosave`, draft manager + server actions, resume dialog + save indicator | ✅ Complete | `lib/forms/draft-manager.ts`, `app/forms/actions.ts`, autosave integrated |
-| 6. Conditional Fields | Visibility engine, `useFieldVisibility`, wizard integration with `visibilityMap` | ✅ Complete | `lib/forms/visibility-engine.ts`, `hooks/use-field-visibility.ts`, wizard updates |
+| 6. Conditional Fields & Sections | Visibility engine, `useFieldVisibility`, section-level visibility, wizard integration with `visibilityMap` & step filtering | ✅ Complete | `lib/forms/visibility-engine.ts`, `lib/forms/section-visibility.ts`, `hooks/use-field-visibility.ts`, `hooks/use-section-visibility.ts`, wizard updates |
 | 7. Responsive & A11y | Step indicator variants, sticky mobile nav, Toast/live regions, focus helpers, preview route for QA | ✅ Complete | `components/forms/step-indicator.tsx`, `form-navigation.tsx`, `FormErrorSummary`, preview at `/dev/wizard-preview` |
 | 8. Testing & Integration | Vitest suites, Prisma seed, manual responsive & SR sweep, CI-ready instructions | ✅ Complete | `npm run test` passing (53 tests), screenshots under `.playwright-mcp/` |
 
@@ -48,10 +48,11 @@
 - `hooks/use-autosave` handles debounce timers, optimistic status, before-unload warnings.
 - Draft persistence implemented via `lib/forms/draft-manager.ts` + server actions (`saveFormDraft`, `loadFormDraft`, etc.), resume dialog, and save indicator UI.
 
-### Stream 6 – Conditional Field Visibility
+### Stream 6 – Conditional Field & Section Visibility
 - `lib/forms/visibility-engine.ts` evaluates AND/OR rule sets, supports equals/notEquals/contains/comparison/emptiness checks, and guards against circular deps.
-- `hooks/use-field-visibility` memoizes visibility maps consumed by `DynamicFormWizard`.
-- Wizard filters errors and validation targets based on `visibilityMap`, ensuring hidden fields never block users.
+- `lib/forms/section-visibility.ts` + `hooks/use-section-visibility` mirror the field engine to produce section-level visibility maps consumed by the wizard.
+- Wizard filters errors and validation targets based on the merged `visibilityMap`, ensuring hidden fields never block users and fully hidden sections are skipped entirely (stepper, navigation, validation, autosave).
+- Admin editor ships a shared `VisibilityRuleBuilder` so sections and fields use the same UX for defining conditions.
 
 ### Stream 7 – Responsive Design & Accessibility
 - StepIndicator auto-switches to a progress bar on small screens; navigation collapses into a sticky action tray.
@@ -70,6 +71,7 @@
 
 - **Responsive sweeps**: Verified at 1280×800, 834×1112, and 375×812 viewports using `/dev/wizard-preview`. Mobile sticky nav, tablet two-column layout, and desktop steppers all render correctly.
 - **Conditional fields**: SWIFT Code only appears when `preferred_terms` is set to `Net 60`; hides immediately for other selections.
+- **Conditional sections**: Verified wizard skips "Tax Details" when `entity_type = individual` and auto-jumps to the next visible section; navigation, autosave, and error summary exclude hidden steps.
 - **Accessibility**: Step indicator exposes `aria-label="Form progress"`, wizard announces step changes through an SR-only status line, error summaries link-focus erroneous inputs, and autosave/draft feedback uses polite live regions.
 - **Autosave**: Preview route intentionally surfaces “Unauthorized” because server actions require authenticated sessions; production flows show success toasts.
 

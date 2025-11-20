@@ -42,6 +42,10 @@ import {
 } from "lucide-react";
 
 import { jsonRequest } from "@/lib/admin-api";
+import {
+  VisibilityRuleBuilder,
+  type VisibilityFieldOption,
+} from "@/components/admin/visibility-rule-builder";
 import type {
   DocumentRequirementSummary,
   DocumentTypeSummary,
@@ -49,6 +53,8 @@ import type {
   FormFieldSummary,
   FormSectionSummary,
 } from "@/components/admin/form-definition-types";
+import type { VisibilityConfig } from "@/lib/forms/types";
+import { formatVisibilitySummary } from "@/lib/forms/visibility-format";
 
 interface SectionDialogState {
   section: FormSectionSummary | null;
@@ -84,6 +90,25 @@ export function FormDefinitionEditor({
     useState<DocumentDialogState | null>(null);
   const [documentDelete, setDocumentDelete] =
     useState<DocumentRequirementSummary | null>(null);
+
+  const fieldOptions = useMemo<VisibilityFieldOption[]>(() => {
+    return form.sections.flatMap((section) =>
+      section.fields.map((field) => ({
+        key: field.key,
+        label: `${field.label} (${section.label})`,
+      }))
+    );
+  }, [form.sections]);
+
+  const fieldLabelLookup = useMemo<Record<string, string>>(() => {
+    const lookup: Record<string, string> = {};
+    form.sections.forEach((section) => {
+      section.fields.forEach((field) => {
+        lookup[field.key] = field.label;
+      });
+    });
+    return lookup;
+  }, [form.sections]);
 
   const refresh = () => router.refresh();
 
@@ -144,6 +169,7 @@ export function FormDefinitionEditor({
           <SectionCard
             key={section.id}
             section={section}
+            fieldLabelLookup={fieldLabelLookup}
             onAddField={() =>
               setFieldDialog({
                 section,
@@ -170,6 +196,7 @@ export function FormDefinitionEditor({
           formId={form.id}
           mode={sectionDialog.section ? "edit" : "create"}
           section={sectionDialog.section}
+          fieldOptions={fieldOptions}
           open={Boolean(sectionDialog)}
           onOpenChange={(open) => {
             if (!open) setSectionDialog(null);
@@ -267,6 +294,7 @@ export function FormDefinitionEditor({
 
 function SectionCard({
   section,
+  fieldLabelLookup,
   onAddField,
   onEditSection,
   onDeleteSection,
@@ -274,23 +302,40 @@ function SectionCard({
   onDeleteField,
 }: {
   section: FormSectionSummary;
+  fieldLabelLookup: Record<string, string>;
   onAddField: () => void;
   onEditSection: () => void;
   onDeleteSection: () => void;
   onEditField: (field: FormFieldSummary) => void;
   onDeleteField: (field: FormFieldSummary) => void;
 }) {
+  const visibilitySummary = section.visibility
+    ? formatVisibilitySummary(section.visibility, {
+        getFieldLabel: (key) => fieldLabelLookup[key] ?? key,
+      })
+    : null;
+
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <div className="flex items-center gap-2 text-slate-700">
+          <div className="flex flex-wrap items-center gap-2 text-slate-700">
             <ListTree className="h-4 w-4 text-slate-400" />
             <h3 className="text-lg font-semibold">{section.label}</h3>
+            {section.visibility && (
+              <Badge className="bg-amber-50 text-amber-700" variant="secondary">
+                Conditional
+              </Badge>
+            )}
           </div>
           <p className="text-xs font-mono uppercase tracking-wide text-slate-400">
             {section.key} • order {section.order}
           </p>
+          {visibilitySummary && (
+            <p className="mt-1 text-xs text-amber-700">
+              Visible when {visibilitySummary}
+            </p>
+          )}
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <Button variant="outline" size="sm" onClick={onAddField}>
@@ -509,6 +554,7 @@ interface SectionDialogProps {
   formId: string;
   mode: "create" | "edit";
   section: FormSectionSummary | null;
+  fieldOptions: VisibilityFieldOption[];
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSuccess: () => void;
@@ -518,6 +564,7 @@ function SectionDialog({
   formId,
   mode,
   section,
+  fieldOptions,
   open,
   onOpenChange,
   onSuccess,
@@ -525,6 +572,9 @@ function SectionDialog({
   const [keyValue, setKeyValue] = useState("");
   const [label, setLabel] = useState("");
   const [order, setOrder] = useState("0");
+  const [isConditional, setIsConditional] = useState(false);
+  const [visibilityConfig, setVisibilityConfig] =
+    useState<VisibilityConfig | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
@@ -533,19 +583,36 @@ function SectionDialog({
       setKeyValue(section?.key ?? "");
       setLabel(section?.label ?? "");
       setOrder(String(section?.order ?? 0));
+      setIsConditional(Boolean(section?.visibility));
+      setVisibilityConfig(section?.visibility ?? null);
       setError(null);
     }
   }, [open, section]);
+
+  const handleVisibilityModeChange = (mode: "always" | "conditional") => {
+    if (mode === "always") {
+      setIsConditional(false);
+      setVisibilityConfig(null);
+      return;
+    }
+    setIsConditional(true);
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     startTransition(async () => {
       try {
         setError(null);
-        const payload = {
+        const payload: {
+          key: string;
+          label: string;
+          order: number;
+          visibility: VisibilityConfig | null;
+        } = {
           key: keyValue.trim(),
           label: label.trim(),
           order: Number(order),
+          visibility: null,
         };
         if (!payload.key || !payload.label) {
           setError("Key and label are required");
@@ -554,6 +621,13 @@ function SectionDialog({
         if (Number.isNaN(payload.order)) {
           setError("Order must be numeric");
           return;
+        }
+        if (isConditional) {
+          if (!visibilityConfig || visibilityConfig.rules.length === 0) {
+            setError("Add at least one visibility rule.");
+            return;
+          }
+          payload.visibility = visibilityConfig;
         }
         if (mode === "create") {
           await jsonRequest(`/api/configuration/forms/${formId}/sections`, {
@@ -615,6 +689,47 @@ function SectionDialog({
                 onChange={(event) => setOrder(event.target.value)}
               />
             </label>
+          </div>
+          <div className="space-y-3 rounded-2xl border border-slate-100 bg-slate-50/40 p-4">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <p className="text-sm font-medium text-slate-700">
+                  Section visibility
+                </p>
+                <p className="text-xs text-slate-500">
+                  Control when this section is shown to suppliers.
+                </p>
+              </div>
+            </div>
+            <label className="text-sm font-medium text-slate-700">
+              Mode
+              <Select
+                value={isConditional ? "conditional" : "always"}
+                onValueChange={(value) =>
+                  handleVisibilityModeChange(value as "always" | "conditional")
+                }
+                disabled={isPending}
+              >
+                <SelectTrigger className="mt-1">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="always">Always visible</SelectItem>
+                  <SelectItem value="conditional">
+                    Conditional visibility
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </label>
+            {isConditional && (
+              <VisibilityRuleBuilder
+                fields={fieldOptions}
+                value={visibilityConfig}
+                onChange={setVisibilityConfig}
+                disabled={isPending}
+                emptyStateMessage="Add at least one field before enabling conditional visibility."
+              />
+            )}
           </div>
           {error && <p className="text-sm text-red-600">{error}</p>}
           <DialogFooter>

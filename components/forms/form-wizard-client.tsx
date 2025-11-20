@@ -1,7 +1,12 @@
 "use client";
 
 import { useCallback, useState, useTransition } from "react";
-import { loadFormDraft, deleteFormDraft, type DraftSaveResult } from "@/app/forms/actions";
+import {
+  loadFormDraft,
+  deleteFormDraft,
+  submitFormApplication,
+  type DraftSaveResult,
+} from "@/app/forms/actions";
 import type { DraftSummary } from "@/lib/forms/draft-manager";
 import type { FormConfigWithFields } from "@/lib/forms/types";
 import { useToast } from "@/components/ui/use-toast";
@@ -136,9 +141,56 @@ export function FormWizardClient({
     [applicationId, organizationId, resetToBlank, startTransition, toast]
   );
 
-  const handleComplete = useCallback(async (formData: Record<string, unknown>) => {
-    console.log("Form completed with data:", formData);
-  }, []);
+  const handleComplete = useCallback(
+    async ({
+      formData,
+      hiddenSections,
+    }: {
+      formData: Record<string, unknown>;
+      hiddenSections: string[];
+    }) => {
+      try {
+        const result = await submitFormApplication({
+          formConfigId: formConfig.id,
+          organizationId,
+          entityId: formConfig.entityId,
+          geographyId: formConfig.geographyId,
+          applicationId,
+          formData,
+          hiddenSections,
+        });
+
+        toast({
+          title: "Application submitted",
+          description: "Thanks! Our team will review your information shortly.",
+        });
+
+        setDrafts((prev) =>
+          prev.filter((draft) => draft.applicationId !== result.applicationId)
+        );
+        resetToBlank();
+      } catch (error) {
+        toast({
+          variant: "destructive",
+          title: "Submission failed",
+          description:
+            error instanceof Error
+              ? error.message
+              : "Something went wrong while submitting. Please try again.",
+        });
+        throw error;
+      }
+    },
+    [
+      applicationId,
+      formConfig.id,
+      formConfig.entityId,
+      formConfig.geographyId,
+      organizationId,
+      resetToBlank,
+      toast,
+    ]
+  );
 
   return (
     <div className="space-y-4">

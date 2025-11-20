@@ -161,15 +161,19 @@ export function FieldDocumentUpload({
         setStatus("uploading");
         setStatusMessage("Uploading file…");
         try {
-          await fetch(uploadUrl, {
-            method: "PUT",
+          const uploadResponse = await fetch(uploadUrl, {
+            method: "POST",
             body: file,
             headers: {
               "Content-Type": file.type || "application/octet-stream",
             },
           });
+          if (!uploadResponse.ok) {
+            throw new Error(await parseError(uploadResponse));
+          }
         } catch (storageError) {
-          console.warn("Upload to external storage failed in preview environment:", storageError);
+          console.error("Upload to storage failed:", storageError);
+          throw storageError;
         }
       }
 
@@ -203,6 +207,9 @@ export function FieldDocumentUpload({
       onBlur?.();
       setStatus("idle");
       setStatusMessage("Upload complete");
+      
+      // Clear any previous errors since upload succeeded
+      setUploadError(null);
     } catch (err) {
       setStatus("error");
       setUploadError(err instanceof Error ? err.message : "Upload failed");

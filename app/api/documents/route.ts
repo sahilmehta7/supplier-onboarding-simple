@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { fileExists } from "@/lib/storage";
 
 export async function POST(request: NextRequest) {
   const session = await auth();
@@ -36,12 +37,21 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Unknown document type" }, { status: 400 });
   }
 
+  // Verify file exists in storage before saving metadata
+  const fileExistsInStorage = await fileExists(fileId);
+  if (!fileExistsInStorage) {
+    return NextResponse.json(
+      { error: "File not found in storage. Please re-upload the document." },
+      { status: 400 }
+    );
+  }
+
   await prisma.applicationDocument.create({
     data: {
       applicationId,
       documentTypeId: documentType.id,
       fileName,
-      fileUrl: fileId,
+      fileUrl: fileId, // Store the fileId which maps to the file in storage
       mimeType,
       fileSize,
       uploadedById: session.user.id,

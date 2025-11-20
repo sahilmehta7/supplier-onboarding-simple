@@ -45,6 +45,7 @@
 - ✅ FormConfig, FormSection, FormField models
 - ✅ Dynamic schema builder (Zod generation from DB config)
 - ✅ Admin UI for managing forms, sections, and fields
+- ✅ Section-level conditional visibility configuration
 - ✅ Document type management
 
 #### 5. Document Management (PRD Section 5.5)
@@ -67,6 +68,7 @@
 - ✅ Document upload per section
 - ✅ Dynamic form rendering from config
 - ✅ Conditional field visibility
+- ✅ Conditional section visibility (show/hide entire sections based on field values)
 - ✅ Client and server validation
 
 #### 8. Procurement Review Flow (PRD Section 4.3)

@@ -190,6 +190,7 @@ The supplier-facing portal provides a self-service onboarding experience with a 
 - **Resume from draft** with dialog for selecting incomplete applications
 - **Document upload** per section with type validation
 - **Conditional field visibility** based on other field values
+- **Conditional sections** automatically skip entire steps when prerequisites are unmet
 - **Client and server validation** via generated Zod schemas
 
 #### Routes & Navigation
@@ -213,6 +214,7 @@ The supplier-facing portal provides a self-service onboarding experience with a 
 - `use-autosave` hook handles debounce timers and before-unload warnings
 - Draft persistence via server actions (`saveFormDraft`, `loadFormDraft`)
 - Resume dialog shows incomplete drafts
+- Drafts and submissions persist `hiddenSections` arrays for analytics/debugging
 
 ##### Validation
 - Zod schema generation from FormConfig (`lib/form-schema.ts`)
@@ -257,6 +259,7 @@ The supplier-facing portal provides a self-service onboarding experience with a 
 
 - ✅ Dynamic form rendering from Prisma-backed config
 - ✅ Conditional field visibility engine
+- ✅ Section-level visibility with wizard step skipping + analytics hooks
 - ✅ Draft management with server actions
 - ✅ Autosave with debounce and before-unload warnings
 - ✅ Validation system with Zod schema generation

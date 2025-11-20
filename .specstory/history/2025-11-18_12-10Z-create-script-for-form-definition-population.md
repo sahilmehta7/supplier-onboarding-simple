@@ -248,7 +248,13 @@ Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;46bfca1a-9754-44a7-826e-57687515694b&quot;
+  &quot;codeblockId&quot;: &quot;46bfca1a-9754-44a7-826e-57687515694b&quot;,
+  &quot;reviewData&quot;: {
+    &quot;status&quot;: &quot;None&quot;,
+    &quot;selectedOption&quot;: &quot;accept&quot;,
+    &quot;isShowingInput&quot;: false,
+    &quot;firstTimeReviewMode&quot;: false
+  }
 }
 ```
 Result:
@@ -619,6 +625,565 @@ cd /Users/sahilmehta/supplier-onboarding-simple && git status -sb
 ---
 
 I tried to prep a commit, but the repo already has a very large set of modified and untracked files (see `git status` above). I only added `scripts/create-zet-india-form-config.ts`, so I don’t know which of the other changes you want included. Can you confirm whether I should stage everything (including the outstanding work in `README.md`, `app/…`, etc.), or limit the commit to specific files like the new script? Once I know the scope, I can stage/commit and then push.
+
+---
+
+_**User (2025-11-18 00:00Z)**_
+
+stage everything (including the outstanding work in README.md, app/…, etc.)
+
+---
+
+_**Agent (model default, mode Agent)**_
+
+<tool-use data-tool-type="bash" data-tool-name="run_terminal_cmd">
+<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && git add -A</summary>
+
+```bash
+cd /Users/sahilmehta/supplier-onboarding-simple && git add -A
+```
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="bash" data-tool-name="run_terminal_cmd">
+<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && git status -sb</summary>
+
+```bash
+cd /Users/sahilmehta/supplier-onboarding-simple && git status -sb
+```
+
+```
+## main
+A  .playwright-mcp/mobile-preview.png
+A  .playwright-mcp/page-2025-11-18T09-02-23-300Z.png
+A  .playwright-mcp/step-2-conditional.png
+A  .playwright-mcp/step-2-no-swift.png
+A  .playwright-mcp/tablet-preview.png
+M  .specstory/history/2025-11-11_07-30Z-setup-next-js-project-with-postgres-and-authentication.md                                                               
+A  .specstory/history/2025-11-17_06-13Z-critical-security-vulnerabilities-in-dependencies.md                                                                    
+A  .specstory/history/2025-11-17_08-56Z-unable-to-login-due-to-infinite-loop.md
+A  .specstory/history/2025-11-17_09-59Z-fix-missing-database-column-error.md
+A  .specstory/history/2025-11-17_11-11Z-create-script-for-unimacts-entity.md
+A  .specstory/history/2025-11-17_11-23Z-improve-configuration-menu-structure.md
+A  .specstory/history/2025-11-17_11-55Z-addressing-critical-vulnerability-in-next-package.md                                                                    
+A  .specstory/history/2025-11-17_12-01Z-how-to-view-unx-entity-form.md
+A  .specstory/history/2025-11-18_05-22Z-have-we-built-the-ui-and-routes.md
+A  .specstory/history/2025-11-18_06-18Z-execute-agent-stream-field-rendering.md
+A  .specstory/history/2025-11-18_06-18Z-execute-authentication-routes-plan.md
+A  .specstory/history/2025-11-18_06-19Z-execute-command-in-agent-stream.md
+A  .specstory/history/2025-11-18_06-19Z-execute-validation-task.md
+A  .specstory/history/2025-11-18_06-25Z-integrate-completed-workstreams-together.md                                                                             
+A  .specstory/history/2025-11-18_06-57Z-implement-conditional-fields-and-update-status.md                                                                       
+A  .specstory/history/2025-11-18_06-57Z-implement-draft-and-update-status.md
+A  .specstory/history/2025-11-18_06-59Z-execute-plan-and-update-status.md
+A  .specstory/history/2025-11-18_08-30Z-check-implementation-and-integration-of-documents.md                                                                    
+A  .specstory/history/2025-11-18_08-53Z-execute-integration-test-for-agent-stream.md                                                                            
+A  .specstory/history/2025-11-18_09-18Z-addressing-critical-vulnerabilities-in-next@15-1-6.md                                                                   
+A  .specstory/history/2025-11-18_09-33Z-review-implementation-status-and-documentation.md                                                                       
+A  .specstory/history/2025-11-18_10-10Z-add-link-to-view-actual-form.md
+A  .specstory/history/2025-11-18_11-04Z-improve-ui-for-form-definitions-screen.md                                                                               
+A  .specstory/history/2025-11-18_12-10Z-create-script-for-form-definition-population.md                                                                         
+M  README.md
+A  app/(marketing)/landing/page.tsx
+A  app/(marketing)/layout.tsx
+A  app/api/configuration/audit/route.ts
+A  app/api/configuration/documents/[id]/route.ts
+A  app/api/configuration/documents/route.ts
+A  app/api/configuration/entities/[id]/route.ts
+A  app/api/configuration/entities/route.ts
+A  app/api/configuration/forms/[id]/route.ts
+A  app/api/configuration/forms/[id]/sections/[sectionId]/fields/[fieldId]/route.ts                                                                              
+A  app/api/configuration/forms/[id]/sections/[sectionId]/fields/route.ts
+A  app/api/configuration/forms/[id]/sections/[sectionId]/route.ts
+A  app/api/configuration/forms/[id]/sections/route.ts
+A  app/api/configuration/forms/route.ts
+A  app/api/configuration/geographies/[id]/route.ts
+A  app/api/configuration/geographies/route.ts
+A  app/api/configuration/requirements/[id]/route.ts
+A  app/api/configuration/requirements/route.ts
+A  app/api/documents/route.ts
+A  app/api/documents/sign/route.ts
+A  app/api/users/[id]/route.ts
+A  app/api/users/invite/route.ts
+A  app/api/users/route.ts
+A  app/dashboard/admin/actions.ts
+A  app/dashboard/admin/audit/page.tsx
+A  app/dashboard/admin/documents/page.tsx
+A  app/dashboard/admin/entities/page.tsx
+A  app/dashboard/admin/forms/[formId]/page.tsx
+A  app/dashboard/admin/forms/page.tsx
+A  app/dashboard/admin/geographies/page.tsx
+A  app/dashboard/admin/layout.tsx
+A  app/dashboard/admin/page.tsx
+A  app/dashboard/admin/requirements/page.tsx
+A  app/dashboard/layout.tsx
+A  app/dashboard/page.tsx
+A  app/dashboard/procurement/[id]/actions.ts
+A  app/dashboard/procurement/[id]/page.tsx
+A  app/dashboard/procurement/layout.tsx
+A  app/dashboard/procurement/page.tsx
+A  app/dashboard/settings/page.tsx
+A  app/dashboard/users/page.tsx
+A  app/dev/wizard-preview/page.tsx
+A  app/forms/(by-config)/[formSlug]/error.tsx
+A  app/forms/(by-config)/[formSlug]/loading.tsx
+A  app/forms/(by-config)/[formSlug]/page.tsx
+A  app/forms/(by-entity)/[formSlug]/[geographyCode]/error.tsx
+A  app/forms/(by-entity)/[formSlug]/[geographyCode]/loading.tsx
+A  app/forms/(by-entity)/[formSlug]/[geographyCode]/page.tsx
+A  app/forms/actions.ts
+M  app/layout.tsx
+M  app/page.tsx
+A  app/settings/page.tsx
+M  app/signin/page.tsx
+A  app/supplier/layout.tsx
+A  app/supplier/onboarding/[id]/page.tsx
+A  app/supplier/onboarding/actions.ts
+A  app/supplier/onboarding/new/page.tsx
+A  app/supplier/page.tsx
+A  app/users/page.tsx
+A  components/admin/document-catalog-table.tsx
+A  components/admin/document-requirements-panel.tsx
+A  components/admin/entities-table.tsx
+A  components/admin/form-definition-editor.tsx
+A  components/admin/form-definition-types.ts
+A  components/admin/form-definitions-panel.tsx
+A  components/admin/geographies-table.tsx
+A  components/forms/draft-resume-dialog.tsx
+A  components/forms/draft-save-indicator.tsx
+A  components/forms/dynamic-form-wizard.tsx
+A  components/forms/field-document-upload.tsx
+A  components/forms/field-error.tsx
+A  components/forms/field-input-checkbox.tsx
+A  components/forms/field-input-date.tsx
+A  components/forms/field-input-email.tsx
+A  components/forms/field-input-multi-select.tsx
+A  components/forms/field-input-number.tsx
+A  components/forms/field-input-radio.tsx
+A  components/forms/field-input-select.tsx
+A  components/forms/field-input-tel.tsx
+A  components/forms/field-input-text.tsx
+A  components/forms/field-textarea.tsx
+A  components/forms/field-wrapper.tsx
+A  components/forms/form-error-summary.tsx
+A  components/forms/form-field-renderer.tsx
+A  components/forms/form-loading-skeleton.tsx
+A  components/forms/form-navigation.tsx
+A  components/forms/form-step.tsx
+A  components/forms/form-wizard-client.tsx
+A  components/forms/index.ts
+A  components/forms/step-indicator.tsx
+A  components/forms/step-loading-skeleton.tsx
+A  components/navigation/admin-config-nav.tsx
+A  components/navigation/app-sidebar.tsx
+A  components/procurement/action-panel.tsx
+A  components/procurement/comment-thread.tsx
+A  components/providers/sidebar-provider.tsx
+A  components/supplier/document-uploader.tsx
+A  components/supplier/onboarding-header.tsx
+A  components/supplier/submission-bar.tsx
+A  components/supplier/wizard-form.tsx
+A  components/ui/accordion.tsx
+A  components/ui/dialog.tsx
+A  components/ui/input.tsx
+A  components/ui/label.tsx
+A  components/ui/progress.tsx
+A  components/ui/select.tsx
+A  components/ui/sheet.tsx
+A  components/ui/sidebar.tsx
+A  components/ui/table.tsx
+A  components/ui/toast.tsx
+A  components/ui/toaster.tsx
+A  components/ui/tooltip.tsx
+A  components/ui/use-toast.ts
+A  components/users/invite-user-dialog.tsx
+A  components/users/user-actions-menu.tsx
+A  components/users/user-list.tsx
+A  docs/agent-coordination-script.sh
+A  docs/auth-rbac.md
+A  docs/data-model.md
+A  docs/dynamic-form-rendering-prd.md
+A  docs/features.md
+A  docs/implementation-plans/phase-5-mdm-integrations.md
+A  docs/implementation-plans/phase-6-reporting-hardening.md
+A  docs/implementation-status.md
+A  docs/prd.txt
+A  docs/security-baseline.md
+A  docs/streams-1-4-verification-report.md
+A  docs/testing-plans/plan-alpha-foundation.md
+A  docs/testing-plans/plan-beta-flows.md
+A  docs/testing-plans/plan-gamma-experience.md
+A  docs/ui-implementation-summary.md
+M  eslint.config.mjs
+A  hooks/use-autosave.ts
+A  hooks/use-field-validation.ts
+A  hooks/use-field-visibility.ts
+A  hooks/use-form-state.ts
+A  hooks/use-mobile.ts
+A  hooks/use-prefers-reduced-motion.ts
+A  lib/admin-api.ts
+A  lib/application-state.ts
+M  lib/auth.ts
+A  lib/form-schema.ts
+A  lib/forms/draft-manager.ts
+A  lib/forms/form-config-fetcher.ts
+A  lib/forms/form-state.ts
+A  lib/forms/form-validator.ts
+A  lib/forms/types.ts
+A  lib/forms/visibility-engine.ts
+A  lib/organizations.ts
+A  lib/permissions.ts
+A  lib/supplierWizardSchema.ts
+M  package-lock.json
+M  package.json
+A  prisma/migrations/20251117090000_align_membership_role_values/migration.sql
+A  prisma/migrations/20251117120000_add_org_freshdesk_columns/migration.sql
+A  prisma/migrations/20251117125500_sync_schema_core_tables/migration.sql
+M  prisma/schema.prisma
+M  prisma/seed.ts
+A  scripts/create-unimacts-us-form-config.ts
+A  scripts/create-zet-india-form-config.ts
+A  supplier_capabilities/tests/auth-session.test.ts
+A  supplier_capabilities/tests/configuration-api.test.ts
+A  supplier_capabilities/tests/visibility-engine.test.ts
+A  tests/application-state.test.ts
+A  tests/fixtures/forms/factories.ts
+A  tests/form-schema.test.ts
+A  tests/form-validation.test.ts
+A  tests/forms/form-state.test.ts
+A  tests/forms/visibility-engine.test.ts
+A  tests/organizations.test.ts
+A  tests/permissions.test.ts
+A  tests/setup/vitest.setup.ts
+M  tsconfig.json
+M  types/next-auth.d.ts
+A  vitest.config.ts
+```
+</details>
+</tool-use>
+
+---
+
+<think><details><summary>Thought Process</summary>
+**Selecting commit message**</details></think>
+
+---
+
+<tool-use data-tool-type="bash" data-tool-name="run_terminal_cmd">
+<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && git commit -m "feat: stage full supplier onboarding work"</summary>
+
+```bash
+cd /Users/sahilmehta/supplier-onboarding-simple && git commit -m "feat: stage full supplier onboarding work"
+```
+
+```
+[main 9745887] feat: stage full supplier onboarding work
+ 204 files changed, 116098 insertions(+), 531 deletions(-)
+ create mode 100644 .playwright-mcp/mobile-preview.png
+ create mode 100644 .playwright-mcp/page-2025-11-18T09-02-23-300Z.png
+ create mode 100644 .playwright-mcp/step-2-conditional.png
+ create mode 100644 .playwright-mcp/step-2-no-swift.png
+ create mode 100644 .playwright-mcp/tablet-preview.png
+ create mode 100644 .specstory/history/2025-11-17_06-13Z-critical-security-vulnerabilities-in-dependencies.md                                                   
+ create mode 100644 .specstory/history/2025-11-17_08-56Z-unable-to-login-due-to-infinite-loop.md                                                                
+ create mode 100644 .specstory/history/2025-11-17_09-59Z-fix-missing-database-column-error.md                                                                   
+ create mode 100644 .specstory/history/2025-11-17_11-11Z-create-script-for-unimacts-entity.md                                                                   
+ create mode 100644 .specstory/history/2025-11-17_11-23Z-improve-configuration-menu-structure.md                                                                
+ create mode 100644 .specstory/history/2025-11-17_11-55Z-addressing-critical-vulnerability-in-next-package.md                                                   
+ create mode 100644 .specstory/history/2025-11-17_12-01Z-how-to-view-unx-entity-form.md                                                                         
+ create mode 100644 .specstory/history/2025-11-18_05-22Z-have-we-built-the-ui-and-routes.md                                                                     
+ create mode 100644 .specstory/history/2025-11-18_06-18Z-execute-agent-stream-field-rendering.md                                                                
+ create mode 100644 .specstory/history/2025-11-18_06-18Z-execute-authentication-routes-plan.md                                                                  
+ create mode 100644 .specstory/history/2025-11-18_06-19Z-execute-command-in-agent-stream.md                                                                     
+ create mode 100644 .specstory/history/2025-11-18_06-19Z-execute-validation-task.md                                                                             
+ create mode 100644 .specstory/history/2025-11-18_06-25Z-integrate-completed-workstreams-together.md                                                            
+ create mode 100644 .specstory/history/2025-11-18_06-57Z-implement-conditional-fields-and-update-status.md                                                      
+ create mode 100644 .specstory/history/2025-11-18_06-57Z-implement-draft-and-update-status.md                                                                   
+ create mode 100644 .specstory/history/2025-11-18_06-59Z-execute-plan-and-update-status.md                                                                      
+ create mode 100644 .specstory/history/2025-11-18_08-30Z-check-implementation-and-integration-of-documents.md                                                   
+ create mode 100644 .specstory/history/2025-11-18_08-53Z-execute-integration-test-for-agent-stream.md                                                           
+ create mode 100644 .specstory/history/2025-11-18_09-18Z-addressing-critical-vulnerabilities-in-next@15-1-6.md                                                  
+ create mode 100644 .specstory/history/2025-11-18_09-33Z-review-implementation-status-and-documentation.md                                                      
+ create mode 100644 .specstory/history/2025-11-18_10-10Z-add-link-to-view-actual-form.md                                                                        
+ create mode 100644 .specstory/history/2025-11-18_11-04Z-improve-ui-for-form-definitions-screen.md                                                              
+ create mode 100644 .specstory/history/2025-11-18_12-10Z-create-script-for-form-definition-population.md                                                        
+ create mode 100644 app/(marketing)/landing/page.tsx
+ create mode 100644 app/(marketing)/layout.tsx
+ create mode 100644 app/api/configuration/audit/route.ts
+ create mode 100644 app/api/configuration/documents/[id]/route.ts
+ create mode 100644 app/api/configuration/documents/route.ts
+ create mode 100644 app/api/configuration/entities/[id]/route.ts
+ create mode 100644 app/api/configuration/entities/route.ts
+ create mode 100644 app/api/configuration/forms/[id]/route.ts
+ create mode 100644 app/api/configuration/forms/[id]/sections/[sectionId]/fields/[fieldId]/route.ts                                                             
+ create mode 100644 app/api/configuration/forms/[id]/sections/[sectionId]/fields/route.ts                                                                       
+ create mode 100644 app/api/configuration/forms/[id]/sections/[sectionId]/route.ts                                                                              
+ create mode 100644 app/api/configuration/forms/[id]/sections/route.ts
+ create mode 100644 app/api/configuration/forms/route.ts
+ create mode 100644 app/api/configuration/geographies/[id]/route.ts
+ create mode 100644 app/api/configuration/geographies/route.ts
+ create mode 100644 app/api/configuration/requirements/[id]/route.ts
+ create mode 100644 app/api/configuration/requirements/route.ts
+ create mode 100644 app/api/documents/route.ts
+ create mode 100644 app/api/documents/sign/route.ts
+ create mode 100644 app/api/users/[id]/route.ts
+ create mode 100644 app/api/users/invite/route.ts
+ create mode 100644 app/api/users/route.ts
+ create mode 100644 app/dashboard/admin/actions.ts
+ create mode 100644 app/dashboard/admin/audit/page.tsx
+ create mode 100644 app/dashboard/admin/documents/page.tsx
+ create mode 100644 app/dashboard/admin/entities/page.tsx
+ create mode 100644 app/dashboard/admin/forms/[formId]/page.tsx
+ create mode 100644 app/dashboard/admin/forms/page.tsx
+ create mode 100644 app/dashboard/admin/geographies/page.tsx
+ create mode 100644 app/dashboard/admin/layout.tsx
+ create mode 100644 app/dashboard/admin/page.tsx
+ create mode 100644 app/dashboard/admin/requirements/page.tsx
+ create mode 100644 app/dashboard/layout.tsx
+ create mode 100644 app/dashboard/page.tsx
+ create mode 100644 app/dashboard/procurement/[id]/actions.ts
+ create mode 100644 app/dashboard/procurement/[id]/page.tsx
+ create mode 100644 app/dashboard/procurement/layout.tsx
+ create mode 100644 app/dashboard/procurement/page.tsx
+ create mode 100644 app/dashboard/settings/page.tsx
+ create mode 100644 app/dashboard/users/page.tsx
+ create mode 100644 app/dev/wizard-preview/page.tsx
+ create mode 100644 app/forms/(by-config)/[formSlug]/error.tsx
+ create mode 100644 app/forms/(by-config)/[formSlug]/loading.tsx
+ create mode 100644 app/forms/(by-config)/[formSlug]/page.tsx
+ create mode 100644 app/forms/(by-entity)/[formSlug]/[geographyCode]/error.tsx
+ create mode 100644 app/forms/(by-entity)/[formSlug]/[geographyCode]/loading.tsx
+ create mode 100644 app/forms/(by-entity)/[formSlug]/[geographyCode]/page.tsx
+ create mode 100644 app/forms/actions.ts
+ create mode 100644 app/settings/page.tsx
+ create mode 100644 app/supplier/layout.tsx
+ create mode 100644 app/supplier/onboarding/[id]/page.tsx
+ create mode 100644 app/supplier/onboarding/actions.ts
+ create mode 100644 app/supplier/onboarding/new/page.tsx
+ create mode 100644 app/supplier/page.tsx
+ create mode 100644 app/users/page.tsx
+ create mode 100644 components/admin/document-catalog-table.tsx
+ create mode 100644 components/admin/document-requirements-panel.tsx
+ create mode 100644 components/admin/entities-table.tsx
+ create mode 100644 components/admin/form-definition-editor.tsx
+ create mode 100644 components/admin/form-definition-types.ts
+ create mode 100644 components/admin/form-definitions-panel.tsx
+ create mode 100644 components/admin/geographies-table.tsx
+ create mode 100644 components/forms/draft-resume-dialog.tsx
+ create mode 100644 components/forms/draft-save-indicator.tsx
+ create mode 100644 components/forms/dynamic-form-wizard.tsx
+ create mode 100644 components/forms/field-document-upload.tsx
+ create mode 100644 components/forms/field-error.tsx
+ create mode 100644 components/forms/field-input-checkbox.tsx
+ create mode 100644 components/forms/field-input-date.tsx
+ create mode 100644 components/forms/field-input-email.tsx
+ create mode 100644 components/forms/field-input-multi-select.tsx
+ create mode 100644 components/forms/field-input-number.tsx
+ create mode 100644 components/forms/field-input-radio.tsx
+ create mode 100644 components/forms/field-input-select.tsx
+ create mode 100644 components/forms/field-input-tel.tsx
+ create mode 100644 components/forms/field-input-text.tsx
+ create mode 100644 components/forms/field-textarea.tsx
+ create mode 100644 components/forms/field-wrapper.tsx
+ create mode 100644 components/forms/form-error-summary.tsx
+ create mode 100644 components/forms/form-field-renderer.tsx
+ create mode 100644 components/forms/form-loading-skeleton.tsx
+ create mode 100644 components/forms/form-navigation.tsx
+ create mode 100644 components/forms/form-step.tsx
+ create mode 100644 components/forms/form-wizard-client.tsx
+ create mode 100644 components/forms/index.ts
+ create mode 100644 components/forms/step-indicator.tsx
+ create mode 100644 components/forms/step-loading-skeleton.tsx
+ create mode 100644 components/navigation/admin-config-nav.tsx
+ create mode 100644 components/navigation/app-sidebar.tsx
+ create mode 100644 components/procurement/action-panel.tsx
+ create mode 100644 components/procurement/comment-thread.tsx
+ create mode 100644 components/providers/sidebar-provider.tsx
+ create mode 100644 components/supplier/document-uploader.tsx
+ create mode 100644 components/supplier/onboarding-header.tsx
+ create mode 100644 components/supplier/submission-bar.tsx
+ create mode 100644 components/supplier/wizard-form.tsx
+ create mode 100644 components/ui/accordion.tsx
+ create mode 100644 components/ui/dialog.tsx
+ create mode 100644 components/ui/input.tsx
+ create mode 100644 components/ui/label.tsx
+ create mode 100644 components/ui/progress.tsx
+ create mode 100644 components/ui/select.tsx
+ create mode 100644 components/ui/sheet.tsx
+ create mode 100644 components/ui/sidebar.tsx
+ create mode 100644 components/ui/table.tsx
+ create mode 100644 components/ui/toast.tsx
+ create mode 100644 components/ui/toaster.tsx
+ create mode 100644 components/ui/tooltip.tsx
+ create mode 100644 components/ui/use-toast.ts
+ create mode 100644 components/users/invite-user-dialog.tsx
+ create mode 100644 components/users/user-actions-menu.tsx
+ create mode 100644 components/users/user-list.tsx
+ create mode 100755 docs/agent-coordination-script.sh
+ create mode 100644 docs/auth-rbac.md
+ create mode 100644 docs/data-model.md
+ create mode 100644 docs/dynamic-form-rendering-prd.md
+ create mode 100644 docs/features.md
+ create mode 100644 docs/implementation-plans/phase-5-mdm-integrations.md
+ create mode 100644 docs/implementation-plans/phase-6-reporting-hardening.md
+ create mode 100644 docs/implementation-status.md
+ create mode 100644 docs/prd.txt
+ create mode 100644 docs/security-baseline.md
+ create mode 100644 docs/streams-1-4-verification-report.md
+ create mode 100644 docs/testing-plans/plan-alpha-foundation.md
+ create mode 100644 docs/testing-plans/plan-beta-flows.md
+ create mode 100644 docs/testing-plans/plan-gamma-experience.md
+ create mode 100644 docs/ui-implementation-summary.md
+ create mode 100644 hooks/use-autosave.ts
+ create mode 100644 hooks/use-field-validation.ts
+ create mode 100644 hooks/use-field-visibility.ts
+ create mode 100644 hooks/use-form-state.ts
+ create mode 100644 hooks/use-mobile.ts
+ create mode 100644 hooks/use-prefers-reduced-motion.ts
+ create mode 100644 lib/admin-api.ts
+ create mode 100644 lib/application-state.ts
+ create mode 100644 lib/form-schema.ts
+ create mode 100644 lib/forms/draft-manager.ts
+ create mode 100644 lib/forms/form-config-fetcher.ts
+ create mode 100644 lib/forms/form-state.ts
+ create mode 100644 lib/forms/form-validator.ts
+ create mode 100644 lib/forms/types.ts
+ create mode 100644 lib/forms/visibility-engine.ts
+ create mode 100644 lib/organizations.ts
+ create mode 100644 lib/permissions.ts
+ create mode 100644 lib/supplierWizardSchema.ts
+ create mode 100644 prisma/migrations/20251117090000_align_membership_role_values/migration.sql                                                                 
+ create mode 100644 prisma/migrations/20251117120000_add_org_freshdesk_columns/migration.sql                                                                    
+ create mode 100644 prisma/migrations/20251117125500_sync_schema_core_tables/migration.sql                                                                      
+ create mode 100644 scripts/create-unimacts-us-form-config.ts
+ create mode 100644 scripts/create-zet-india-form-config.ts
+ create mode 100644 supplier_capabilities/tests/auth-session.test.ts
+ create mode 100644 supplier_capabilities/tests/configuration-api.test.ts
+ create mode 100644 supplier_capabilities/tests/visibility-engine.test.ts
+ create mode 100644 tests/application-state.test.ts
+ create mode 100644 tests/fixtures/forms/factories.ts
+ create mode 100644 tests/form-schema.test.ts
+ create mode 100644 tests/form-validation.test.ts
+ create mode 100644 tests/forms/form-state.test.ts
+ create mode 100644 tests/forms/visibility-engine.test.ts
+ create mode 100644 tests/organizations.test.ts
+ create mode 100644 tests/permissions.test.ts
+ create mode 100644 tests/setup/vitest.setup.ts
+ create mode 100644 vitest.config.ts
+```
+</details>
+</tool-use>
+
+---
+
+<think><details><summary>Thought Process</summary>
+**Pushing changes to GitHub**</details></think>
+
+---
+
+<tool-use data-tool-type="bash" data-tool-name="run_terminal_cmd">
+<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && git push</summary>
+
+```bash
+cd /Users/sahilmehta/supplier-onboarding-simple && git push
+```
+
+```
+fatal: No configured push destination.
+Either specify the URL from the command-line or configure a remote repository using                                                                             
+
+    git remote add &lt;name&gt; &lt;url&gt;
+
+and then push using the remote name
+
+    git push &lt;name&gt;
+```
+</details>
+</tool-use>
+
+---
+
+<think><details><summary>Thought Process</summary>
+**Checking git remotes**</details></think>
+
+---
+
+<tool-use data-tool-type="bash" data-tool-name="run_terminal_cmd">
+<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && git remote -v</summary>
+
+```bash
+cd /Users/sahilmehta/supplier-onboarding-simple && git remote -v
+```
+</details>
+</tool-use>
+
+---
+
+<think><details><summary>Thought Process</summary>
+**Identifying missing remote configuration**</details></think>
+
+---
+
+The commit succeeded, but there’s no Git remote configured for this repo, so `git push` fails (“No configured push destination”). Could you share the GitHub remote URL (or add one yourself) so I can push `main`? Once I know the remote name/URL, I’ll run the push.
+
+---
+
+_**User (2025-11-18 00:00Z)**_
+
+https://github.com/sahilmehta7/supplier-onboarding-simple.git Configure this repo and push to github
+
+---
+
+_**Agent (model default, mode Agent)**_
+
+<think><details><summary>Thought Process</summary>
+**Adding and pushing to new git remote**</details></think>
+
+---
+
+<tool-use data-tool-type="bash" data-tool-name="run_terminal_cmd">
+<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && git remote add origin https://github.com/sahilmehta7/supplier-onboarding-simple.git</summary>
+
+```bash
+cd /Users/sahilmehta/supplier-onboarding-simple && git remote add origin https://github.com/sahilmehta7/supplier-onboarding-simple.git
+```
+</details>
+</tool-use>
+
+---
+
+<think><details><summary>Thought Process</summary>
+**Pushing changes to remote**</details></think>
+
+---
+
+<tool-use data-tool-type="bash" data-tool-name="run_terminal_cmd">
+<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && git push -u origin main</summary>
+
+```bash
+cd /Users/sahilmehta/supplier-onboarding-simple && git push -u origin main
+```
+
+```
+Enumerating objects: 364, done.
+Counting objects: 100% (364/364), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (318/318), done.
+Writing objects: 100% (364/364), 2.98 MiB | 4.97 MiB/s, done.
+Total 364 (delta 53), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (53/53), done.
+To https://github.com/sahilmehta7/supplier-onboarding-simple.git
+ * [new branch]      main -&gt; main
+branch &#39;main&#39; set up to track &#39;origin/main&#39;.
+```
+</details>
+</tool-use>
+
+---
+
+All changes (including the new ZET/India form script) were already committed in `feat: stage full supplier onboarding work` and I’ve now configured the remote at `https://github.com/sahilmehta7/supplier-onboarding-simple.git` and pushed `main` (`git push -u origin main`). Nothing else pending locally—`git status` is clean.
 
 ---
 

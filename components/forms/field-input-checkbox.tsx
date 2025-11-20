@@ -1,7 +1,9 @@
 "use client";
 
 import * as React from "react";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { FieldWrapper } from "./field-wrapper";
 import { cn } from "@/lib/utils";
 import type { FormField } from "@prisma/client";
 
@@ -16,7 +18,7 @@ interface FieldInputCheckboxProps {
 }
 
 /**
- * Checkbox field component
+ * Checkbox field component using shadcn Checkbox
  */
 export function FieldInputCheckbox({
   field,
@@ -29,39 +31,32 @@ export function FieldInputCheckbox({
 }: FieldInputCheckboxProps) {
   const fieldId = `field-${field.id}`;
   const hasError = Boolean(error);
-  const showError = touched && hasError;
+  const checked = value ?? false;
   const describedBy = [
-    showError ? `${fieldId}-error` : null,
+    hasError ? `${fieldId}-error` : null,
     field.helpText ? `${fieldId}-help` : null,
   ]
     .filter(Boolean)
     .join(" ") || undefined;
 
   return (
-    <div className="space-y-2 rounded-2xl border border-border/60 bg-card/50 p-4 shadow-sm focus-within:border-primary focus-within:shadow-md transition-all">
+    <FieldWrapper field={field} error={error} touched={touched}>
       <div className="flex items-center space-x-2">
-        <input
+        <Checkbox
           id={fieldId}
-          type="checkbox"
-          checked={value ?? false}
-          onChange={(e) => onChange(e.target.checked)}
+          checked={checked}
+          onCheckedChange={(checked) => onChange(checked === true)}
           onBlur={onBlur}
           disabled={disabled}
           required={field.required}
-          aria-invalid={showError}
+          aria-invalid={hasError}
           aria-required={field.required}
           aria-describedby={describedBy}
-          className={cn(
-            "h-4 w-4 rounded border border-input shadow-xs transition-colors",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-            "disabled:cursor-not-allowed disabled:opacity-50",
-            showError && "border-destructive",
-            "checked:bg-primary checked:border-primary"
-          )}
+          className={cn(hasError && "border-destructive")}
         />
         <Label
           htmlFor={fieldId}
-          className="text-sm font-medium cursor-pointer"
+          className="text-sm font-medium cursor-pointer peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
         >
           {field.label}
           {field.required && (
@@ -71,25 +66,7 @@ export function FieldInputCheckbox({
           )}
         </Label>
       </div>
-      {field.helpText && (
-        <p
-          id={`${fieldId}-help`}
-          className="text-xs text-muted-foreground"
-        >
-          {field.helpText}
-        </p>
-      )}
-      {showError && (
-        <p
-          id={`${fieldId}-error`}
-          className="text-xs text-destructive"
-          role="alert"
-          aria-live="polite"
-        >
-          {error}
-        </p>
-      )}
-    </div>
+    </FieldWrapper>
   );
 }
 

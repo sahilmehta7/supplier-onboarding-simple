@@ -42,7 +42,7 @@ export function FormStep({
       </div>
       {sortedFields.length > 0 && (
         <div
-          className="grid gap-6 sm:grid-cols-2"
+          className="grid gap-6 rounded-lg bg-white p-6 shadow-md sm:grid-cols-2"
           role="group"
           aria-labelledby={sectionLabelId}
         >

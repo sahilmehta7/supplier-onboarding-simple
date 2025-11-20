@@ -1,5 +1,7 @@
 "use server";
 
+import { Prisma } from "@prisma/client";
+
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import {
@@ -10,6 +12,7 @@ import {
   type DraftRecord,
   type DraftSummary,
 } from "@/lib/forms/draft-manager";
+import { validateDocumentFields } from "@/lib/forms/document-validator";
 
 interface SaveFormDraftInput {
   formConfigId: string;
@@ -19,6 +22,22 @@ interface SaveFormDraftInput {
   applicationId?: string | null;
   formData: Record<string, unknown>;
   currentStep: number;
+  hiddenSections: string[];
+}
+
+interface SubmitFormInput {
+  formConfigId: string;
+  organizationId: string;
+  entityId: string;
+  geographyId: string;
+  applicationId?: string | null;
+  formData: Record<string, unknown>;
+  hiddenSections: string[];
+}
+
+interface SubmitFormResult {
+  success: boolean;
+  applicationId: string;
 }
 
 export interface DraftSaveResult {
@@ -74,6 +93,7 @@ export async function saveFormDraft(
     formData: input.formData,
     currentStep: input.currentStep,
     userId: session.user.id,
+    hiddenSections: input.hiddenSections,
   });
 
   return {
@@ -81,6 +101,113 @@ export async function saveFormDraft(
     applicationId: record.applicationId,
     currentStep: record.currentStep,
     updatedAt: record.lastSavedAt,
+  };
+}
+
+export async function submitFormApplication(
+  input: SubmitFormInput
+): Promise<SubmitFormResult> {
+  const session = await auth();
+  if (!session?.user?.id) {
+    throw new Error("Unauthorized");
+  }
+
+  await ensureMembership(session.user.id, input.organizationId);
+
+  // Fetch form config to validate documents
+  const formConfig = await prisma.formConfig.findUnique({
+    where: { id: input.formConfigId },
+    include: {
+      sections: {
+        include: { fields: true },
+        orderBy: { order: "asc" },
+      },
+    },
+  });
+
+  if (!formConfig) {
+    throw new Error("Form configuration not found");
+  }
+
+  // Validate document fields exist in storage
+  const allFields = formConfig.sections.flatMap((section) => section.fields);
+  const documentValidation = await validateDocumentFields(
+    input.formData,
+    allFields
+  );
+
+  if (!documentValidation.isValid) {
+    const errorMessages = Object.values(documentValidation.errors).join(", ");
+    throw new Error(`Document validation failed: ${errorMessages}`);
+  }
+
+  const hiddenSections = Array.from(
+    new Set((input.hiddenSections ?? []).filter(Boolean))
+  );
+
+  const auditEntries = [
+    {
+      actorId: session.user.id,
+      actorRole: null,
+      organizationId: input.organizationId,
+      action: "APPLICATION_SUBMITTED",
+      details: {
+        source: "dynamic_form_wizard",
+        hiddenSections,
+      },
+    },
+    ...hiddenSections.map((sectionKey) => ({
+      actorId: session.user.id,
+      actorRole: null,
+      organizationId: input.organizationId,
+      action: "FORM_SECTION_HIDDEN",
+      details: {
+        sectionKey,
+      },
+    })),
+  ];
+
+  const submissionData = {
+    data: input.formData as Prisma.InputJsonValue,
+    hiddenSections,
+    status: "SUBMITTED" as const,
+    submittedAt: new Date(),
+    updatedById: session.user.id,
+    auditLogs: {
+      create: auditEntries,
+    },
+  };
+
+  let application;
+  if (input.applicationId) {
+    application = await prisma.application.update({
+      where: {
+        id: input.applicationId,
+        organizationId: input.organizationId,
+        createdById: session.user.id,
+      },
+      data: submissionData,
+    });
+  } else {
+    application = await prisma.application.create({
+      data: {
+        ...submissionData,
+        organizationId: input.organizationId,
+        entityId: input.entityId,
+        geographyId: input.geographyId,
+        formConfigId: input.formConfigId,
+        createdById: session.user.id,
+      },
+    });
+  }
+
+  console.info(
+    `[form.section_hidden] application=${application.id} hidden=${hiddenSections.join(",")}`
+  );
+
+  return {
+    success: true,
+    applicationId: application.id,
   };
 }
 

@@ -54,6 +54,7 @@ import type {
   FormSectionSummary,
   GeographySummary,
 } from "@/components/admin/form-definition-types";
+import { formatVisibilitySummary } from "@/lib/forms/visibility-format";
 
 const UPDATED_AT_FORMATTER = new Intl.DateTimeFormat("en-US", {
   dateStyle: "medium",
@@ -362,6 +363,16 @@ function SectionPreviewList({
     );
   }
 
+  const fieldLabelLookup = sections.reduce<Record<string, string>>(
+    (lookup, section) => {
+      section.fields.forEach((field) => {
+        lookup[field.key] = field.label;
+      });
+      return lookup;
+    },
+    {}
+  );
+
   return (
     <div className="space-y-4">
       {sections.map((section) => (
@@ -371,12 +382,28 @@ function SectionPreviewList({
         >
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <p className="text-sm font-semibold text-slate-900">
-                {section.label}
-              </p>
+              <div className="flex flex-wrap items-center gap-2">
+                <p className="text-sm font-semibold text-slate-900">
+                  {section.label}
+                </p>
+                {section.visibility && (
+                  <Badge className="bg-amber-50 text-amber-700" variant="secondary">
+                    Conditional
+                  </Badge>
+                )}
+              </div>
               <p className="text-xs font-mono uppercase text-slate-400">
                 {section.key} • order {section.order}
               </p>
+              {section.visibility && (
+                <p className="mt-1 text-xs text-amber-700">
+                  Visible when{" "}
+                  {formatVisibilitySummary(section.visibility, {
+                    getFieldLabel: (key) => fieldLabelLookup[key] ?? key,
+                    joiners: { any: " or " },
+                  })}
+                </p>
+              )}
             </div>
             <Badge variant="secondary">{section.fields.length} fields</Badge>
           </div>

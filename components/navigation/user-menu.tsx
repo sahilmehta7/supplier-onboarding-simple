@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { signOut } from "next-auth/react";
 import {
   DropdownMenu,
@@ -20,6 +21,34 @@ interface UserMenuProps {
 
 export function UserMenu({ name, email, image }: UserMenuProps) {
   const initials = getInitials(name, email);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    // Return a non-interactive version during SSR to avoid hydration mismatch
+    return (
+      <Button
+        variant="ghost"
+        size="sm"
+        className="gap-2 px-2 text-left text-sm font-medium"
+        disabled
+      >
+        <Avatar className="size-8 border border-border/70">
+          <AvatarImage src={image ?? undefined} alt={name ?? "user avatar"} />
+          <AvatarFallback>{initials}</AvatarFallback>
+        </Avatar>
+        <div className="hidden min-w-[140px] flex-col leading-tight md:flex">
+          <span className="truncate">{name ?? "Signed in"}</span>
+          <span className="truncate text-xs font-normal text-muted-foreground">
+            {email ?? "—"}
+          </span>
+        </div>
+      </Button>
+    );
+  }
 
   return (
     <DropdownMenu>

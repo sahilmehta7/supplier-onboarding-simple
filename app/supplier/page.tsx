@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { getSuppliersForOrganization } from "@/lib/suppliers";
 
 export default async function SupplierDashboard() {
   const session = await auth();
@@ -9,11 +10,40 @@ export default async function SupplierDashboard() {
     return null;
   }
 
+  // Get user's organization
+  const membership = await prisma.membership.findFirst({
+    where: { userId: session.user.id },
+    include: { organization: true },
+  });
+
+  if (!membership) {
+    return null;
+  }
+
+  // Get suppliers
+  let suppliers: Awaited<ReturnType<typeof getSuppliersForOrganization>> = [];
+  try {
+    suppliers = await getSuppliersForOrganization(
+      membership.organizationId,
+      session.user.id
+    );
+  } catch (error) {
+    // If error, continue without suppliers
+    console.error("Error fetching suppliers:", error);
+  }
+
+  // Get applications (excluding approved ones that have suppliers)
+  const approvedSupplierApplicationIds = suppliers.map(
+    (s) => s.application.id
+  );
+
   const applications = await prisma.application.findMany({
     where: {
-      organization: {
-        members: { some: { userId: session.user.id } },
-      },
+      organizationId: membership.organizationId,
+      OR: [
+        { status: { not: "APPROVED" } },
+        { id: { notIn: approvedSupplierApplicationIds } },
+      ],
     },
     orderBy: { updatedAt: "desc" },
   });
@@ -63,6 +93,48 @@ export default async function SupplierDashboard() {
           View onboarding guide
         </button>
       </div>
+
+      {/* Company Profiles Section */}
+      {suppliers.length > 0 && (
+        <section className="space-y-4">
+          <div>
+            <h2 className="text-lg font-semibold text-slate-900">
+              Company Profiles
+            </h2>
+            <p className="text-sm text-slate-500">
+              View and manage your approved supplier information.
+            </p>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            {suppliers.map((supplier) => (
+              <Link
+                key={supplier.id}
+                href={`/supplier/profile/${supplier.id}`}
+                className="rounded-2xl border border-slate-200 bg-white p-4 hover:border-slate-300 transition"
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-semibold text-slate-900">
+                      {supplier.entity.name} - {supplier.geography.name}
+                    </p>
+                    <p className="text-xs text-slate-500">
+                      Approved{" "}
+                      {supplier.application.approvedAt
+                        ? new Date(
+                            supplier.application.approvedAt
+                          ).toLocaleDateString()
+                        : "Unknown"}
+                    </p>
+                  </div>
+                  <span className="text-xs font-medium text-slate-900 underline">
+                    View Profile
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="space-y-4">
         <div>

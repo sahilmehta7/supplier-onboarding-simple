@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 
+import type { Prisma } from "@prisma/client";
+
 import { prisma } from "@/lib/prisma";
 import { requireRole } from "@/lib/permissions";
+import { parseVisibilityPayload } from "@/lib/forms/visibility-validation";
 
 function handleError(error: unknown) {
   const message =
@@ -14,6 +17,13 @@ function badRequest(message: string) {
   return NextResponse.json({ error: message }, { status: 400 });
 }
 
+type SectionUpdateData = {
+  key?: string;
+  label?: string;
+  order?: number;
+  visibility?: Prisma.JsonValue | null;
+};
+
 export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string; sectionId: string }> }
@@ -22,7 +32,7 @@ export async function PATCH(
     await requireRole(["ADMIN"]);
     const { id, sectionId } = await params;
     const body = await request.json();
-    const data: { key?: string; label?: string; order?: number } = {};
+    const data: SectionUpdateData = {};
 
     if (body?.key !== undefined) {
       const value = body.key.trim();
@@ -48,6 +58,15 @@ export async function PATCH(
       data.order = order;
     }
 
+    const visibilityResult = parseVisibilityPayload(body?.visibility);
+    if (!visibilityResult.success) {
+      return badRequest(visibilityResult.message);
+    }
+
+    if (visibilityResult.provided) {
+      data.visibility = visibilityResult.value;
+    }
+
     if (Object.keys(data).length === 0) {
       return badRequest("No section fields provided");
     }
@@ -60,7 +79,11 @@ export async function PATCH(
     await prisma.auditLog.create({
       data: {
         action: "ADMIN_SECTION_UPDATE",
-        details: { formConfigId: id, sectionId: section.id, data },
+        details: {
+          formConfigId: id,
+          sectionId: section.id,
+          data,
+        },
       },
     });
 

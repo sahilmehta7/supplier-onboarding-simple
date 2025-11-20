@@ -15,8 +15,8 @@ interface FieldWrapperProps {
 }
 
 /**
- * Wrapper component for form fields that provides consistent styling,
- * label, help text, and error display.
+ * Minimal wrapper component for form fields with clean styling.
+ * No card borders or backgrounds - just label, field, help text, and errors.
  */
 export function FieldWrapper({
   field,
@@ -30,16 +30,11 @@ export function FieldWrapper({
   const errorId = `${fieldElementId}-error`;
 
   return (
-    <div
-      className={cn(
-        "space-y-2 rounded-2xl border border-border/60 bg-card/50 p-4 shadow-sm transition-all duration-300 focus-within:border-primary focus-within:shadow-md motion-reduce:transition-none",
-        className
-      )}
-    >
+    <div className={cn("space-y-1.5", className)}>
       <Label
         htmlFor={fieldElementId}
         id={`${fieldElementId}-label`}
-        className="text-sm font-medium"
+        className="text-sm font-medium text-foreground"
       >
         {field.label}
         {field.required && (
@@ -50,7 +45,12 @@ export function FieldWrapper({
       </Label>
       {children}
       {field.helpText && (
-        <p id={helpTextId} className="text-xs text-muted-foreground">
+        <p
+          id={helpTextId}
+          className="text-xs text-muted-foreground mt-1.5 leading-relaxed"
+          role="note"
+          aria-live="polite"
+        >
           {field.helpText}
         </p>
       )}

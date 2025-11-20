@@ -85,3 +85,10 @@ export interface VisibilityRule {
   value: unknown;
 }
 
+export type VisibilityMatchMode = "all" | "any";
+
+export interface VisibilityConfig {
+  match: VisibilityMatchMode;
+  rules: VisibilityRule[];
+}
+

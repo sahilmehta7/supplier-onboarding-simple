@@ -10,11 +10,11 @@
 - **Geography** – Regions (US, EU, IN, etc.).
 - **EntityGeography** – Mapping table linking entities to supported geographies.
 - **FormConfig** – Versioned form definition per entity+geography.
-- **FormSection** / **FormField** – Hierarchical definitions of sections and fields; includes validation/visibility JSON.
+- **FormSection** / **FormField** – Hierarchical definitions of sections and fields; includes validation/visibility JSON. Sections support conditional visibility rules (show/hide entire sections based on field values).
 - **DocumentType** – Catalog of required documents; linked via **FormDocumentRequirement**.
 
 ## Operational Tables
-- **Application** – Supplier onboarding case; references organization, entity, geography, formConfig; tracks status via `ApplicationStatus` enum.
+- **Application** – Supplier onboarding case; references organization, entity, geography, formConfig; tracks status via `ApplicationStatus` enum. Includes `hiddenSections` array to record which sections were skipped due to conditional visibility.
 - **ApplicationDocument** – Uploaded documents with metadata + storage URL.
 - **ApplicationComment** – Clarification threads; `visibility` differentiates supplier-visible vs internal.
 - **AuditLog** – Immutable record of key actions (actor, role, organization/application refs, JSON payload).
@@ -53,4 +53,6 @@ Application --< AuditLog (optional)
 
 ## Notes
 - JSON fields (`data`, `options`, `validation`, `visibility`, `details`) allow flexible schemas ahead of Phase 4 form builder.
+- `FormSection.visibility` and `FormField.visibility` support conditional logic with AND/OR rule sets (equals, notEquals, contains, greaterThan, lessThan, isEmpty, isNotEmpty).
+- `Application.hiddenSections` tracks which sections were skipped during form completion for audit and analytics purposes.
 - Cascade deletes: removing an organization or form config removes dependent sections/fields; use caution in admin tooling.

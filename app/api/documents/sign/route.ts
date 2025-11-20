@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { generateFileId } from "@/lib/storage";
 
 export async function POST(request: NextRequest) {
   const session = await auth();
@@ -30,10 +31,11 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Application not found" }, { status: 404 });
   }
 
-  const fileId = `upload_${Date.now()}`;
+  const fileId = generateFileId(fileName);
 
+  // Return the upload endpoint URL (client will POST to this)
   return NextResponse.json({
-    uploadUrl: `https://example-storage/upload/${fileId}`,
+    uploadUrl: `/api/documents/upload/${fileId}`,
     fileId,
     fileName,
     mimeType,

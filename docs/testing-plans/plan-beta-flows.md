@@ -9,6 +9,7 @@ Exercise the full multi-step wizard experience in a realistic browser-like envir
 - `DynamicFormWizard`, `FormStep`, `FormNavigation` composed together.
 - Autosave + explicit “Save Draft” flows, including resume dialog.
 - Conditional fields triggered by Stream 6 visibility rules.
+- Conditional sections (entire sections show/hide based on field values, navigation skips hidden sections).
 - Validation surfacing (per-field, per-step, full-form) with Stream 4 rules.
 - Multi-entity form routes (entity/geography + formConfig pages).
 
@@ -26,6 +27,7 @@ Exercise the full multi-step wizard experience in a realistic browser-like envir
 - `tests/integration/form-completion-flow.test.ts`
 - `tests/integration/draft-resume-flow.test.ts`
 - `tests/integration/conditional-fields-flow.test.ts`
+- `tests/integration/conditional-sections-flow.test.ts` (section visibility, navigation skipping, hidden sections tracking)
 - `tests/integration/validation-flow.test.ts`
 - `tests/integration/multi-step-navigation.test.ts`
 - Test fixtures under `tests/fixtures/forms/*.ts`
@@ -42,7 +44,7 @@ Exercise the full multi-step wizard experience in a realistic browser-like envir
 
 - QA Engineer D: Form completion + validation flows.
 - QA Engineer E: Draft save/resume scenarios.
-- QA Engineer F: Conditional fields + multi-step navigation.
+- QA Engineer F: Conditional fields + conditional sections + multi-step navigation.
 
 Teams share fixture factories but author separate test suites, enabling simultaneous progress. Coordination via contract: if fixture shape changes, update central factory file before merging.
 

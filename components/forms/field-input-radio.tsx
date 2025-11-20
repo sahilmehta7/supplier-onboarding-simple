@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { FieldWrapper } from "./field-wrapper";
 import { cn } from "@/lib/utils";
@@ -17,7 +18,7 @@ interface FieldInputRadioProps {
 }
 
 /**
- * Radio group field component
+ * Radio group field component using shadcn RadioGroup
  */
 export function FieldInputRadio({
   field,
@@ -51,50 +52,36 @@ export function FieldInputRadio({
 
   return (
     <FieldWrapper field={field} error={error} touched={touched}>
-      <div
-        className="space-y-2"
-        role="radiogroup"
-        aria-labelledby={`${fieldId}-label`}
-        aria-describedby={describedBy}
-        aria-invalid={hasError}
-        aria-required={field.required}
-      >
-        {options.map((option) => {
-          const optionId = `${fieldId}-${option}`;
-          const isChecked = value === option;
-          return (
-            <div key={option} className="flex items-center space-x-2">
-              <input
-                id={optionId}
-                type="radio"
-                name={fieldId}
-                value={option}
-                checked={isChecked}
-                onChange={(e) => onChange(e.target.value)}
-                onBlur={onBlur}
-                disabled={disabled}
-                required={field.required}
-                aria-describedby={describedBy}
-                className={cn(
-                  "h-4 w-4 border border-input shadow-xs transition-colors",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                  "disabled:cursor-not-allowed disabled:opacity-50",
-                  hasError && "border-destructive",
-                  "checked:bg-primary checked:border-primary"
-                )}
-              />
-              <label
-                htmlFor={optionId}
-                className={cn(
-                  "text-sm font-normal leading-none cursor-pointer",
-                  "peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                )}
-              >
-                {option}
-              </label>
-            </div>
-          );
-        })}
+      <div onBlur={onBlur}>
+        <RadioGroup
+          value={value ?? ""}
+          onValueChange={onChange}
+          disabled={disabled}
+          aria-labelledby={`${fieldId}-label`}
+          aria-describedby={describedBy}
+          aria-invalid={hasError}
+          aria-required={field.required}
+          className={cn(hasError && "[&>div]:border-destructive")}
+        >
+          {options.map((option) => {
+            const optionId = `${fieldId}-${option}`;
+            return (
+              <div key={option} className="flex items-center space-x-2">
+                <RadioGroupItem
+                  value={option}
+                  id={optionId}
+                  aria-describedby={describedBy}
+                />
+                <Label
+                  htmlFor={optionId}
+                  className="text-sm font-normal leading-none cursor-pointer peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  {option}
+                </Label>
+              </div>
+            );
+          })}
+        </RadioGroup>
       </div>
     </FieldWrapper>
   );

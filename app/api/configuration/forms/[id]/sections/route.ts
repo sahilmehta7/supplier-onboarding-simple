@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { prisma } from "@/lib/prisma";
 import { requireRole } from "@/lib/permissions";
+import { parseVisibilityPayload } from "@/lib/forms/visibility-validation";
 
 function badRequest(message: string) {
   return NextResponse.json({ error: message }, { status: 400 });
@@ -53,12 +54,18 @@ export async function POST(
       return badRequest("Section order must be a number");
     }
 
+    const visibilityResult = parseVisibilityPayload(body?.visibility);
+    if (!visibilityResult.success) {
+      return badRequest(visibilityResult.message);
+    }
+
     const section = await prisma.formSection.create({
       data: {
         formConfigId: id,
         key,
         label,
         order,
+        visibility: visibilityResult.provided ? visibilityResult.value : null,
       },
     });
 
@@ -66,7 +73,13 @@ export async function POST(
       data: {
         action: "ADMIN_SECTION_CREATE",
         applicationId: id,
-        details: { sectionId: section.id, key, label, order },
+        details: {
+          sectionId: section.id,
+          key,
+          label,
+          order,
+          visibility: visibilityResult.provided ? visibilityResult.value : null,
+        },
       },
     });
 

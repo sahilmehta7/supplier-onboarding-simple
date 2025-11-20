@@ -109,6 +109,29 @@ export function FormNavigation({
           aria-valuemax={100}
           aria-label="Overall form progress"
         />
+        <p className="text-xs text-muted-foreground/70 text-center pt-1" aria-label="Keyboard shortcuts">
+          <span className="sr-only">Keyboard shortcuts: </span>
+          <kbd className="px-1.5 py-0.5 text-xs font-semibold text-muted-foreground bg-muted border border-border rounded">
+            {typeof navigator !== "undefined" && navigator.platform.includes("Mac") ? "⌘" : "Ctrl"}
+          </kbd>
+          {" + "}
+          <kbd className="px-1.5 py-0.5 text-xs font-semibold text-muted-foreground bg-muted border border-border rounded">
+            ←
+          </kbd>
+          {" / "}
+          <kbd className="px-1.5 py-0.5 text-xs font-semibold text-muted-foreground bg-muted border border-border rounded">
+            →
+          </kbd>
+          {" to navigate • "}
+          <kbd className="px-1.5 py-0.5 text-xs font-semibold text-muted-foreground bg-muted border border-border rounded">
+            {typeof navigator !== "undefined" && navigator.platform.includes("Mac") ? "⌘" : "Ctrl"}
+          </kbd>
+          {" + "}
+          <kbd className="px-1.5 py-0.5 text-xs font-semibold text-muted-foreground bg-muted border border-border rounded">
+            S
+          </kbd>
+          {" to save"}
+        </p>
       </div>
     </div>
   );

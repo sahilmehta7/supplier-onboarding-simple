@@ -3,7 +3,11 @@
  */
 
 import type { FormField } from "@prisma/client";
-import type { VisibilityRule } from "@/lib/forms/types";
+import type {
+  VisibilityConfig,
+  VisibilityMatchMode,
+  VisibilityRule,
+} from "@/lib/forms/types";
 
 const SUPPORTED_CONDITIONS: ReadonlyArray<VisibilityRule["condition"]> = [
   "equals",
@@ -14,13 +18,6 @@ const SUPPORTED_CONDITIONS: ReadonlyArray<VisibilityRule["condition"]> = [
   "isEmpty",
   "isNotEmpty",
 ];
-
-type VisibilityMatchMode = "all" | "any";
-
-interface NormalizedVisibilityConfig {
-  match: VisibilityMatchMode;
-  rules: VisibilityRule[];
-}
 
 function parseJsonIfNeeded(value: unknown): unknown {
   if (typeof value === "string") {
@@ -68,7 +65,7 @@ function normalizeRule(candidate: unknown): VisibilityRule | null {
   };
 }
 
-function normalizeConfig(raw: unknown): NormalizedVisibilityConfig | null {
+function normalizeConfig(raw: unknown): VisibilityConfig | null {
   if (!raw) {
     return null;
   }
@@ -175,10 +172,16 @@ function areValuesEqual(a: unknown, b: unknown): boolean {
   return Object.is(a, b);
 }
 
+export function normalizeVisibilityConfig(
+  raw: unknown
+): VisibilityConfig | null {
+  return normalizeConfig(raw);
+}
+
 function getFieldVisibilityConfig(
   field: FormField
-): NormalizedVisibilityConfig | null {
-  return normalizeConfig(field.visibility ?? null);
+): VisibilityConfig | null {
+  return normalizeVisibilityConfig(field.visibility ?? null);
 }
 
 /**

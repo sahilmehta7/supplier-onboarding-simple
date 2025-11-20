@@ -2,6 +2,7 @@ import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 
 export const DRAFT_META_KEY = "__draftMeta";
+export const HIDDEN_SECTIONS_KEY = "__hiddenSections";
 
 interface DraftMeta {
   currentStep: number;
@@ -28,6 +29,7 @@ export interface DraftRecord {
   formData: Record<string, unknown>;
   currentStep: number;
   lastSavedAt: string;
+  hiddenSections: string[];
 }
 
 export interface SaveDraftOptions {
@@ -39,6 +41,7 @@ export interface SaveDraftOptions {
   userId: string;
   formData: Record<string, unknown>;
   currentStep: number;
+  hiddenSections?: string[];
 }
 
 export interface LoadDraftOptions {
@@ -63,7 +66,8 @@ export interface DeleteDraftOptions {
 
 function encodeDraftPayload(
   formData: Record<string, unknown>,
-  currentStep: number
+  currentStep: number,
+  hiddenSections: string[]
 ): PersistedDraftPayload {
   return {
     ...formData,
@@ -71,6 +75,7 @@ function encodeDraftPayload(
       currentStep,
       updatedAt: new Date().toISOString(),
     },
+    [HIDDEN_SECTIONS_KEY]: hiddenSections,
   };
 }
 
@@ -81,16 +86,22 @@ function decodeDraftPayload(
   const clonedPayload = { ...(payload ?? {}) };
   const metaRaw = clonedPayload[DRAFT_META_KEY];
   delete clonedPayload[DRAFT_META_KEY];
+  const hiddenSectionsRaw = clonedPayload[HIDDEN_SECTIONS_KEY];
+  delete clonedPayload[HIDDEN_SECTIONS_KEY];
 
   const meta = (metaRaw as DraftMeta | undefined) ?? {
     currentStep: 0,
     updatedAt: fallbackUpdatedAt,
   };
+  const hiddenSections = Array.isArray(hiddenSectionsRaw)
+    ? (hiddenSectionsRaw as unknown[]).map((value) => `${value}`)
+    : [];
 
   return {
     formData: clonedPayload,
     currentStep: Number.isFinite(meta.currentStep) ? meta.currentStep : 0,
     lastSavedAt: meta.updatedAt ?? fallbackUpdatedAt,
+    hiddenSections,
   };
 }
 
@@ -111,13 +122,18 @@ function mapApplicationToRecord(application: {
     formData: decoded.formData,
     currentStep: decoded.currentStep,
     lastSavedAt: decoded.lastSavedAt ?? application.updatedAt.toISOString(),
+    hiddenSections: decoded.hiddenSections,
   };
 }
 
 export async function saveDraftRecord(
   options: SaveDraftOptions
 ): Promise<DraftRecord> {
-  const payload = encodeDraftPayload(options.formData, options.currentStep);
+  const payload = encodeDraftPayload(
+    options.formData,
+    options.currentStep,
+    options.hiddenSections ?? []
+  );
 
   if (options.applicationId) {
     const existing = await prisma.application.findFirst({
@@ -137,6 +153,7 @@ export async function saveDraftRecord(
       where: { id: options.applicationId },
       data: {
         data: payload as Prisma.InputJsonValue,
+        hiddenSections: options.hiddenSections ?? [],
         formConfigId: options.formConfigId,
         entityId: options.entityId,
         geographyId: options.geographyId,
@@ -162,6 +179,7 @@ export async function saveDraftRecord(
       formConfigId: options.formConfigId,
       status: "DRAFT",
         data: payload as Prisma.InputJsonValue,
+      hiddenSections: options.hiddenSections ?? [],
       createdById: options.userId,
       updatedById: options.userId,
     },

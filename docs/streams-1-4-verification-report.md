@@ -190,9 +190,10 @@ The following are noted as TODOs in the code but don't block functionality:
    - These are Stream 5 (State Management & Draft Persistence) tasks
 
 2. **Additional Features** (Future streams):
-   - Conditional field visibility (Stream 6)
-   - Responsive design polish (Stream 7)
-   - Additional testing (Stream 8)
+   - Conditional field visibility (Stream 6) ✅ Complete
+   - Conditional section visibility ✅ Complete
+   - Responsive design polish (Stream 7) ✅ Complete
+   - Additional testing (Stream 8) ✅ Complete
 
 ---
 

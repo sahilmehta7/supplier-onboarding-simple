@@ -20,6 +20,7 @@ This feature enables **fully dynamic form rendering** from database-configured `
 - **Real-time validation** using dynamically generated Zod schemas
 - **Draft persistence** with autosave capabilities
 - **Field visibility rules** and conditional logic support
+- **Section visibility rules** for conditional section display (show/hide entire sections based on field values)
 
 ---
 
@@ -32,6 +33,7 @@ This feature enables **fully dynamic form rendering** from database-configured `
    - Support all field types: text, number, email, select, multi-select, checkbox, radio, date, textarea, file
    - Respect field ordering, grouping by sections, and validation rules
    - Handle conditional field visibility based on other field values
+   - Handle conditional section visibility (entire sections can be hidden based on field values)
 
 2. **Static Form Links**
    - Generate shareable URLs that directly access specific forms
@@ -246,10 +248,10 @@ interface FieldRenderConfig {
 - Each step validates before allowing progression
 
 **Navigation Rules:**
-- **Next Button**: Validates current step, saves data, advances to next step
-- **Previous Button**: Allows going back without validation (data preserved)
-- **Step Indicator**: Clickable to jump to completed steps (validates current step first)
-- **Save Draft**: Saves current progress without validation, allows exit
+- **Next Button**: Validates current step, saves data, advances to next visible step (skips hidden sections)
+- **Previous Button**: Allows going back without validation (data preserved), skips hidden sections
+- **Step Indicator**: Clickable to jump to completed steps (validates current step first), only shows visible sections
+- **Save Draft**: Saves current progress without validation, allows exit, includes hidden sections metadata
 
 **State Management:**
 ```typescript
@@ -309,7 +311,7 @@ function buildEnhancedSchema(config: FormConfigWithFields) {
 
 ### 4.4 Conditional Field Visibility
 
-**Visibility Rules:**
+**Field Visibility Rules:**
 ```typescript
 interface VisibilityRule {
   dependsOn: string; // Field key
@@ -323,6 +325,27 @@ interface VisibilityRule {
 - Show/hide fields dynamically using React state
 - Maintain field values when hidden (don't clear data)
 - Re-validate visible fields when dependencies change
+
+### 4.4a Conditional Section Visibility
+
+**Section Visibility Rules:**
+- Sections support the same visibility rule schema as fields
+- `FormSection.visibility` JSON field stores conditional logic
+- Sections can depend on any field value in the form (not limited to fields within the section)
+- Supports AND/OR rule matching modes
+
+**Implementation:**
+- Evaluate section visibility rules on form data changes
+- Hidden sections are excluded from step indicator
+- Navigation automatically skips hidden sections (Next/Previous buttons)
+- Hidden sections metadata (`hiddenSections: string[]`) is tracked in `Application` record
+- If all sections are hidden, show user-friendly message and prevent submission
+- Section visibility is re-evaluated when dependency fields change
+
+**Example Use Case:**
+- "Tax Information" section only appears when `entity_type === 'vendor'`
+- "International Shipping" section appears when `shipping_countries` contains non-domestic values
+- Multiple sections can depend on the same field value
 
 ### 4.5 Draft Persistence
 
@@ -344,6 +367,7 @@ interface VisibilityRule {
 - Associate with user's organization
 - Store `formConfigId`, `entityId`, `geographyId`
 - Save form data to `Application.data`
+- Store `hiddenSections` array in `Application.hiddenSections` for audit tracking
 
 #### 4.5.3 Resume Flow
 
@@ -654,6 +678,7 @@ lib/
     form-validator.ts               # Validation utilities
     form-state.ts                   # State management utilities
     visibility-engine.ts            # Conditional field visibility
+    section-visibility.ts           # Conditional section visibility
     draft-manager.ts                # Draft save/load logic
 ```
 
@@ -930,6 +955,13 @@ export async function fetchFormConfig(
 - Dependent field updates trigger re-evaluation
 - Hidden fields preserve their values
 - Complex conditional logic works correctly
+
+✅ **AC-7a: Conditional Sections**
+- Sections show/hide based on visibility rules
+- Hidden sections are excluded from step indicator and navigation
+- Navigation automatically skips hidden sections
+- Hidden sections metadata is tracked in submissions for audit purposes
+- "All sections hidden" scenario shows appropriate user message
 
 ### 8.2 UX Criteria
 

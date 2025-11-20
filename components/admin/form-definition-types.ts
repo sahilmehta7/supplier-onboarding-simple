@@ -1,3 +1,5 @@
+import type { VisibilityConfig } from "@/lib/forms/types";
+
 export interface EntitySummary {
   id: string;
   name: string;
@@ -28,6 +30,7 @@ export interface FormSectionSummary {
   label: string;
   order: number;
   formConfigId: string;
+  visibility: VisibilityConfig | null;
   fields: FormFieldSummary[];
 }
 

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { OnboardingHeader } from "@/components/supplier/onboarding-header";
@@ -7,6 +7,7 @@ import { SupplierWizardForm } from "@/components/supplier/wizard-form";
 import { DocumentUploader } from "@/components/supplier/document-uploader";
 import { SubmissionBar } from "@/components/supplier/submission-bar";
 import { SupplierWizardData } from "@/lib/supplierWizardSchema";
+import { getEditableFields } from "@/lib/application-validation";
 
 interface Params {
   id: string;
@@ -43,6 +44,24 @@ export default async function OnboardingWizardPage({
   if (!application) {
     notFound();
   }
+
+  // Redirect to Company Profile if approved
+  if (application.status === "APPROVED") {
+    const supplier = await prisma.supplier.findUnique({
+      where: { applicationId: application.id },
+      select: { id: true },
+    });
+
+    if (supplier) {
+      redirect(`/supplier/profile/${supplier.id}`);
+    }
+  }
+
+  // Get editable fields if PENDING_SUPPLIER
+  const editableFields =
+    application.status === "PENDING_SUPPLIER"
+      ? await getEditableFields(application.id)
+      : [];
 
   const emptyData: SupplierWizardData = {
     supplierInformation: {
@@ -116,11 +135,18 @@ export default async function OnboardingWizardPage({
         <SupplierWizardForm
           applicationId={application.id}
           initialData={initialData}
+          status={application.status}
+          editableFields={editableFields}
+          version={application.version}
         />
         <DocumentUploader applicationId={application.id} />
       </div>
 
-      <SubmissionBar applicationId={application.id} />
+      <SubmissionBar
+        applicationId={application.id}
+        status={application.status}
+        version={application.version}
+      />
 
       <Link
         href="/supplier"

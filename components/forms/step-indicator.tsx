@@ -47,7 +47,7 @@ function DesktopStepIndicator({
 }: StepIndicatorProps) {
   return (
     <nav aria-label="Form progress" className="w-full">
-      <ol className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <ol className="flex items-center justify-center gap-2">
         {steps.map((step, index) => {
           const isCompleted = completedSteps.has(index);
           const isCurrent = index === currentStep;
@@ -57,54 +57,37 @@ function DesktopStepIndicator({
           return (
             <li
               key={step.id}
-              className="flex flex-1 items-center"
+              className="flex items-center"
               aria-current={isCurrent ? "step" : undefined}
             >
-              <div className="flex flex-1 flex-col items-center text-center">
-                <button
-                  type="button"
-                  onClick={() => onStepClick?.(index)}
-                  disabled={!isClickable}
-                  className={cn(
-                    "flex size-12 items-center justify-center rounded-full border-2 text-base font-semibold transition-all duration-300 motion-reduce:transition-none",
-                    isCompleted
-                      ? "bg-primary border-primary text-primary-foreground"
-                      : isCurrent
-                        ? "bg-primary/10 border-primary text-primary"
-                        : "bg-background border-muted text-muted-foreground",
-                    isClickable && "hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/30",
-                    !isClickable && "cursor-not-allowed opacity-50"
-                  )}
-                  aria-label={`Step ${index + 1} of ${steps.length}: ${step.label}`}
-                  aria-current={isCurrent ? "step" : undefined}
-                  aria-disabled={!isClickable}
-                >
-                  {isCompleted ? (
-                    <Check className="size-5" />
-                  ) : (
-                    <span aria-hidden="true">{index + 1}</span>
-                  )}
-                </button>
-                <span
-                  className={cn(
-                    "mt-2 max-w-[160px] text-sm font-medium",
-                    isCurrent
-                      ? "text-primary"
-                      : isCompleted
-                        ? "text-muted-foreground"
-                        : "text-muted-foreground/60"
-                  )}
-                >
-                  {step.label}
-                  {isCurrent && (
-                    <span className="sr-only">{` (current step, ${Math.round(((index + 1) / steps.length) * 100)}% complete)`}</span>
-                  )}
-                </span>
-              </div>
+              <button
+                type="button"
+                onClick={() => onStepClick?.(index)}
+                disabled={!isClickable}
+                className={cn(
+                  "flex size-6 items-center justify-center rounded-full text-xs font-medium transition-all duration-200",
+                  isCompleted
+                    ? "bg-primary text-primary-foreground"
+                    : isCurrent
+                      ? "bg-primary/20 text-primary ring-2 ring-primary/30"
+                      : "bg-muted text-muted-foreground",
+                  isClickable && "hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50",
+                  !isClickable && "cursor-not-allowed opacity-40"
+                )}
+                aria-label={`Step ${index + 1} of ${steps.length}: ${step.label}`}
+                aria-current={isCurrent ? "step" : undefined}
+                aria-disabled={!isClickable}
+              >
+                {isCompleted ? (
+                  <Check className="size-3" />
+                ) : (
+                  <span aria-hidden="true">{index + 1}</span>
+                )}
+              </button>
               {index < steps.length - 1 && (
                 <div
                   className={cn(
-                    "mx-4 hidden h-0.5 flex-1 rounded-full transition-colors duration-300 motion-reduce:transition-none sm:block",
+                    "mx-1 h-0.5 w-8 rounded-full transition-colors duration-200",
                     isCompleted || index < currentStep
                       ? "bg-primary"
                       : "bg-muted"
@@ -131,17 +114,17 @@ function MobileStepIndicator({
   const progress = ((currentStep + 1) / steps.length) * 100;
 
   return (
-    <div className="space-y-2 rounded-2xl border border-border/60 bg-card/60 p-4 shadow-sm">
-      <div className="flex items-center justify-between text-sm" aria-live="polite">
-        <span className="font-medium text-muted-foreground">
+    <div className="space-y-1.5">
+      <div className="flex items-center justify-between text-xs text-muted-foreground" aria-live="polite">
+        <span className="font-medium">
           Step {currentStep + 1} of {steps.length}
         </span>
-        <span className="text-muted-foreground/80" aria-hidden="true">
+        <span aria-hidden="true">
           {Math.round(progress)}%
         </span>
       </div>
       <div
-        className="relative h-2 w-full overflow-hidden rounded-full bg-muted"
+        className="relative h-1 w-full overflow-hidden rounded-full bg-muted"
         role="progressbar"
         aria-valuenow={Math.round(progress)}
         aria-valuemin={0}
@@ -153,7 +136,7 @@ function MobileStepIndicator({
           style={{ width: `${progress}%` }}
         />
       </div>
-      <p className="text-sm font-medium" aria-live="polite">
+      <p className="text-xs font-medium text-foreground" aria-live="polite">
         {currentStepData?.label}
       </p>
     </div>

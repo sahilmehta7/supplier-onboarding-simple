@@ -143,7 +143,23 @@ function fieldToSchema(field: FormField) {
       });
       break;
     case "document":
-      schema = DOCUMENT_VALUE_SCHEMA;
+      schema = DOCUMENT_VALUE_SCHEMA.refine(
+        (value) => {
+          if (!value) return !field.required;
+          return (
+            typeof value === "object" &&
+            typeof value.fileId === "string" &&
+            value.fileId.length > 0 &&
+            typeof value.fileName === "string" &&
+            value.fileName.length > 0
+          );
+        },
+        {
+          message: field.required
+            ? `${field.label} is required`
+            : `${field.label} must be a valid document`,
+        }
+      );
       break;
     case "email":
       schema = z.string().email(`${field.label} must be a valid email address`);

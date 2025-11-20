@@ -8,6 +8,7 @@ export default defineConfig({
     environment: "happy-dom",
     include: [
       "tests/**/*.test.ts",
+      "tests/**/*.test.tsx",
       "supplier_capabilities/tests/**/*.test.ts",
     ],
     exclude: ["node_modules/**"],
