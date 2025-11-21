@@ -54,7 +54,7 @@ export async function GET(
     const fileBuffer = await readFileFromStorage(fileId);
     const mimeType = document.mimeType || "application/octet-stream";
 
-    return new NextResponse(fileBuffer, {
+    return new NextResponse(fileBuffer as any, {
       headers: {
         "Content-Type": mimeType,
         "Content-Disposition": `inline; filename="${document.fileName}"`,

@@ -193,7 +193,6 @@ export function SubmissionFilters({ meta }: SubmissionFiltersProps) {
             }))}
             values={filters.owner ?? []}
             onToggle={(value) => handleToggle("owner", value)}
-            maxRows={5}
           />
         </div>
 

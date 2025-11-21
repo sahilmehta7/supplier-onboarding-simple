@@ -96,7 +96,7 @@ export async function transitionApplicationAction(input: TransitionInput) {
     const validTransitions = getValidTransitions(application.status);
     throw new Error(
       `Invalid state transition: Cannot transition from ${application.status} to ${targetStatus}. ` +
-        `Valid transitions from ${application.status} are: ${validTransitions.length > 0 ? validTransitions.join(", ") : "none"}.`
+      `Valid transitions from ${application.status} are: ${validTransitions.length > 0 ? validTransitions.join(", ") : "none"}.`
     );
   }
 
@@ -228,7 +228,7 @@ export async function createApplicationOnBehalfAction(
       entityId: formConfig.entityId,
       geographyId: formConfig.geographyId,
       status: "DRAFT",
-      data: initialData ?? {},
+      data: (initialData ?? {}) as any,
       createdById: session.user.id,
       updatedById: session.user.id,
     },
@@ -371,7 +371,7 @@ export async function editDraftOnBehalfAction(input: EditDraftInput) {
   await prisma.application.update({
     where: { id: applicationId },
     data: {
-      data: formData,
+      data: formData as any,
       updatedById: session.user.id,
     },
   });

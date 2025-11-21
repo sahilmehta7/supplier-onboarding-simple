@@ -20,6 +20,8 @@ export function createFormField(overrides: Partial<FormField> = {}): FormField {
     visibility: overrides.visibility ?? null,
     order: overrides.order ?? 0,
     isSensitive: overrides.isSensitive ?? false,
+    externalValidator: overrides.externalValidator ?? null,
+    validatorParams: overrides.validatorParams ?? null,
     createdAt: overrides.createdAt ?? now,
     updatedAt: overrides.updatedAt ?? now,
   };

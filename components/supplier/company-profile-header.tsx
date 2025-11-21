@@ -3,8 +3,8 @@ import { Entity, Geography } from "@prisma/client";
 
 interface CompanyProfileHeaderProps {
   supplierName: string;
-  entity: Entity;
-  geography: Geography;
+  entity: { name: string };
+  geography: { name: string };
   approvedAt: Date | null;
 }
 

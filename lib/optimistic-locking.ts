@@ -64,6 +64,8 @@ export async function updateApplicationWithVersion(
     },
     data: {
       ...data,
+      data: data.data as any,
+      status: data.status as any,
       version: { increment: 1 },
     },
     select: { version: true },

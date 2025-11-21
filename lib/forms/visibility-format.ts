@@ -37,6 +37,11 @@ export function formatVisibilitySummary(
   config: VisibilityConfig,
   options: FormatVisibilitySummaryOptions = {}
 ): string {
+  // Safety check: ensure rules array exists
+  if (!config.rules || config.rules.length === 0) {
+    return "";
+  }
+
   const getFieldLabel =
     options.getFieldLabel ?? ((key: string) => key);
   const joinAll = options.joiners?.all ?? " • ";
@@ -46,9 +51,8 @@ export function formatVisibilitySummary(
     const meta = VISIBILITY_CONDITION_METADATA[rule.condition];
     const conditionLabel = meta?.label ?? rule.condition;
     if (meta?.requiresValue) {
-      return `${getFieldLabel(rule.dependsOn)} ${conditionLabel.toLowerCase()} "${
-        rule.value ?? ""
-      }"`;
+      return `${getFieldLabel(rule.dependsOn)} ${conditionLabel.toLowerCase()} "${rule.value ?? ""
+        }"`;
     }
     return `${getFieldLabel(rule.dependsOn)} ${conditionLabel.toLowerCase()}`;
   });

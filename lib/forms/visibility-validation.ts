@@ -38,7 +38,7 @@ export function parseVisibilityPayload(raw: unknown): VisibilityPayloadResult {
   return {
     success: true,
     provided: true,
-    value: normalized,
+    value: normalized as any,
   };
 }
 

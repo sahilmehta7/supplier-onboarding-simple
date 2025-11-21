@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 
 import { FormDefinitionsPanel } from "@/components/admin/form-definitions-panel";
+import type { FormDefinitionSummary } from "@/components/admin/form-definition-types";
 
 export default async function FormDefinitionsPage() {
   const [forms, entities, geographies] = await Promise.all([
@@ -39,7 +40,7 @@ export default async function FormDefinitionsPage() {
           Control entity + geography specific onboarding schema versions.
         </p>
       </div>
-      <FormDefinitionsPanel forms={forms} entities={entities} geographies={geographies} />
+      <FormDefinitionsPanel forms={forms as unknown as FormDefinitionSummary[]} entities={entities} geographies={geographies} />
     </div>
   );
 }

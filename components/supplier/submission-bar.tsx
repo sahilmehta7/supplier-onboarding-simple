@@ -46,7 +46,7 @@ export function SubmissionBar({
           description: "Your application has been submitted for review.",
         });
       } catch (error) {
-        const friendlyMessage = getUserFriendlyError(error, {
+        const friendlyMessage = getUserFriendlyError(error as any, {
           action: "submit",
           status,
         });
@@ -105,8 +105,8 @@ export function SubmissionBar({
         {isSubmitting
           ? "Submitting..."
           : status === "PENDING_SUPPLIER"
-          ? "Resubmit for Review"
-          : "Submit for Review"}
+            ? "Resubmit for Review"
+            : "Submit for Review"}
       </Button>
       <p className="text-xs text-slate-500">
         {status === "PENDING_SUPPLIER"

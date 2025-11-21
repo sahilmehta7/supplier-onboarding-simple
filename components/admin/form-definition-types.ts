@@ -22,6 +22,10 @@ export interface FormFieldSummary {
   placeholder: string | null;
   helpText: string | null;
   options: unknown;
+  validation: unknown;
+  visibility: VisibilityConfig | null;
+  externalValidator: string | null;
+  validatorParams: unknown;
 }
 
 export interface FormSectionSummary {

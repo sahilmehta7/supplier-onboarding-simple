@@ -65,7 +65,7 @@ export async function POST(
         key,
         label,
         order,
-        visibility: visibilityResult.provided ? visibilityResult.value : null,
+        visibility: (visibilityResult.provided ? visibilityResult.value : null) as any,
       },
     });
 

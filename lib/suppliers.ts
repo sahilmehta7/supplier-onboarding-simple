@@ -200,8 +200,10 @@ export async function createUpdateApplication(
     where: { id: supplierId },
     include: {
       organization: {
-        members: {
-          where: { userId },
+        include: {
+          members: {
+            where: { userId },
+          },
         },
       },
       application: {

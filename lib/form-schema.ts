@@ -132,10 +132,11 @@ function fieldToSchema(field: FormField) {
       schema = z.boolean();
       break;
     case "multi-select":
-      schema = z.array(z.string());
+      let arraySchema = z.array(z.string());
       if (field.required) {
-        schema = schema.min(1, `${field.label} must include at least one selection`);
+        arraySchema = arraySchema.min(1, `${field.label} must include at least one selection`);
       }
+      schema = arraySchema;
       break;
     case "date":
       schema = z.string().refine((value) => !isNaN(Date.parse(value)), {

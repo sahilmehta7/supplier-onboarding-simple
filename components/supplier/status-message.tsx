@@ -37,7 +37,7 @@ const statusConfig = {
 };
 
 export function StatusMessage({ status }: StatusMessageProps) {
-  const config = statusConfig[status];
+  const config = statusConfig[status as keyof typeof statusConfig];
   if (!config) return null;
 
   const Icon = config.icon;

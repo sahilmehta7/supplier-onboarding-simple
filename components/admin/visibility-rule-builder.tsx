@@ -108,7 +108,7 @@ export function VisibilityRuleBuilder({
   );
 
   const summary = useMemo(() => {
-    if (!value) {
+    if (!value || !value.rules || value.rules.length === 0) {
       return null;
     }
     return formatVisibilitySummary(value, {
@@ -204,7 +204,7 @@ export function VisibilityRuleBuilder({
                       onValueChange={(next) => {
                         const meta =
                           VISIBILITY_CONDITION_METADATA[
-                            next as VisibilityRule["condition"]
+                          next as VisibilityRule["condition"]
                           ];
                         handleRuleChange(index, {
                           condition: next as VisibilityRule["condition"],
@@ -231,11 +231,7 @@ export function VisibilityRuleBuilder({
                       Value
                       <Input
                         className="mt-1"
-                        value={
-                          typeof rule.value === "string"
-                            ? rule.value
-                            : rule.value ?? ""
-                        }
+                        value={String(rule.value ?? "")}
                         onChange={(event) =>
                           handleRuleChange(index, {
                             value: event.target.value,

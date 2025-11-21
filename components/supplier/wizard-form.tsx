@@ -60,7 +60,7 @@ export function SupplierWizardForm({
 
   const displayStatus = polledStatus || status;
 
-  const canEdit = canEditApplication(displayStatus);
+  const canEdit = canEditApplication(displayStatus as ApplicationStatus);
   const isPendingSupplier = displayStatus === "PENDING_SUPPLIER";
 
   // Determine if a field is editable
@@ -144,7 +144,7 @@ export function SupplierWizardForm({
           description: "Your changes have been saved successfully.",
         });
       } catch (error) {
-        const friendlyMessage = getUserFriendlyError(error, {
+        const friendlyMessage = getUserFriendlyError(error as any, {
           action: "save",
           status: displayStatus,
         });
@@ -178,7 +178,7 @@ export function SupplierWizardForm({
   if (!canEdit && displayStatus !== "DRAFT" && displayStatus !== "PENDING_SUPPLIER") {
     return (
       <div className="space-y-4">
-        <StatusMessage status={displayStatus} />
+        <StatusMessage status={displayStatus as ApplicationStatus} />
         <StatusIndicator isPolling={isPolling} />
       </div>
     );

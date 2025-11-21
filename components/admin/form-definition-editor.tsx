@@ -233,6 +233,9 @@ export function FormDefinitionEditor({
           mode={fieldDialog.field ? "edit" : "create"}
           section={fieldDialog.section}
           field={fieldDialog.field}
+          fieldOptions={fieldOptions.filter(
+            (option) => option.key !== fieldDialog.field?.key
+          )}
           open={Boolean(fieldDialog)}
           documentTypes={documentTypes}
           validationPresets={validationPresets}
@@ -388,48 +391,68 @@ function SectionCard({
                 </TableCell>
               </TableRow>
             )}
-            {section.fields.map((field) => (
-              <TableRow key={field.id}>
-                <TableCell className="font-medium text-slate-900">
-                  {field.label}
-                  {field.helpText && (
-                    <p className="text-xs text-slate-500">{field.helpText}</p>
-                  )}
-                </TableCell>
-                <TableCell className="font-mono text-xs uppercase text-slate-500">
-                  {field.key}
-                </TableCell>
-                <TableCell>
-                  <Badge variant="secondary">{field.type}</Badge>
-                </TableCell>
-                <TableCell className="text-center">
-                  <Badge variant={field.required ? "default" : "outline"}>
-                    {field.required ? "Yes" : "No"}
-                  </Badge>
-                </TableCell>
-                <TableCell className="text-center">{field.order}</TableCell>
-                <TableCell className="text-right">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="icon">
-                        <MoreHorizontal className="h-4 w-4" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem onClick={() => onEditField(field)}>
-                        Edit
-                      </DropdownMenuItem>
-                      <DropdownMenuItem
-                        className="text-red-600"
-                        onClick={() => onDeleteField(field)}
-                      >
-                        Delete
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </TableCell>
-              </TableRow>
-            ))}
+            {section.fields.map((field) => {
+              const fieldVisibilitySummary = field.visibility
+                ? formatVisibilitySummary(field.visibility, {
+                  getFieldLabel: (key) => fieldLabelLookup[key] ?? key,
+                })
+                : null;
+
+              return (
+                <TableRow key={field.id}>
+                  <TableCell className="font-medium text-slate-900">
+                    <div className="flex items-center gap-2">
+                      {field.label}
+                      {field.visibility && (
+                        <Badge className="bg-amber-50 text-amber-700" variant="secondary">
+                          Conditional
+                        </Badge>
+                      )}
+                    </div>
+                    {field.helpText && (
+                      <p className="text-xs text-slate-500">{field.helpText}</p>
+                    )}
+                    {fieldVisibilitySummary && (
+                      <p className="mt-1 text-xs text-amber-700">
+                        Visible when {fieldVisibilitySummary}
+                      </p>
+                    )}
+                  </TableCell>
+                  <TableCell className="font-mono text-xs uppercase text-slate-500">
+                    {field.key}
+                  </TableCell>
+                  <TableCell>
+                    <Badge variant="secondary">{field.type}</Badge>
+                  </TableCell>
+                  <TableCell className="text-center">
+                    <Badge variant={field.required ? "default" : "outline"}>
+                      {field.required ? "Yes" : "No"}
+                    </Badge>
+                  </TableCell>
+                  <TableCell className="text-center">{field.order}</TableCell>
+                  <TableCell className="text-right">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="icon">
+                          <MoreHorizontal className="h-4 w-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuItem onClick={() => onEditField(field)}>
+                          Edit
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          className="text-red-600"
+                          onClick={() => onDeleteField(field)}
+                        >
+                          Delete
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </div>
@@ -834,7 +857,7 @@ interface FieldDialogProps {
   mode: "create" | "edit";
   section: FormSectionSummary;
   field: FormFieldSummary | null;
-  open: boolean;
+  fieldOptions: VisibilityFieldOption[];
   open: boolean;
   documentTypes: DocumentTypeSummary[];
   validationPresets: ValidationPreset[];
@@ -876,7 +899,7 @@ function FieldDialog({
   mode,
   section,
   field,
-  open,
+  fieldOptions,
   open,
   documentTypes,
   validationPresets,
@@ -897,6 +920,11 @@ function FieldDialog({
   const [validationJson, setValidationJson] = useState("");
   const [externalValidator, setExternalValidator] = useState("");
   const [validatorParamsJson, setValidatorParamsJson] = useState("");
+
+  // Visibility State
+  const [isConditional, setIsConditional] = useState(false);
+  const [visibilityConfig, setVisibilityConfig] =
+    useState<VisibilityConfig | null>(null);
 
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
@@ -944,6 +972,10 @@ function FieldDialog({
           : ""
       );
 
+      // Initialize visibility state
+      setIsConditional(Boolean(field?.visibility));
+      setVisibilityConfig(field?.visibility ?? null);
+
       setError(null);
     }
   }, [open, field, documentOptions]);
@@ -962,6 +994,15 @@ function FieldDialog({
     if (preset) {
       setValidationJson(JSON.stringify(preset.rules, null, 2));
     }
+  };
+
+  const handleVisibilityModeChange = (mode: "always" | "conditional") => {
+    if (mode === "always") {
+      setIsConditional(false);
+      setVisibilityConfig(null);
+      return;
+    }
+    setIsConditional(true);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -1015,6 +1056,7 @@ function FieldDialog({
           helpText: helpText.trim() || null,
           options,
           validation,
+          visibility: isConditional && visibilityConfig ? visibilityConfig : null,
           externalValidator: externalValidator || null,
           validatorParams,
         };
@@ -1024,6 +1066,10 @@ function FieldDialog({
         }
         if (Number.isNaN(payload.order)) {
           setError("Order must be numeric");
+          return;
+        }
+        if (isConditional && (!visibilityConfig || visibilityConfig.rules.length === 0)) {
+          setError("Add at least one visibility rule.");
           return;
         }
         const baseUrl = `/api/configuration/forms/${formId}/sections/${section.id}/fields`;
@@ -1217,6 +1263,48 @@ function FieldDialog({
                 />
               </label>
             </div>
+          </div>
+
+          <div className="space-y-3 rounded-2xl border border-slate-100 bg-slate-50/40 p-4">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <p className="text-sm font-medium text-slate-700">
+                  Field visibility
+                </p>
+                <p className="text-xs text-slate-500">
+                  Control when this field is shown to suppliers.
+                </p>
+              </div>
+            </div>
+            <label className="text-sm font-medium text-slate-700">
+              Mode
+              <Select
+                value={isConditional ? "conditional" : "always"}
+                onValueChange={(value) =>
+                  handleVisibilityModeChange(value as "always" | "conditional")
+                }
+                disabled={isPending}
+              >
+                <SelectTrigger className="mt-1">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="always">Always visible</SelectItem>
+                  <SelectItem value="conditional">
+                    Conditional visibility
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </label>
+            {isConditional && (
+              <VisibilityRuleBuilder
+                fields={fieldOptions}
+                value={visibilityConfig}
+                onChange={setVisibilityConfig}
+                disabled={isPending}
+                emptyStateMessage="Add at least one field before enabling conditional visibility."
+              />
+            )}
           </div>
 
           <label className="flex items-center gap-3 text-sm font-medium text-slate-700">

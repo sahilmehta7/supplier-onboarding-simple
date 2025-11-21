@@ -21,7 +21,7 @@ type SectionUpdateData = {
   key?: string;
   label?: string;
   order?: number;
-  visibility?: Prisma.JsonValue | null;
+  visibility?: Prisma.InputJsonValue | null;
 };
 
 export async function PATCH(
@@ -73,7 +73,7 @@ export async function PATCH(
 
     const section = await prisma.formSection.update({
       where: { id: sectionId },
-      data,
+      data: data as any,
     });
 
     await prisma.auditLog.create({

@@ -130,7 +130,7 @@ const sections: SectionSeed[] = [
         order: 5,
         required: true,
         options: {
-          values: YES_NO,
+          values: YES_NO as unknown as string[],
         },
       },
       {
@@ -152,7 +152,7 @@ const sections: SectionSeed[] = [
         order: 7,
         required: true,
         options: {
-          values: YES_NO,
+          values: YES_NO as unknown as string[],
         },
       },
       {
@@ -211,7 +211,7 @@ const sections: SectionSeed[] = [
         type: "radio",
         order: 5,
         options: {
-          values: YES_NO,
+          values: YES_NO as unknown as string[],
         },
       },
     ],
@@ -303,7 +303,7 @@ const sections: SectionSeed[] = [
         order: 6,
         required: true,
         options: {
-          values: INDIAN_STATES,
+          values: INDIAN_STATES as unknown as string[],
         },
       },
       {
@@ -337,7 +337,7 @@ const sections: SectionSeed[] = [
         type: "radio",
         order: 10,
         options: {
-          values: YES_NO,
+          values: YES_NO as unknown as string[],
         },
       },
     ],

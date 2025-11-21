@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 
 import { prisma } from "@/lib/prisma";
 import { FormDefinitionEditor } from "@/components/admin/form-definition-editor";
+import type { FormDefinitionSummary } from "@/components/admin/form-definition-types";
 
 interface FormDefinitionEditPageProps {
   params: Promise<{ formId: string }>;
@@ -51,7 +52,7 @@ export default async function FormDefinitionEditPage({
         </p>
       </div>
       <FormDefinitionEditor
-        form={form}
+        form={form as unknown as FormDefinitionSummary}
         documentTypes={documentTypes}
         validationPresets={validationPresets}
       />
