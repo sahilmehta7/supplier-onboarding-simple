@@ -186,16 +186,66 @@ function fieldToSchema(field: FormField) {
   return schema.optional();
 }
 
+import { VALIDATOR_REGISTRY } from "@/lib/validators/registry";
+
+// ... (existing imports)
+
 export function buildFormSchema(config: FormConfigWithFields) {
   const fields: Record<string, z.ZodTypeAny> = {};
+  const externalValidators: Array<{
+    key: string;
+    validator: string;
+    params: Record<string, unknown>;
+  }> = [];
 
   config.sections.forEach((section) => {
     section.fields.forEach((field) => {
       fields[field.key] = fieldToSchema(field).describe(field.label);
+
+      if (field.externalValidator && VALIDATOR_REGISTRY[field.externalValidator]) {
+        externalValidators.push({
+          key: field.key,
+          validator: field.externalValidator,
+          params: (field.validatorParams as Record<string, unknown>) || {},
+        });
+      }
     });
   });
 
-  return z.object(fields);
+  let schema = z.object(fields);
+
+  if (externalValidators.length > 0) {
+    schema = schema.superRefine(async (data, ctx) => {
+      await Promise.all(
+        externalValidators.map(async ({ key, validator, params }) => {
+          const value = data[key];
+          const validatorFn = VALIDATOR_REGISTRY[validator];
+
+          if (!validatorFn) return;
+
+          try {
+            const result = await validatorFn(value, data, params);
+            if (result !== true) {
+              ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: typeof result === "string" ? result : "Validation failed",
+                path: [key],
+              });
+            }
+          } catch (error) {
+            console.error(`Validator ${validator} failed for field ${key}:`, error);
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: "Validation error occurred",
+              path: [key],
+            });
+          }
+        })
+      );
+    }) as unknown as z.ZodObject<any>;
+  }
+
+  return schema;
 }
 
 export function describeFormSchema(config: FormConfigWithFields) {
