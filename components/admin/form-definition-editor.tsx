@@ -55,6 +55,8 @@ import type {
 } from "@/components/admin/form-definition-types";
 import type { VisibilityConfig } from "@/lib/forms/types";
 import { formatVisibilitySummary } from "@/lib/forms/visibility-format";
+import type { ValidationPreset } from "@prisma/client";
+import { VALIDATOR_REGISTRY } from "@/lib/validators/registry";
 
 interface SectionDialogState {
   section: FormSectionSummary | null;
@@ -72,11 +74,13 @@ interface DocumentDialogState {
 interface FormDefinitionEditorProps {
   form: FormDefinitionSummary;
   documentTypes: DocumentTypeSummary[];
+  validationPresets: ValidationPreset[];
 }
 
 export function FormDefinitionEditor({
   form,
   documentTypes,
+  validationPresets,
 }: FormDefinitionEditorProps) {
   const router = useRouter();
   const [sectionDialog, setSectionDialog] = useState<SectionDialogState | null>(
@@ -231,6 +235,7 @@ export function FormDefinitionEditor({
           field={fieldDialog.field}
           open={Boolean(fieldDialog)}
           documentTypes={documentTypes}
+          validationPresets={validationPresets}
           onOpenChange={(open) => {
             if (!open) setFieldDialog(null);
           }}
@@ -311,8 +316,8 @@ function SectionCard({
 }) {
   const visibilitySummary = section.visibility
     ? formatVisibilitySummary(section.visibility, {
-        getFieldLabel: (key) => fieldLabelLookup[key] ?? key,
-      })
+      getFieldLabel: (key) => fieldLabelLookup[key] ?? key,
+    })
     : null;
 
   return (
@@ -745,8 +750,8 @@ function SectionDialog({
               {isPending
                 ? "Saving..."
                 : mode === "create"
-                ? "Create section"
-                : "Save changes"}
+                  ? "Create section"
+                  : "Save changes"}
             </Button>
           </DialogFooter>
         </form>
@@ -830,7 +835,9 @@ interface FieldDialogProps {
   section: FormSectionSummary;
   field: FormFieldSummary | null;
   open: boolean;
+  open: boolean;
   documentTypes: DocumentTypeSummary[];
+  validationPresets: ValidationPreset[];
   onOpenChange: (open: boolean) => void;
   onSuccess: () => void;
 }
@@ -870,7 +877,9 @@ function FieldDialog({
   section,
   field,
   open,
+  open,
   documentTypes,
+  validationPresets,
   onOpenChange,
   onSuccess,
 }: FieldDialogProps) {
@@ -883,6 +892,12 @@ function FieldDialog({
   const [helpText, setHelpText] = useState("");
   const [optionsInput, setOptionsInput] = useState("");
   const [documentTypeKey, setDocumentTypeKey] = useState("");
+
+  // Validation State
+  const [validationJson, setValidationJson] = useState("");
+  const [externalValidator, setExternalValidator] = useState("");
+  const [validatorParamsJson, setValidatorParamsJson] = useState("");
+
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
@@ -914,9 +929,21 @@ function FieldDialog({
       setOptionsInput(existingOptions.join(", "));
       setDocumentTypeKey(
         getDocumentTypeFromOptions(field?.options ?? null) ||
-          documentOptions[0]?.key ||
-          ""
+        documentOptions[0]?.key ||
+        ""
       );
+
+      // Initialize validation state
+      setValidationJson(
+        field?.validation ? JSON.stringify(field.validation, null, 2) : ""
+      );
+      setExternalValidator(field?.externalValidator ?? "");
+      setValidatorParamsJson(
+        field?.validatorParams
+          ? JSON.stringify(field.validatorParams, null, 2)
+          : ""
+      );
+
       setError(null);
     }
   }, [open, field, documentOptions]);
@@ -929,6 +956,13 @@ function FieldDialog({
       setOptionsInput("");
     }
   }, [type, documentOptions, documentTypeKey]);
+
+  const handlePresetChange = (presetId: string) => {
+    const preset = validationPresets.find((p) => p.id === presetId);
+    if (preset) {
+      setValidationJson(JSON.stringify(preset.rules, null, 2));
+    }
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -949,6 +983,28 @@ function FieldDialog({
           }
           options = { documentTypeKey };
         }
+
+        // Parse JSON fields
+        let validation: Record<string, unknown> | null = null;
+        if (validationJson.trim()) {
+          try {
+            validation = JSON.parse(validationJson);
+          } catch (e) {
+            setError("Invalid JSON in Validation Rules");
+            return;
+          }
+        }
+
+        let validatorParams: Record<string, unknown> | null = null;
+        if (validatorParamsJson.trim()) {
+          try {
+            validatorParams = JSON.parse(validatorParamsJson);
+          } catch (e) {
+            setError("Invalid JSON in Validator Params");
+            return;
+          }
+        }
+
         const payload = {
           label: label.trim(),
           key: keyValue.trim(),
@@ -958,6 +1014,9 @@ function FieldDialog({
           placeholder: placeholder.trim() || null,
           helpText: helpText.trim() || null,
           options,
+          validation,
+          externalValidator: externalValidator || null,
+          validatorParams,
         };
         if (!payload.label || !payload.key) {
           setError("Label and key are required");
@@ -1098,6 +1157,68 @@ function FieldDialog({
               )}
             </label>
           )}
+          <div className="space-y-3 rounded-2xl border border-slate-100 bg-slate-50/40 p-4">
+            <p className="text-sm font-medium text-slate-700">Validation Rules</p>
+
+            <div className="grid gap-4 md:grid-cols-2">
+              <label className="text-sm font-medium text-slate-700">
+                Preset
+                <Select onValueChange={handlePresetChange}>
+                  <SelectTrigger className="mt-1">
+                    <SelectValue placeholder="Select a preset..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {validationPresets.map((preset) => (
+                      <SelectItem key={preset.id} value={preset.id}>
+                        {preset.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </label>
+
+              <label className="text-sm font-medium text-slate-700">
+                External Validator
+                <Select value={externalValidator} onValueChange={setExternalValidator}>
+                  <SelectTrigger className="mt-1">
+                    <SelectValue placeholder="None" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value=" ">None</SelectItem>
+                    {Object.keys(VALIDATOR_REGISTRY).map((key) => (
+                      <SelectItem key={key} value={key}>
+                        {key}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </label>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-2">
+              <label className="text-sm font-medium text-slate-700">
+                Regex Rules (JSON)
+                <textarea
+                  className="mt-1 flex h-24 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-xs font-mono shadow-sm placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950"
+                  value={validationJson}
+                  onChange={(e) => setValidationJson(e.target.value)}
+                  placeholder='{ "pattern": "^[A-Z]{3}$", "customMessage": "..." }'
+                />
+              </label>
+
+              <label className="text-sm font-medium text-slate-700">
+                Validator Params (JSON)
+                <textarea
+                  className="mt-1 flex h-24 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-xs font-mono shadow-sm placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950"
+                  value={validatorParamsJson}
+                  onChange={(e) => setValidatorParamsJson(e.target.value)}
+                  placeholder='{ "comparisonField": "tax_id" }'
+                  disabled={!externalValidator}
+                />
+              </label>
+            </div>
+          </div>
+
           <label className="flex items-center gap-3 text-sm font-medium text-slate-700">
             <input
               type="checkbox"
@@ -1121,8 +1242,8 @@ function FieldDialog({
               {isPending
                 ? "Saving..."
                 : mode === "create"
-                ? "Create field"
-                : "Save changes"}
+                  ? "Create field"
+                  : "Save changes"}
             </Button>
           </DialogFooter>
         </form>
@@ -1237,8 +1358,8 @@ function DocumentRequirementDialog({
     if (open) {
       setDocumentTypeId(
         requirement?.documentType.id ??
-          availableDocumentTypes[0]?.id ??
-          ""
+        availableDocumentTypes[0]?.id ??
+        ""
       );
       setRequired(requirement?.required ?? true);
       setHelpText(requirement?.helpText ?? "");

@@ -12,7 +12,7 @@ export default async function FormDefinitionEditPage({
 }: FormDefinitionEditPageProps) {
   const { formId } = await params;
 
-  const [form, documentTypes] = await Promise.all([
+  const [form, documentTypes, validationPresets] = await Promise.all([
     prisma.formConfig.findUnique({
       where: { id: formId },
       include: {
@@ -33,6 +33,7 @@ export default async function FormDefinitionEditPage({
       },
     }),
     prisma.documentType.findMany({ orderBy: { label: "asc" } }),
+    prisma.validationPreset.findMany({ orderBy: { name: "asc" } }),
   ]);
 
   if (!form) {
@@ -49,7 +50,11 @@ export default async function FormDefinitionEditPage({
           Edit sections, fields, and required documents in one place.
         </p>
       </div>
-      <FormDefinitionEditor form={form} documentTypes={documentTypes} />
+      <FormDefinitionEditor
+        form={form}
+        documentTypes={documentTypes}
+        validationPresets={validationPresets}
+      />
     </div>
   );
 }
