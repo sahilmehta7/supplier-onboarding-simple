@@ -93,6 +93,8 @@ export async function POST(
         options: optionsPayload,
         validation: body?.validation ?? null,
         visibility: body?.visibility ?? null,
+        externalValidator: body?.externalValidator?.trim() || null,
+        validatorParams: body?.validatorParams ?? null,
       },
     });
 

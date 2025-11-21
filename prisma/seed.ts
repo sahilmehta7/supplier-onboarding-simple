@@ -170,7 +170,66 @@ async function main() {
     });
   }
 
-  console.log("Seed data created: organization, user, and base form configuration");
+  // Seed Validation Presets
+  const presets = [
+    {
+      name: "Indian GST",
+      description: "Validates standard Indian GST format (e.g., 22AAAAA0000A1Z5)",
+      rules: {
+        pattern: "^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$",
+        customMessage: "Invalid GST format",
+      },
+    },
+    {
+      name: "Indian PAN",
+      description: "Validates standard Indian PAN format (e.g., ABCDE1234F)",
+      rules: {
+        pattern: "^[A-Z]{5}[0-9]{4}[A-Z]{1}$",
+        customMessage: "Invalid PAN format",
+      },
+    },
+    {
+      name: "Indian Mobile",
+      description: "Validates 10-digit Indian mobile numbers starting with 6-9",
+      rules: {
+        pattern: "^[6-9]\\d{9}$",
+        customMessage: "Must be a valid 10-digit mobile number",
+      },
+    },
+    {
+      name: "Indian Pincode",
+      description: "Validates 6-digit Indian pincodes",
+      rules: {
+        pattern: "^[1-9][0-9]{5}$",
+        customMessage: "Must be a valid 6-digit pincode",
+      },
+    },
+    {
+      name: "US Zip Code",
+      description: "Validates US Zip codes (5 digits or 5+4)",
+      rules: {
+        pattern: "^\\d{5}(-\\d{4})?$",
+        customMessage: "Must be a valid US Zip code",
+      },
+    },
+  ];
+
+  for (const preset of presets) {
+    await prisma.validationPreset.upsert({
+      where: { name: preset.name },
+      update: {
+        description: preset.description,
+        rules: preset.rules,
+      },
+      create: {
+        name: preset.name,
+        description: preset.description,
+        rules: preset.rules,
+      },
+    });
+  }
+
+  console.log("Seed data created: organization, user, base form configuration, and validation presets");
 }
 
 main()

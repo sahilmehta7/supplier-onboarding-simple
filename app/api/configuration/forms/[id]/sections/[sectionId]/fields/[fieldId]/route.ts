@@ -143,6 +143,17 @@ export async function PATCH(
       auditData.visibility = body.visibility;
     }
 
+    if (body?.externalValidator !== undefined) {
+      const externalValidator = body.externalValidator?.trim() || null;
+      data.externalValidator = externalValidator;
+      auditData.externalValidator = externalValidator;
+    }
+
+    if (body?.validatorParams !== undefined) {
+      data.validatorParams = body.validatorParams;
+      auditData.validatorParams = body.validatorParams;
+    }
+
     if (Object.keys(data).length === 0) {
       return badRequest("No field updates provided");
     }
