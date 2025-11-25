@@ -19,17 +19,30 @@ export async function GET(
   }
 
   try {
+    // Check if user has procurement or admin role
+    const userMemberships = await prisma.membership.findMany({
+      where: {
+        userId: session.user.id,
+        role: { in: ['PROCUREMENT', 'ADMIN'] }
+      }
+    });
+
+    const isProcurementOrAdmin = userMemberships.length > 0;
+
     // Verify the user has access to this document
+    // Allow access if user is procurement/admin OR is a member of the application's organization
     const document = await prisma.applicationDocument.findFirst({
       where: {
         fileUrl: fileId,
-        application: {
-          organization: {
-            members: {
-              some: { userId: session.user.id },
+        ...(isProcurementOrAdmin ? {} : {
+          application: {
+            organization: {
+              members: {
+                some: { userId: session.user.id },
+              },
             },
           },
-        },
+        }),
       },
       include: {
         application: {

@@ -155,9 +155,9 @@ function OverviewTab({ submission }: { submission: SubmissionDetail }) {
       label: "Submitted",
       value: submission.submittedAt
         ? new Intl.DateTimeFormat("en-US", {
-            dateStyle: "medium",
-            timeStyle: "short",
-          }).format(submission.submittedAt)
+          dateStyle: "medium",
+          timeStyle: "short",
+        }).format(submission.submittedAt)
         : "—",
     },
     {
@@ -245,24 +245,27 @@ function SectionGroup({ sections }: { sections: SubmissionSection[] }) {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {sections.map((section) => (
         <div key={section.id} className="space-y-3">
-          <h3 className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
+          <h3 className="text-sm font-semibold text-slate-900 border-b border-slate-200 pb-2">
             {section.label}
           </h3>
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="divide-y divide-slate-100">
             {section.fields.map((field) => (
               <div
                 key={field.id}
-                className="rounded-2xl border border-slate-100 bg-white px-4 py-3 shadow-sm"
+                className="grid grid-cols-1 sm:grid-cols-3 gap-2 py-3 hover:bg-slate-50 transition-colors"
               >
-                <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
+                <dt className="text-sm font-medium text-slate-600">
                   {field.label}
-                </p>
-                <p className="mt-1 text-sm font-medium text-slate-900">
+                  {field.required && (
+                    <span className="text-red-500 ml-1">*</span>
+                  )}
+                </dt>
+                <dd className="sm:col-span-2 text-sm text-slate-900">
                   {formatFieldValue(field.value, field.isSensitive)}
-                </p>
+                </dd>
               </div>
             ))}
           </div>
