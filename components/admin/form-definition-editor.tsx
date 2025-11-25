@@ -929,10 +929,10 @@ function FieldDialog({
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
-  const documentOptions = documentTypes.map((doc) => ({
+  const documentOptions = useMemo(() => documentTypes.map((doc) => ({
     key: doc.key,
     label: `${doc.label} (${doc.category})`,
-  }));
+  })), [documentTypes]);
 
   const getDocumentTypeFromOptions = (options: unknown) => {
     if (options && typeof options === "object") {
@@ -1146,6 +1146,17 @@ function FieldDialog({
               />
             </label>
           </div>
+          <label htmlFor="field-required-checkbox" className="flex items-center gap-3 text-sm font-medium text-slate-700 cursor-pointer">
+            <input
+              id="field-required-checkbox"
+              type="checkbox"
+              className="h-4 w-4 rounded border-slate-300 cursor-pointer"
+              checked={required}
+              onChange={(event) => setRequired(event.target.checked)}
+              disabled={isPending}
+            />
+            Required field
+          </label>
           <div className="grid gap-4 md:grid-cols-2">
             <label className="text-sm font-medium text-slate-700">
               Placeholder
@@ -1307,15 +1318,6 @@ function FieldDialog({
             )}
           </div>
 
-          <label className="flex items-center gap-3 text-sm font-medium text-slate-700">
-            <input
-              type="checkbox"
-              className="h-4 w-4 rounded border-slate-300"
-              checked={required}
-              onChange={(event) => setRequired(event.target.checked)}
-            />
-            Required field
-          </label>
           {error && <p className="text-sm text-red-600">{error}</p>}
           <DialogFooter>
             <Button
