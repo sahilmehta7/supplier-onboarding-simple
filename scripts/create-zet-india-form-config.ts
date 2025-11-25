@@ -140,9 +140,14 @@ const sections: SectionSeed[] = [
         order: 6,
         placeholder: "Enter Udyam Registration No.",
         visibility: {
-          dependsOn: "msme_registered",
-          condition: "equals",
-          value: "Yes",
+          match: "all",
+          rules: [
+            {
+              dependsOn: "msme_registered",
+              condition: "equals",
+              value: "Yes",
+            },
+          ],
         },
       },
       {
@@ -162,9 +167,14 @@ const sections: SectionSeed[] = [
         order: 8,
         placeholder: "Share context about intermediary services",
         visibility: {
-          dependsOn: "is_intermediary_agency",
-          condition: "equals",
-          value: "Yes",
+          match: "all",
+          rules: [
+            {
+              dependsOn: "is_intermediary_agency",
+              condition: "equals",
+              value: "Yes",
+            },
+          ],
         },
       },
     ],

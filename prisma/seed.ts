@@ -60,6 +60,25 @@ async function main() {
     },
   });
 
+  const geographyIn = await prisma.geography.upsert({
+    where: { code: "IN" },
+    update: { name: "India" },
+    create: {
+      code: "IN",
+      name: "India",
+    },
+  });
+
+  const entityUnx = await prisma.entity.upsert({
+    where: { code: "UNX" },
+    update: { name: "Unimacts" },
+    create: {
+      code: "UNX",
+      name: "Unimacts",
+      description: "Unimacts legal entity",
+    },
+  });
+
   await prisma.entityGeography.upsert({
     where: {
       entityId_geographyId: {

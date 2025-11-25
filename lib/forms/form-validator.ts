@@ -5,6 +5,7 @@
 import { z } from "zod";
 import type { FormConfigWithFields } from "@/lib/form-schema";
 import { buildFormSchema } from "@/lib/form-schema";
+import { mapZodIssueToMessage } from "@/lib/forms/error-mapping";
 
 /**
  * Validation result for a single field
@@ -48,7 +49,7 @@ export function validateField(
       const firstIssue = error.issues[0];
       return {
         isValid: false,
-        error: firstIssue?.message || "Invalid value",
+        error: firstIssue ? mapZodIssueToMessage(firstIssue) : "Invalid value",
       };
     }
     return {
@@ -122,7 +123,7 @@ export function validateStep(
       error.issues.forEach((issue) => {
         const fieldKey = issue.path[0] as string;
         if (fieldKey && stepFields.includes(fieldKey)) {
-          errors[fieldKey] = issue.message;
+          errors[fieldKey] = mapZodIssueToMessage(issue);
           if (!firstErrorField) {
             firstErrorField = fieldKey;
           }
@@ -167,7 +168,7 @@ export function validateForm(
       error.issues.forEach((issue) => {
         const fieldKey = issue.path[0] as string;
         if (fieldKey) {
-          errors[fieldKey] = issue.message;
+          errors[fieldKey] = mapZodIssueToMessage(issue);
         }
       });
 
