@@ -70,3 +70,111 @@ export async function requireAuth() {
   return session;
 }
 
+/**
+ * Validates that a user has access to an application
+ * Checks if user is creator or belongs to the application's organization
+ */
+export async function validateApplicationAccess(
+  applicationId: string,
+  userId: string
+): Promise<boolean> {
+  const application = await prisma.application.findFirst({
+    where: {
+      id: applicationId,
+      OR: [
+        { createdById: userId },
+        {
+          organization: {
+            members: {
+              some: { userId },
+            },
+          },
+        },
+      ],
+    },
+    select: { id: true },
+  });
+
+  return !!application;
+}
+
+/**
+ * Requires that a user has access to an application
+ * Throws error if access is denied
+ */
+export async function requireApplicationAccess(
+  applicationId: string,
+  userId: string
+): Promise<void> {
+  const hasAccess = await validateApplicationAccess(applicationId, userId);
+  if (!hasAccess) {
+    throw new Error("Forbidden: Access to this application is not allowed");
+  }
+}
+
+/**
+ * Validates that a user has access to a document
+ * Checks document ownership through application access
+ */
+export async function validateDocumentAccess(
+  fileId: string,
+  userId: string
+): Promise<boolean> {
+  const document = await prisma.applicationDocument.findFirst({
+    where: {
+      fileUrl: fileId,
+      OR: [
+        { uploadedById: userId },
+        {
+          application: {
+            organization: {
+              members: {
+                some: { userId },
+              },
+            },
+          },
+        },
+      ],
+    },
+    select: { id: true },
+  });
+
+  return !!document;
+}
+
+/**
+ * Requires that a user has access to a document
+ * Throws error if access is denied
+ */
+export async function requireDocumentAccess(
+  fileId: string,
+  userId: string
+): Promise<void> {
+  const hasAccess = await validateDocumentAccess(fileId, userId);
+  if (!hasAccess) {
+    throw new Error("Forbidden: Access to this document is not allowed");
+  }
+}
+
+/**
+ * Gets user's organization membership
+ * Validates user belongs to specified organization
+ */
+export async function requireOrganizationMembership(
+  organizationId: string,
+  userId: string
+) {
+  const membership = await prisma.membership.findFirst({
+    where: {
+      userId,
+      organizationId,
+    },
+  });
+
+  if (!membership) {
+    throw new Error("Forbidden: Not a member of this organization");
+  }
+
+  return membership;
+}
+

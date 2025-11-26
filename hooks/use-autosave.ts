@@ -78,21 +78,57 @@ export function useAutosave<TResult>({
 
       return new Promise<TResult | null>((resolve) => {
         startSaving(async () => {
-          try {
-            const result = await save();
-            lastSuccessfulFingerprintRef.current = dataFingerprint;
-            setStatus("saved");
-            setLastSavedAt(new Date().toISOString());
-            onSuccess?.(result);
-            resolve(result);
-          } catch (err) {
-            console.error(`[autosave] Failed to save draft (${reason})`, err);
-            setStatus("error");
-            const message =
-              err instanceof Error ? err.message : "Failed to save draft";
-            setError(message);
-            onError?.(err instanceof Error ? err : new Error(message));
-            resolve(null);
+          // Retry configuration
+          const maxRetries = 3;
+          let attempt = 0;
+          let delay = 1000; // Start with 1 second
+
+          while (attempt < maxRetries) {
+            try {
+              const result = await save();
+              lastSuccessfulFingerprintRef.current = dataFingerprint;
+              setStatus("saved");
+              setLastSavedAt(new Date().toISOString());
+              onSuccess?.(result);
+              resolve(result);
+              return;
+            } catch (err) {
+              attempt++;
+              const isLastAttempt = attempt >= maxRetries;
+
+              // Check if error is retryable (network errors, timeouts, etc.)
+              const isRetryable =
+                err instanceof TypeError ||
+                (err instanceof Error &&
+                  (err.message.includes("fetch") ||
+                    err.message.includes("network") ||
+                    err.message.includes("timeout")));
+
+              if (!isRetryable || isLastAttempt) {
+                // Non-retryable error or final attempt failed
+                console.error(
+                  `[autosave] Failed to save draft after ${attempt} attempt(s) (${reason})`,
+                  err
+                );
+                setStatus("error");
+                const message =
+                  err instanceof Error ? err.message : "Failed to save draft";
+                setError(
+                  `${message}${attempt > 1 ? ` (after ${attempt} attempts)` : ""}`
+                );
+                onError?.(err instanceof Error ? err : new Error(message));
+                resolve(null);
+                return;
+              }
+
+              // Wait before retrying (exponential backoff)
+              console.warn(
+                `[autosave] Save attempt ${attempt} failed, retrying in ${delay}ms...`,
+                err
+              );
+              await new Promise((r) => setTimeout(r, delay));
+              delay = Math.min(delay * 2, 10000); // Cap at 10 seconds
+            }
           }
         });
       });

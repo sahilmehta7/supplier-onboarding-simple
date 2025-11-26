@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { readFileFromStorage, fileExists } from "@/lib/storage";
+import { requireDocumentAccess } from "@/lib/permissions";
 
 export async function GET(
   request: NextRequest,
@@ -19,37 +20,15 @@ export async function GET(
   }
 
   try {
-    // Check if user has procurement or admin role
-    const userMemberships = await prisma.membership.findMany({
-      where: {
-        userId: session.user.id,
-        role: { in: ['PROCUREMENT', 'ADMIN'] }
-      }
-    });
+    // Validate user has access to this document
+    await requireDocumentAccess(fileId, session.user.id);
 
-    const isProcurementOrAdmin = userMemberships.length > 0;
-
-    // Verify the user has access to this document
-    // Allow access if user is procurement/admin OR is a member of the application's organization
+    // Get document details
     const document = await prisma.applicationDocument.findFirst({
-      where: {
-        fileUrl: fileId,
-        ...(isProcurementOrAdmin ? {} : {
-          application: {
-            organization: {
-              members: {
-                some: { userId: session.user.id },
-              },
-            },
-          },
-        }),
-      },
-      include: {
-        application: {
-          include: {
-            organization: true,
-          },
-        },
+      where: { fileUrl: fileId },
+      select: {
+        fileName: true,
+        mimeType: true,
       },
     });
 
@@ -76,6 +55,11 @@ export async function GET(
     });
   } catch (error) {
     console.error("File retrieval error:", error);
+
+    if (error instanceof Error && error.message.startsWith("Forbidden")) {
+      return NextResponse.json({ error: error.message }, { status: 403 });
+    }
+
     return NextResponse.json(
       { error: "Failed to retrieve file" },
       { status: 500 }

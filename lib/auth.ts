@@ -2,7 +2,9 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { getServerSession } from "next-auth";
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import EmailProvider from "next-auth/providers/email";
 import { prisma } from "@/lib/prisma";
+import { sendOTP } from "@/lib/auth/otp-service";
 
 function getGoogleProvider() {
   const clientId = process.env.GOOGLE_CLIENT_ID;
@@ -36,9 +38,21 @@ function getGoogleProvider() {
 
 const googleProvider = getGoogleProvider();
 
+// Email provider configuration with custom OTP verification
+const emailProvider = EmailProvider({
+  from: process.env.EMAIL_FROM || "noreply@localhost",
+  // Override the default magic link behavior with our OTP system
+  sendVerificationRequest: async ({ identifier: email }) => {
+    // Use our custom OTP service instead of the default magic link
+    await sendOTP(email);
+  },
+  // Customize the email verification process
+  maxAge: 10 * 60, // 10 minutes (matches OTP expiry)
+});
+
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
-  providers: [googleProvider],
+  providers: [googleProvider, emailProvider],
   session: {
     strategy: "database",
   },
@@ -75,11 +89,11 @@ export const authOptions: NextAuthOptions = {
         session.user.id ??
         (session.user.email
           ? (
-              await prisma.user.findUnique({
-                where: { email: session.user.email },
-                select: { id: true },
-              })
-            )?.id
+            await prisma.user.findUnique({
+              where: { email: session.user.email },
+              select: { id: true },
+            })
+          )?.id
           : undefined);
 
       if (resolvedUserId) {

@@ -173,8 +173,9 @@ export function FormDefinitionsPanel({
                       <button
                         type="button"
                         onClick={() => toggleForm(form.id)}
-                        className="flex w-full items-start gap-3 text-left"
+                        aria-label={isExpanded ? "Collapse form details" : "Expand form details"}
                         aria-expanded={isExpanded}
+                        className="flex w-full items-start gap-3 text-left"
                       >
                         {isExpanded ? (
                           <ChevronDown className="mt-1 h-4 w-4 text-slate-400" />
@@ -183,13 +184,10 @@ export function FormDefinitionsPanel({
                         )}
                         <div>
                           <p className="font-semibold text-slate-900">
-                            {form.entity.name} • {form.geography.code.toUpperCase()}
-                          </p>
-                          <p className="text-sm text-slate-500">
-                            {form.title || "Untitled form"}
+                            {form.title}
                           </p>
                           {form.description && (
-                            <p className="text-xs text-slate-400">
+                            <p className="text-sm text-slate-500">
                               {form.description}
                             </p>
                           )}
@@ -248,9 +246,10 @@ export function FormDefinitionsPanel({
                             <Button
                               variant="ghost"
                               size="icon"
-                              aria-label="Form actions"
+                              aria-label="Form actions menu"
                             >
                               <MoreHorizontal className="h-5 w-5" />
+                              <span className="sr-only">Open menu</span>
                             </Button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end">

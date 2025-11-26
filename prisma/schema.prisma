@@ -70,9 +70,14 @@ model VerificationToken {
   identifier String
   token      String   @unique
   expires    DateTime
+  type       String   @default("email_verification") // "otp", "magic_link", etc.
+  attempts   Int      @default(0)
+  metadata   Json?    // Additional data like user agent, IP, etc.
   createdAt  DateTime @default(now())
 
   @@unique([identifier, token])
+  @@index([identifier, type])
+  @@index([expires])
 }
 
 model Organization {
@@ -271,6 +276,10 @@ model Application {
   @@index([geographyId])
   @@index([status])
   @@index([organizationId, formConfigId, status])
+  @@index([organizationId, status, updatedAt])
+  @@index([createdById, status])
+  @@index([submittedById, status])
+  @@index([supplierId])
 }
 
 model ApplicationDocument {
@@ -286,6 +295,10 @@ model ApplicationDocument {
   application    Application  @relation(fields: [applicationId], references: [id], onDelete: Cascade)
   documentType   DocumentType @relation(fields: [documentTypeId], references: [id], onDelete: Cascade)
   uploadedBy     User         @relation("UploadedDocuments", fields: [uploadedById], references: [id], onDelete: Cascade)
+
+  @@index([applicationId])
+  @@index([applicationId, documentTypeId])
+  @@index([uploadedById])
 }
 
 model ApplicationComment {
@@ -318,6 +331,8 @@ model AuditLog {
   @@index([organizationId])
   @@index([applicationId])
   @@index([createdAt])
+  @@index([organizationId, createdAt])
+  @@index([applicationId, createdAt])
 }
 
 enum MembershipRole {
