@@ -1,13 +1,9 @@
-import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
-import { OnboardingHeader } from "@/components/supplier/onboarding-header";
-import { SupplierWizardForm } from "@/components/supplier/wizard-form";
-import { DocumentUploader } from "@/components/supplier/document-uploader";
-import { SubmissionBar } from "@/components/supplier/submission-bar";
-import { SupplierWizardData } from "@/lib/supplierWizardSchema";
-import { getEditableFields } from "@/lib/application-validation";
+import { FormWizardClient } from "@/components/forms/form-wizard-client";
+import { loadDraftRecord } from "@/lib/forms/draft-manager";
+import { getFormConfigById } from "@/lib/forms/form-config-fetcher";
 
 interface Params {
   id: string;
@@ -22,9 +18,10 @@ export default async function OnboardingWizardPage({
   const session = await auth();
 
   if (!session?.user?.id) {
-    return null;
+    redirect("/signin");
   }
 
+  // Fetch application with organization check
   const application = await prisma.application.findFirst({
     where: {
       id,
@@ -37,7 +34,7 @@ export default async function OnboardingWizardPage({
       },
     },
     include: {
-      documents: true,
+      organization: true,
     },
   });
 
@@ -57,103 +54,51 @@ export default async function OnboardingWizardPage({
     }
   }
 
-  // Get editable fields if PENDING_SUPPLIER
-  const editableFields =
-    application.status === "PENDING_SUPPLIER"
-      ? await getEditableFields(application.id)
-      : [];
+  // Ensure we have a form config ID
+  if (!application.formConfigId) {
+    // This shouldn't happen for new applications, but handle legacy/error case
+    notFound();
+  }
 
-  const emptyData: SupplierWizardData = {
-    supplierInformation: {
-      supplierName: "",
-      paymentTerms: "Net 30",
-      salesContactName: "",
-      salesContactEmail: "",
-    },
-    addresses: {
-      remitToAddress: { line1: "", city: "", country: "" },
-      orderingAddressSameAsRemit: true,
-    },
-    bankInformation: {
-      bankName: "",
-      routingNumber: "",
-      accountNumber: "",
-    },
-    documents: [],
-  };
+  // Fetch the form config
+  const formConfig = await getFormConfigById(application.formConfigId);
 
-  const storedData =
-    (application.data as SupplierWizardData | null | undefined) ?? null;
+  if (!formConfig) {
+    notFound();
+  }
 
-  const initialData: SupplierWizardData = storedData
-    ? {
-        ...emptyData,
-        ...storedData,
-        supplierInformation: {
-          ...emptyData.supplierInformation,
-          ...(storedData.supplierInformation ?? {}),
-        },
-        addresses: {
-          ...emptyData.addresses,
-          ...(storedData.addresses ?? {}),
-          remitToAddress: {
-            ...emptyData.addresses.remitToAddress,
-            ...(storedData.addresses?.remitToAddress ?? {}),
-          },
-        },
-        bankInformation: {
-          ...emptyData.bankInformation,
-          ...(storedData.bankInformation ?? {}),
-        },
-        documents: storedData.documents ?? [],
-      }
-    : emptyData;
-
-  const completionChecks = [
-    initialData.supplierInformation.supplierName,
-    initialData.addresses.remitToAddress.line1,
-    initialData.bankInformation.bankName,
-    application.documents.length > 0,
-  ];
-
-  const progressValue = Math.round(
-    (completionChecks.filter((value) => Boolean(value)).length /
-      completionChecks.length) *
-      100
-  );
+  // Load draft data
+  const draftRecord = await loadDraftRecord({
+    applicationId: application.id,
+    organizationId: application.organizationId,
+    userId: session.user.id,
+  });
 
   return (
-    <div className="space-y-8">
-      <OnboardingHeader
-        applicationId={application.id}
-        status={application.status}
-        updatedAt={application.updatedAt}
-        progressValue={progressValue}
-      />
-
-      <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
-        <SupplierWizardForm
-          applicationId={application.id}
-          initialData={initialData}
-          status={application.status}
-          editableFields={editableFields}
-          version={application.version}
+    <div className="container mx-auto w-full max-w-5xl px-4 py-10">
+      <div className="space-y-6">
+        <header>
+          <p className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+            Supplier Onboarding
+          </p>
+          <h1 className="mt-1 text-3xl font-semibold">
+            {formConfig.title || "Form Configuration"}
+          </h1>
+          {formConfig.description && (
+            <p className="mt-2 text-base text-muted-foreground">
+              {formConfig.description}
+            </p>
+          )}
+        </header>
+        <FormWizardClient
+          formConfig={formConfig}
+          organizationId={application.organizationId}
+          initialData={draftRecord?.formData ?? {}}
+          initialStep={draftRecord?.currentStep ?? 0}
+          initialApplicationId={application.id}
+          drafts={[]} // Single application context
         />
-        <DocumentUploader applicationId={application.id} />
       </div>
-
-      <SubmissionBar
-        applicationId={application.id}
-        status={application.status}
-        version={application.version}
-      />
-
-      <Link
-        href="/supplier"
-        className="text-sm font-medium text-slate-900 underline underline-offset-4"
-      >
-        Back to dashboard
-      </Link>
     </div>
   );
 }

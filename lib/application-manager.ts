@@ -20,16 +20,26 @@ export async function createSupplierApplication(
     }
 
     // Get entity and geography
-    const entity = await prisma.entity.findUnique({
-        where: { code: entityCode },
+    const entity = await prisma.entity.findFirst({
+        where: {
+            code: {
+                equals: entityCode,
+                mode: "insensitive",
+            }
+        },
     });
 
     if (!entity) {
         throw new Error(`Entity not found: ${entityCode}`);
     }
 
-    const geography = await prisma.geography.findUnique({
-        where: { code: geographyCode },
+    const geography = await prisma.geography.findFirst({
+        where: {
+            code: {
+                equals: geographyCode,
+                mode: "insensitive",
+            }
+        },
     });
 
     if (!geography) {
@@ -86,8 +96,18 @@ export async function getOrCreateApplication(
         where: {
             organizationId: membership.organizationId,
             createdById: userId,
-            entity: { code: entityCode },
-            geography: { code: geographyCode },
+            entity: {
+                code: {
+                    equals: entityCode,
+                    mode: "insensitive",
+                }
+            },
+            geography: {
+                code: {
+                    equals: geographyCode,
+                    mode: "insensitive",
+                }
+            },
             status: {
                 in: ["DRAFT", "SUBMITTED", "IN_REVIEW", "PENDING_SUPPLIER"],
             },

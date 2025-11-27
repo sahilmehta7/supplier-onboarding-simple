@@ -39,22 +39,15 @@ export default async function DashboardLayout({
   // DISABLED: Auto-org creation for multi-tenant preparation
   // All users should be manually added to organizations
   // if (user && user.memberships.length === 0) {
-  //   await ensureUserMembership({
-  //     userId: user.id,
-  //     userName: user.name,
-  //     userEmail: user.email ?? undefined,
-  //   });
-  //
-  //   user = await prisma.user.findUnique({
-  //     where: { id: session.user.id },
-  //     include: {
-  //       memberships: {
-  //         include: { organization: true },
-  //         orderBy: { createdAt: "asc" },
-  //       },
-  //     },
-  //   });
+  //   ...
   // }
+
+  // Block access if no membership exists
+  if (!user || user.memberships.length === 0) {
+    // Redirect to supplier page where they might get auto-assigned if they have a pending application
+    // Or just redirect to signin if they are truly lost
+    redirect("/supplier");
+  }
 
   const activeOrganization = user?.memberships[0]?.organization;
   const organizationName = activeOrganization?.name ?? "Supplier Hub";

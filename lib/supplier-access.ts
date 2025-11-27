@@ -211,8 +211,18 @@ export async function hasApplicationForEntityGeography(
         where: {
             organizationId: membership.organizationId,
             createdById: userId,
-            entity: { code: entityCode },
-            geography: { code: geographyCode },
+            entity: {
+                code: {
+                    equals: entityCode,
+                    mode: "insensitive",
+                }
+            },
+            geography: {
+                code: {
+                    equals: geographyCode,
+                    mode: "insensitive",
+                }
+            },
             status: {
                 in: ["DRAFT", "SUBMITTED", "IN_REVIEW", "PENDING_SUPPLIER"],
             },

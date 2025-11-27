@@ -6,6 +6,7 @@ import { getCurrentUserMembership, isSupplier } from "@/lib/permissions";
 import { loadDraftRecord } from "@/lib/forms/draft-manager";
 import { getSupplierApplication } from "@/lib/supplier-access";
 import { getOrCreateApplication } from "@/lib/application-manager";
+import { ensureZetwerkMembership } from "@/lib/zetwerk-org";
 
 interface Params {
   formSlug: string;
@@ -27,15 +28,31 @@ export default async function FormByEntityGeographyPage({
     redirect(`/signin?callbackUrl=${encodeURIComponent(callbackUrl)}`);
   }
 
+  // Ensure user has membership (auto-assign to Zetwerk for new suppliers)
+  let membership = await getCurrentUserMembership();
+
+  if (!membership) {
+    try {
+      await ensureZetwerkMembership({
+        userId: session.user.id,
+        role: "SUPPLIER",
+      });
+      // Refetch to get full object with organization relation
+      membership = await getCurrentUserMembership();
+    } catch (error) {
+      console.error("Failed to assign membership:", error);
+      redirect("/signin?error=membership_creation_failed");
+    }
+  }
+
+  if (!membership) {
+    redirect("/signin?error=membership_fetch_failed");
+  }
+
   // Check SUPPLIER role - only suppliers can access forms
   const hasSupplierRole = await isSupplier();
   if (!hasSupplierRole) {
     redirect("/dashboard");
-  }
-
-  const membership = await getCurrentUserMembership();
-  if (!membership) {
-    redirect("/signin");
   }
 
   // Verify form config exists

@@ -607,7 +607,7 @@ export function DynamicFormWizard({
     : 0;
 
   return (
-    <div className="flex flex-col gap-4 pb-32 sm:pb-12">
+    <form noValidate onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-4 pb-32 sm:pb-12">
       {hasVisibleSections && (
         <StepIndicator
           steps={visibleSections.map((section) => ({
@@ -688,6 +688,6 @@ export function DynamicFormWizard({
       <p role="status" aria-live="polite" className="sr-only">
         {liveMessage}
       </p>
-    </div>
+    </form>
   );
 }

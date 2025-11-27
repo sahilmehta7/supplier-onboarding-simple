@@ -3,6 +3,8 @@ import type { FormField } from "@prisma/client";
 import type { FormConfigWithFields } from "@/lib/forms/types";
 export type { FormConfigWithFields } from "@/lib/forms/types";
 
+const REQUIRED_MESSAGE = "💡 Please fill in this required field to continue.";
+
 /**
  * Validation rules structure from FormField.validation JSON
  */
@@ -121,11 +123,22 @@ function fieldToSchema(field: FormField) {
   switch (field.type) {
     case "number":
       schema = z.number();
+      if (field.required) {
+        schema = schema.refine((val) => val !== undefined && val !== null, {
+          message: REQUIRED_MESSAGE,
+        });
+      }
       break;
     case "select":
     case "radio":
       const values = selectValues(field.options ?? undefined);
-      schema = values.length > 0 ? z.enum(values as [string, ...string[]]) : z.string();
+      if (values.length > 0) {
+        schema = z.enum(values as [string, ...string[]]);
+      } else {
+        schema = field.required
+          ? z.string().min(1, REQUIRED_MESSAGE)
+          : z.string();
+      }
       break;
     case "boolean":
     case "checkbox":
@@ -134,14 +147,20 @@ function fieldToSchema(field: FormField) {
     case "multi-select":
       let arraySchema = z.array(z.string());
       if (field.required) {
-        arraySchema = arraySchema.min(1, `${field.label} must include at least one selection`);
+        arraySchema = arraySchema.min(1, REQUIRED_MESSAGE);
       }
       schema = arraySchema;
       break;
     case "date":
-      schema = z.string().refine((value) => !isNaN(Date.parse(value)), {
-        message: "Invalid date",
-      });
+      if (field.required) {
+        schema = z.string().min(1, REQUIRED_MESSAGE).refine((value) => !isNaN(Date.parse(value)), {
+          message: "Invalid date format",
+        });
+      } else {
+        schema = z.string().refine((value) => !value || !isNaN(Date.parse(value)), {
+          message: "Invalid date format",
+        });
+      }
       break;
     case "document":
       schema = DOCUMENT_VALUE_SCHEMA.refine(
@@ -156,22 +175,28 @@ function fieldToSchema(field: FormField) {
           );
         },
         {
-          message: field.required
-            ? `${field.label} is required`
-            : `${field.label} must be a valid document`,
+          message: field.required ? REQUIRED_MESSAGE : `${field.label} must be a valid document`,
         }
       );
       break;
     case "email":
-      schema = z.string().email(`${field.label} must be a valid email address`);
+      if (field.required) {
+        schema = z.string().min(1, REQUIRED_MESSAGE).email(`${field.label} must be a valid email address`);
+      } else {
+        schema = z.string().email(`${field.label} must be a valid email address`).or(z.literal(""));
+      }
       break;
     case "tel":
-      schema = z
-        .string()
-        .regex(/^[\d\-\s()+.]+$/, `${field.label} must be a valid phone number`);
+      if (field.required) {
+        schema = z.string().min(1, REQUIRED_MESSAGE).regex(/^[\d\-\s()+.]+$/, `${field.label} must be a valid phone number`);
+      } else {
+        schema = z.string().regex(/^[\d\-\s()+.]*$/, `${field.label} must be a valid phone number`);
+      }
       break;
     default:
-      schema = z.string();
+      schema = field.required
+        ? z.string().min(1, REQUIRED_MESSAGE)
+        : z.string();
   }
 
   // Apply custom validation rules

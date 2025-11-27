@@ -13,10 +13,16 @@ export async function getFormConfigByEntityAndGeography(
     where: {
       isActive: true,
       entity: {
-        code: entityCode,
+        code: {
+          equals: entityCode,
+          mode: "insensitive",
+        },
       },
       geography: {
-        code: geographyCode,
+        code: {
+          equals: geographyCode,
+          mode: "insensitive",
+        },
       },
     },
     include: {

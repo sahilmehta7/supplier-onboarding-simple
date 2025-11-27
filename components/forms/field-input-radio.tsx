@@ -61,7 +61,10 @@ export function FieldInputRadio({
           aria-describedby={describedBy}
           aria-invalid={hasError}
           aria-required={field.required}
-          className={cn(hasError && "[&>div]:border-destructive")}
+          className={cn(
+            "flex flex-row flex-wrap gap-4",
+            hasError && "[&>div]:border-destructive"
+          )}
         >
           {options.map((option) => {
             const optionId = `${fieldId}-${option}`;
