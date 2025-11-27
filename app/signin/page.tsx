@@ -3,11 +3,17 @@ import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { SignInCard } from "@/components/auth/signin-card";
 
-export default async function SignInPage() {
+export default async function SignInPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ callbackUrl?: string }>;
+}) {
   const session = await auth();
+  const { callbackUrl } = await searchParams;
 
   if (session?.user) {
-    redirect("/");
+    // If already authenticated, redirect to callback URL or root
+    redirect(callbackUrl || "/");
   }
 
   return (
@@ -27,7 +33,7 @@ export default async function SignInPage() {
             </Link>
           </p>
         </div>
-        <SignInCard />
+        <SignInCard callbackUrl={callbackUrl} />
       </div>
     </main>
   );

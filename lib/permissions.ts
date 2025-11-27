@@ -62,6 +62,18 @@ export async function requireRole(
   return membership;
 }
 
+export async function isSupplier(organizationId?: string): Promise<boolean> {
+  const membership = await getCurrentUserMembership(organizationId);
+  return membership?.role === "SUPPLIER" || false;
+}
+
+export async function requireSupplierRole(organizationId?: string) {
+  const isUserSupplier = await isSupplier(organizationId);
+  if (!isUserSupplier) {
+    throw new Error("Unauthorized: SUPPLIER role required");
+  }
+}
+
 export async function requireAuth() {
   const session = await auth();
   if (!session?.user) {

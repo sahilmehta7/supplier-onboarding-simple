@@ -2,11 +2,10 @@ import { redirect, notFound } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { getFormConfigByEntityAndGeography } from "@/lib/forms/form-config-fetcher";
 import { FormWizardClient } from "@/components/forms/form-wizard-client";
-import { getCurrentUserMembership } from "@/lib/permissions";
-import {
-  listDraftSummaries,
-  loadDraftRecord,
-} from "@/lib/forms/draft-manager";
+import { getCurrentUserMembership, isSupplier } from "@/lib/permissions";
+import { loadDraftRecord } from "@/lib/forms/draft-manager";
+import { getSupplierApplication } from "@/lib/supplier-access";
+import { getOrCreateApplication } from "@/lib/application-manager";
 
 interface Params {
   formSlug: string;
@@ -22,8 +21,16 @@ export default async function FormByEntityGeographyPage({
   const entityCode = formSlug;
   const session = await auth();
 
+  // Check authentication - redirect to signin with callback URL
   if (!session?.user?.id) {
-    redirect("/signin");
+    const callbackUrl = `/forms/${entityCode}/${geographyCode}`;
+    redirect(`/signin?callbackUrl=${encodeURIComponent(callbackUrl)}`);
+  }
+
+  // Check SUPPLIER role - only suppliers can access forms
+  const hasSupplierRole = await isSupplier();
+  if (!hasSupplierRole) {
+    redirect("/dashboard");
   }
 
   const membership = await getCurrentUserMembership();
@@ -31,6 +38,7 @@ export default async function FormByEntityGeographyPage({
     redirect("/signin");
   }
 
+  // Verify form config exists
   const formConfig = await getFormConfigByEntityAndGeography(
     entityCode,
     geographyCode
@@ -40,29 +48,47 @@ export default async function FormByEntityGeographyPage({
     notFound();
   }
 
-  const drafts = await listDraftSummaries({
-    formConfigId: formConfig.id,
+  // Check for existing active application
+  const activeApplication = await getSupplierApplication(session.user.id);
+
+  // If user has an active application for a DIFFERENT entity/geography, block access
+  if (
+    activeApplication &&
+    (activeApplication.entity.code !== entityCode ||
+      activeApplication.geography.code !== geographyCode)
+  ) {
+    // Redirect to supplier dashboard with error indication
+    redirect(
+      `/supplier?error=${encodeURIComponent(
+        "You already have an active application for " +
+        activeApplication.entity.name +
+        " - " +
+        activeApplication.geography.name +
+        ". Complete or withdraw it before starting a new one."
+      )}`
+    );
+  }
+
+  // Get or create application for this entity/geography
+  const application = await getOrCreateApplication(
+    session.user.id,
+    entityCode,
+    geographyCode
+  );
+
+  // Load draft data if exists
+  const initialDraft = await loadDraftRecord({
+    applicationId: application.id,
     organizationId: membership.organizationId,
-    entityId: formConfig.entityId,
-    geographyId: formConfig.geographyId,
     userId: session.user.id,
   });
-
-  const initialDraft =
-    drafts.length > 0
-      ? await loadDraftRecord({
-          applicationId: drafts[0].applicationId,
-          organizationId: membership.organizationId,
-          userId: session.user.id,
-        })
-      : null;
 
   return (
     <div className="container mx-auto w-full max-w-5xl px-4 py-10">
       <div className="space-y-6">
         <header>
           <p className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-            Responsive Wizard
+            Supplier Onboarding
           </p>
           <h1 className="mt-1 text-3xl font-semibold">
             {formConfig.title || "Form Configuration"}
@@ -78,8 +104,8 @@ export default async function FormByEntityGeographyPage({
           organizationId={membership.organizationId}
           initialData={initialDraft?.formData ?? {}}
           initialStep={initialDraft?.currentStep ?? 0}
-          initialApplicationId={initialDraft?.applicationId ?? null}
-          drafts={drafts}
+          initialApplicationId={application.id}
+          drafts={[]} // Single application only
         />
       </div>
     </div>

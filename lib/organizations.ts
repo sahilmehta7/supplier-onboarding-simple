@@ -60,7 +60,7 @@ export async function ensureUserMembership(options: {
     data: {
       userId,
       organizationId: organization.id,
-      role: "ADMIN",
+      role: "SUPPLIER",
     },
   });
 

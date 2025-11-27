@@ -19,7 +19,11 @@ import { Loader2, ArrowLeft, Mail, CheckCircle2 } from "lucide-react";
 
 type AuthStep = "initial" | "otp-sent" | "verifying";
 
-export function SignInCard() {
+interface SignInCardProps {
+  callbackUrl?: string;
+}
+
+export function SignInCard({ callbackUrl = "/" }: SignInCardProps) {
   const [isPending, startTransition] = useTransition();
   const [authStep, setAuthStep] = useState<AuthStep>("initial");
   const [email, setEmail] = useState("");
@@ -33,7 +37,7 @@ export function SignInCard() {
 
   const handleGoogleSignIn = () => {
     startTransition(() => {
-      void signIn("google", { callbackUrl: "/" });
+      void signIn("google", { callbackUrl });
     });
   };
 
@@ -118,7 +122,7 @@ export function SignInCard() {
       // Sign in with NextAuth email provider
       await signIn("email", {
         email: email.trim().toLowerCase(),
-        callbackUrl: "/",
+        callbackUrl,
       });
     } catch (error) {
       setOtpError("Network error. Please try again.");

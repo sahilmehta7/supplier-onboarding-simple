@@ -7,6 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { UserMenu } from "@/components/navigation/user-menu";
 import { prisma } from "@/lib/prisma";
 import { ensureUserMembership } from "@/lib/organizations";
+import { isSupplier } from "@/lib/permissions";
 
 export default async function DashboardLayout({
   children,
@@ -19,6 +20,12 @@ export default async function DashboardLayout({
     redirect("/signin");
   }
 
+  // Block SUPPLIER users from internal dashboard
+  const hasSupplierRole = await isSupplier();
+  if (hasSupplierRole) {
+    redirect("/supplier");
+  }
+
   let user = await prisma.user.findUnique({
     where: { id: session.user.id },
     include: {
@@ -29,23 +36,25 @@ export default async function DashboardLayout({
     },
   });
 
-  if (user && user.memberships.length === 0) {
-    await ensureUserMembership({
-      userId: user.id,
-      userName: user.name,
-      userEmail: user.email ?? undefined,
-    });
-
-    user = await prisma.user.findUnique({
-      where: { id: session.user.id },
-      include: {
-        memberships: {
-          include: { organization: true },
-          orderBy: { createdAt: "asc" },
-        },
-      },
-    });
-  }
+  // DISABLED: Auto-org creation for multi-tenant preparation
+  // All users should be manually added to organizations
+  // if (user && user.memberships.length === 0) {
+  //   await ensureUserMembership({
+  //     userId: user.id,
+  //     userName: user.name,
+  //     userEmail: user.email ?? undefined,
+  //   });
+  //
+  //   user = await prisma.user.findUnique({
+  //     where: { id: session.user.id },
+  //     include: {
+  //       memberships: {
+  //         include: { organization: true },
+  //         orderBy: { createdAt: "asc" },
+  //       },
+  //     },
+  //   });
+  // }
 
   const activeOrganization = user?.memberships[0]?.organization;
   const organizationName = activeOrganization?.name ?? "Supplier Hub";
@@ -77,4 +86,3 @@ export default async function DashboardLayout({
     </SidebarProvider>
   );
 }
-
