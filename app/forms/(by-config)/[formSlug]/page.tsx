@@ -15,10 +15,13 @@ interface Params {
 
 export default async function FormByConfigIdPage({
   params,
+  searchParams,
 }: {
   params: Promise<Params>;
+  searchParams: Promise<{ skipPrep?: string }>;
 }) {
   const { formSlug } = await params;
+  const { skipPrep } = await searchParams;
   const formConfigId = formSlug;
   const session = await auth();
 
@@ -47,13 +50,20 @@ export default async function FormByConfigIdPage({
     userId: session.user.id,
   });
 
+  // Redirect to preparation page if:
+  // 1. No existing drafts (first time visit)
+  // 2. AND skipPrep query param is not set
+  if (drafts.length === 0 && skipPrep !== "true") {
+    redirect(`/forms/${formConfigId}/prepare`);
+  }
+
   const initialDraft =
     drafts.length > 0
       ? await loadDraftRecord({
-          applicationId: drafts[0].applicationId,
-          organizationId: membership.organizationId,
-          userId: session.user.id,
-        })
+        applicationId: drafts[0].applicationId,
+        organizationId: membership.organizationId,
+        userId: session.user.id,
+      })
       : null;
 
   return (
