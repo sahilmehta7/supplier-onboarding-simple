@@ -44,3 +44,6 @@ next-env.d.ts
 
 # local storage (development only)
 /storage
+
+# local database
+*.db

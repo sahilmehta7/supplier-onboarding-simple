@@ -139,3 +139,20 @@ export function formatCategoryName(category: string): string {
 
     return categoryMap[category] || category;
 }
+
+/**
+ * Get all document requirements from form config
+ */
+export function getDocumentRequirements(
+    formConfig: FormConfigWithFields
+): DocumentRequirement[] {
+    return formConfig.documentRules.map((rule) => ({
+        key: rule.documentType.key,
+        label: rule.documentType.label,
+        category: rule.documentType.category,
+        description: rule.documentType.description,
+        helpText: rule.helpText,
+        required: rule.required,
+    }));
+}
+

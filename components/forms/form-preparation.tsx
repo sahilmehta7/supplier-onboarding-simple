@@ -52,9 +52,13 @@ export function FormPreparation({
     const handleStartApplication = () => {
         // Mark preparation as viewed
         markPrepViewed(formId);
-        // Navigate to form
-        const targetUrl = formUrl || `/forms/${formId}`;
-        router.push(targetUrl);
+        // Navigate to document upload page first
+        // The formUrl should be in format /supplier/onboarding/[id]
+        // We'll redirect to /supplier/onboarding/[id]/documents
+        const documentsUrl = formUrl
+            ? `${formUrl}/documents`
+            : `/forms/${formId}/documents`;
+        router.push(documentsUrl);
     };
 
     return (
