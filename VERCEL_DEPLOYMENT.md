@@ -39,9 +39,14 @@ If these variables are **not** set, the app will fall back to local filesystem s
 ## 3. Build Configuration
 
 - **Framework Preset:** Next.js
-- **Build Command:** `next build` (Default)
+- **Build Command:** `prisma migrate deploy && npm run db:seed:prod && next build`
 - **Install Command:** `npm install` (Default)
 - **Output Directory:** `.next` (Default)
+
+**Note:** The build command above ensures that:
+1.  Database migrations are applied.
+2.  Form configurations (Unimacts US & Zetwerk India) are seeded/updated.
+3.  The Next.js app is built.
 
 A `postinstall` script has been added to `package.json` to automatically run `prisma generate` during deployment.
 

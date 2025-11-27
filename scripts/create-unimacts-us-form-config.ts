@@ -3,25 +3,43 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  // 1. Look up existing Entity (code: "UNX") and Geography (code: "US")
-  const entity = await prisma.entity.findUnique({
+  // 1. Ensure Entity (code: "UNX") and Geography (code: "US") exist
+  const entity = await prisma.entity.upsert({
     where: { code: "UNX" },
+    update: { name: "Unimacts" },
+    create: {
+      code: "UNX",
+      name: "Unimacts",
+      description: "Unimacts legal entity",
+    },
   });
 
-  if (!entity) {
-    throw new Error("Entity with code 'UNX' not found in database");
-  }
-
-  const geography = await prisma.geography.findUnique({
+  const geography = await prisma.geography.upsert({
     where: { code: "US" },
+    update: { name: "United States" },
+    create: {
+      code: "US",
+      name: "United States",
+    },
   });
 
-  if (!geography) {
-    throw new Error("Geography with code 'US' not found in database");
-  }
+  // Ensure the EntityGeography relation exists
+  await prisma.entityGeography.upsert({
+    where: {
+      entityId_geographyId: {
+        entityId: entity.id,
+        geographyId: geography.id,
+      },
+    },
+    update: {},
+    create: {
+      entityId: entity.id,
+      geographyId: geography.id,
+    },
+  });
 
-  console.log(`Found Entity: ${entity.name} (${entity.code})`);
-  console.log(`Found Geography: ${geography.name} (${geography.code})`);
+  console.log(`Found/Created Entity: ${entity.name} (${entity.code})`);
+  console.log(`Found/Created Geography: ${geography.name} (${geography.code})`);
 
   // 2. Check for existing FormConfig for UNX/US combination
   const existingConfig = await prisma.formConfig.findFirst({
@@ -526,7 +544,7 @@ async function main() {
 
   console.log("✓ Created form configuration: " + formConfig.title);
   console.log(`✓ Created ${formConfig.sections.length} sections`);
-  
+
   const totalFields = formConfig.sections.reduce(
     (sum, section) => sum + section.fields.length,
     0
@@ -542,7 +560,7 @@ async function main() {
   console.log(`- Version: ${formConfig.version}`);
   console.log(`- Sections: ${formConfig.sections.length}`);
   console.log(`- Total Fields: ${totalFields}`);
-  
+
   formConfig.sections.forEach((section) => {
     console.log(`  - ${section.label}: ${section.fields.length} fields`);
   });

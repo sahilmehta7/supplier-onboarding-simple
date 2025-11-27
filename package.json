@@ -18,6 +18,7 @@
     "db:seed": "tsx prisma/seed.ts",
     "db:studio": "prisma studio",
     "script:create-unimacts-form": "tsx scripts/create-unimacts-us-form-config.ts",
+    "db:seed:prod": "tsx scripts/create-unimacts-us-form-config.ts && tsx scripts/create-zet-india-form-config.ts",
     "postinstall": "prisma generate"
   },
   "dependencies": {
