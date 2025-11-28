@@ -1,4 +1,5 @@
 import OpenAI from "openai";
+import { convert } from "pdf-img-convert";
 import { OCR_CONFIG, validateOCRConfig } from "./config";
 
 /**
@@ -47,9 +48,55 @@ export async function extractDataFromDocument(
             apiKey: OCR_CONFIG.apiKey,
         });
 
-        // Convert buffer to base64
-        const base64Image = documentBuffer.toString("base64");
-        const mimeType = detectMimeType(documentBuffer);
+
+        // Detect MIME type
+        let mimeType = detectMimeType(documentBuffer);
+        let base64Image = "";
+
+        // Handle PDF files by converting to image
+        if (mimeType === "application/pdf") {
+            console.log(`[OCR] Converting PDF to image for processing...`);
+            try {
+                // Convert first page of PDF to image
+                // returns an array of Uint8Array (images)
+                const images = await convert(documentBuffer, {
+                    width: 1024, // Resize to reasonable width for OCR
+                    page_numbers: [1], // Only first page
+                    base64: true // Return as base64 strings
+                });
+
+                if (images.length > 0) {
+                    // pdf-img-convert returns base64 string directly if base64: true is set
+                    // but types might say string | Uint8Array, so let's handle it
+                    const firstPage = images[0];
+                    base64Image = typeof firstPage === 'string' ? firstPage : Buffer.from(firstPage).toString('base64');
+                    mimeType = "image/png"; // Converted images are PNGs by default usually, or we treat as such for data URI
+                } else {
+                    throw new Error("PDF conversion produced no images");
+                }
+            } catch (convError) {
+                console.error("[OCR] PDF conversion failed:", convError);
+                return {
+                    success: false,
+                    data: {},
+                    error: "Failed to convert PDF document to image for OCR processing.",
+                };
+            }
+        } else {
+            // Normal image processing
+            base64Image = documentBuffer.toString("base64");
+        }
+
+        // Check if MIME type is supported by OpenAI Vision (now including our converted PDF->PNG)
+        const supportedMimeTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+        if (!supportedMimeTypes.includes(mimeType)) {
+            console.log(`[OCR] Skipping OCR for unsupported MIME type: ${mimeType}`);
+            return {
+                success: false,
+                data: {},
+                error: "OCR is only supported for image files (JPG, PNG) and PDFs.",
+            };
+        }
 
         console.log(
             `[OCR] Processing ${documentType} with model ${OCR_CONFIG.model}`

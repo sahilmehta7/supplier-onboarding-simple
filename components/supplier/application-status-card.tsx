@@ -5,9 +5,11 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { ApplicationState } from "@/lib/supplier-access";
 import { formatDistanceToNow } from "date-fns";
+import { DiscardDraftButton } from "@/components/dashboard/discard-draft-button";
 
 interface ApplicationStatusCardProps {
     applicationState: ApplicationState;
+    organizationId: string;
 }
 
 function getStatusColor(
@@ -51,6 +53,7 @@ function getStatusIcon(status: ApplicationState["status"]): string {
 
 export function ApplicationStatusCard({
     applicationState,
+    organizationId,
 }: ApplicationStatusCardProps) {
     const { application, status, actionText, requiresAction } = applicationState;
 
@@ -131,6 +134,12 @@ export function ApplicationStatusCard({
                     >
                         {actionText}
                     </Link>
+                    {status === "DRAFT" && (
+                        <DiscardDraftButton
+                            applicationId={application.id}
+                            organizationId={organizationId}
+                        />
+                    )}
                 </div>
 
                 {status === "DRAFT" && (

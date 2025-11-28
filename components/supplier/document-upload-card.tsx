@@ -1,16 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { Upload, CheckCircle2, XCircle, Loader2, FileText } from "lucide-react";
+import { Upload, CheckCircle2, XCircle, Loader2, FileText, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 import type { DocumentRequirement } from "@/lib/forms/form-metadata";
 
 interface DocumentUploadCardProps {
     document: DocumentRequirement;
     applicationId: string;
     onUploadComplete?: (documentTypeKey: string, success: boolean) => void;
+    className?: string;
 }
 
 type UploadStatus = "idle" | "uploading" | "processing_ocr" | "completed" | "failed";
@@ -19,6 +20,7 @@ export function DocumentUploadCard({
     document,
     applicationId,
     onUploadComplete,
+    className,
 }: DocumentUploadCardProps) {
     const [status, setStatus] = useState<UploadStatus>("idle");
     const [fileName, setFileName] = useState<string>("");
@@ -96,133 +98,106 @@ export function DocumentUploadCard({
     const isUploaded = status === "completed";
 
     return (
-        <Card className="relative overflow-hidden">
-            <CardContent className="p-4">
-                <div className="flex items-start gap-3">
-                    <div className="mt-0.5 flex-shrink-0">
-                        <FileText className="h-5 w-5 text-muted-foreground" />
-                    </div>
-
-                    <div className="flex-1 min-w-0">
-                        <div className="flex items-start justify-between gap-2 flex-wrap">
-                            <h4 className="font-medium text-sm leading-tight">
-                                {document.label}
-                            </h4>
-                            <Badge
-                                variant={isRequired ? "default" : "secondary"}
-                                className="text-xs flex-shrink-0"
-                            >
-                                {isRequired ? "Required" : "Optional"}
-                            </Badge>
-                        </div>
-
-                        {document.description && (
-                            <p className="mt-1 text-xs text-muted-foreground">
-                                {document.description}
-                            </p>
-                        )}
-
-                        {document.helpText && (
-                            <p className="mt-1 text-xs text-muted-foreground italic">
-                                {document.helpText}
-                            </p>
-                        )}
-
-                        {/* Upload Status */}
-                        <div className="mt-3">
-                            {status === "idle" && (
-                                <div>
-                                    <input
-                                        type="file"
-                                        id={`file-${document.key}`}
-                                        className="hidden"
-                                        onChange={handleFileChange}
-                                        accept=".pdf,.jpg,.jpeg,.png"
-                                    />
-                                    <label htmlFor={`file-${document.key}`}>
-                                        <Button
-                                            type="button"
-                                            variant="outline"
-                                            size="sm"
-                                            className="cursor-pointer"
-                                            asChild
-                                        >
-                                            <span>
-                                                <Upload className="h-4 w-4 mr-2" />
-                                                Upload Document
-                                            </span>
-                                        </Button>
-                                    </label>
-                                </div>
-                            )}
-
-                            {status === "uploading" && (
-                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                    <Loader2 className="h-4 w-4 animate-spin" />
-                                    <span>Uploading...</span>
-                                </div>
-                            )}
-
-                            {status === "processing_ocr" && (
-                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                    <Loader2 className="h-4 w-4 animate-spin" />
-                                    <span>Processing document...</span>
-                                </div>
-                            )}
-
-                            {status === "completed" && (
-                                <div className="space-y-2">
-                                    <div className="flex items-center gap-2 text-sm text-green-600">
-                                        <CheckCircle2 className="h-4 w-4" />
-                                        <span className="font-medium">Uploaded</span>
-                                    </div>
-                                    <p className="text-xs text-muted-foreground truncate">
-                                        {fileName}
-                                    </p>
-                                </div>
-                            )}
-
-                            {status === "failed" && (
-                                <div className="space-y-2">
-                                    <div className="flex items-center gap-2 text-sm text-red-600">
-                                        <XCircle className="h-4 w-4" />
-                                        <span className="font-medium">Failed</span>
-                                    </div>
-                                    {error && (
-                                        <p className="text-xs text-red-600">{error}</p>
-                                    )}
-                                    <input
-                                        type="file"
-                                        id={`file-retry-${document.key}`}
-                                        className="hidden"
-                                        onChange={handleFileChange}
-                                        accept=".pdf,.jpg,.jpeg,.png"
-                                    />
-                                    <label htmlFor={`file-retry-${document.key}`}>
-                                        <Button
-                                            type="button"
-                                            variant="outline"
-                                            size="sm"
-                                            className="cursor-pointer"
-                                            asChild
-                                        >
-                                            <span>
-                                                <Upload className="h-4 w-4 mr-2" />
-                                                Try Again
-                                            </span>
-                                        </Button>
-                                    </label>
-                                </div>
-                            )}
-                        </div>
-                    </div>
+        <div className={cn("flex flex-col sm:flex-row sm:items-center gap-4 py-4 border-b last:border-0", className)}>
+            {/* Icon & Status Indicator */}
+            <div className="flex-shrink-0 relative">
+                <div className={cn(
+                    "h-10 w-10 rounded-full flex items-center justify-center border",
+                    isUploaded ? "bg-green-50 border-green-200 text-green-600" : "bg-slate-50 border-slate-200 text-slate-400"
+                )}>
+                    {isUploaded ? <CheckCircle2 className="h-5 w-5" /> : <FileText className="h-5 w-5" />}
                 </div>
-            </CardContent>
+            </div>
 
-            {/* Completed indicator overlay */}
-            {isUploaded && (
-                <div className="absolute inset-y-0 left-0 w-1 bg-green-500" />
-            )}
-        </Card>
+            {/* Content */}
+            <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1">
+                    <h4 className="font-medium text-sm text-slate-900">
+                        {document.label}
+                    </h4>
+                    {isRequired && (
+                        <Badge variant="secondary" className="text-[10px] px-1.5 h-5">
+                            Required
+                        </Badge>
+                    )}
+                </div>
+
+                {document.description && (
+                    <p className="text-xs text-slate-500 mb-1">
+                        {document.description}
+                    </p>
+                )}
+
+                {/* Status Message */}
+                {status === "uploading" && (
+                    <div className="flex items-center gap-1.5 text-xs text-blue-600 mt-1">
+                        <Loader2 className="h-3 w-3 animate-spin" />
+                        Uploading...
+                    </div>
+                )}
+                {status === "processing_ocr" && (
+                    <div className="flex items-center gap-1.5 text-xs text-blue-600 mt-1">
+                        <Loader2 className="h-3 w-3 animate-spin" />
+                        Processing...
+                    </div>
+                )}
+                {status === "failed" && (
+                    <div className="flex items-center gap-1.5 text-xs text-red-600 mt-1">
+                        <AlertCircle className="h-3 w-3" />
+                        {error || "Upload failed"}
+                    </div>
+                )}
+                {status === "completed" && (
+                    <p className="text-xs text-green-600 mt-1 truncate max-w-[200px]">
+                        {fileName}
+                    </p>
+                )}
+            </div>
+
+            {/* Action */}
+            <div className="flex-shrink-0">
+                {status === "idle" || status === "failed" ? (
+                    <div>
+                        <input
+                            type="file"
+                            id={`file-${document.key}`}
+                            className="hidden"
+                            onChange={handleFileChange}
+                            accept=".pdf,.jpg,.jpeg,.png"
+                        />
+                        <label htmlFor={`file-${document.key}`}>
+                            <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                className="cursor-pointer h-8 text-xs"
+                                asChild
+                            >
+                                <span>
+                                    <Upload className="h-3.5 w-3.5 mr-2" />
+                                    Upload
+                                </span>
+                            </Button>
+                        </label>
+                    </div>
+                ) : status === "completed" ? (
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-8 text-xs text-slate-500 hover:text-slate-900"
+                        onClick={() => {
+                            setStatus("idle");
+                            setFileName("");
+                        }}
+                    >
+                        Replace
+                    </Button>
+                ) : (
+                    <Button disabled variant="ghost" size="sm" className="h-8 text-xs">
+                        Please wait
+                    </Button>
+                )}
+            </div>
+        </div>
     );
 }

@@ -57,7 +57,7 @@ export function EntityGeographySelector({
                             {configs.map((config) => (
                                 <Link
                                     key={config.formConfigId}
-                                    href={`/forms/${config.entityCode}/${config.geographyCode}`}
+                                    href={`/forms/${config.entityCode}/${config.geographyCode}/prepare`}
                                     className="group"
                                 >
                                     <Card className="h-full shadow-none transition hover:border-slate-300 hover:shadow-sm">

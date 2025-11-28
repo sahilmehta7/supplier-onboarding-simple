@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowRight, SkipForward } from "lucide-react";
+import { ArrowRight, SkipForward, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
 import { DocumentUploadCard } from "./document-upload-card";
 import type { DocumentRequirement } from "@/lib/forms/form-metadata";
 import {
@@ -28,13 +28,18 @@ export function DocumentUploadPage({
 
     const requiredDocs = documents.filter((d) => d.required);
     const optionalDocs = documents.filter((d) => !d.required);
-    const totalDocs = documents.length;
+    const totalRequired = requiredDocs.length;
 
     const handleUploadComplete = (documentTypeKey: string, success: boolean) => {
-        setUploadStatus((prev) => ({ ...prev, [documentTypeKey]: success }));
-        if (success) {
-            setUploadedCount((prev) => prev + 1);
-        }
+        setUploadStatus((prev) => {
+            const newState = { ...prev, [documentTypeKey]: success };
+
+            // Recalculate uploaded count for REQUIRED docs only
+            const newUploadedCount = requiredDocs.filter(doc => newState[doc.key]).length;
+            setUploadedCount(newUploadedCount);
+
+            return newState;
+        });
     };
 
     const handleContinue = () => {
@@ -51,119 +56,111 @@ export function DocumentUploadPage({
     const groupedRequired = groupDocumentsByCategory(requiredDocs);
     const groupedOptional = groupDocumentsByCategory(optionalDocs);
 
+    const progressPercentage = totalRequired > 0 ? (uploadedCount / totalRequired) * 100 : 0;
+
     return (
-        <div className="space-y-8">
-            {/* Header */}
-            <div className="space-y-2">
-                <h2 className="text-2xl font-semibold">Document Upload</h2>
-                <p className="text-muted-foreground">
-                    Upload your documents now to pre-fill form fields automatically. You can also upload them later in the respective sections.
-                </p>
+        <div className="space-y-6">
+            {/* Header & Progress */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div className="space-y-1">
+                    <h2 className="text-2xl font-semibold">Document Upload</h2>
+                    <p className="text-muted-foreground text-sm">
+                        Upload required documents to pre-fill your application.
+                    </p>
+                </div>
+
+                {/* Minimal Progress Widget */}
+                <div className="flex items-center gap-4 bg-slate-50 border rounded-lg px-4 py-2 min-w-[240px]">
+                    <div className="flex-1 space-y-1">
+                        <div className="flex justify-between text-xs font-medium">
+                            <span>Required Documents</span>
+                            <span className={uploadedCount === totalRequired ? "text-green-600" : "text-slate-600"}>
+                                {uploadedCount}/{totalRequired}
+                            </span>
+                        </div>
+                        <Progress value={progressPercentage} className="h-2" />
+                    </div>
+                    {uploadedCount === totalRequired && (
+                        <CheckCircle2 className="h-5 w-5 text-green-600" />
+                    )}
+                </div>
             </div>
 
-            {/* Progress Summary */}
+            {/* Main Content - Single Card for Required Docs */}
             <Card>
-                <CardContent className="p-6">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <p className="text-sm font-medium text-muted-foreground">
-                                Upload Progress
-                            </p>
-                            <p className="text-2xl font-semibold mt-1">
-                                {uploadedCount} of {totalDocs} documents
-                            </p>
+                <CardHeader className="pb-3 border-b bg-slate-50/50">
+                    <CardTitle className="text-base">Required Documents</CardTitle>
+                    <CardDescription>
+                        These documents are mandatory for your application.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent className="p-0">
+                    {requiredDocs.length > 0 ? (
+                        <div className="divide-y">
+                            {Array.from(groupedRequired.keys())
+                                .sort()
+                                .map((category) => {
+                                    const categoryDocs = groupedRequired.get(category)!;
+                                    return categoryDocs.map((doc) => (
+                                        <div key={doc.key} className="px-6 hover:bg-slate-50/50 transition-colors">
+                                            <DocumentUploadCard
+                                                document={doc}
+                                                applicationId={applicationId}
+                                                onUploadComplete={handleUploadComplete}
+                                            />
+                                        </div>
+                                    ));
+                                })}
                         </div>
-                        <Badge variant="secondary" className="text-lg px-4 py-2">
-                            {totalDocs > 0
-                                ? Math.round((uploadedCount / totalDocs) * 100)
-                                : 0}
-                            %
-                        </Badge>
-                    </div>
+                    ) : (
+                        <div className="p-6 text-center text-muted-foreground text-sm">
+                            No required documents for this form.
+                        </div>
+                    )}
                 </CardContent>
             </Card>
 
-            {/* Required Documents */}
-            {requiredDocs.length > 0 && (
-                <div className="space-y-4">
-                    <div className="flex items-center gap-2">
-                        <h3 className="text-lg font-semibold">Required Documents</h3>
-                        <Badge variant="destructive">{requiredDocs.length}</Badge>
-                    </div>
-
-                    {Array.from(groupedRequired.keys())
-                        .sort()
-                        .map((category) => {
-                            const categoryDocs = groupedRequired.get(category)!;
-                            return (
-                                <div key={category} className="space-y-3">
-                                    <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
-                                        {formatCategoryName(category)}
-                                    </h4>
-                                    <div className="grid gap-4 sm:grid-cols-2">
-                                        {categoryDocs.map((doc) => (
-                                            <DocumentUploadCard
-                                                key={doc.key}
-                                                document={doc}
-                                                applicationId={applicationId}
-                                                onUploadComplete={handleUploadComplete}
-                                            />
-                                        ))}
-                                    </div>
-                                </div>
-                            );
-                        })}
-                </div>
-            )}
-
-            {/* Optional Documents */}
+            {/* Optional Documents Section */}
             {optionalDocs.length > 0 && (
-                <div className="space-y-4">
-                    <div className="flex items-center gap-2">
-                        <h3 className="text-lg font-semibold">Optional Documents</h3>
-                        <Badge variant="secondary">{optionalDocs.length}</Badge>
-                    </div>
-
-                    {Array.from(groupedOptional.keys())
-                        .sort()
-                        .map((category) => {
-                            const categoryDocs = groupedOptional.get(category)!;
-                            return (
-                                <div key={category} className="space-y-3">
-                                    <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
-                                        {formatCategoryName(category)}
-                                    </h4>
-                                    <div className="grid gap-4 sm:grid-cols-2">
-                                        {categoryDocs.map((doc) => (
-                                            <DocumentUploadCard
-                                                key={doc.key}
-                                                document={doc}
-                                                applicationId={applicationId}
-                                                onUploadComplete={handleUploadComplete}
-                                            />
-                                        ))}
-                                    </div>
-                                </div>
-                            );
-                        })}
+                <div className="space-y-3">
+                    <h3 className="text-lg font-medium px-1">Optional Documents</h3>
+                    <Card>
+                        <CardContent className="p-0">
+                            <div className="divide-y">
+                                {Array.from(groupedOptional.keys())
+                                    .sort()
+                                    .map((category) => {
+                                        const categoryDocs = groupedOptional.get(category)!;
+                                        return categoryDocs.map((doc) => (
+                                            <div key={doc.key} className="px-6 hover:bg-slate-50/50 transition-colors">
+                                                <DocumentUploadCard
+                                                    document={doc}
+                                                    applicationId={applicationId}
+                                                    onUploadComplete={handleUploadComplete}
+                                                />
+                                            </div>
+                                        ));
+                                    })}
+                            </div>
+                        </CardContent>
+                    </Card>
                 </div>
             )}
 
             {/* Navigation Buttons */}
-            <div className="flex items-center justify-between gap-4 pt-6 border-t">
+            <div className="flex items-center justify-end gap-3 pt-4">
                 <Button
-                    variant="outline"
+                    variant="ghost"
                     onClick={handleSkip}
-                    className="flex items-center gap-2"
+                    className="text-muted-foreground"
                 >
-                    <SkipForward className="h-4 w-4" />
                     Skip for now
                 </Button>
                 <Button
                     onClick={handleContinue}
-                    className="flex items-center gap-2"
+                    className="flex items-center gap-2 min-w-[140px]"
                 >
-                    Continue to Form
+                    Continue
                     <ArrowRight className="h-4 w-4" />
                 </Button>
             </div>

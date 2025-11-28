@@ -64,6 +64,7 @@ export default async function SupplierDashboard({
         // Show application status card
         <ApplicationStatusCard
           applicationState={getApplicationState(activeApplication)}
+          organizationId={activeApplication.organizationId}
         />
       ) : (
         // Show entity/geography selector
