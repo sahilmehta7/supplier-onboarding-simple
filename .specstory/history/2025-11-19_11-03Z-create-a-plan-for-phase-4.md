@@ -209,7 +209,7 @@ Creating the Phase 4 implementation plan:
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/phase-4-implementation-plan.md</summary>
+<details><summary>Tool use: **write** • Edit file: docs/phase-4-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 1768, lines removed: 1
@@ -302,17 +302,17 @@ Lines added: 1768, lines removed: 1
 + **Implementation:**
 + 
 + &#96;&#96;&#96;typescript
-+ import { prisma } from &quot;@/lib/prisma&quot;;
++ import { prisma } from "@/lib/prisma";
 + 
 + export interface OptimisticLockError extends Error {
-+   code: &quot;OPTIMISTIC_LOCK_ERROR&quot;;
++   code: "OPTIMISTIC_LOCK_ERROR";
 +   currentVersion: number;
 +   expectedVersion: number;
 + }
 + 
 + /**
 +  * Check if application version matches expected version
-+  * Throws OptimisticLockError if versions don&#39;t match
++  * Throws OptimisticLockError if versions don't match
 +  */
 + export async function checkApplicationVersion(
 +   applicationId: string,
@@ -324,14 +324,14 @@ Lines added: 1768, lines removed: 1
 +   });
 + 
 +   if (!application) {
-+     throw new Error(&quot;Application not found&quot;);
++     throw new Error("Application not found");
 +   }
 + 
 +   if (application.version !== expectedVersion) {
 +     const error = new Error(
-+       &quot;Application has been modified by another user. Please refresh and try again.&quot;
++       "Application has been modified by another user. Please refresh and try again."
 +     ) as OptimisticLockError;
-+     error.code = &quot;OPTIMISTIC_LOCK_ERROR&quot;;
++     error.code = "OPTIMISTIC_LOCK_ERROR";
 +     error.currentVersion = application.version;
 +     error.expectedVersion = expectedVersion;
 +     throw error;
@@ -359,7 +359,7 @@ Lines added: 1768, lines removed: 1
 +   const updated = await prisma.application.update({
 +     where: {
 +       id: applicationId,
-+       version: expectedVersion, // Prisma will fail if version doesn&#39;t match
++       version: expectedVersion, // Prisma will fail if version doesn't match
 +     },
 +     data: {
 +       ...data,
@@ -388,7 +388,7 @@ Lines added: 1768, lines removed: 1
 + 1. **Update &#96;saveDraftAction&#96;:**
 + 
 + &#96;&#96;&#96;typescript
-+ import { updateApplicationWithVersion } from &quot;@/lib/optimistic-locking&quot;;
++ import { updateApplicationWithVersion } from "@/lib/optimistic-locking";
 + 
 + export async function saveDraftAction(
 +   applicationId: string,
@@ -398,7 +398,7 @@ Lines added: 1768, lines removed: 1
 + ) {
 +   const session = await auth();
 +   if (!session?.user?.id) {
-+     throw new Error(&quot;Unauthorized&quot;);
++     throw new Error("Unauthorized");
 +   }
 + 
 +   const application = await getApplicationForUser(
@@ -407,7 +407,7 @@ Lines added: 1768, lines removed: 1
 +   );
 + 
 +   if (!application) {
-+     throw new Error(&quot;Application not found&quot;);
++     throw new Error("Application not found");
 +   }
 + 
 +   // Check version if provided
@@ -419,7 +419,7 @@ Lines added: 1768, lines removed: 1
 + 
 +   const parsed = supplierWizardSchema.safeParse(formData);
 +   if (!parsed.success) {
-+     throw new Error(&quot;Validation failed&quot;);
++     throw new Error("Validation failed");
 +   }
 + 
 +   // Use optimistic locking update
@@ -451,10 +451,10 @@ Lines added: 1768, lines removed: 1
 +     applicationId,
 +     expectedVersion ?? application.version,
 +     {
-+       status: &quot;SUBMITTED&quot;,
++       status: "SUBMITTED",
 +       submittedAt: new Date(),
 +       submittedById: session.user.id,
-+       submissionType: &quot;SUPPLIER&quot;,
++       submissionType: "SUPPLIER",
 +       updatedById: session.user.id,
 +     }
 +   );
@@ -506,24 +506,24 @@ Lines added: 1768, lines removed: 1
 +     }
 +     
 +     toast({
-+       title: &quot;Draft saved&quot;,
-+       description: &quot;Your changes have been saved.&quot;,
++       title: "Draft saved",
++       description: "Your changes have been saved.",
 +     });
 +   } catch (error) {
-+     if (error.code === &quot;OPTIMISTIC_LOCK_ERROR&quot;) {
++     if (error.code === "OPTIMISTIC_LOCK_ERROR") {
 +       // Handle version conflict
 +       toast({
-+         title: &quot;Conflict detected&quot;,
++         title: "Conflict detected",
 +         description: error.message,
-+         variant: &quot;destructive&quot;,
++         variant: "destructive",
 +       });
 +       // Refresh application data
 +       router.refresh();
 +     } else {
 +       toast({
-+         title: &quot;Error&quot;,
++         title: "Error",
 +         description: error.message,
-+         variant: &quot;destructive&quot;,
++         variant: "destructive",
 +       });
 +     }
 +   }
@@ -568,10 +568,10 @@ Lines added: 1768, lines removed: 1
 + **Implementation:**
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { useEffect, useState, useRef } from &quot;react&quot;;
-+ import { useRouter } from &quot;next/navigation&quot;;
++ import { useEffect, useState, useRef } from "react";
++ import { useRouter } from "next/navigation";
 + 
 + interface UseApplicationStatusOptions {
 +   applicationId: string;
@@ -598,7 +598,7 @@ Lines added: 1768, lines removed: 1
 +     if (!enabled || !applicationId) return;
 + 
 +     // Only poll if status is in a state where it might change
-+     const pollableStatuses = [&quot;SUBMITTED&quot;, &quot;IN_REVIEW&quot;, &quot;PENDING_SUPPLIER&quot;];
++     const pollableStatuses = ["SUBMITTED", "IN_REVIEW", "PENDING_SUPPLIER"];
 +     if (!pollableStatuses.includes(status)) {
 +       return;
 +     }
@@ -609,7 +609,7 @@ Lines added: 1768, lines removed: 1
 +       try {
 +         const response = await fetch(&#96;/api/applications/${applicationId}/status&#96;);
 +         if (!response.ok) {
-+           throw new Error(&quot;Failed to fetch status&quot;);
++           throw new Error("Failed to fetch status");
 +         }
 + 
 +         const data = await response.json();
@@ -625,7 +625,7 @@ Lines added: 1768, lines removed: 1
 +           }
 + 
 +           // Show notification
-+           if (newStatus === &quot;APPROVED&quot;) {
++           if (newStatus === "APPROVED") {
 +             // Could trigger a toast notification here
 +           }
 + 
@@ -633,7 +633,7 @@ Lines added: 1768, lines removed: 1
 +           router.refresh();
 +         }
 +       } catch (error) {
-+         console.error(&quot;Error polling application status:&quot;, error);
++         console.error("Error polling application status:", error);
 +         // Stop polling on error
 +         setIsPolling(false);
 +       }
@@ -673,9 +673,9 @@ Lines added: 1768, lines removed: 1
 + **Implementation:**
 + 
 + &#96;&#96;&#96;typescript
-+ import { auth } from &quot;@/lib/auth&quot;;
-+ import { prisma } from &quot;@/lib/prisma&quot;;
-+ import { NextResponse } from &quot;next/server&quot;;
++ import { auth } from "@/lib/auth";
++ import { prisma } from "@/lib/prisma";
++ import { NextResponse } from "next/server";
 + 
 + export async function GET(
 +   request: Request,
@@ -683,7 +683,7 @@ Lines added: 1768, lines removed: 1
 + ) {
 +   const session = await auth();
 +   if (!session?.user?.id) {
-+     return NextResponse.json({ error: &quot;Unauthorized&quot; }, { status: 401 });
++     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 +   }
 + 
 +   const { id } = await params;
@@ -706,7 +706,7 @@ Lines added: 1768, lines removed: 1
 +   });
 + 
 +   if (!application) {
-+     return NextResponse.json({ error: &quot;Application not found&quot; }, { status: 404 });
++     return NextResponse.json({ error: "Application not found" }, { status: 404 });
 +   }
 + 
 +   return NextResponse.json({
@@ -732,23 +732,23 @@ Lines added: 1768, lines removed: 1
 + **Changes:**
 + 
 + &#96;&#96;&#96;typescript
-+ import { useApplicationStatus } from &quot;@/hooks/use-application-status&quot;;
++ import { useApplicationStatus } from "@/hooks/use-application-status";
 + 
 + // In component:
 + const { status: polledStatus, isPolling } = useApplicationStatus({
 +   applicationId,
 +   currentStatus: application.status,
-+   enabled: application.status !== &quot;DRAFT&quot; &amp;&amp; application.status !== &quot;REJECTED&quot;,
++   enabled: application.status !== "DRAFT" &amp;&amp; application.status !== "REJECTED",
 +   pollInterval: 5000, // Poll every 5 seconds
 +   onStatusChange: (newStatus) =&gt; {
 +     // Show notification
 +     toast({
-+       title: &quot;Status updated&quot;,
++       title: "Status updated",
 +       description: &#96;Application status changed to ${newStatus}&#96;,
 +     });
 +     
 +     // If approved, redirect to profile
-+     if (newStatus === &quot;APPROVED&quot;) {
++     if (newStatus === "APPROVED") {
 +       router.push(&#96;/supplier/profile/${application.supplierId}&#96;);
 +     }
 +   },
@@ -773,10 +773,10 @@ Lines added: 1768, lines removed: 1
 + **Implementation:**
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { Loader2 } from &quot;lucide-react&quot;;
-+ import { cn } from &quot;@/lib/utils&quot;;
++ import { Loader2 } from "lucide-react";
++ import { cn } from "@/lib/utils";
 + 
 + interface StatusIndicatorProps {
 +   isPolling: boolean;
@@ -789,13 +789,13 @@ Lines added: 1768, lines removed: 1
 +   return (
 +     &lt;div
 +       className={cn(
-+         &quot;flex items-center gap-2 text-xs text-muted-foreground&quot;,
++         "flex items-center gap-2 text-xs text-muted-foreground",
 +         className
 +       )}
-+       aria-live=&quot;polite&quot;
-+       aria-label=&quot;Checking for status updates&quot;
++       aria-live="polite"
++       aria-label="Checking for status updates"
 +     &gt;
-+       &lt;Loader2 className=&quot;h-3 w-3 animate-spin&quot; /&gt;
++       &lt;Loader2 className="h-3 w-3 animate-spin" /&gt;
 +       &lt;span&gt;Checking for updates...&lt;/span&gt;
 +     &lt;/div&gt;
 +   );
@@ -839,63 +839,63 @@ Lines added: 1768, lines removed: 1
 +   error: Error | string,
 +   context?: ErrorContext
 + ): string {
-+   const errorMessage = typeof error === &quot;string&quot; ? error : error.message;
-+   const errorCode = typeof error === &quot;object&quot; &amp;&amp; &quot;code&quot; in error ? error.code : null;
++   const errorMessage = typeof error === "string" ? error : error.message;
++   const errorCode = typeof error === "object" &amp;&amp; "code" in error ? error.code : null;
 + 
 +   // Handle specific error codes
-+   if (errorCode === &quot;OPTIMISTIC_LOCK_ERROR&quot;) {
-+     return &quot;This application was recently updated by another user. Please refresh the page and try again.&quot;;
++   if (errorCode === "OPTIMISTIC_LOCK_ERROR") {
++     return "This application was recently updated by another user. Please refresh the page and try again.";
 +   }
 + 
 +   // Handle common error patterns
-+   if (errorMessage.includes(&quot;Unauthorized&quot;)) {
-+     return &quot;You don&#39;t have permission to perform this action. Please contact your administrator if you believe this is an error.&quot;;
++   if (errorMessage.includes("Unauthorized")) {
++     return "You don't have permission to perform this action. Please contact your administrator if you believe this is an error.";
 +   }
 + 
-+   if (errorMessage.includes(&quot;not found&quot;)) {
-+     return &quot;The requested item could not be found. It may have been deleted or you may not have access to it.&quot;;
++   if (errorMessage.includes("not found")) {
++     return "The requested item could not be found. It may have been deleted or you may not have access to it.";
 +   }
 + 
-+   if (errorMessage.includes(&quot;already exists&quot;)) {
-+     return &quot;An active application already exists for this form configuration. Please complete or cancel the existing application first.&quot;;
++   if (errorMessage.includes("already exists")) {
++     return "An active application already exists for this form configuration. Please complete or cancel the existing application first.";
 +   }
 + 
-+   if (errorMessage.includes(&quot;Cannot edit&quot;)) {
++   if (errorMessage.includes("Cannot edit")) {
 +     const status = context?.status;
-+     if (status === &quot;SUBMITTED&quot; || status === &quot;IN_REVIEW&quot;) {
-+       return &quot;This application has been submitted and is currently under review. You cannot make changes at this time.&quot;;
++     if (status === "SUBMITTED" || status === "IN_REVIEW") {
++       return "This application has been submitted and is currently under review. You cannot make changes at this time.";
 +     }
-+     if (status === &quot;APPROVED&quot;) {
-+       return &quot;This application has been approved. To make changes, please edit your Company Profile.&quot;;
++     if (status === "APPROVED") {
++       return "This application has been approved. To make changes, please edit your Company Profile.";
 +     }
-+     if (status === &quot;REJECTED&quot;) {
-+       return &quot;This application has been rejected. You can create a new application if needed.&quot;;
++     if (status === "REJECTED") {
++       return "This application has been rejected. You can create a new application if needed.";
 +     }
 +   }
 + 
-+   if (errorMessage.includes(&quot;Cannot submit&quot;)) {
++   if (errorMessage.includes("Cannot submit")) {
 +     const status = context?.status;
-+     if (status === &quot;SUBMITTED&quot; || status === &quot;IN_REVIEW&quot;) {
-+       return &quot;This application has already been submitted and is under review.&quot;;
++     if (status === "SUBMITTED" || status === "IN_REVIEW") {
++       return "This application has already been submitted and is under review.";
 +     }
-+     if (status === &quot;APPROVED&quot;) {
-+       return &quot;This application has already been approved. No further action is needed.&quot;;
++     if (status === "APPROVED") {
++       return "This application has already been approved. No further action is needed.";
 +     }
-+     if (status === &quot;REJECTED&quot;) {
-+       return &quot;This application has been rejected. Please create a new application to resubmit.&quot;;
++     if (status === "REJECTED") {
++       return "This application has been rejected. Please create a new application to resubmit.";
 +     }
 +   }
 + 
-+   if (errorMessage.includes(&quot;Validation failed&quot;)) {
-+     return &quot;Please check your form for errors. All required fields must be filled correctly.&quot;;
++   if (errorMessage.includes("Validation failed")) {
++     return "Please check your form for errors. All required fields must be filled correctly.";
 +   }
 + 
-+   if (errorMessage.includes(&quot;Cannot edit fields&quot;)) {
-+     return &quot;You can only edit the fields that procurement has requested changes for. Other fields are locked.&quot;;
++   if (errorMessage.includes("Cannot edit fields")) {
++     return "You can only edit the fields that procurement has requested changes for. Other fields are locked.";
 +   }
 + 
 +   // Generic fallback
-+   return errorMessage || &quot;An unexpected error occurred. Please try again or contact support if the problem persists.&quot;;
++   return errorMessage || "An unexpected error occurred. Please try again or contact support if the problem persists.";
 + }
 + 
 + /**
@@ -906,22 +906,22 @@ Lines added: 1768, lines removed: 1
 +   context?: ErrorContext
 + ): { message: string; action?: string; actionLabel?: string } {
 +   const friendlyMessage = getUserFriendlyError(error, context);
-+   const errorMessage = typeof error === &quot;string&quot; ? error : error.message;
++   const errorMessage = typeof error === "string" ? error : error.message;
 + 
 +   // Add actionable steps for specific errors
-+   if (errorMessage.includes(&quot;OPTIMISTIC_LOCK_ERROR&quot;)) {
++   if (errorMessage.includes("OPTIMISTIC_LOCK_ERROR")) {
 +     return {
 +       message: friendlyMessage,
-+       action: &quot;refresh&quot;,
-+       actionLabel: &quot;Refresh Page&quot;,
++       action: "refresh",
++       actionLabel: "Refresh Page",
 +     };
 +   }
 + 
-+   if (errorMessage.includes(&quot;already exists&quot;)) {
++   if (errorMessage.includes("already exists")) {
 +     return {
 +       message: friendlyMessage,
-+       action: &quot;view-existing&quot;,
-+       actionLabel: &quot;View Existing Application&quot;,
++       action: "view-existing",
++       actionLabel: "View Existing Application",
 +     };
 +   }
 + 
@@ -946,14 +946,14 @@ Lines added: 1768, lines removed: 1
 + **Implementation:**
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { AlertCircle, RefreshCw, ExternalLink } from &quot;lucide-react&quot;;
-+ import { Alert, AlertDescription, AlertTitle } from &quot;@/components/ui/alert&quot;;
-+ import { Button } from &quot;@/components/ui/button&quot;;
-+ import { getUserFriendlyError, getActionableError } from &quot;@/lib/error-messages&quot;;
-+ import { useRouter } from &quot;next/navigation&quot;;
-+ import { cn } from &quot;@/lib/utils&quot;;
++ import { AlertCircle, RefreshCw, ExternalLink } from "lucide-react";
++ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
++ import { Button } from "@/components/ui/button";
++ import { getUserFriendlyError, getActionableError } from "@/lib/error-messages";
++ import { useRouter } from "next/navigation";
++ import { cn } from "@/lib/utils";
 + 
 + interface ErrorDisplayProps {
 +   error: Error | string;
@@ -979,32 +979,32 @@ Lines added: 1768, lines removed: 1
 +   const handleAction = () =&gt; {
 +     if (onAction) {
 +       onAction();
-+     } else if (actionable.action === &quot;refresh&quot;) {
++     } else if (actionable.action === "refresh") {
 +       router.refresh();
-+     } else if (actionable.action === &quot;view-existing&quot;) {
++     } else if (actionable.action === "view-existing") {
 +       // Navigate to existing application
 +       // This would need to be passed as a prop or determined from context
 +     }
 +   };
 + 
 +   return (
-+     &lt;Alert variant=&quot;destructive&quot; className={cn(&quot;mb-4&quot;, className)}&gt;
-+       &lt;AlertCircle className=&quot;h-4 w-4&quot; /&gt;
++     &lt;Alert variant="destructive" className={cn("mb-4", className)}&gt;
++       &lt;AlertCircle className="h-4 w-4" /&gt;
 +       &lt;AlertTitle&gt;Error&lt;/AlertTitle&gt;
-+       &lt;AlertDescription className=&quot;mt-2&quot;&gt;
++       &lt;AlertDescription className="mt-2"&gt;
 +         &lt;p&gt;{actionable.message}&lt;/p&gt;
 +         {actionable.action &amp;&amp; actionable.actionLabel &amp;&amp; (
 +           &lt;Button
-+             variant=&quot;outline&quot;
-+             size=&quot;sm&quot;
++             variant="outline"
++             size="sm"
 +             onClick={handleAction}
-+             className=&quot;mt-3&quot;
++             className="mt-3"
 +           &gt;
-+             {actionable.action === &quot;refresh&quot; &amp;&amp; (
-+               &lt;RefreshCw className=&quot;mr-2 h-4 w-4&quot; /&gt;
++             {actionable.action === "refresh" &amp;&amp; (
++               &lt;RefreshCw className="mr-2 h-4 w-4" /&gt;
 +             )}
-+             {actionable.action === &quot;view-existing&quot; &amp;&amp; (
-+               &lt;ExternalLink className=&quot;mr-2 h-4 w-4&quot; /&gt;
++             {actionable.action === "view-existing" &amp;&amp; (
++               &lt;ExternalLink className="mr-2 h-4 w-4" /&gt;
 +             )}
 +             {actionable.actionLabel}
 +           &lt;/Button&gt;
@@ -1033,20 +1033,20 @@ Lines added: 1768, lines removed: 1
 + **Changes:**
 + 
 + &#96;&#96;&#96;typescript
-+ import { ErrorDisplay } from &quot;@/components/ui/error-display&quot;;
-+ import { getUserFriendlyError } from &quot;@/lib/error-messages&quot;;
++ import { ErrorDisplay } from "@/components/ui/error-display";
++ import { getUserFriendlyError } from "@/lib/error-messages";
 + 
 + // Replace error handling:
 + catch (error) {
 +   const friendlyMessage = getUserFriendlyError(error, {
-+     action: &quot;save&quot;,
++     action: "save",
 +     status: application.status,
 +   });
 +   
 +   toast({
-+     title: &quot;Error&quot;,
++     title: "Error",
 +     description: friendlyMessage,
-+     variant: &quot;destructive&quot;,
++     variant: "destructive",
 +   });
 + }
 + &#96;&#96;&#96;
@@ -1100,11 +1100,11 @@ Lines added: 1768, lines removed: 1
 + **Implementation:**
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { useId } from &quot;react&quot;;
-+ import { Label } from &quot;@/components/ui/label&quot;;
-+ import { cn } from &quot;@/lib/utils&quot;;
++ import { useId } from "react";
++ import { Label } from "@/components/ui/label";
++ import { cn } from "@/lib/utils";
 + 
 + interface FieldWrapperProps {
 +   label: string;
@@ -1131,12 +1131,12 @@ Lines added: 1768, lines removed: 1
 +   const descriptionId = &#96;description-${fieldIdFinal}&#96;;
 + 
 +   return (
-+     &lt;div className={cn(&quot;space-y-2&quot;, className)}&gt;
-+       &lt;Label htmlFor={fieldIdFinal} className={cn(required &amp;&amp; &quot;after:content-[&#39;*&#39;] after:ml-1 after:text-destructive&quot;)}&gt;
++     &lt;div className={cn("space-y-2", className)}&gt;
++       &lt;Label htmlFor={fieldIdFinal} className={cn(required &amp;&amp; "after:content-['*'] after:ml-1 after:text-destructive")}&gt;
 +         {label}
 +       &lt;/Label&gt;
 +       {description &amp;&amp; (
-+         &lt;p id={descriptionId} className=&quot;text-sm text-muted-foreground&quot;&gt;
++         &lt;p id={descriptionId} className="text-sm text-muted-foreground"&gt;
 +           {description}
 +         &lt;/p&gt;
 +       )}
@@ -1145,9 +1145,9 @@ Lines added: 1768, lines removed: 1
 +         {error &amp;&amp; (
 +           &lt;p
 +             id={errorId}
-+             className=&quot;mt-1 text-sm text-destructive&quot;
-+             role=&quot;alert&quot;
-+             aria-live=&quot;polite&quot;
++             className="mt-1 text-sm text-destructive"
++             role="alert"
++             aria-live="polite"
 +           &gt;
 +             {error}
 +           &lt;/p&gt;
@@ -1177,21 +1177,21 @@ Lines added: 1768, lines removed: 1
 + 
 + &#96;&#96;&#96;typescript
 + // Example for Input component:
-+ interface InputProps extends React.ComponentProps&lt;&quot;input&quot;&gt; {
++ interface InputProps extends React.ComponentProps&lt;"input"&gt; {
 +   error?: boolean;
-+   &quot;aria-describedby&quot;?: string;
++   "aria-describedby"?: string;
 + }
 + 
-+ function Input({ error, className, &quot;aria-describedby&quot;: ariaDescribedBy, ...props }: InputProps) {
++ function Input({ error, className, "aria-describedby": ariaDescribedBy, ...props }: InputProps) {
 +   return (
 +     &lt;input
 +       className={cn(
-+         &quot;flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors&quot;,
-+         &quot;file:border-0 file:bg-transparent file:text-sm file:font-medium&quot;,
-+         &quot;placeholder:text-muted-foreground&quot;,
-+         &quot;focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring&quot;,
-+         &quot;disabled:cursor-not-allowed disabled:opacity-50&quot;,
-+         error &amp;&amp; &quot;border-destructive focus-visible:ring-destructive&quot;,
++         "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors",
++         "file:border-0 file:bg-transparent file:text-sm file:font-medium",
++         "placeholder:text-muted-foreground",
++         "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
++         "disabled:cursor-not-allowed disabled:opacity-50",
++         error &amp;&amp; "border-destructive focus-visible:ring-destructive",
 +         className
 +       )}
 +       aria-invalid={error}
@@ -1217,28 +1217,28 @@ Lines added: 1768, lines removed: 1
 + **Implementation:**
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import Link from &quot;next/link&quot;;
-+ import { cn } from &quot;@/lib/utils&quot;;
++ import Link from "next/link";
++ import { cn } from "@/lib/utils";
 + 
 + export function SkipLinks() {
 +   return (
-+     &lt;div className=&quot;sr-only focus-within:not-sr-only focus-within:absolute focus-within:left-4 focus-within:top-4 focus-within:z-50&quot;&gt;
-+       &lt;nav aria-label=&quot;Skip links&quot;&gt;
-+         &lt;ul className=&quot;flex flex-col gap-2&quot;&gt;
++     &lt;div className="sr-only focus-within:not-sr-only focus-within:absolute focus-within:left-4 focus-within:top-4 focus-within:z-50"&gt;
++       &lt;nav aria-label="Skip links"&gt;
++         &lt;ul className="flex flex-col gap-2"&gt;
 +           &lt;li&gt;
 +             &lt;Link
-+               href=&quot;#main-content&quot;
-+               className=&quot;rounded-md bg-primary px-4 py-2 text-primary-foreground focus:outline-none focus:ring-2 focus:ring-ring&quot;
++               href="#main-content"
++               className="rounded-md bg-primary px-4 py-2 text-primary-foreground focus:outline-none focus:ring-2 focus:ring-ring"
 +             &gt;
 +               Skip to main content
 +             &lt;/Link&gt;
 +           &lt;/li&gt;
 +           &lt;li&gt;
 +             &lt;Link
-+               href=&quot;#navigation&quot;
-+               className=&quot;rounded-md bg-primary px-4 py-2 text-primary-foreground focus:outline-none focus:ring-2 focus:ring-ring&quot;
++               href="#navigation"
++               className="rounded-md bg-primary px-4 py-2 text-primary-foreground focus:outline-none focus:ring-2 focus:ring-ring"
 +             &gt;
 +               Skip to navigation
 +             &lt;/Link&gt;
@@ -1265,11 +1265,11 @@ Lines added: 1768, lines removed: 1
 + **Changes:**
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { Alert, AlertDescription } from &quot;@/components/ui/alert&quot;;
-+ import { cn } from &quot;@/lib/utils&quot;;
-+ import { CheckCircle2, Clock, XCircle, AlertCircle, Info } from &quot;lucide-react&quot;;
++ import { Alert, AlertDescription } from "@/components/ui/alert";
++ import { cn } from "@/lib/utils";
++ import { CheckCircle2, Clock, XCircle, AlertCircle, Info } from "lucide-react";
 + 
 + interface StatusMessageProps {
 +   status: string;
@@ -1280,33 +1280,33 @@ Lines added: 1768, lines removed: 1
 +   const config = {
 +     DRAFT: {
 +       icon: Info,
-+       message: &quot;This is a draft application. You can edit and submit when ready.&quot;,
-+       variant: &quot;default&quot; as const,
++       message: "This is a draft application. You can edit and submit when ready.",
++       variant: "default" as const,
 +     },
 +     SUBMITTED: {
 +       icon: Clock,
-+       message: &quot;This application has been submitted and is under review. You cannot make changes at this time.&quot;,
-+       variant: &quot;default&quot; as const,
++       message: "This application has been submitted and is under review. You cannot make changes at this time.",
++       variant: "default" as const,
 +     },
 +     IN_REVIEW: {
 +       icon: Clock,
-+       message: &quot;This application is currently under review. You cannot make changes at this time.&quot;,
-+       variant: &quot;default&quot; as const,
++       message: "This application is currently under review. You cannot make changes at this time.",
++       variant: "default" as const,
 +     },
 +     PENDING_SUPPLIER: {
 +       icon: AlertCircle,
-+       message: &quot;Procurement has requested changes to specific fields. Please update the highlighted fields and resubmit.&quot;,
-+       variant: &quot;default&quot; as const,
++       message: "Procurement has requested changes to specific fields. Please update the highlighted fields and resubmit.",
++       variant: "default" as const,
 +     },
 +     APPROVED: {
 +       icon: CheckCircle2,
-+       message: &quot;This application has been approved. View your Company Profile to see all details.&quot;,
-+       variant: &quot;default&quot; as const,
++       message: "This application has been approved. View your Company Profile to see all details.",
++       variant: "default" as const,
 +     },
 +     REJECTED: {
 +       icon: XCircle,
-+       message: &quot;This application has been rejected. You can create a new application if needed.&quot;,
-+       variant: &quot;destructive&quot; as const,
++       message: "This application has been rejected. You can create a new application if needed.",
++       variant: "destructive" as const,
 +     },
 +   };
 + 
@@ -1317,11 +1317,11 @@ Lines added: 1768, lines removed: 1
 +     &lt;Alert
 +       variant={statusConfig.variant}
 +       className={cn(className)}
-+       role=&quot;status&quot;
-+       aria-live=&quot;polite&quot;
-+       aria-atomic=&quot;true&quot;
++       role="status"
++       aria-live="polite"
++       aria-atomic="true"
 +     &gt;
-+       &lt;Icon className=&quot;h-4 w-4&quot; aria-hidden=&quot;true&quot; /&gt;
++       &lt;Icon className="h-4 w-4" aria-hidden="true" /&gt;
 +       &lt;AlertDescription&gt;{statusConfig.message}&lt;/AlertDescription&gt;
 +     &lt;/Alert&gt;
 +   );
@@ -1343,32 +1343,32 @@ Lines added: 1768, lines removed: 1
 + **Implementation:**
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { Loader2 } from &quot;lucide-react&quot;;
-+ import { cn } from &quot;@/lib/utils&quot;;
++ import { Loader2 } from "lucide-react";
++ import { cn } from "@/lib/utils";
 + 
 + interface LoadingStateProps {
 +   message?: string;
 +   className?: string;
-+   &quot;aria-label&quot;?: string;
++   "aria-label"?: string;
 + }
 + 
 + export function LoadingState({
-+   message = &quot;Loading...&quot;,
++   message = "Loading...",
 +   className,
-+   &quot;aria-label&quot;: ariaLabel,
++   "aria-label": ariaLabel,
 + }: LoadingStateProps) {
 +   return (
 +     &lt;div
-+       className={cn(&quot;flex items-center justify-center gap-2&quot;, className)}
-+       role=&quot;status&quot;
-+       aria-live=&quot;polite&quot;
++       className={cn("flex items-center justify-center gap-2", className)}
++       role="status"
++       aria-live="polite"
 +       aria-label={ariaLabel || message}
 +     &gt;
-+       &lt;Loader2 className=&quot;h-4 w-4 animate-spin&quot; aria-hidden=&quot;true&quot; /&gt;
-+       &lt;span className=&quot;sr-only&quot;&gt;{message}&lt;/span&gt;
-+       &lt;span className=&quot;text-sm text-muted-foreground&quot;&gt;{message}&lt;/span&gt;
++       &lt;Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /&gt;
++       &lt;span className="sr-only"&gt;{message}&lt;/span&gt;
++       &lt;span className="text-sm text-muted-foreground"&gt;{message}&lt;/span&gt;
 +     &lt;/div&gt;
 +   );
 + }
@@ -1389,7 +1389,7 @@ Lines added: 1768, lines removed: 1
 + 
 + &#96;&#96;&#96;typescript
 + // Add loading state support
-+ interface ButtonProps extends React.ComponentProps&lt;&quot;button&quot;&gt; {
++ interface ButtonProps extends React.ComponentProps&lt;"button"&gt; {
 +   isLoading?: boolean;
 +   loadingText?: string;
 + }
@@ -1408,7 +1408,7 @@ Lines added: 1768, lines removed: 1
 +       aria-label={isLoading ? loadingText : undefined}
 +       {...props}
 +     &gt;
-+       {isLoading &amp;&amp; &lt;Loader2 className=&quot;mr-2 h-4 w-4 animate-spin&quot; /&gt;}
++       {isLoading &amp;&amp; &lt;Loader2 className="mr-2 h-4 w-4 animate-spin" /&gt;}
 +       {children}
 +     &lt;/button&gt;
 +   );
@@ -1456,12 +1456,12 @@ Lines added: 1768, lines removed: 1
 +     } catch (error) {
 +       lastError = error as Error;
 +       
-+       // Don&#39;t retry on certain errors
++       // Don't retry on certain errors
 +       if (error instanceof Error) {
-+         if (error.message.includes(&quot;Unauthorized&quot;)) {
++         if (error.message.includes("Unauthorized")) {
 +           throw error;
 +         }
-+         if (error.message.includes(&quot;not found&quot;)) {
++         if (error.message.includes("not found")) {
 +           throw error;
 +         }
 +       }
@@ -1498,22 +1498,22 @@ Lines added: 1768, lines removed: 1
 + **Implementation:**
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { signOut } from &quot;next-auth/react&quot;;
-+ import { toast } from &quot;@/components/ui/use-toast&quot;;
++ import { signOut } from "next-auth/react";
++ import { toast } from "@/components/ui/use-toast";
 + 
 + export function handleSessionError(error: Error): boolean {
-+   if (error.message.includes(&quot;Unauthorized&quot;) || error.message.includes(&quot;401&quot;)) {
++   if (error.message.includes("Unauthorized") || error.message.includes("401")) {
 +     toast({
-+       title: &quot;Session expired&quot;,
-+       description: &quot;Please sign in again to continue.&quot;,
-+       variant: &quot;destructive&quot;,
++       title: "Session expired",
++       description: "Please sign in again to continue.",
++       variant: "destructive",
 +     });
 +     
 +     // Sign out and redirect to sign in
 +     setTimeout(() =&gt; {
-+       signOut({ callbackUrl: &quot;/signin&quot; });
++       signOut({ callbackUrl: "/signin" });
 +     }, 2000);
 +     
 +     return true;
@@ -1565,7 +1565,7 @@ Lines added: 1768, lines removed: 1
 +     return {
 +       valid: false,
 +       size: sizeInMB,
-+       message: &quot;Form data is too large. Please reduce the number of documents or fields.&quot;,
++       message: "Form data is too large. Please reduce the number of documents or fields.",
 +     };
 +   }
 +   
@@ -1573,7 +1573,7 @@ Lines added: 1768, lines removed: 1
 +     return {
 +       valid: true,
 +       size: sizeInMB,
-+       message: &quot;Form data is large. Submission may take longer than usual.&quot;,
++       message: "Form data is large. Submission may take longer than usual.",
 +     };
 +   }
 +   
@@ -1598,9 +1598,9 @@ Lines added: 1768, lines removed: 1
 + **Implementation:**
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { useEffect, useRef } from &quot;react&quot;;
++ import { useEffect, useRef } from "react";
 + 
 + export function useFormStatePersistence&lt;T&gt;(
 +   key: string,
@@ -1617,7 +1617,7 @@ Lines added: 1768, lines removed: 1
 +       try {
 +         sessionStorage.setItem(key, JSON.stringify(value));
 +       } catch (error) {
-+         console.warn(&quot;Failed to persist form state:&quot;, error);
++         console.warn("Failed to persist form state:", error);
 +       }
 +     } else {
 +       isInitialMount.current = false;
@@ -1636,7 +1636,7 @@ Lines added: 1768, lines removed: 1
 +         // This depends on your state management approach
 +       }
 +     } catch (error) {
-+       console.warn(&quot;Failed to load persisted form state:&quot;, error);
++       console.warn("Failed to load persisted form state:", error);
 +     }
 +   }, [key, enabled]);
 + }
@@ -1661,7 +1661,7 @@ Lines added: 1768, lines removed: 1
 + 
 + **Test Cases:**
 + - [ ] Version check passes when versions match
-+ - [ ] Version check fails when versions don&#39;t match
++ - [ ] Version check fails when versions don't match
 + - [ ] Update increments version correctly
 + - [ ] Concurrent updates are detected
 + - [ ] Error messages are user-friendly
@@ -1716,7 +1716,7 @@ Lines added: 1768, lines removed: 1
 + **File:** &#96;docs/submission-workflow-prd.md&#96; (UPDATE)
 + 
 + **Changes:**
-+ - Update Phase 4 status to &quot;COMPLETED&quot;
++ - Update Phase 4 status to "COMPLETED"
 + - Add completion date
 + - Update implementation summary
 + 
@@ -1941,7 +1941,7 @@ Lines added: 1768, lines removed: 1
 + 
 + - **Performance:** Status polling should be lightweight and efficient. Consider WebSockets for future enhancement.
 + - **Accessibility:** All changes must maintain or improve accessibility. Test with actual screen readers.
-+ - **Backward Compatibility:** Ensure optimistic locking doesn&#39;t break existing functionality. Handle legacy applications without version field.
++ - **Backward Compatibility:** Ensure optimistic locking doesn't break existing functionality. Handle legacy applications without version field.
 + - **User Experience:** Error messages should be helpful, not just informative. Always provide next steps.
 + - **Testing:** Comprehensive testing is critical for this phase. Test edge cases thoroughly.
 + 
@@ -2134,7 +2134,7 @@ The Application model already has a `version` field. Starting Task 1: Optimistic
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: lib/optimistic-locking.ts</summary>
+<details><summary>Tool use: **write** • Edit file: lib/optimistic-locking.ts</summary>
 
 **Chunk 1**
 Lines added: 74, lines removed: 1
@@ -2142,17 +2142,17 @@ Lines added: 74, lines removed: 1
 ```diff
 @@ -1,1 +1,74 @@
 - 
-+ import { prisma } from &quot;@/lib/prisma&quot;;
++ import { prisma } from "@/lib/prisma";
 + 
 + export interface OptimisticLockError extends Error {
-+   code: &quot;OPTIMISTIC_LOCK_ERROR&quot;;
++   code: "OPTIMISTIC_LOCK_ERROR";
 +   currentVersion: number;
 +   expectedVersion: number;
 + }
 + 
 + /**
 +  * Check if application version matches expected version
-+  * Throws OptimisticLockError if versions don&#39;t match
++  * Throws OptimisticLockError if versions don't match
 +  */
 + export async function checkApplicationVersion(
 +   applicationId: string,
@@ -2164,14 +2164,14 @@ Lines added: 74, lines removed: 1
 +   });
 + 
 +   if (!application) {
-+     throw new Error(&quot;Application not found&quot;);
++     throw new Error("Application not found");
 +   }
 + 
 +   if (application.version !== expectedVersion) {
 +     const error = new Error(
-+       &quot;Application has been modified by another user. Please refresh and try again.&quot;
++       "Application has been modified by another user. Please refresh and try again."
 +     ) as OptimisticLockError;
-+     error.code = &quot;OPTIMISTIC_LOCK_ERROR&quot;;
++     error.code = "OPTIMISTIC_LOCK_ERROR";
 +     error.currentVersion = application.version;
 +     error.expectedVersion = expectedVersion;
 +     throw error;
@@ -2181,7 +2181,7 @@ Lines added: 74, lines removed: 1
 + /**
 +  * Update application with version increment
 +  * Returns new version number
-+  * Throws OptimisticLockError if version doesn&#39;t match
++  * Throws OptimisticLockError if version doesn't match
 +  */
 + export async function updateApplicationWithVersion(
 +   applicationId: string,
@@ -2200,7 +2200,7 @@ Lines added: 74, lines removed: 1
 +   await checkApplicationVersion(applicationId, expectedVersion);
 + 
 +   // Update with version increment
-+   // Prisma will fail if version doesn&#39;t match due to where clause
++   // Prisma will fail if version doesn't match due to where clause
 +   const updated = await prisma.application.update({
 +     where: {
 +       id: applicationId,
@@ -2261,7 +2261,7 @@ Output mode: content
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/supplier/onboarding/actions.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: app/supplier/onboarding/actions.ts</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: undefined
@@ -2273,9 +2273,9 @@ Lines added: 2, lines removed: undefined
 +   canSubmitApplication,
     hasActiveApplication,
     getEditableFields,
-  } from &quot;@/lib/application-validation&quot;;
-+ import { updateApplicationWithVersion } from &quot;@/lib/optimistic-locking&quot;;
-  import { revalidatePath } from &quot;next/cache&quot;;
+  } from "@/lib/application-validation";
++ import { updateApplicationWithVersion } from "@/lib/optimistic-locking";
+  import { revalidatePath } from "next/cache";
   
 ```
 
@@ -2287,7 +2287,7 @@ Lines added: 2, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/supplier/onboarding/actions.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: app/supplier/onboarding/actions.ts</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: 1
@@ -2311,7 +2311,7 @@ Lines added: 2, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/supplier/onboarding/actions.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: app/supplier/onboarding/actions.ts</summary>
 
 **Chunk 1**
 Lines added: 8, lines removed: 6
@@ -2350,7 +2350,7 @@ Lines added: 8, lines removed: 6
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/supplier/onboarding/actions.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: app/supplier/onboarding/actions.ts</summary>
 
 **Chunk 1**
 Lines added: 4, lines removed: 1
@@ -2376,7 +2376,7 @@ Lines added: 4, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/supplier/onboarding/actions.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: app/supplier/onboarding/actions.ts</summary>
 
 **Chunk 1**
 Lines added: 21, lines removed: 16
@@ -2393,20 +2393,20 @@ Lines added: 21, lines removed: 16
 +     applicationId,
 +     expectedVersion ?? application.version,
 +     {
-        status: &quot;SUBMITTED&quot;,
+        status: "SUBMITTED",
         submittedAt: new Date(),
         submittedById: session.user.id,
-        submissionType: &quot;SUPPLIER&quot;,
+        submissionType: "SUPPLIER",
         updatedById: session.user.id,
 -       auditLogs: {
 -         create: {
 -           actorId: session.user.id,
--           actorRole: &quot;SUPPLIER&quot;,
+-           actorRole: "SUPPLIER",
 -           organizationId: application.organizationId,
--           action: &quot;APPLICATION_SUBMITTED&quot;,
+-           action: "APPLICATION_SUBMITTED",
 -           details: {
--             submissionType: &quot;SUPPLIER&quot;,
--             note: &quot;Submitted from supplier portal&quot;,
+-             submissionType: "SUPPLIER",
+-             note: "Submitted from supplier portal",
 -           },
 -         },
 -       },
@@ -2419,12 +2419,12 @@ Lines added: 21, lines removed: 16
 +     data: {
 +       applicationId: application.id,
 +       actorId: session.user.id,
-+       actorRole: &quot;SUPPLIER&quot;,
++       actorRole: "SUPPLIER",
 +       organizationId: application.organizationId,
-+       action: &quot;APPLICATION_SUBMITTED&quot;,
++       action: "APPLICATION_SUBMITTED",
 +       details: {
-+         submissionType: &quot;SUPPLIER&quot;,
-+         note: &quot;Submitted from supplier portal&quot;,
++         submissionType: "SUPPLIER",
++         note: "Submitted from supplier portal",
 +       },
 +     },
     });
@@ -2470,7 +2470,7 @@ Updating internal team actions and creating error message utilities:
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: lib/error-messages.ts</summary>
+<details><summary>Tool use: **write** • Edit file: lib/error-messages.ts</summary>
 
 **Chunk 1**
 Lines added: 109, lines removed: 1
@@ -2492,66 +2492,66 @@ Lines added: 109, lines removed: 1
 +   error: Error | string,
 +   context?: ErrorContext
 + ): string {
-+   const errorMessage = typeof error === &quot;string&quot; ? error : error.message;
++   const errorMessage = typeof error === "string" ? error : error.message;
 +   const errorCode =
-+     typeof error === &quot;object&quot; &amp;&amp; &quot;code&quot; in error ? error.code : null;
++     typeof error === "object" &amp;&amp; "code" in error ? error.code : null;
 + 
 +   // Handle specific error codes
-+   if (errorCode === &quot;OPTIMISTIC_LOCK_ERROR&quot;) {
-+     return &quot;This application was recently updated by another user. Please refresh the page and try again.&quot;;
++   if (errorCode === "OPTIMISTIC_LOCK_ERROR") {
++     return "This application was recently updated by another user. Please refresh the page and try again.";
 +   }
 + 
 +   // Handle common error patterns
-+   if (errorMessage.includes(&quot;Unauthorized&quot;)) {
-+     return &quot;You don&#39;t have permission to perform this action. Please contact your administrator if you believe this is an error.&quot;;
++   if (errorMessage.includes("Unauthorized")) {
++     return "You don't have permission to perform this action. Please contact your administrator if you believe this is an error.";
 +   }
 + 
-+   if (errorMessage.includes(&quot;not found&quot;)) {
-+     return &quot;The requested item could not be found. It may have been deleted or you may not have access to it.&quot;;
++   if (errorMessage.includes("not found")) {
++     return "The requested item could not be found. It may have been deleted or you may not have access to it.";
 +   }
 + 
-+   if (errorMessage.includes(&quot;already exists&quot;)) {
-+     return &quot;An active application already exists for this form configuration. Please complete or cancel the existing application first.&quot;;
++   if (errorMessage.includes("already exists")) {
++     return "An active application already exists for this form configuration. Please complete or cancel the existing application first.";
 +   }
 + 
-+   if (errorMessage.includes(&quot;Cannot edit&quot;)) {
++   if (errorMessage.includes("Cannot edit")) {
 +     const status = context?.status;
-+     if (status === &quot;SUBMITTED&quot; || status === &quot;IN_REVIEW&quot;) {
-+       return &quot;This application has been submitted and is currently under review. You cannot make changes at this time.&quot;;
++     if (status === "SUBMITTED" || status === "IN_REVIEW") {
++       return "This application has been submitted and is currently under review. You cannot make changes at this time.";
 +     }
-+     if (status === &quot;APPROVED&quot;) {
-+       return &quot;This application has been approved. To make changes, please edit your Company Profile.&quot;;
++     if (status === "APPROVED") {
++       return "This application has been approved. To make changes, please edit your Company Profile.";
 +     }
-+     if (status === &quot;REJECTED&quot;) {
-+       return &quot;This application has been rejected. You can create a new application if needed.&quot;;
++     if (status === "REJECTED") {
++       return "This application has been rejected. You can create a new application if needed.";
 +     }
 +   }
 + 
-+   if (errorMessage.includes(&quot;Cannot submit&quot;)) {
++   if (errorMessage.includes("Cannot submit")) {
 +     const status = context?.status;
-+     if (status === &quot;SUBMITTED&quot; || status === &quot;IN_REVIEW&quot;) {
-+       return &quot;This application has already been submitted and is under review.&quot;;
++     if (status === "SUBMITTED" || status === "IN_REVIEW") {
++       return "This application has already been submitted and is under review.";
 +     }
-+     if (status === &quot;APPROVED&quot;) {
-+       return &quot;This application has already been approved. No further action is needed.&quot;;
++     if (status === "APPROVED") {
++       return "This application has already been approved. No further action is needed.";
 +     }
-+     if (status === &quot;REJECTED&quot;) {
-+       return &quot;This application has been rejected. Please create a new application to resubmit.&quot;;
++     if (status === "REJECTED") {
++       return "This application has been rejected. Please create a new application to resubmit.";
 +     }
 +   }
 + 
-+   if (errorMessage.includes(&quot;Validation failed&quot;)) {
-+     return &quot;Please check your form for errors. All required fields must be filled correctly.&quot;;
++   if (errorMessage.includes("Validation failed")) {
++     return "Please check your form for errors. All required fields must be filled correctly.";
 +   }
 + 
-+   if (errorMessage.includes(&quot;Cannot edit fields&quot;)) {
-+     return &quot;You can only edit the fields that procurement has requested changes for. Other fields are locked.&quot;;
++   if (errorMessage.includes("Cannot edit fields")) {
++     return "You can only edit the fields that procurement has requested changes for. Other fields are locked.";
 +   }
 + 
 +   // Generic fallback
 +   return (
 +     errorMessage ||
-+     &quot;An unexpected error occurred. Please try again or contact support if the problem persists.&quot;
++     "An unexpected error occurred. Please try again or contact support if the problem persists."
 +   );
 + }
 + 
@@ -2563,22 +2563,22 @@ Lines added: 109, lines removed: 1
 +   context?: ErrorContext
 + ): { message: string; action?: string; actionLabel?: string } {
 +   const friendlyMessage = getUserFriendlyError(error, context);
-+   const errorMessage = typeof error === &quot;string&quot; ? error : error.message;
++   const errorMessage = typeof error === "string" ? error : error.message;
 + 
 +   // Add actionable steps for specific errors
-+   if (errorMessage.includes(&quot;OPTIMISTIC_LOCK_ERROR&quot;)) {
++   if (errorMessage.includes("OPTIMISTIC_LOCK_ERROR")) {
 +     return {
 +       message: friendlyMessage,
-+       action: &quot;refresh&quot;,
-+       actionLabel: &quot;Refresh Page&quot;,
++       action: "refresh",
++       actionLabel: "Refresh Page",
 +     };
 +   }
 + 
-+   if (errorMessage.includes(&quot;already exists&quot;)) {
++   if (errorMessage.includes("already exists")) {
 +     return {
 +       message: friendlyMessage,
-+       action: &quot;view-existing&quot;,
-+       actionLabel: &quot;View Existing Application&quot;,
++       action: "view-existing",
++       actionLabel: "View Existing Application",
 +     };
 +   }
 + 
@@ -2607,7 +2607,7 @@ Creating the status polling hook and API endpoint:
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: hooks/use-application-status.ts</summary>
+<details><summary>Tool use: **write** • Edit file: hooks/use-application-status.ts</summary>
 
 **Chunk 1**
 Lines added: 91, lines removed: 1
@@ -2615,10 +2615,10 @@ Lines added: 91, lines removed: 1
 ```diff
 @@ -1,1 +1,91 @@
 - 
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { useEffect, useState, useRef } from &quot;react&quot;;
-+ import { useRouter } from &quot;next/navigation&quot;;
++ import { useEffect, useState, useRef } from "react";
++ import { useRouter } from "next/navigation";
 + 
 + interface UseApplicationStatusOptions {
 +   applicationId: string;
@@ -2645,7 +2645,7 @@ Lines added: 91, lines removed: 1
 +     if (!enabled || !applicationId) return;
 + 
 +     // Only poll if status is in a state where it might change
-+     const pollableStatuses = [&quot;SUBMITTED&quot;, &quot;IN_REVIEW&quot;, &quot;PENDING_SUPPLIER&quot;];
++     const pollableStatuses = ["SUBMITTED", "IN_REVIEW", "PENDING_SUPPLIER"];
 +     if (!pollableStatuses.includes(status)) {
 +       return;
 +     }
@@ -2656,7 +2656,7 @@ Lines added: 91, lines removed: 1
 +       try {
 +         const response = await fetch(&#96;/api/applications/${applicationId}/status&#96;);
 +         if (!response.ok) {
-+           throw new Error(&quot;Failed to fetch status&quot;);
++           throw new Error("Failed to fetch status");
 +         }
 + 
 +         const data = await response.json();
@@ -2675,7 +2675,7 @@ Lines added: 91, lines removed: 1
 +           router.refresh();
 +         }
 +       } catch (error) {
-+         console.error(&quot;Error polling application status:&quot;, error);
++         console.error("Error polling application status:", error);
 +         // Stop polling on error
 +         setIsPolling(false);
 +       }
@@ -2716,7 +2716,7 @@ Lines added: 91, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/api/applications/[id]/status/route.ts</summary>
+<details><summary>Tool use: **write** • Edit file: app/api/applications/[id]/status/route.ts</summary>
 
 **Chunk 1**
 Lines added: 61, lines removed: 1
@@ -2724,9 +2724,9 @@ Lines added: 61, lines removed: 1
 ```diff
 @@ -1,1 +1,61 @@
 - 
-+ import { auth } from &quot;@/lib/auth&quot;;
-+ import { prisma } from &quot;@/lib/prisma&quot;;
-+ import { NextResponse } from &quot;next/server&quot;;
++ import { auth } from "@/lib/auth";
++ import { prisma } from "@/lib/prisma";
++ import { NextResponse } from "next/server";
 + 
 + export async function GET(
 +   request: Request,
@@ -2734,7 +2734,7 @@ Lines added: 61, lines removed: 1
 + ) {
 +   const session = await auth();
 +   if (!session?.user?.id) {
-+     return NextResponse.json({ error: &quot;Unauthorized&quot; }, { status: 401 });
++     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 +   }
 + 
 +   const { id } = await params;
@@ -2756,7 +2756,7 @@ Lines added: 61, lines removed: 1
 +             members: {
 +               some: {
 +                 userId: session.user.id,
-+                 role: { in: [&quot;ADMIN&quot;, &quot;PROCUREMENT&quot;, &quot;MEMBER&quot;] },
++                 role: { in: ["ADMIN", "PROCUREMENT", "MEMBER"] },
 +               },
 +             },
 +           },
@@ -2773,7 +2773,7 @@ Lines added: 61, lines removed: 1
 + 
 +   if (!application) {
 +     return NextResponse.json(
-+       { error: &quot;Application not found&quot; },
++       { error: "Application not found" },
 +       { status: 404 }
 +     );
 +   }
@@ -2795,7 +2795,7 @@ Lines added: 61, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/ui/error-display.tsx</summary>
+<details><summary>Tool use: **write** • Edit file: components/ui/error-display.tsx</summary>
 
 **Chunk 1**
 Lines added: 68, lines removed: 1
@@ -2803,14 +2803,14 @@ Lines added: 68, lines removed: 1
 ```diff
 @@ -1,1 +1,68 @@
 - 
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { AlertCircle, RefreshCw, ExternalLink } from &quot;lucide-react&quot;;
-+ import { Alert, AlertDescription, AlertTitle } from &quot;@/components/ui/alert&quot;;
-+ import { Button } from &quot;@/components/ui/button&quot;;
-+ import { getUserFriendlyError, getActionableError } from &quot;@/lib/error-messages&quot;;
-+ import { useRouter } from &quot;next/navigation&quot;;
-+ import { cn } from &quot;@/lib/utils&quot;;
++ import { AlertCircle, RefreshCw, ExternalLink } from "lucide-react";
++ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
++ import { Button } from "@/components/ui/button";
++ import { getUserFriendlyError, getActionableError } from "@/lib/error-messages";
++ import { useRouter } from "next/navigation";
++ import { cn } from "@/lib/utils";
 + 
 + interface ErrorDisplayProps {
 +   error: Error | string;
@@ -2836,32 +2836,32 @@ Lines added: 68, lines removed: 1
 +   const handleAction = () =&gt; {
 +     if (onAction) {
 +       onAction();
-+     } else if (actionable.action === &quot;refresh&quot;) {
++     } else if (actionable.action === "refresh") {
 +       router.refresh();
-+     } else if (actionable.action === &quot;view-existing&quot;) {
++     } else if (actionable.action === "view-existing") {
 +       // Navigate to existing application
 +       // This would need to be passed as a prop or determined from context
 +     }
 +   };
 + 
 +   return (
-+     &lt;Alert variant=&quot;destructive&quot; className={cn(&quot;mb-4&quot;, className)}&gt;
-+       &lt;AlertCircle className=&quot;h-4 w-4&quot; /&gt;
++     &lt;Alert variant="destructive" className={cn("mb-4", className)}&gt;
++       &lt;AlertCircle className="h-4 w-4" /&gt;
 +       &lt;AlertTitle&gt;Error&lt;/AlertTitle&gt;
-+       &lt;AlertDescription className=&quot;mt-2&quot;&gt;
++       &lt;AlertDescription className="mt-2"&gt;
 +         &lt;p&gt;{actionable.message}&lt;/p&gt;
 +         {actionable.action &amp;&amp; actionable.actionLabel &amp;&amp; (
 +           &lt;Button
-+             variant=&quot;outline&quot;
-+             size=&quot;sm&quot;
++             variant="outline"
++             size="sm"
 +             onClick={handleAction}
-+             className=&quot;mt-3&quot;
++             className="mt-3"
 +           &gt;
-+             {actionable.action === &quot;refresh&quot; &amp;&amp; (
-+               &lt;RefreshCw className=&quot;mr-2 h-4 w-4&quot; /&gt;
++             {actionable.action === "refresh" &amp;&amp; (
++               &lt;RefreshCw className="mr-2 h-4 w-4" /&gt;
 +             )}
-+             {actionable.action === &quot;view-existing&quot; &amp;&amp; (
-+               &lt;ExternalLink className=&quot;mr-2 h-4 w-4&quot; /&gt;
++             {actionable.action === "view-existing" &amp;&amp; (
++               &lt;ExternalLink className="mr-2 h-4 w-4" /&gt;
 +             )}
 +             {actionable.actionLabel}
 +           &lt;/Button&gt;
@@ -2881,7 +2881,7 @@ Lines added: 68, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/supplier/status-indicator.tsx</summary>
+<details><summary>Tool use: **write** • Edit file: components/supplier/status-indicator.tsx</summary>
 
 **Chunk 1**
 Lines added: 28, lines removed: 1
@@ -2889,10 +2889,10 @@ Lines added: 28, lines removed: 1
 ```diff
 @@ -1,1 +1,28 @@
 - 
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { Loader2 } from &quot;lucide-react&quot;;
-+ import { cn } from &quot;@/lib/utils&quot;;
++ import { Loader2 } from "lucide-react";
++ import { cn } from "@/lib/utils";
 + 
 + interface StatusIndicatorProps {
 +   isPolling: boolean;
@@ -2905,13 +2905,13 @@ Lines added: 28, lines removed: 1
 +   return (
 +     &lt;div
 +       className={cn(
-+         &quot;flex items-center gap-2 text-xs text-muted-foreground&quot;,
++         "flex items-center gap-2 text-xs text-muted-foreground",
 +         className
 +       )}
-+       aria-live=&quot;polite&quot;
-+       aria-label=&quot;Checking for status updates&quot;
++       aria-live="polite"
++       aria-label="Checking for status updates"
 +     &gt;
-+       &lt;Loader2 className=&quot;h-3 w-3 animate-spin&quot; /&gt;
++       &lt;Loader2 className="h-3 w-3 animate-spin" /&gt;
 +       &lt;span&gt;Checking for updates...&lt;/span&gt;
 +     &lt;/div&gt;
 +   );
@@ -3003,7 +3003,7 @@ Updating components to use version tracking and enhanced error messages. Continu
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/supplier/onboarding/[id]/page.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: app/supplier/onboarding/[id]/page.tsx</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: undefined
@@ -3025,7 +3025,7 @@ Lines added: 1, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/supplier/onboarding/[id]/page.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: app/supplier/onboarding/[id]/page.tsx</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: undefined
@@ -3047,18 +3047,18 @@ Lines added: 1, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/supplier/wizard-form.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: components/supplier/wizard-form.tsx</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: 1
 
 ```diff
 @@ -1,5 +1,5 @@
-  &quot;use client&quot;;
+  "use client";
   
-- import { useState, useTransition } from &quot;react&quot;;
-+ import { useState, useTransition, useEffect } from &quot;react&quot;;
-  import { ApplicationStatus } from &quot;@prisma/client&quot;;
+- import { useState, useTransition } from "react";
++ import { useState, useTransition, useEffect } from "react";
+  import { ApplicationStatus } from "@prisma/client";
   import {
 ```
 
@@ -3067,14 +3067,14 @@ Lines added: 4, lines removed: undefined
 
 ```diff
 @@ -12,6 +12,10 @@
-  import { FieldWrapper } from &quot;./field-wrapper&quot;;
-  import { StatusMessage } from &quot;./status-message&quot;;
-+ import { StatusIndicator } from &quot;./status-indicator&quot;;
-  import { canEditApplication } from &quot;@/lib/application-validation&quot;;
-  import { useToast } from &quot;@/components/ui/use-toast&quot;;
-+ import { useApplicationStatus } from &quot;@/hooks/use-application-status&quot;;
-+ import { getUserFriendlyError } from &quot;@/lib/error-messages&quot;;
-+ import { useRouter } from &quot;next/navigation&quot;;
+  import { FieldWrapper } from "./field-wrapper";
+  import { StatusMessage } from "./status-message";
++ import { StatusIndicator } from "./status-indicator";
+  import { canEditApplication } from "@/lib/application-validation";
+  import { useToast } from "@/components/ui/use-toast";
++ import { useApplicationStatus } from "@/hooks/use-application-status";
++ import { getUserFriendlyError } from "@/lib/error-messages";
++ import { useRouter } from "next/navigation";
   
   interface WizardFormProps {
 ```
@@ -3099,7 +3099,7 @@ Lines added: 1, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/supplier/wizard-form.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: components/supplier/wizard-form.tsx</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: undefined
@@ -3128,13 +3128,13 @@ Lines added: 20, lines removed: undefined
 +   const { status: polledStatus, isPolling } = useApplicationStatus({
 +     applicationId,
 +     currentStatus: status,
-+     enabled: status !== &quot;DRAFT&quot; &amp;&amp; status !== &quot;REJECTED&quot;,
++     enabled: status !== "DRAFT" &amp;&amp; status !== "REJECTED",
 +     onStatusChange: (newStatus) =&gt; {
 +       toast({
-+         title: &quot;Status updated&quot;,
++         title: "Status updated",
 +         description: &#96;Application status changed to ${newStatus}&#96;,
 +       });
-+       if (newStatus === &quot;APPROVED&quot;) {
++       if (newStatus === "APPROVED") {
 +         router.refresh();
 +       }
 +     },
@@ -3153,7 +3153,7 @@ Lines added: 20, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/supplier/wizard-form.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: components/supplier/wizard-form.tsx</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: 2
@@ -3163,9 +3163,9 @@ Lines added: 2, lines removed: 2
     const displayStatus = polledStatus || status;
   
 -   const canEdit = canEditApplication(status);
--   const isPendingSupplier = status === &quot;PENDING_SUPPLIER&quot;;
+-   const isPendingSupplier = status === "PENDING_SUPPLIER";
 +   const canEdit = canEditApplication(displayStatus);
-+   const isPendingSupplier = displayStatus === &quot;PENDING_SUPPLIER&quot;;
++   const isPendingSupplier = displayStatus === "PENDING_SUPPLIER";
   
     // Determine if a field is editable
 ```
@@ -3178,7 +3178,7 @@ Lines added: 2, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/supplier/wizard-form.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: components/supplier/wizard-form.tsx</summary>
 
 **Chunk 1**
 Lines added: 10, lines removed: 3
@@ -3202,7 +3202,7 @@ Lines added: 10, lines removed: 3
 +           setApplicationVersion(result.version);
 +         }
 + 
-          setStatusMessage(&quot;Draft saved.&quot;);
+          setStatusMessage("Draft saved.");
           setEditedFields(new Set());
 ```
 
@@ -3214,38 +3214,38 @@ Lines added: 27, lines removed: 8
           });
         } catch (error) {
 -         const message =
--           error instanceof Error ? error.message : &quot;Failed to save draft.&quot;;
+-           error instanceof Error ? error.message : "Failed to save draft.";
 -         setStatusMessage(message);
 -         toast({
--           title: &quot;Error&quot;,
+-           title: "Error",
 -           description: message,
--           variant: &quot;destructive&quot;,
+-           variant: "destructive",
 -         });
 +         const friendlyMessage = getUserFriendlyError(error, {
-+           action: &quot;save&quot;,
++           action: "save",
 +           status: displayStatus,
 +         });
 + 
 +         // Handle version conflicts
 +         if (
 +           error &amp;&amp;
-+           typeof error === &quot;object&quot; &amp;&amp;
-+           &quot;code&quot; in error &amp;&amp;
-+           error.code === &quot;OPTIMISTIC_LOCK_ERROR&quot;
++           typeof error === "object" &amp;&amp;
++           "code" in error &amp;&amp;
++           error.code === "OPTIMISTIC_LOCK_ERROR"
 +         ) {
 +           toast({
-+             title: &quot;Conflict detected&quot;,
++             title: "Conflict detected",
 +             description: friendlyMessage,
-+             variant: &quot;destructive&quot;,
++             variant: "destructive",
 +           });
 +           // Refresh application data
 +           router.refresh();
 +         } else {
 +           setStatusMessage(friendlyMessage);
 +           toast({
-+             title: &quot;Error&quot;,
++             title: "Error",
 +             description: friendlyMessage,
-+             variant: &quot;destructive&quot;,
++             variant: "destructive",
 +           });
 +         }
         }
@@ -3260,7 +3260,7 @@ Lines added: 27, lines removed: 8
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/supplier/wizard-form.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: components/supplier/wizard-form.tsx</summary>
 
 **Chunk 1**
 Lines added: 9, lines removed: 3
@@ -3269,11 +3269,11 @@ Lines added: 9, lines removed: 3
 @@ -176,11 +176,17 @@
     };
   
--   if (!canEdit &amp;&amp; status !== &quot;DRAFT&quot; &amp;&amp; status !== &quot;PENDING_SUPPLIER&quot;) {
+-   if (!canEdit &amp;&amp; status !== "DRAFT" &amp;&amp; status !== "PENDING_SUPPLIER") {
 -     return &lt;StatusMessage status={status} /&gt;;
-+   if (!canEdit &amp;&amp; displayStatus !== &quot;DRAFT&quot; &amp;&amp; displayStatus !== &quot;PENDING_SUPPLIER&quot;) {
++   if (!canEdit &amp;&amp; displayStatus !== "DRAFT" &amp;&amp; displayStatus !== "PENDING_SUPPLIER") {
 +     return (
-+       &lt;div className=&quot;space-y-4&quot;&gt;
++       &lt;div className="space-y-4"&gt;
 +         &lt;StatusMessage status={displayStatus} /&gt;
 +         &lt;StatusIndicator isPolling={isPolling} /&gt;
 +       &lt;/div&gt;
@@ -3281,12 +3281,12 @@ Lines added: 9, lines removed: 3
     }
   
     return (
-      &lt;div className=&quot;space-y-6 text-sm text-slate-600&quot;&gt;
+      &lt;div className="space-y-6 text-sm text-slate-600"&gt;
 -       {isPendingSupplier &amp;&amp; &lt;StatusMessage status={status} /&gt;}
 +       {isPendingSupplier &amp;&amp; &lt;StatusMessage status={displayStatus} /&gt;}
 +       &lt;StatusIndicator isPolling={isPolling} /&gt;
   
-        &lt;div className=&quot;space-y-4 rounded-2xl border border-slate-200 bg-white p-4&quot;&gt;
+        &lt;div className="space-y-4 rounded-2xl border border-slate-200 bg-white p-4"&gt;
 ```
 
 </details>
@@ -3315,19 +3315,19 @@ Updating the submission bar to use version tracking:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/supplier/submission-bar.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: components/supplier/submission-bar.tsx</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: 1
 
 ```diff
 @@ -1,5 +1,5 @@
-  &quot;use client&quot;;
+  "use client";
   
-- import { useTransition } from &quot;react&quot;;
-+ import { useTransition, useState } from &quot;react&quot;;
-  import { useRouter } from &quot;next/navigation&quot;;
-  import { ApplicationStatus } from &quot;@prisma/client&quot;;
+- import { useTransition } from "react";
++ import { useTransition, useState } from "react";
+  import { useRouter } from "next/navigation";
+  import { ApplicationStatus } from "@prisma/client";
 ```
 
 **Chunk 2**
@@ -3335,9 +3335,9 @@ Lines added: 2, lines removed: undefined
 
 ```diff
 @@ -9,8 +9,10 @@
-  import { canSubmitApplication } from &quot;@/lib/application-validation&quot;;
-  import { useToast } from &quot;@/components/ui/use-toast&quot;;
-+ import { getUserFriendlyError } from &quot;@/lib/error-messages&quot;;
+  import { canSubmitApplication } from "@/lib/application-validation";
+  import { useToast } from "@/components/ui/use-toast";
++ import { getUserFriendlyError } from "@/lib/error-messages";
   
   interface SubmissionBarProps {
     applicationId: string;
@@ -3355,7 +3355,7 @@ Lines added: 2, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/supplier/submission-bar.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: components/supplier/submission-bar.tsx</summary>
 
 **Chunk 1**
 Lines added: 6, lines removed: 1
@@ -3406,34 +3406,34 @@ Lines added: 26, lines removed: 5
           });
         } catch (error) {
 -         toast({
--           title: &quot;Error&quot;,
--           description: error instanceof Error ? error.message : &quot;Failed to submit application&quot;,
--           variant: &quot;destructive&quot;,
+-           title: "Error",
+-           description: error instanceof Error ? error.message : "Failed to submit application",
+-           variant: "destructive",
 -         });
 +         const friendlyMessage = getUserFriendlyError(error, {
-+           action: &quot;submit&quot;,
++           action: "submit",
 +           status,
 +         });
 + 
 +         // Handle version conflicts
 +         if (
 +           error &amp;&amp;
-+           typeof error === &quot;object&quot; &amp;&amp;
-+           &quot;code&quot; in error &amp;&amp;
-+           error.code === &quot;OPTIMISTIC_LOCK_ERROR&quot;
++           typeof error === "object" &amp;&amp;
++           "code" in error &amp;&amp;
++           error.code === "OPTIMISTIC_LOCK_ERROR"
 +         ) {
 +           toast({
-+             title: &quot;Conflict detected&quot;,
++             title: "Conflict detected",
 +             description: friendlyMessage,
-+             variant: &quot;destructive&quot;,
++             variant: "destructive",
 +           });
 +           // Refresh application data
 +           router.refresh();
 +         } else {
 +           toast({
-+             title: &quot;Error&quot;,
++             title: "Error",
 +             description: friendlyMessage,
-+             variant: &quot;destructive&quot;,
++             variant: "destructive",
 +           });
 +         }
         }
@@ -3512,7 +3512,7 @@ Checking the supplier field wrapper:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/supplier/status-message.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: components/supplier/status-message.tsx</summary>
 
 **Chunk 1**
 Lines added: 7, lines removed: 2
@@ -3525,11 +3525,11 @@ Lines added: 7, lines removed: 2
 -       &lt;Icon /&gt;
 +     &lt;Alert
 +       variant={config.variant}
-+       role=&quot;status&quot;
-+       aria-live=&quot;polite&quot;
-+       aria-atomic=&quot;true&quot;
++       role="status"
++       aria-live="polite"
++       aria-atomic="true"
 +     &gt;
-+       &lt;Icon className=&quot;h-4 w-4&quot; aria-hidden=&quot;true&quot; /&gt;
++       &lt;Icon className="h-4 w-4" aria-hidden="true" /&gt;
         &lt;AlertDescription&gt;{config.message}&lt;/AlertDescription&gt;
       &lt;/Alert&gt;
 ```
@@ -3542,7 +3542,7 @@ Lines added: 7, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/navigation/skip-links.tsx</summary>
+<details><summary>Tool use: **write** • Edit file: components/navigation/skip-links.tsx</summary>
 
 **Chunk 1**
 Lines added: 32, lines removed: 1
@@ -3550,28 +3550,28 @@ Lines added: 32, lines removed: 1
 ```diff
 @@ -1,1 +1,32 @@
 - 
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import Link from &quot;next/link&quot;;
-+ import { cn } from &quot;@/lib/utils&quot;;
++ import Link from "next/link";
++ import { cn } from "@/lib/utils";
 + 
 + export function SkipLinks() {
 +   return (
-+     &lt;div className=&quot;sr-only focus-within:not-sr-only focus-within:absolute focus-within:left-4 focus-within:top-4 focus-within:z-50&quot;&gt;
-+       &lt;nav aria-label=&quot;Skip links&quot;&gt;
-+         &lt;ul className=&quot;flex flex-col gap-2&quot;&gt;
++     &lt;div className="sr-only focus-within:not-sr-only focus-within:absolute focus-within:left-4 focus-within:top-4 focus-within:z-50"&gt;
++       &lt;nav aria-label="Skip links"&gt;
++         &lt;ul className="flex flex-col gap-2"&gt;
 +           &lt;li&gt;
 +             &lt;Link
-+               href=&quot;#main-content&quot;
-+               className=&quot;rounded-md bg-primary px-4 py-2 text-primary-foreground focus:outline-none focus:ring-2 focus:ring-ring&quot;
++               href="#main-content"
++               className="rounded-md bg-primary px-4 py-2 text-primary-foreground focus:outline-none focus:ring-2 focus:ring-ring"
 +             &gt;
 +               Skip to main content
 +             &lt;/Link&gt;
 +           &lt;/li&gt;
 +           &lt;li&gt;
 +             &lt;Link
-+               href=&quot;#navigation&quot;
-+               className=&quot;rounded-md bg-primary px-4 py-2 text-primary-foreground focus:outline-none focus:ring-2 focus:ring-ring&quot;
++               href="#navigation"
++               className="rounded-md bg-primary px-4 py-2 text-primary-foreground focus:outline-none focus:ring-2 focus:ring-ring"
 +             &gt;
 +               Skip to navigation
 +             &lt;/Link&gt;
@@ -3610,17 +3610,17 @@ Adding skip links to the layout and enhancing field wrapper accessibility:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/layout.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: app/layout.tsx</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: undefined
 
 ```diff
 @@ -5,4 +5,5 @@
-  import { AuthProvider } from &quot;@/components/providers/session-provider&quot;;
-  import { Toaster } from &quot;@/components/ui/toaster&quot;;
-+ import { SkipLinks } from &quot;@/components/navigation/skip-links&quot;;
-  import &quot;./globals.css&quot;;
+  import { AuthProvider } from "@/components/providers/session-provider";
+  import { Toaster } from "@/components/ui/toaster";
++ import { SkipLinks } from "@/components/navigation/skip-links";
+  import "./globals.css";
   
 ```
 
@@ -3632,7 +3632,7 @@ Lines added: 1, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/layout.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: app/layout.tsx</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: undefined
@@ -3654,7 +3654,7 @@ Lines added: 1, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/supplier/field-wrapper.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: components/supplier/field-wrapper.tsx</summary>
 
 **Chunk 1**
 Lines added: 14, lines removed: 4
@@ -3667,17 +3667,17 @@ Lines added: 14, lines removed: 4
 +   const errorId = &#96;${fieldKey}-error&#96;;
 + 
     return (
-      &lt;div className={cn(&quot;space-y-2&quot;, className)}&gt;
-        &lt;div className=&quot;flex items-center gap-2&quot;&gt;
--         &lt;Label htmlFor={fieldKey} className={cn(!editable &amp;&amp; &quot;text-muted-foreground&quot;)}&gt;
+      &lt;div className={cn("space-y-2", className)}&gt;
+        &lt;div className="flex items-center gap-2"&gt;
+-         &lt;Label htmlFor={fieldKey} className={cn(!editable &amp;&amp; "text-muted-foreground")}&gt;
 +         &lt;Label
 +           htmlFor={fieldKey}
-+           className={cn(!editable &amp;&amp; &quot;text-muted-foreground&quot;)}
++           className={cn(!editable &amp;&amp; "text-muted-foreground")}
 +         &gt;
             {label}
--           {required &amp;&amp; &lt;span className=&quot;text-destructive ml-1&quot;&gt;*&lt;/span&gt;}
+-           {required &amp;&amp; &lt;span className="text-destructive ml-1"&gt;*&lt;/span&gt;}
 +           {required &amp;&amp; (
-+             &lt;span className=&quot;ml-1 text-destructive&quot; aria-label=&quot;required&quot;&gt;
++             &lt;span className="ml-1 text-destructive" aria-label="required"&gt;
 +               *
 +             &lt;/span&gt;
 +           )}
@@ -3686,9 +3686,9 @@ Lines added: 14, lines removed: 4
             &lt;TooltipProvider&gt;
               &lt;Tooltip&gt;
 -               &lt;TooltipTrigger&gt;
--                 &lt;Info className=&quot;h-3 w-3 text-muted-foreground&quot; /&gt;
-+               &lt;TooltipTrigger aria-label=&quot;Field is read-only&quot;&gt;
-+                 &lt;Info className=&quot;h-3 w-3 text-muted-foreground&quot; aria-hidden=&quot;true&quot; /&gt;
+-                 &lt;Info className="h-3 w-3 text-muted-foreground" /&gt;
++               &lt;TooltipTrigger aria-label="Field is read-only"&gt;
++                 &lt;Info className="h-3 w-3 text-muted-foreground" aria-hidden="true" /&gt;
                 &lt;/TooltipTrigger&gt;
                 &lt;TooltipContent&gt;
 ```
@@ -3698,15 +3698,15 @@ Lines added: 4, lines removed: 1
 
 ```diff
 @@ -51,9 +61,12 @@
-            !editable &amp;&amp; &quot;opacity-60&quot;
+            !editable &amp;&amp; "opacity-60"
           )}
 +         aria-describedby={helpTextId}
         &gt;
           {children}
         &lt;/div&gt;
         {helpText &amp;&amp; (
--         &lt;p className=&quot;text-xs text-muted-foreground&quot;&gt;{helpText}&lt;/p&gt;
-+         &lt;p id={helpTextId} className=&quot;text-xs text-muted-foreground&quot;&gt;
+-         &lt;p className="text-xs text-muted-foreground"&gt;{helpText}&lt;/p&gt;
++         &lt;p id={helpTextId} className="text-xs text-muted-foreground"&gt;
 +           {helpText}
 +         &lt;/p&gt;
         )}
@@ -3737,7 +3737,7 @@ Lines added: 4, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: tests/optimistic-locking.test.ts</summary>
+<details><summary>Tool use: **write** • Edit file: tests/optimistic-locking.test.ts</summary>
 
 **Chunk 1**
 Lines added: 112, lines removed: 1
@@ -3745,16 +3745,16 @@ Lines added: 112, lines removed: 1
 ```diff
 @@ -1,1 +1,112 @@
 - 
-+ import { describe, it, expect, beforeEach, vi } from &quot;vitest&quot;;
-+ import { prisma } from &quot;@/lib/prisma&quot;;
++ import { describe, it, expect, beforeEach, vi } from "vitest";
++ import { prisma } from "@/lib/prisma";
 + import {
 +   checkApplicationVersion,
 +   updateApplicationWithVersion,
 +   OptimisticLockError,
-+ } from &quot;@/lib/optimistic-locking&quot;;
++ } from "@/lib/optimistic-locking";
 + 
 + // Mock Prisma
-+ vi.mock(&quot;@/lib/prisma&quot;, () =&gt; ({
++ vi.mock("@/lib/prisma", () =&gt; ({
 +   prisma: {
 +     application: {
 +       findUnique: vi.fn(),
@@ -3763,53 +3763,53 @@ Lines added: 112, lines removed: 1
 +   },
 + }));
 + 
-+ describe(&quot;Optimistic Locking&quot;, () =&gt; {
++ describe("Optimistic Locking", () =&gt; {
 +   beforeEach(() =&gt; {
 +     vi.clearAllMocks();
 +   });
 + 
-+   describe(&quot;checkApplicationVersion&quot;, () =&gt; {
-+     it(&quot;should pass when versions match&quot;, async () =&gt; {
++   describe("checkApplicationVersion", () =&gt; {
++     it("should pass when versions match", async () =&gt; {
 +       vi.mocked(prisma.application.findUnique).mockResolvedValue({
 +         version: 5,
 +       } as any);
 + 
 +       await expect(
-+         checkApplicationVersion(&quot;app-1&quot;, 5)
++         checkApplicationVersion("app-1", 5)
 +       ).resolves.not.toThrow();
 +     });
 + 
-+     it(&quot;should throw OptimisticLockError when versions don&#39;t match&quot;, async () =&gt; {
++     it("should throw OptimisticLockError when versions don't match", async () =&gt; {
 +       vi.mocked(prisma.application.findUnique).mockResolvedValue({
 +         version: 6,
 +       } as any);
 + 
-+       await expect(checkApplicationVersion(&quot;app-1&quot;, 5)).rejects.toThrow(
++       await expect(checkApplicationVersion("app-1", 5)).rejects.toThrow(
 +         OptimisticLockError
 +       );
 + 
 +       try {
-+         await checkApplicationVersion(&quot;app-1&quot;, 5);
++         await checkApplicationVersion("app-1", 5);
 +       } catch (error) {
 +         expect((error as OptimisticLockError).code).toBe(
-+           &quot;OPTIMISTIC_LOCK_ERROR&quot;
++           "OPTIMISTIC_LOCK_ERROR"
 +         );
 +         expect((error as OptimisticLockError).currentVersion).toBe(6);
 +         expect((error as OptimisticLockError).expectedVersion).toBe(5);
 +       }
 +     });
 + 
-+     it(&quot;should throw error when application not found&quot;, async () =&gt; {
++     it("should throw error when application not found", async () =&gt; {
 +       vi.mocked(prisma.application.findUnique).mockResolvedValue(null);
 + 
-+       await expect(checkApplicationVersion(&quot;app-1&quot;, 5)).rejects.toThrow(
-+         &quot;Application not found&quot;
++       await expect(checkApplicationVersion("app-1", 5)).rejects.toThrow(
++         "Application not found"
 +       );
 +     });
 +   });
 + 
-+   describe(&quot;updateApplicationWithVersion&quot;, () =&gt; {
-+     it(&quot;should update application and increment version when versions match&quot;, async () =&gt; {
++   describe("updateApplicationWithVersion", () =&gt; {
++     it("should update application and increment version when versions match", async () =&gt; {
 +       vi.mocked(prisma.application.findUnique).mockResolvedValue({
 +         version: 5,
 +       } as any);
@@ -3819,38 +3819,38 @@ Lines added: 112, lines removed: 1
 +       } as any);
 + 
 +       const result = await updateApplicationWithVersion(
-+         &quot;app-1&quot;,
++         "app-1",
 +         5,
 +         {
-+           data: { test: &quot;value&quot; },
-+           updatedById: &quot;user-1&quot;,
++           data: { test: "value" },
++           updatedById: "user-1",
 +         }
 +       );
 + 
 +       expect(result).toBe(6);
 +       expect(prisma.application.update).toHaveBeenCalledWith({
 +         where: {
-+           id: &quot;app-1&quot;,
++           id: "app-1",
 +           version: 5,
 +         },
 +         data: {
-+           data: { test: &quot;value&quot; },
-+           updatedById: &quot;user-1&quot;,
++           data: { test: "value" },
++           updatedById: "user-1",
 +           version: { increment: 1 },
 +         },
 +         select: { version: true },
 +       });
 +     });
 + 
-+     it(&quot;should throw OptimisticLockError when versions don&#39;t match&quot;, async () =&gt; {
++     it("should throw OptimisticLockError when versions don't match", async () =&gt; {
 +       vi.mocked(prisma.application.findUnique).mockResolvedValue({
 +         version: 6,
 +       } as any);
 + 
 +       await expect(
-+         updateApplicationWithVersion(&quot;app-1&quot;, 5, {
-+           data: { test: &quot;value&quot; },
-+           updatedById: &quot;user-1&quot;,
++         updateApplicationWithVersion("app-1", 5, {
++           data: { test: "value" },
++           updatedById: "user-1",
 +         })
 +       ).rejects.toThrow(OptimisticLockError);
 +     });
@@ -3867,7 +3867,7 @@ Lines added: 112, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: tests/error-messages.test.ts</summary>
+<details><summary>Tool use: **write** • Edit file: tests/error-messages.test.ts</summary>
 
 **Chunk 1**
 Lines added: 96, lines removed: 1
@@ -3875,95 +3875,95 @@ Lines added: 96, lines removed: 1
 ```diff
 @@ -1,1 +1,96 @@
 - 
-+ import { describe, it, expect } from &quot;vitest&quot;;
++ import { describe, it, expect } from "vitest";
 + import {
 +   getUserFriendlyError,
 +   getActionableError,
-+ } from &quot;@/lib/error-messages&quot;;
++ } from "@/lib/error-messages";
 + 
-+ describe(&quot;Error Messages&quot;, () =&gt; {
-+   describe(&quot;getUserFriendlyError&quot;, () =&gt; {
-+     it(&quot;should handle OPTIMISTIC_LOCK_ERROR&quot;, () =&gt; {
-+       const error = new Error(&quot;Conflict&quot;) as Error &amp; { code: string };
-+       error.code = &quot;OPTIMISTIC_LOCK_ERROR&quot;;
++ describe("Error Messages", () =&gt; {
++   describe("getUserFriendlyError", () =&gt; {
++     it("should handle OPTIMISTIC_LOCK_ERROR", () =&gt; {
++       const error = new Error("Conflict") as Error &amp; { code: string };
++       error.code = "OPTIMISTIC_LOCK_ERROR";
 + 
 +       const message = getUserFriendlyError(error);
-+       expect(message).toContain(&quot;recently updated&quot;);
-+       expect(message).toContain(&quot;refresh&quot;);
++       expect(message).toContain("recently updated");
++       expect(message).toContain("refresh");
 +     });
 + 
-+     it(&quot;should handle Unauthorized errors&quot;, () =&gt; {
-+       const error = new Error(&quot;Unauthorized&quot;);
++     it("should handle Unauthorized errors", () =&gt; {
++       const error = new Error("Unauthorized");
 +       const message = getUserFriendlyError(error);
-+       expect(message).toContain(&quot;permission&quot;);
-+       expect(message).toContain(&quot;administrator&quot;);
++       expect(message).toContain("permission");
++       expect(message).toContain("administrator");
 +     });
 + 
-+     it(&quot;should handle not found errors&quot;, () =&gt; {
-+       const error = new Error(&quot;Application not found&quot;);
++     it("should handle not found errors", () =&gt; {
++       const error = new Error("Application not found");
 +       const message = getUserFriendlyError(error);
-+       expect(message).toContain(&quot;could not be found&quot;);
++       expect(message).toContain("could not be found");
 +     });
 + 
-+     it(&quot;should handle already exists errors&quot;, () =&gt; {
-+       const error = new Error(&quot;Application already exists&quot;);
++     it("should handle already exists errors", () =&gt; {
++       const error = new Error("Application already exists");
 +       const message = getUserFriendlyError(error);
-+       expect(message).toContain(&quot;already exists&quot;);
++       expect(message).toContain("already exists");
 +     });
 + 
-+     it(&quot;should handle Cannot edit errors with context&quot;, () =&gt; {
-+       const error = new Error(&quot;Cannot edit application&quot;);
-+       const message = getUserFriendlyError(error, { status: &quot;SUBMITTED&quot; });
-+       expect(message).toContain(&quot;submitted&quot;);
-+       expect(message).toContain(&quot;under review&quot;);
++     it("should handle Cannot edit errors with context", () =&gt; {
++       const error = new Error("Cannot edit application");
++       const message = getUserFriendlyError(error, { status: "SUBMITTED" });
++       expect(message).toContain("submitted");
++       expect(message).toContain("under review");
 +     });
 + 
-+     it(&quot;should handle Cannot edit APPROVED status&quot;, () =&gt; {
-+       const error = new Error(&quot;Cannot edit application&quot;);
-+       const message = getUserFriendlyError(error, { status: &quot;APPROVED&quot; });
-+       expect(message).toContain(&quot;approved&quot;);
-+       expect(message).toContain(&quot;Company Profile&quot;);
++     it("should handle Cannot edit APPROVED status", () =&gt; {
++       const error = new Error("Cannot edit application");
++       const message = getUserFriendlyError(error, { status: "APPROVED" });
++       expect(message).toContain("approved");
++       expect(message).toContain("Company Profile");
 +     });
 + 
-+     it(&quot;should handle Validation failed errors&quot;, () =&gt; {
-+       const error = new Error(&quot;Validation failed&quot;);
++     it("should handle Validation failed errors", () =&gt; {
++       const error = new Error("Validation failed");
 +       const message = getUserFriendlyError(error);
-+       expect(message).toContain(&quot;check your form&quot;);
++       expect(message).toContain("check your form");
 +     });
 + 
-+     it(&quot;should provide generic fallback for unknown errors&quot;, () =&gt; {
-+       const error = new Error(&quot;Some unknown error&quot;);
++     it("should provide generic fallback for unknown errors", () =&gt; {
++       const error = new Error("Some unknown error");
 +       const message = getUserFriendlyError(error);
-+       expect(message).toBe(&quot;Some unknown error&quot;);
++       expect(message).toBe("Some unknown error");
 +     });
 + 
-+     it(&quot;should handle string errors&quot;, () =&gt; {
-+       const message = getUserFriendlyError(&quot;String error&quot;);
-+       expect(message).toBe(&quot;String error&quot;);
++     it("should handle string errors", () =&gt; {
++       const message = getUserFriendlyError("String error");
++       expect(message).toBe("String error");
 +     });
 +   });
 + 
-+   describe(&quot;getActionableError&quot;, () =&gt; {
-+     it(&quot;should return refresh action for OPTIMISTIC_LOCK_ERROR&quot;, () =&gt; {
-+       const error = new Error(&quot;OPTIMISTIC_LOCK_ERROR&quot;) as Error &amp; {
++   describe("getActionableError", () =&gt; {
++     it("should return refresh action for OPTIMISTIC_LOCK_ERROR", () =&gt; {
++       const error = new Error("OPTIMISTIC_LOCK_ERROR") as Error &amp; {
 +         code: string;
 +       };
-+       error.code = &quot;OPTIMISTIC_LOCK_ERROR&quot;;
++       error.code = "OPTIMISTIC_LOCK_ERROR";
 + 
 +       const result = getActionableError(error);
-+       expect(result.action).toBe(&quot;refresh&quot;);
-+       expect(result.actionLabel).toBe(&quot;Refresh Page&quot;);
++       expect(result.action).toBe("refresh");
++       expect(result.actionLabel).toBe("Refresh Page");
 +     });
 + 
-+     it(&quot;should return view-existing action for already exists errors&quot;, () =&gt; {
-+       const error = new Error(&quot;Application already exists&quot;);
++     it("should return view-existing action for already exists errors", () =&gt; {
++       const error = new Error("Application already exists");
 +       const result = getActionableError(error);
-+       expect(result.action).toBe(&quot;view-existing&quot;);
-+       expect(result.actionLabel).toBe(&quot;View Existing Application&quot;);
++       expect(result.action).toBe("view-existing");
++       expect(result.actionLabel).toBe("View Existing Application");
 +     });
 + 
-+     it(&quot;should return message only for other errors&quot;, () =&gt; {
-+       const error = new Error(&quot;Some other error&quot;);
++     it("should return message only for other errors", () =&gt; {
++       const error = new Error("Some other error");
 +       const result = getActionableError(error);
 +       expect(result.message).toBeTruthy();
 +       expect(result.action).toBeUndefined();
@@ -3980,7 +3980,7 @@ Lines added: 96, lines removed: 1
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm test -- tests/optimistic-locking.test.ts tests/error-messages.test.ts</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm test -- tests/optimistic-locking.test.ts tests/error-messages.test.ts</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && npm test -- tests/optimistic-locking.test.ts tests/error-messages.test.ts
@@ -4018,7 +4018,7 @@ Tests passed. Finishing edge case handling and updating documentation:
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: lib/network-error-handler.ts</summary>
+<details><summary>Tool use: **write** • Edit file: lib/network-error-handler.ts</summary>
 
 **Chunk 1**
 Lines added: 51, lines removed: 1
@@ -4045,15 +4045,15 @@ Lines added: 51, lines removed: 1
 +     } catch (error) {
 +       lastError = error as Error;
 + 
-+       // Don&#39;t retry on certain errors
++       // Don't retry on certain errors
 +       if (error instanceof Error) {
-+         if (error.message.includes(&quot;Unauthorized&quot;)) {
++         if (error.message.includes("Unauthorized")) {
 +           throw error;
 +         }
-+         if (error.message.includes(&quot;not found&quot;)) {
++         if (error.message.includes("not found")) {
 +           throw error;
 +         }
-+         if (error.message.includes(&quot;OPTIMISTIC_LOCK_ERROR&quot;)) {
++         if (error.message.includes("OPTIMISTIC_LOCK_ERROR")) {
 +           throw error;
 +         }
 +       }
@@ -4087,7 +4087,7 @@ Lines added: 51, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: lib/session-handler.ts</summary>
+<details><summary>Tool use: **write** • Edit file: lib/session-handler.ts</summary>
 
 **Chunk 1**
 Lines added: 20, lines removed: 1
@@ -4095,18 +4095,18 @@ Lines added: 20, lines removed: 1
 ```diff
 @@ -1,1 +1,20 @@
 - 
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { signOut } from &quot;next-auth/react&quot;;
++ import { signOut } from "next-auth/react";
 + 
 + export function handleSessionError(error: Error): boolean {
 +   if (
-+     error.message.includes(&quot;Unauthorized&quot;) ||
-+     error.message.includes(&quot;401&quot;)
++     error.message.includes("Unauthorized") ||
++     error.message.includes("401")
 +   ) {
 +     // Sign out and redirect to sign in
 +     setTimeout(() =&gt; {
-+       signOut({ callbackUrl: &quot;/signin&quot; });
++       signOut({ callbackUrl: "/signin" });
 +     }, 2000);
 + 
 +     return true;
@@ -4125,7 +4125,7 @@ Lines added: 20, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: lib/form-data-handler.ts</summary>
+<details><summary>Tool use: **write** • Edit file: lib/form-data-handler.ts</summary>
 
 **Chunk 1**
 Lines added: 48, lines removed: 1
@@ -4162,7 +4162,7 @@ Lines added: 48, lines removed: 1
 +       valid: false,
 +       size: sizeInMB,
 +       message:
-+         &quot;Form data is too large. Please reduce the number of documents or fields.&quot;,
++         "Form data is too large. Please reduce the number of documents or fields.",
 +     };
 +   }
 + 
@@ -4171,7 +4171,7 @@ Lines added: 48, lines removed: 1
 +       valid: true,
 +       size: sizeInMB,
 +       message:
-+         &quot;Form data is large. Submission may take longer than usual.&quot;,
++         "Form data is large. Submission may take longer than usual.",
 +     };
 +   }
 + 
@@ -4227,7 +4227,7 @@ Lint results
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 5, lines removed: 5
@@ -4258,7 +4258,7 @@ Lines added: 5, lines removed: 5
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 3, lines removed: 2
@@ -4288,7 +4288,7 @@ Lines added: 3, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: 2
@@ -4318,7 +4318,7 @@ Lines added: 2, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: undefined
@@ -4339,7 +4339,7 @@ Lines added: 1, lines removed: undefined
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm test 2>&1 | head -50</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm test 2>&1 | head -50</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && npm test 2>&1 | head -50
@@ -4400,7 +4400,7 @@ All tests passed. Creating the implementation summary and finalizing documentati
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/phase-4-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/phase-4-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 3, lines removed: 1
@@ -4427,7 +4427,7 @@ Lines added: 3, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/phase-4-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/phase-4-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 3, lines removed: 2
@@ -4456,7 +4456,7 @@ Lines added: 3, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/phase-4-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/phase-4-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 75, lines removed: 6
@@ -4690,7 +4690,7 @@ Updating the PRD to reflect Phase 4 completion and add implementation details.
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 10, lines removed: 10
@@ -4707,7 +4707,7 @@ Lines added: 10, lines removed: 10
 - - [ ] All edits trigger re-approval workflow (status changes to &#96;PENDING_SUPPLIER&#96;)
 - - [ ] No immediate edits - all changes require procurement review
 - - [ ] Profile shows approval date and other relevant metadata
-- - [ ] Navigation clearly indicates this is the &quot;Company Profile&quot; view
+- - [ ] Navigation clearly indicates this is the "Company Profile" view
 - - [ ] Profile is accessible from supplier dashboard for approved applications
 + - [x] Company Profile screen is accessible when application status is &#96;APPROVED&#96; ✅ **COMPLETED**
 + - [x] Profile displays all submitted form data organized by sections (Company Information, Addresses, Banking, Contacts, etc.) ✅ **COMPLETED**
@@ -4717,7 +4717,7 @@ Lines added: 10, lines removed: 10
 + - [x] All edits trigger re-approval workflow (status changes to &#96;PENDING_SUPPLIER&#96;) ✅ **COMPLETED**
 + - [x] No immediate edits - all changes require procurement review ✅ **COMPLETED**
 + - [x] Profile shows approval date and other relevant metadata ✅ **COMPLETED**
-+ - [x] Navigation clearly indicates this is the &quot;Company Profile&quot; view ✅ **COMPLETED**
++ - [x] Navigation clearly indicates this is the "Company Profile" view ✅ **COMPLETED**
 + - [x] Profile is accessible from supplier dashboard for approved applications ✅ **COMPLETED**
   
   ### 3.3 Internal Team Submission Capability
@@ -4731,7 +4731,7 @@ Lines added: 10, lines removed: 10
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 8, lines removed: 8
@@ -4744,7 +4744,7 @@ Lines added: 8, lines removed: 8
 - - [ ] Admins and Procurement users can edit existing draft applications for any supplier organization
 - - [ ] Admins and Procurement users can submit applications (change status from &#96;DRAFT&#96; to &#96;SUBMITTED&#96;) on behalf of suppliers
 - - [ ] Internal team members do not see the Company Profile view (supplier-specific view)
-- - [ ] All approved applications (whether submitted by supplier or internal team) appear in Procurement tab&#39;s &quot;Approved&quot; filter
+- - [ ] All approved applications (whether submitted by supplier or internal team) appear in Procurement tab's "Approved" filter
 - - [ ] UI clearly distinguishes between supplier-submitted vs internally-submitted applications (badge, icon, or column)
 - - [ ] Internal team can access full application details via procurement detail view
 - - [ ] Audit logs clearly indicate when an application was submitted by an internal team member vs. the supplier
@@ -4752,7 +4752,7 @@ Lines added: 8, lines removed: 8
 + - [x] Admins and Procurement users can edit existing draft applications for any supplier organization ✅ **COMPLETED**
 + - [x] Admins and Procurement users can submit applications (change status from &#96;DRAFT&#96; to &#96;SUBMITTED&#96;) on behalf of suppliers ✅ **COMPLETED**
 + - [x] Internal team members do not see the Company Profile view (supplier-specific view) ✅ **COMPLETED**
-+ - [x] All approved applications (whether submitted by supplier or internal team) appear in Procurement tab&#39;s &quot;Approved&quot; filter ✅ **COMPLETED**
++ - [x] All approved applications (whether submitted by supplier or internal team) appear in Procurement tab's "Approved" filter ✅ **COMPLETED**
 + - [x] UI clearly distinguishes between supplier-submitted vs internally-submitted applications (badge, icon, or column) ✅ **COMPLETED**
 + - [x] Internal team can access full application details via procurement detail view ✅ **COMPLETED**
 + - [x] Audit logs clearly indicate when an application was submitted by an internal team member vs. the supplier ✅ **COMPLETED**
@@ -4768,7 +4768,7 @@ Lines added: 8, lines removed: 8
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 4, lines removed: 3
@@ -4779,7 +4779,7 @@ Lines added: 4, lines removed: 3
   3. **Status changes while supplier is editing:**
 -    - Real-time status check (or polling)
 -    - Form locks if status changes to non-editable state
--    - Message: &quot;Application status has changed. Please refresh.&quot;
+-    - Message: "Application status has changed. Please refresh."
 +    - ✅ Real-time status polling implemented (Phase 4)
 +    - ✅ Form locks if status changes to non-editable state
 +    - ✅ Status changes detected automatically with notifications
@@ -4796,7 +4796,7 @@ Lines added: 4, lines removed: 3
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 7, lines removed: 2
@@ -4830,7 +4830,7 @@ Lines added: 7, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 3, lines removed: 1
@@ -4855,7 +4855,7 @@ Lines added: 3, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 4, lines removed: 2
@@ -4865,9 +4865,9 @@ Lines added: 4, lines removed: 2
   - [x] Company Profile access control ✅ **COMPLETED** (via unit tests in &#96;tests/suppliers.test.ts&#96;)
   - [x] Supplier creation and update workflow ✅ **COMPLETED** (via unit tests)
 - - [ ] Internal team submission flow (Phase 3)
-- - [ ] Procurement dashboard &quot;Approved&quot; filter (Phase 3)
+- - [ ] Procurement dashboard "Approved" filter (Phase 3)
 + - [x] Internal team submission flow ✅ **COMPLETED** (via unit tests in &#96;tests/internal-submission.test.ts&#96;)
-+ - [x] Procurement dashboard &quot;Approved&quot; filter ✅ **COMPLETED** (via unit tests)
++ - [x] Procurement dashboard "Approved" filter ✅ **COMPLETED** (via unit tests)
 + - [x] Optimistic locking and version conflicts ✅ **COMPLETED** (via unit tests)
 + - [x] Real-time status polling ✅ **COMPLETED** (via integration)
   
@@ -4882,7 +4882,7 @@ Lines added: 4, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 18, lines removed: undefined
@@ -4948,15 +4948,15 @@ Adding accessibility details to the UI/UX section:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: undefined
 
 ```diff
 @@ -521,4 +521,6 @@
-  - ℹ️ Status message: &quot;Application submitted. Awaiting review.&quot;
-  - ℹ️ Status badge: &quot;Submitted&quot; or &quot;In Review&quot;
+  - ℹ️ Status message: "Application submitted. Awaiting review."
+  - ℹ️ Status badge: "Submitted" or "In Review"
 + - ✅ Real-time status polling active (Phase 4)
 + - ✅ Visual indicator shows when checking for updates (Phase 4)
   
@@ -4971,7 +4971,7 @@ Lines added: 2, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 7, lines removed: undefined
@@ -4999,7 +4999,7 @@ Lines added: 7, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: undefined
@@ -5022,7 +5022,7 @@ Lines added: 2, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 4, lines removed: undefined
@@ -5140,7 +5140,7 @@ Creating a next steps document covering integration work and testing requirement
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/next-steps-phase-4.md</summary>
+<details><summary>Tool use: **write** • Edit file: docs/next-steps-phase-4.md</summary>
 
 **Chunk 1**
 Lines added: 421, lines removed: 1
@@ -5238,7 +5238,7 @@ Lines added: 421, lines removed: 1
 + 1. Admin creates application for supplier organization
 + 2. Admin fills form and submits on behalf of supplier
 + 3. Verify &#96;submissionType&#96; is set to &#96;INTERNAL&#96;
-+ 4. Verify &quot;Submitted By&quot; shows Internal Team in dashboard
++ 4. Verify "Submitted By" shows Internal Team in dashboard
 + 5. Supplier sees application in their dashboard (read-only)
 + 6. Procurement reviews and approves
 + 7. Supplier can access Company Profile
@@ -5305,7 +5305,7 @@ Lines added: 421, lines removed: 1
 + 
 + **Rejected:**
 + - [ ] Form is read-only
-+ - [ ] &quot;Create New Application&quot; button visible
++ - [ ] "Create New Application" button visible
 + - [ ] Can create new application for same FormConfig
 + 
 + ### 2.2 Company Profile
@@ -5323,7 +5323,7 @@ Lines added: 421, lines removed: 1
 + - [ ] Can edit draft applications
 + - [ ] Can submit on behalf of suppliers
 + - [ ] Submission source tracked correctly
-+ - [ ] Dashboard shows &quot;Submitted By&quot; column
++ - [ ] Dashboard shows "Submitted By" column
 + - [ ] Badge distinguishes internal vs supplier submissions
 + - [ ] Cannot access Company Profile (supplier-only)
 + 
@@ -5351,14 +5351,14 @@ Lines added: 421, lines removed: 1
 + 
 + ### 3.1 Status Polling
 + 
-+ - [ ] Polling doesn&#39;t cause performance issues
++ - [ ] Polling doesn't cause performance issues
 + - [ ] Polling stops when component unmounts
 + - [ ] Polling interval is appropriate (5 seconds)
 + - [ ] Multiple applications polling simultaneously works
 + 
 + ### 3.2 Optimistic Locking
 + 
-+ - [ ] Version checking doesn&#39;t add significant latency
++ - [ ] Version checking doesn't add significant latency
 + - [ ] Concurrent updates handled efficiently
 + - [ ] Database queries optimized
 + 
@@ -5366,7 +5366,7 @@ Lines added: 421, lines removed: 1
 + 
 + - [ ] Large forms (1-5MB) handled correctly
 + - [ ] Warnings shown for large data
-+ - [ ] Submission doesn&#39;t timeout
++ - [ ] Submission doesn't timeout
 + 
 + ---
 + 
@@ -5392,7 +5392,7 @@ Lines added: 421, lines removed: 1
 + 
 + - [ ] Version checking prevents unauthorized updates
 + - [ ] Status API endpoint requires authentication
-+ - [ ] Users can only access their organization&#39;s applications
++ - [ ] Users can only access their organization's applications
 + - [ ] Internal team permissions enforced correctly
 + - [ ] Optimistic locking prevents race conditions
 + - [ ] Session expiration handled securely
@@ -5715,7 +5715,7 @@ Creating an E2E testing plan covering all five scenarios with detailed test case
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/e2e-testing-plan.md</summary>
+<details><summary>Tool use: **write** • Edit file: docs/e2e-testing-plan.md</summary>
 
 **Chunk 1**
 Lines added: 818, lines removed: 1
@@ -5789,8 +5789,8 @@ Lines added: 818, lines removed: 1
 + 4. Verify application created with status &#96;DRAFT&#96;
 + 5. Verify version is &#96;1&#96;
 + 6. Verify form fields are editable
-+ 7. Verify &quot;Save draft&quot; button is enabled
-+ 8. Verify &quot;Submit&quot; button is enabled
++ 7. Verify "Save draft" button is enabled
++ 8. Verify "Submit" button is enabled
 + 9. Verify no status polling indicator visible
 + 
 + **Expected Results:**
@@ -5803,18 +5803,18 @@ Lines added: 818, lines removed: 1
 + 
 + #### Step 1.2: Fill Form and Save Draft
 + 1. Fill in supplier information:
-+    - Supplier name: &quot;Test Supplier Inc&quot;
-+    - Sales contact name: &quot;John Doe&quot;
-+    - Sales contact email: &quot;john@testsupplier.com&quot;
++    - Supplier name: "Test Supplier Inc"
++    - Sales contact name: "John Doe"
++    - Sales contact email: "john@testsupplier.com"
 + 2. Fill in address:
-+    - Line 1: &quot;123 Test Street&quot;
-+    - City: &quot;Test City&quot;
-+    - Country: &quot;USA&quot;
++    - Line 1: "123 Test Street"
++    - City: "Test City"
++    - Country: "USA"
 + 3. Fill in banking information:
-+    - Bank name: &quot;Test Bank&quot;
-+    - Routing number: &quot;123456789&quot;
-+    - Account number: &quot;987654321&quot;
-+ 4. Click &quot;Save draft&quot;
++    - Bank name: "Test Bank"
++    - Routing number: "123456789"
++    - Account number: "987654321"
++ 4. Click "Save draft"
 + 5. Verify success message appears
 + 6. Verify form data persists after page refresh
 + 7. Verify version increments to &#96;2&#96;
@@ -5828,14 +5828,14 @@ Lines added: 818, lines removed: 1
 + 
 + #### Step 1.3: Submit Application
 + 1. Verify form is still editable
-+ 2. Click &quot;Submit for Review&quot;
++ 2. Click "Submit for Review"
 + 3. Verify loading state on submit button
 + 4. Verify success message appears
 + 5. Verify status changes to &#96;SUBMITTED&#96;
 + 6. Verify form fields become read-only
-+ 7. Verify &quot;Save draft&quot; button hidden
-+ 8. Verify &quot;Submit&quot; button hidden
-+ 9. Verify status message displayed: &quot;Application submitted. Awaiting review.&quot;
++ 7. Verify "Save draft" button hidden
++ 8. Verify "Submit" button hidden
++ 9. Verify status message displayed: "Application submitted. Awaiting review."
 + 10. Verify status polling indicator appears
 + 11. Verify version increments to &#96;3&#96;
 + 12. Verify &#96;submissionType&#96; is &#96;SUPPLIER&#96;
@@ -5855,7 +5855,7 @@ Lines added: 818, lines removed: 1
 + 1. Log in as Procurement user
 + 2. Navigate to &#96;/dashboard/procurement&#96;
 + 3. Find the submitted application
-+ 4. Verify &quot;Submitted By&quot; shows &quot;Supplier&quot; badge
++ 4. Verify "Submitted By" shows "Supplier" badge
 + 5. Click to view application details
 + 6. Verify all form data displays correctly
 + 7. Change status to &#96;IN_REVIEW&#96;
@@ -5864,17 +5864,17 @@ Lines added: 818, lines removed: 1
 + 
 + **Expected Results:**
 + - ✅ Application visible in procurement dashboard
-+ - ✅ Submission source badge shows &quot;Supplier&quot;
++ - ✅ Submission source badge shows "Supplier"
 + - ✅ Application details display correctly
 + - ✅ Status change successful
 + 
 + #### Step 1.5: Status Polling Detection
 + 1. In supplier browser tab (still open from Step 1.3)
 + 2. Wait for status polling (should poll every 5 seconds)
-+ 3. Verify status indicator shows &quot;Checking for updates...&quot;
++ 3. Verify status indicator shows "Checking for updates..."
 + 4. After procurement changes status to &#96;IN_REVIEW&#96;, wait up to 10 seconds
 + 5. Verify status updates automatically (without refresh)
-+ 6. Verify notification toast appears: &quot;Status updated - Application status changed to IN_REVIEW&quot;
++ 6. Verify notification toast appears: "Status updated - Application status changed to IN_REVIEW"
 + 7. Verify status message updates
 + 8. Verify form remains read-only
 + 9. Verify polling continues
@@ -5943,13 +5943,13 @@ Lines added: 818, lines removed: 1
 + #### Step 2.2: Procurement Adds Comment with Field Key
 + 1. Navigate to application detail page
 + 2. Add comment:
-+    - Body: &quot;Please update the supplier name and sales contact email&quot;
-+    - Visibility: &quot;supplier_visible&quot;
-+    - Field Key: &quot;supplierInformation.supplierName&quot;
++    - Body: "Please update the supplier name and sales contact email"
++    - Visibility: "supplier_visible"
++    - Field Key: "supplierInformation.supplierName"
 + 3. Add second comment:
-+    - Body: &quot;Also update the email address&quot;
-+    - Visibility: &quot;supplier_visible&quot;
-+    - Field Key: &quot;supplierInformation.salesContactEmail&quot;
++    - Body: "Also update the email address"
++    - Visibility: "supplier_visible"
++    - Field Key: "supplierInformation.salesContactEmail"
 + 4. Set status to &#96;PENDING_SUPPLIER&#96;
 + 5. Verify status change successful
 + 
@@ -5961,7 +5961,7 @@ Lines added: 818, lines removed: 1
 + 1. Log in as Supplier user
 + 2. Navigate to application
 + 3. Verify status is &#96;PENDING_SUPPLIER&#96;
-+ 4. Verify status message: &quot;Procurement has requested changes to specific fields...&quot;
++ 4. Verify status message: "Procurement has requested changes to specific fields..."
 + 5. Verify only specified fields are editable:
 +    - &#96;supplierInformation.supplierName&#96; - editable (highlighted/bordered)
 +    - &#96;supplierInformation.salesContactEmail&#96; - editable (highlighted/bordered)
@@ -5969,9 +5969,9 @@ Lines added: 818, lines removed: 1
 +    - &#96;supplierInformation.salesContactName&#96; - read-only with tooltip
 +    - &#96;addresses.remitToAddress.line1&#96; - read-only with tooltip
 +    - All other fields - read-only
-+ 7. Verify read-only fields show tooltip: &quot;This field was not requested for changes&quot;
-+ 8. Verify &quot;Save draft&quot; button enabled
-+ 9. Verify &quot;Resubmit&quot; button enabled
++ 7. Verify read-only fields show tooltip: "This field was not requested for changes"
++ 8. Verify "Save draft" button enabled
++ 9. Verify "Resubmit" button enabled
 + 
 + **Expected Results:**
 + - ✅ Status message displayed
@@ -5981,11 +5981,11 @@ Lines added: 818, lines removed: 1
 + - ✅ Tooltips explain why fields are read-only
 + 
 + #### Step 2.4: Supplier Edits Only Allowed Fields
-+ 1. Edit &#96;supplierInformation.supplierName&#96; to &quot;Updated Supplier Name&quot;
-+ 2. Edit &#96;supplierInformation.salesContactEmail&#96; to &quot;updated@testsupplier.com&quot;
++ 1. Edit &#96;supplierInformation.supplierName&#96; to "Updated Supplier Name"
++ 2. Edit &#96;supplierInformation.salesContactEmail&#96; to "updated@testsupplier.com"
 + 3. Verify changes save successfully
 + 4. Verify version increments
-+ 5. Click &quot;Save draft&quot;
++ 5. Click "Save draft"
 + 6. Verify draft saves successfully
 + 
 + **Expected Results:**
@@ -6004,7 +6004,7 @@ Lines added: 818, lines removed: 1
 + - ✅ Validation prevents saving non-allowed changes
 + 
 + #### Step 2.6: Resubmit Application
-+ 1. Click &quot;Resubmit for Review&quot;
++ 1. Click "Resubmit for Review"
 + 2. Verify loading state
 + 3. Verify success message
 + 4. Verify status changes to &#96;SUBMITTED&#96;
@@ -6056,8 +6056,8 @@ Lines added: 818, lines removed: 1
 + 
 + #### Step 3.3: User A Saves Changes
 + 1. In Browser Tab A (from Step 3.1)
-+ 2. Edit supplier name to &quot;User A Update&quot;
-+ 3. Click &quot;Save draft&quot;
++ 2. Edit supplier name to "User A Update"
++ 3. Click "Save draft"
 + 4. Verify save successful
 + 5. Verify version increments to 3
 + 6. Verify success message appears
@@ -6068,13 +6068,13 @@ Lines added: 818, lines removed: 1
 + 
 + #### Step 3.4: User B Attempts to Save (Should Detect Conflict)
 + 1. In Browser Tab B (from Step 3.2)
-+ 2. Edit supplier name to &quot;User B Update&quot;
++ 2. Edit supplier name to "User B Update"
 + 3. Note: Form still shows version 2
-+ 4. Click &quot;Save draft&quot;
++ 4. Click "Save draft"
 + 5. Verify error occurs
-+ 6. Verify error message: &quot;Application has been modified by another user. Please refresh and try again.&quot;
++ 6. Verify error message: "Application has been modified by another user. Please refresh and try again."
 + 7. Verify error has code: &#96;OPTIMISTIC_LOCK_ERROR&#96;
-+ 8. Verify &quot;Refresh Page&quot; button appears
++ 8. Verify "Refresh Page" button appears
 + 9. Verify toast notification shows conflict message
 + 
 + **Expected Results:**
@@ -6084,12 +6084,12 @@ Lines added: 818, lines removed: 1
 + - ✅ Toast notification appears
 + 
 + #### Step 3.5: User B Refreshes and Retries
-+ 1. Click &quot;Refresh Page&quot; button (or manually refresh)
++ 1. Click "Refresh Page" button (or manually refresh)
 + 2. Verify page reloads
-+ 3. Verify form shows User A&#39;s changes (&quot;User A Update&quot;)
++ 3. Verify form shows User A's changes ("User A Update")
 + 4. Verify version is now 3
-+ 5. Edit supplier name to &quot;User B Final Update&quot;
-+ 6. Click &quot;Save draft&quot;
++ 5. Edit supplier name to "User B Final Update"
++ 6. Click "Save draft"
 + 7. Verify save successful
 + 8. Verify version increments to 4
 + 
@@ -6101,7 +6101,7 @@ Lines added: 818, lines removed: 1
 + 
 + #### Step 3.6: Verify No Data Loss
 + 1. In Browser Tab A, refresh page
-+ 2. Verify form shows &quot;User B Final Update&quot;
++ 2. Verify form shows "User B Final Update"
 + 3. Verify version is 4
 + 4. Verify no data corruption
 + 5. Verify all fields intact
@@ -6139,7 +6139,7 @@ Lines added: 818, lines removed: 1
 + 3. Verify requests occur every ~5 seconds
 + 4. Verify requests return 200 status
 + 5. Verify response includes:
-+    - &#96;status&#96;: &quot;SUBMITTED&quot;
++    - &#96;status&#96;: "SUBMITTED"
 +    - &#96;version&#96;: current version number
 +    - &#96;updatedAt&#96;: timestamp
 + 6. Verify no errors in console
@@ -6164,7 +6164,7 @@ Lines added: 818, lines removed: 1
 + 2. Wait up to 10 seconds (2 polling cycles)
 + 3. Verify status updates automatically (without refresh)
 + 4. Verify status message updates
-+ 5. Verify notification toast appears: &quot;Status updated - Application status changed to IN_REVIEW&quot;
++ 5. Verify notification toast appears: "Status updated - Application status changed to IN_REVIEW"
 + 6. Verify status polling continues
 + 7. Verify no page refresh occurred
 + 
@@ -6217,7 +6217,7 @@ Lines added: 818, lines removed: 1
 + #### Step 5.1: Admin Creates Application for Supplier
 + 1. Log in as Admin user
 + 2. Navigate to &#96;/dashboard/procurement&#96;
-+ 3. Click &quot;Create Application&quot; (if available) or use API
++ 3. Click "Create Application" (if available) or use API
 + 4. Select Supplier Organization A
 + 5. Select FormConfig (Entity A + Geography US)
 + 6. Verify application created with status &#96;DRAFT&#96;
@@ -6232,16 +6232,16 @@ Lines added: 818, lines removed: 1
 + #### Step 5.2: Admin Fills and Submits Application
 + 1. Navigate to application detail page
 + 2. Fill in form data:
-+    - Supplier name: &quot;Internal Created Supplier&quot;
-+    - Sales contact: &quot;Admin Contact&quot;
-+    - Email: &quot;admin@internal.com&quot;
-+    - Address: &quot;456 Admin Street&quot;
-+ 3. Click &quot;Submit on Behalf&quot; (or equivalent)
++    - Supplier name: "Internal Created Supplier"
++    - Sales contact: "Admin Contact"
++    - Email: "admin@internal.com"
++    - Address: "456 Admin Street"
++ 3. Click "Submit on Behalf" (or equivalent)
 + 4. Verify submission successful
 + 5. Verify status changes to &#96;SUBMITTED&#96;
 + 6. Verify &#96;submissionType&#96; is &#96;INTERNAL&#96;
 + 7. Verify &#96;submittedById&#96; is Admin user ID
-+ 8. Verify audit log entry created with &#96;submissionType: &#39;INTERNAL&#39;&#96;
++ 8. Verify audit log entry created with &#96;submissionType: 'INTERNAL'&#96;
 + 
 + **Expected Results:**
 + - ✅ Submission successful
@@ -6252,8 +6252,8 @@ Lines added: 818, lines removed: 1
 + #### Step 5.3: Verify Submission Source in Dashboard
 + 1. Navigate to &#96;/dashboard/procurement&#96;
 + 2. Find the submitted application
-+ 3. Verify &quot;Submitted By&quot; column shows:
-+    - Badge: &quot;Internal&quot; (blue)
++ 3. Verify "Submitted By" column shows:
++    - Badge: "Internal" (blue)
 +    - Icon: Building2 icon
 +    - Name: Admin user name
 + 4. Verify visual distinction from supplier submissions
@@ -6284,9 +6284,9 @@ Lines added: 818, lines removed: 1
 + 1. Log in as Procurement user
 + 2. Navigate to application
 + 3. Verify submission metadata shows:
-+    - &quot;Submitted by: Internal Team&quot;
++    - "Submitted by: Internal Team"
 +    - Admin user name/email
-+    - Submission type badge: &quot;Internal&quot;
++    - Submission type badge: "Internal"
 + 4. Verify all form data displays correctly
 + 5. Approve application
 + 6. Verify Supplier record created
@@ -6578,7 +6578,7 @@ Created an E2E testing plan. Creating a quick execution checklist for test runs:
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/e2e-testing-checklist.md</summary>
+<details><summary>Tool use: **write** • Edit file: docs/e2e-testing-checklist.md</summary>
 
 **Chunk 1**
 Lines added: 161, lines removed: 1
@@ -6641,7 +6641,7 @@ Lines added: 161, lines removed: 1
 + - [ ] User A saves → Version 3
 + - [ ] User B saves → Error: OPTIMISTIC_LOCK_ERROR
 + - [ ] Error message user-friendly with refresh action
-+ - [ ] User B refreshes → Sees User A&#39;s changes
++ - [ ] User B refreshes → Sees User A's changes
 + - [ ] User B saves → Success, version 4
 + - [ ] Verify no data loss
 + 
@@ -6668,7 +6668,7 @@ Lines added: 161, lines removed: 1
 + 
 + - [ ] Admin creates application for supplier
 + - [ ] Admin fills and submits → submissionType INTERNAL
-+ - [ ] Dashboard shows &quot;Internal&quot; badge
++ - [ ] Dashboard shows "Internal" badge
 + - [ ] Supplier sees application (read-only)
 + - [ ] Procurement reviews → Sees submission source
 + - [ ] Approve → Supplier created
@@ -6695,7 +6695,7 @@ Lines added: 161, lines removed: 1
 + - [ ] Focus indicators visible
 + 
 + ### Performance
-+ - [ ] Status polling doesn&#39;t cause performance issues
++ - [ ] Status polling doesn't cause performance issues
 + - [ ] Page loads &lt; 2 seconds
 + - [ ] API responses &lt; 500ms
 + - [ ] No memory leaks
@@ -6765,7 +6765,7 @@ Lines added: 161, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/next-steps-phase-4.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/next-steps-phase-4.md</summary>
 
 **Chunk 1**
 Lines added: 3, lines removed: undefined

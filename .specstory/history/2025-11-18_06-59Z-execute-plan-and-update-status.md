@@ -50,7 +50,7 @@ _**Agent (model default, mode Agent)**_
 
 <tool-use data-tool-type="generic" data-tool-name="list_dir">
 <details>
-            <summary>Tool use: **list_directory** • Listed directory undefined • **0** results</summary>
+            <summary>Tool use: **list_dir** • Listed directory undefined • **0** results</summary>
         
 No results found
 </details>
@@ -217,7 +217,7 @@ Could not find file '/Users/sahilmehta/supplier-onboarding-simple/components/for
 
 <tool-use data-tool-type="generic" data-tool-name="list_dir">
 <details>
-            <summary>Tool use: **list_directory** • Listed directory undefined • **0** results</summary>
+            <summary>Tool use: **list_dir** • Listed directory undefined • **0** results</summary>
         
 No results found
 </details>
@@ -232,7 +232,7 @@ No results found
 
 <tool-use data-tool-type="generic" data-tool-name="list_dir">
 <details>
-            <summary>Tool use: **list_directory** • Listed directory undefined • **0** results</summary>
+            <summary>Tool use: **list_dir** • Listed directory undefined • **0** results</summary>
         
 No results found
 </details>
@@ -416,7 +416,7 @@ There's a lot to add here: implementing toast notifications with success/error f
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm install @radix-ui/react-toast</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm install @radix-ui/react-toast</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && npm install @radix-ui/react-toast
@@ -466,19 +466,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/field-wrapper.tsx&quot;
+  "relativeWorkspacePath": "components/forms/field-wrapper.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;d02dc322-92f1-4bad-aaa3-6258dbca278c&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "d02dc322-92f1-4bad-aaa3-6258dbca278c",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -486,32 +486,32 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;    className,\n  }: FieldWrapperProps) {\n-   const fieldId = field.id;\n-   const helpTextId = &#96;${fieldId}-help&#96;;\n-   const errorId = &#96;${fieldId}-error&#96;;\n+   const fieldElementId = &#96;field-${field.id}&#96;;\n+   const helpTextId = field.helpText ? &#96;${fieldElementId}-help&#96; : undefined;\n+   const errorId = &#96;${fieldElementId}-error&#96;;\n  \n    return (\n-     &lt;div className={cn(\&quot;space-y-2\&quot;, className)}&gt;\n-       &lt;Label\n-         htmlFor={fieldId}\n-         className=\&quot;text-sm font-medium\&quot;\n-       &gt;\n+     &lt;div\n+       className={cn(\n+         \&quot;space-y-2 rounded-2xl border border-border/60 bg-card/50 p-4 shadow-sm transition-all duration-300 focus-within:border-primary focus-within:shadow-md motion-reduce:transition-none\&quot;,\n+         className\n+       )}\n+     &gt;\n+       &lt;Label htmlFor={fieldElementId} className=\&quot;text-sm font-medium\&quot;&gt;\n          {field.label}\n          {field.required &amp;&amp; (&quot;,
-        &quot;oldStart&quot;: 26,
-        &quot;newStart&quot;: 26,
-        &quot;oldLines&quot;: 14,
-        &quot;newLines&quot;: 16,
-        &quot;linesRemoved&quot;: 8,
-        &quot;linesAdded&quot;: 10
+        "diffString": "    className,\n  }: FieldWrapperProps) {\n-   const fieldId = field.id;\n-   const helpTextId = &#96;${fieldId}-help&#96;;\n-   const errorId = &#96;${fieldId}-error&#96;;\n+   const fieldElementId = &#96;field-${field.id}&#96;;\n+   const helpTextId = field.helpText ? &#96;${fieldElementId}-help&#96; : undefined;\n+   const errorId = &#96;${fieldElementId}-error&#96;;\n  \n    return (\n-     &lt;div className={cn(\"space-y-2\", className)}&gt;\n-       &lt;Label\n-         htmlFor={fieldId}\n-         className=\"text-sm font-medium\"\n-       &gt;\n+     &lt;div\n+       className={cn(\n+         \"space-y-2 rounded-2xl border border-border/60 bg-card/50 p-4 shadow-sm transition-all duration-300 focus-within:border-primary focus-within:shadow-md motion-reduce:transition-none\",\n+         className\n+       )}\n+     &gt;\n+       &lt;Label htmlFor={fieldElementId} className=\"text-sm font-medium\"&gt;\n          {field.label}\n          {field.required &amp;&amp; (",
+        "oldStart": 26,
+        "newStart": 26,
+        "oldLines": 14,
+        "newLines": 16,
+        "linesRemoved": 8,
+        "linesAdded": 10
       },
       {
-        &quot;diffString&quot;: &quot;        {children}\n        {field.helpText &amp;&amp; (\n-         &lt;p\n-           id={helpTextId}\n-           className=\&quot;text-xs text-muted-foreground\&quot;\n-           aria-describedby={fieldId}\n-         &gt;\n+         &lt;p id={helpTextId} className=\&quot;text-xs text-muted-foreground\&quot;&gt;\n            {field.helpText}\n          &lt;/p&gt;&quot;,
-        &quot;oldStart&quot;: 45,
-        &quot;newStart&quot;: 47,
-        &quot;oldLines&quot;: 9,
-        &quot;newLines&quot;: 5,
-        &quot;linesRemoved&quot;: 5,
-        &quot;linesAdded&quot;: 1
+        "diffString": "        {children}\n        {field.helpText &amp;&amp; (\n-         &lt;p\n-           id={helpTextId}\n-           className=\"text-xs text-muted-foreground\"\n-           aria-describedby={fieldId}\n-         &gt;\n+         &lt;p id={helpTextId} className=\"text-xs text-muted-foreground\"&gt;\n            {field.helpText}\n          &lt;/p&gt;",
+        "oldStart": 45,
+        "newStart": 47,
+        "oldLines": 9,
+        "newLines": 5,
+        "linesRemoved": 5,
+        "linesAdded": 1
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/field-wrapper.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport * as React from \&quot;react\&quot;;\nimport { Label } from \&quot;@/components/ui/label\&quot;;\nimport { FieldError } from \&quot;./field-error\&quot;;\nimport { cn } from \&quot;@/lib/utils\&quot;;\nimport type { FormField } from \&quot;@prisma/client\&quot;;\n\ninterface FieldWrapperProps {\n  field: FormField;\n  error?: string;\n  touched?: boolean;\n  children: React.ReactNode;\n  className?: string;\n}\n\n/**\n * Wrapper component for form fields that provides consistent styling,\n * label, help text, and error display.\n */\nexport function FieldWrapper({\n  field,\n  error,\n  touched = true,\n  children,\n  className,\n}: FieldWrapperProps) {\n  const fieldElementId = &#96;field-${field.id}&#96;;\n  const helpTextId = field.helpText ? &#96;${fieldElementId}-help&#96; : undefined;\n  const errorId = &#96;${fieldElementId}-error&#96;;\n\n  return (\n    &lt;div\n      className={cn(\n        \&quot;space-y-2 rounded-2xl border border-border/60 bg-card/50 p-4 shadow-sm transition-all duration-300 focus-within:border-primary focus-within:shadow-md motion-reduce:transition-none\&quot;,\n        className\n      )}\n    &gt;\n      &lt;Label htmlFor={fieldElementId} className=\&quot;text-sm font-medium\&quot;&gt;\n        {field.label}\n        {field.required &amp;&amp; (\n          &lt;span className=\&quot;ml-0.5 text-destructive\&quot; aria-label=\&quot;required\&quot;&gt;\n            *\n          &lt;/span&gt;\n        )}\n      &lt;/Label&gt;\n      {children}\n      {field.helpText &amp;&amp; (\n        &lt;p id={helpTextId} className=\&quot;text-xs text-muted-foreground\&quot;&gt;\n          {field.helpText}\n        &lt;/p&gt;\n      )}\n      &lt;FieldError error={error} touched={touched} id={errorId} /&gt;\n    &lt;/div&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/field-wrapper.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport * as React from \"react\";\nimport { Label } from \"@/components/ui/label\";\nimport { FieldError } from \"./field-error\";\nimport { cn } from \"@/lib/utils\";\nimport type { FormField } from \"@prisma/client\";\n\ninterface FieldWrapperProps {\n  field: FormField;\n  error?: string;\n  touched?: boolean;\n  children: React.ReactNode;\n  className?: string;\n}\n\n/**\n * Wrapper component for form fields that provides consistent styling,\n * label, help text, and error display.\n */\nexport function FieldWrapper({\n  field,\n  error,\n  touched = true,\n  children,\n  className,\n}: FieldWrapperProps) {\n  const fieldElementId = &#96;field-${field.id}&#96;;\n  const helpTextId = field.helpText ? &#96;${fieldElementId}-help&#96; : undefined;\n  const errorId = &#96;${fieldElementId}-error&#96;;\n\n  return (\n    &lt;div\n      className={cn(\n        \"space-y-2 rounded-2xl border border-border/60 bg-card/50 p-4 shadow-sm transition-all duration-300 focus-within:border-primary focus-within:shadow-md motion-reduce:transition-none\",\n        className\n      )}\n    &gt;\n      &lt;Label htmlFor={fieldElementId} className=\"text-sm font-medium\"&gt;\n        {field.label}\n        {field.required &amp;&amp; (\n          &lt;span className=\"ml-0.5 text-destructive\" aria-label=\"required\"&gt;\n            *\n          &lt;/span&gt;\n        )}\n      &lt;/Label&gt;\n      {children}\n      {field.helpText &amp;&amp; (\n        &lt;p id={helpTextId} className=\"text-xs text-muted-foreground\"&gt;\n          {field.helpText}\n        &lt;/p&gt;\n      )}\n      &lt;FieldError error={error} touched={touched} id={errorId} /&gt;\n    &lt;/div&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -538,19 +538,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/field-input-text.tsx&quot;
+  "relativeWorkspacePath": "components/forms/field-input-text.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;86138c5d-b732-4beb-ad95-d1ce9ecead0b&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "86138c5d-b732-4beb-ad95-d1ce9ecead0b",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -558,31 +558,31 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;    const fieldId = &#96;field-${field.id}&#96;;\n    const hasError = Boolean(error);\n+   const describedBy = [\n+     hasError ? &#96;${fieldId}-error&#96; : null,\n+     field.helpText ? &#96;${fieldId}-help&#96; : null,\n+   ]\n+     .filter(Boolean)\n+     .join(\&quot; \&quot;) || undefined;\n  \n    return (&quot;,
-        &quot;oldStart&quot;: 31,
-        &quot;newStart&quot;: 31,
-        &quot;oldLines&quot;: 4,
-        &quot;newLines&quot;: 10,
-        &quot;linesAdded&quot;: 6
+        "diffString": "    const fieldId = &#96;field-${field.id}&#96;;\n    const hasError = Boolean(error);\n+   const describedBy = [\n+     hasError ? &#96;${fieldId}-error&#96; : null,\n+     field.helpText ? &#96;${fieldId}-help&#96; : null,\n+   ]\n+     .filter(Boolean)\n+     .join(\" \") || undefined;\n  \n    return (",
+        "oldStart": 31,
+        "newStart": 31,
+        "oldLines": 4,
+        "newLines": 10,
+        "linesAdded": 6
       },
       {
-        &quot;diffString&quot;: &quot;          placeholder={field.placeholder ?? undefined}\n          disabled={disabled}\n+         required={field.required}\n          aria-invalid={hasError}\n-         aria-describedby={\n-           hasError\n-             ? &#96;${fieldId}-error&#96;\n-             : field.helpText\n-             ? &#96;${fieldId}-help&#96;\n-             : undefined\n-         }\n-         className={cn(hasError &amp;&amp; \&quot;border-destructive\&quot;)}\n+         aria-required={field.required}\n+         aria-describedby={describedBy}\n+         className={cn(\n+           \&quot;text-base\&quot;,\n+           hasError &amp;&amp; \&quot;border-destructive focus-visible:ring-destructive\&quot;\n+         )}\n        /&gt;\n      &lt;/FieldWrapper&gt;&quot;,
-        &quot;oldStart&quot;: 42,
-        &quot;newStart&quot;: 48,
-        &quot;oldLines&quot;: 13,
-        &quot;newLines&quot;: 12,
-        &quot;linesRemoved&quot;: 8,
-        &quot;linesAdded&quot;: 7
+        "diffString": "          placeholder={field.placeholder ?? undefined}\n          disabled={disabled}\n+         required={field.required}\n          aria-invalid={hasError}\n-         aria-describedby={\n-           hasError\n-             ? &#96;${fieldId}-error&#96;\n-             : field.helpText\n-             ? &#96;${fieldId}-help&#96;\n-             : undefined\n-         }\n-         className={cn(hasError &amp;&amp; \"border-destructive\")}\n+         aria-required={field.required}\n+         aria-describedby={describedBy}\n+         className={cn(\n+           \"text-base\",\n+           hasError &amp;&amp; \"border-destructive focus-visible:ring-destructive\"\n+         )}\n        /&gt;\n      &lt;/FieldWrapper&gt;",
+        "oldStart": 42,
+        "newStart": 48,
+        "oldLines": 13,
+        "newLines": 12,
+        "linesRemoved": 8,
+        "linesAdded": 7
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/field-input-text.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport * as React from \&quot;react\&quot;;\nimport { Input } from \&quot;@/components/ui/input\&quot;;\nimport { FieldWrapper } from \&quot;./field-wrapper\&quot;;\nimport { cn } from \&quot;@/lib/utils\&quot;;\nimport type { FormField } from \&quot;@prisma/client\&quot;;\n\ninterface FieldInputTextProps {\n  field: FormField;\n  value: string;\n  onChange: (value: string) =&gt; void;\n  onBlur?: () =&gt; void;\n  error?: string;\n  disabled?: boolean;\n  touched?: boolean;\n}\n\n/**\n * Text input field component\n */\nexport function FieldInputText({\n  field,\n  value,\n  onChange,\n  onBlur,\n  error,\n  disabled,\n  touched = true,\n}: FieldInputTextProps) {\n  const fieldId = &#96;field-${field.id}&#96;;\n  const hasError = Boolean(error);\n  const describedBy = [\n    hasError ? &#96;${fieldId}-error&#96; : null,\n    field.helpText ? &#96;${fieldId}-help&#96; : null,\n  ]\n    .filter(Boolean)\n    .join(\&quot; \&quot;) || undefined;\n\n  return (\n    &lt;FieldWrapper field={field} error={error} touched={touched}&gt;\n      &lt;Input\n        id={fieldId}\n        type=\&quot;text\&quot;\n        value={value ?? \&quot;\&quot;}\n        onChange={(e) =&gt; onChange(e.target.value)}\n        onBlur={onBlur}\n        placeholder={field.placeholder ?? undefined}\n        disabled={disabled}\n        required={field.required}\n        aria-invalid={hasError}\n        aria-required={field.required}\n        aria-describedby={describedBy}\n        className={cn(\n          \&quot;text-base\&quot;,\n          hasError &amp;&amp; \&quot;border-destructive focus-visible:ring-destructive\&quot;\n        )}\n      /&gt;\n    &lt;/FieldWrapper&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/field-input-text.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport * as React from \"react\";\nimport { Input } from \"@/components/ui/input\";\nimport { FieldWrapper } from \"./field-wrapper\";\nimport { cn } from \"@/lib/utils\";\nimport type { FormField } from \"@prisma/client\";\n\ninterface FieldInputTextProps {\n  field: FormField;\n  value: string;\n  onChange: (value: string) =&gt; void;\n  onBlur?: () =&gt; void;\n  error?: string;\n  disabled?: boolean;\n  touched?: boolean;\n}\n\n/**\n * Text input field component\n */\nexport function FieldInputText({\n  field,\n  value,\n  onChange,\n  onBlur,\n  error,\n  disabled,\n  touched = true,\n}: FieldInputTextProps) {\n  const fieldId = &#96;field-${field.id}&#96;;\n  const hasError = Boolean(error);\n  const describedBy = [\n    hasError ? &#96;${fieldId}-error&#96; : null,\n    field.helpText ? &#96;${fieldId}-help&#96; : null,\n  ]\n    .filter(Boolean)\n    .join(\" \") || undefined;\n\n  return (\n    &lt;FieldWrapper field={field} error={error} touched={touched}&gt;\n      &lt;Input\n        id={fieldId}\n        type=\"text\"\n        value={value ?? \"\"}\n        onChange={(e) =&gt; onChange(e.target.value)}\n        onBlur={onBlur}\n        placeholder={field.placeholder ?? undefined}\n        disabled={disabled}\n        required={field.required}\n        aria-invalid={hasError}\n        aria-required={field.required}\n        aria-describedby={describedBy}\n        className={cn(\n          \"text-base\",\n          hasError &amp;&amp; \"border-destructive focus-visible:ring-destructive\"\n        )}\n      /&gt;\n    &lt;/FieldWrapper&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -609,19 +609,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/field-input-email.tsx&quot;
+  "relativeWorkspacePath": "components/forms/field-input-email.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;051a2c8e-adbb-4efc-89bf-f0118f61a75d&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "051a2c8e-adbb-4efc-89bf-f0118f61a75d",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -629,31 +629,31 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;    const fieldId = &#96;field-${field.id}&#96;;\n    const hasError = Boolean(error);\n+   const describedBy = [\n+     hasError ? &#96;${fieldId}-error&#96; : null,\n+     field.helpText ? &#96;${fieldId}-help&#96; : null,\n+   ]\n+     .filter(Boolean)\n+     .join(\&quot; \&quot;) || undefined;\n  \n    return (&quot;,
-        &quot;oldStart&quot;: 31,
-        &quot;newStart&quot;: 31,
-        &quot;oldLines&quot;: 4,
-        &quot;newLines&quot;: 10,
-        &quot;linesAdded&quot;: 6
+        "diffString": "    const fieldId = &#96;field-${field.id}&#96;;\n    const hasError = Boolean(error);\n+   const describedBy = [\n+     hasError ? &#96;${fieldId}-error&#96; : null,\n+     field.helpText ? &#96;${fieldId}-help&#96; : null,\n+   ]\n+     .filter(Boolean)\n+     .join(\" \") || undefined;\n  \n    return (",
+        "oldStart": 31,
+        "newStart": 31,
+        "oldLines": 4,
+        "newLines": 10,
+        "linesAdded": 6
       },
       {
-        &quot;diffString&quot;: &quot;          placeholder={field.placeholder ?? undefined}\n          disabled={disabled}\n+         required={field.required}\n          aria-invalid={hasError}\n-         aria-describedby={\n-           hasError\n-             ? &#96;${fieldId}-error&#96;\n-             : field.helpText\n-             ? &#96;${fieldId}-help&#96;\n-             : undefined\n-         }\n-         className={cn(hasError &amp;&amp; \&quot;border-destructive\&quot;)}\n+         aria-required={field.required}\n+         aria-describedby={describedBy}\n+         className={cn(\n+           \&quot;text-base\&quot;,\n+           hasError &amp;&amp; \&quot;border-destructive focus-visible:ring-destructive\&quot;\n+         )}\n        /&gt;\n      &lt;/FieldWrapper&gt;&quot;,
-        &quot;oldStart&quot;: 42,
-        &quot;newStart&quot;: 48,
-        &quot;oldLines&quot;: 13,
-        &quot;newLines&quot;: 12,
-        &quot;linesRemoved&quot;: 8,
-        &quot;linesAdded&quot;: 7
+        "diffString": "          placeholder={field.placeholder ?? undefined}\n          disabled={disabled}\n+         required={field.required}\n          aria-invalid={hasError}\n-         aria-describedby={\n-           hasError\n-             ? &#96;${fieldId}-error&#96;\n-             : field.helpText\n-             ? &#96;${fieldId}-help&#96;\n-             : undefined\n-         }\n-         className={cn(hasError &amp;&amp; \"border-destructive\")}\n+         aria-required={field.required}\n+         aria-describedby={describedBy}\n+         className={cn(\n+           \"text-base\",\n+           hasError &amp;&amp; \"border-destructive focus-visible:ring-destructive\"\n+         )}\n        /&gt;\n      &lt;/FieldWrapper&gt;",
+        "oldStart": 42,
+        "newStart": 48,
+        "oldLines": 13,
+        "newLines": 12,
+        "linesRemoved": 8,
+        "linesAdded": 7
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/field-input-email.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport * as React from \&quot;react\&quot;;\nimport { Input } from \&quot;@/components/ui/input\&quot;;\nimport { FieldWrapper } from \&quot;./field-wrapper\&quot;;\nimport { cn } from \&quot;@/lib/utils\&quot;;\nimport type { FormField } from \&quot;@prisma/client\&quot;;\n\ninterface FieldInputEmailProps {\n  field: FormField;\n  value: string;\n  onChange: (value: string) =&gt; void;\n  onBlur?: () =&gt; void;\n  error?: string;\n  disabled?: boolean;\n  touched?: boolean;\n}\n\n/**\n * Email input field component\n */\nexport function FieldInputEmail({\n  field,\n  value,\n  onChange,\n  onBlur,\n  error,\n  disabled,\n  touched = true,\n}: FieldInputEmailProps) {\n  const fieldId = &#96;field-${field.id}&#96;;\n  const hasError = Boolean(error);\n  const describedBy = [\n    hasError ? &#96;${fieldId}-error&#96; : null,\n    field.helpText ? &#96;${fieldId}-help&#96; : null,\n  ]\n    .filter(Boolean)\n    .join(\&quot; \&quot;) || undefined;\n\n  return (\n    &lt;FieldWrapper field={field} error={error} touched={touched}&gt;\n      &lt;Input\n        id={fieldId}\n        type=\&quot;email\&quot;\n        value={value ?? \&quot;\&quot;}\n        onChange={(e) =&gt; onChange(e.target.value)}\n        onBlur={onBlur}\n        placeholder={field.placeholder ?? undefined}\n        disabled={disabled}\n        required={field.required}\n        aria-invalid={hasError}\n        aria-required={field.required}\n        aria-describedby={describedBy}\n        className={cn(\n          \&quot;text-base\&quot;,\n          hasError &amp;&amp; \&quot;border-destructive focus-visible:ring-destructive\&quot;\n        )}\n      /&gt;\n    &lt;/FieldWrapper&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/field-input-email.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport * as React from \"react\";\nimport { Input } from \"@/components/ui/input\";\nimport { FieldWrapper } from \"./field-wrapper\";\nimport { cn } from \"@/lib/utils\";\nimport type { FormField } from \"@prisma/client\";\n\ninterface FieldInputEmailProps {\n  field: FormField;\n  value: string;\n  onChange: (value: string) =&gt; void;\n  onBlur?: () =&gt; void;\n  error?: string;\n  disabled?: boolean;\n  touched?: boolean;\n}\n\n/**\n * Email input field component\n */\nexport function FieldInputEmail({\n  field,\n  value,\n  onChange,\n  onBlur,\n  error,\n  disabled,\n  touched = true,\n}: FieldInputEmailProps) {\n  const fieldId = &#96;field-${field.id}&#96;;\n  const hasError = Boolean(error);\n  const describedBy = [\n    hasError ? &#96;${fieldId}-error&#96; : null,\n    field.helpText ? &#96;${fieldId}-help&#96; : null,\n  ]\n    .filter(Boolean)\n    .join(\" \") || undefined;\n\n  return (\n    &lt;FieldWrapper field={field} error={error} touched={touched}&gt;\n      &lt;Input\n        id={fieldId}\n        type=\"email\"\n        value={value ?? \"\"}\n        onChange={(e) =&gt; onChange(e.target.value)}\n        onBlur={onBlur}\n        placeholder={field.placeholder ?? undefined}\n        disabled={disabled}\n        required={field.required}\n        aria-invalid={hasError}\n        aria-required={field.required}\n        aria-describedby={describedBy}\n        className={cn(\n          \"text-base\",\n          hasError &amp;&amp; \"border-destructive focus-visible:ring-destructive\"\n        )}\n      /&gt;\n    &lt;/FieldWrapper&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -680,19 +680,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/field-input-number.tsx&quot;
+  "relativeWorkspacePath": "components/forms/field-input-number.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;d1742fd3-0881-4903-b423-e0d81c154eb5&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "d1742fd3-0881-4903-b423-e0d81c154eb5",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -700,31 +700,31 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;      | undefined;\n  \n+   const describedBy = [\n+     hasError ? &#96;${fieldId}-error&#96; : null,\n+     field.helpText ? &#96;${fieldId}-help&#96; : null,\n+   ]\n+     .filter(Boolean)\n+     .join(\&quot; \&quot;) || undefined;\n+ \n    return (\n      &lt;FieldWrapper field={field} error={error} touched={touched}&gt;&quot;,
-        &quot;oldStart&quot;: 36,
-        &quot;newStart&quot;: 36,
-        &quot;oldLines&quot;: 4,
-        &quot;newLines&quot;: 11,
-        &quot;linesAdded&quot;: 7
+        "diffString": "      | undefined;\n  \n+   const describedBy = [\n+     hasError ? &#96;${fieldId}-error&#96; : null,\n+     field.helpText ? &#96;${fieldId}-help&#96; : null,\n+   ]\n+     .filter(Boolean)\n+     .join(\" \") || undefined;\n+ \n    return (\n      &lt;FieldWrapper field={field} error={error} touched={touched}&gt;",
+        "oldStart": 36,
+        "newStart": 36,
+        "oldLines": 4,
+        "newLines": 11,
+        "linesAdded": 7
       },
       {
-        &quot;diffString&quot;: &quot;          min={validation?.min}\n          max={validation?.max}\n+         required={field.required}\n          aria-invalid={hasError}\n-         aria-describedby={\n-           hasError\n-             ? &#96;${fieldId}-error&#96;\n-             : field.helpText\n-             ? &#96;${fieldId}-help&#96;\n-             : undefined\n-         }\n-         className={cn(hasError &amp;&amp; \&quot;border-destructive\&quot;)}\n+         aria-required={field.required}\n+         aria-describedby={describedBy}\n+         className={cn(\n+           \&quot;text-base\&quot;,\n+           hasError &amp;&amp; \&quot;border-destructive focus-visible:ring-destructive\&quot;\n+         )}\n        /&gt;\n      &lt;/FieldWrapper&gt;&quot;,
-        &quot;oldStart&quot;: 59,
-        &quot;newStart&quot;: 66,
-        &quot;oldLines&quot;: 13,
-        &quot;newLines&quot;: 12,
-        &quot;linesRemoved&quot;: 8,
-        &quot;linesAdded&quot;: 7
+        "diffString": "          min={validation?.min}\n          max={validation?.max}\n+         required={field.required}\n          aria-invalid={hasError}\n-         aria-describedby={\n-           hasError\n-             ? &#96;${fieldId}-error&#96;\n-             : field.helpText\n-             ? &#96;${fieldId}-help&#96;\n-             : undefined\n-         }\n-         className={cn(hasError &amp;&amp; \"border-destructive\")}\n+         aria-required={field.required}\n+         aria-describedby={describedBy}\n+         className={cn(\n+           \"text-base\",\n+           hasError &amp;&amp; \"border-destructive focus-visible:ring-destructive\"\n+         )}\n        /&gt;\n      &lt;/FieldWrapper&gt;",
+        "oldStart": 59,
+        "newStart": 66,
+        "oldLines": 13,
+        "newLines": 12,
+        "linesRemoved": 8,
+        "linesAdded": 7
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/field-input-number.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport * as React from \&quot;react\&quot;;\nimport { Input } from \&quot;@/components/ui/input\&quot;;\nimport { FieldWrapper } from \&quot;./field-wrapper\&quot;;\nimport { cn } from \&quot;@/lib/utils\&quot;;\nimport type { FormField } from \&quot;@prisma/client\&quot;;\n\ninterface FieldInputNumberProps {\n  field: FormField;\n  value: number | string;\n  onChange: (value: number | string) =&gt; void;\n  onBlur?: () =&gt; void;\n  error?: string;\n  disabled?: boolean;\n  touched?: boolean;\n}\n\n/**\n * Number input field component\n */\nexport function FieldInputNumber({\n  field,\n  value,\n  onChange,\n  onBlur,\n  error,\n  disabled,\n  touched = true,\n}: FieldInputNumberProps) {\n  const fieldId = &#96;field-${field.id}&#96;;\n  const hasError = Boolean(error);\n  const validation = field.validation as\n    | { min?: number; max?: number }\n    | null\n    | undefined;\n\n  const describedBy = [\n    hasError ? &#96;${fieldId}-error&#96; : null,\n    field.helpText ? &#96;${fieldId}-help&#96; : null,\n  ]\n    .filter(Boolean)\n    .join(\&quot; \&quot;) || undefined;\n\n  return (\n    &lt;FieldWrapper field={field} error={error} touched={touched}&gt;\n      &lt;Input\n        id={fieldId}\n        type=\&quot;number\&quot;\n        value={value ?? \&quot;\&quot;}\n        onChange={(e) =&gt; {\n          const val = e.target.value;\n          // Allow empty string for optional fields\n          if (val === \&quot;\&quot;) {\n            onChange(\&quot;\&quot;);\n          } else {\n            const num = Number(val);\n            if (!isNaN(num)) {\n              onChange(num);\n            }\n          }\n        }}\n        onBlur={onBlur}\n        placeholder={field.placeholder ?? undefined}\n        disabled={disabled}\n        min={validation?.min}\n        max={validation?.max}\n        required={field.required}\n        aria-invalid={hasError}\n        aria-required={field.required}\n        aria-describedby={describedBy}\n        className={cn(\n          \&quot;text-base\&quot;,\n          hasError &amp;&amp; \&quot;border-destructive focus-visible:ring-destructive\&quot;\n        )}\n      /&gt;\n    &lt;/FieldWrapper&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/field-input-number.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport * as React from \"react\";\nimport { Input } from \"@/components/ui/input\";\nimport { FieldWrapper } from \"./field-wrapper\";\nimport { cn } from \"@/lib/utils\";\nimport type { FormField } from \"@prisma/client\";\n\ninterface FieldInputNumberProps {\n  field: FormField;\n  value: number | string;\n  onChange: (value: number | string) =&gt; void;\n  onBlur?: () =&gt; void;\n  error?: string;\n  disabled?: boolean;\n  touched?: boolean;\n}\n\n/**\n * Number input field component\n */\nexport function FieldInputNumber({\n  field,\n  value,\n  onChange,\n  onBlur,\n  error,\n  disabled,\n  touched = true,\n}: FieldInputNumberProps) {\n  const fieldId = &#96;field-${field.id}&#96;;\n  const hasError = Boolean(error);\n  const validation = field.validation as\n    | { min?: number; max?: number }\n    | null\n    | undefined;\n\n  const describedBy = [\n    hasError ? &#96;${fieldId}-error&#96; : null,\n    field.helpText ? &#96;${fieldId}-help&#96; : null,\n  ]\n    .filter(Boolean)\n    .join(\" \") || undefined;\n\n  return (\n    &lt;FieldWrapper field={field} error={error} touched={touched}&gt;\n      &lt;Input\n        id={fieldId}\n        type=\"number\"\n        value={value ?? \"\"}\n        onChange={(e) =&gt; {\n          const val = e.target.value;\n          // Allow empty string for optional fields\n          if (val === \"\") {\n            onChange(\"\");\n          } else {\n            const num = Number(val);\n            if (!isNaN(num)) {\n              onChange(num);\n            }\n          }\n        }}\n        onBlur={onBlur}\n        placeholder={field.placeholder ?? undefined}\n        disabled={disabled}\n        min={validation?.min}\n        max={validation?.max}\n        required={field.required}\n        aria-invalid={hasError}\n        aria-required={field.required}\n        aria-describedby={describedBy}\n        className={cn(\n          \"text-base\",\n          hasError &amp;&amp; \"border-destructive focus-visible:ring-destructive\"\n        )}\n      /&gt;\n    &lt;/FieldWrapper&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -751,19 +751,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/field-input-tel.tsx&quot;
+  "relativeWorkspacePath": "components/forms/field-input-tel.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;6c5721ec-76a6-4502-a8a5-8c6515fb9d94&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "6c5721ec-76a6-4502-a8a5-8c6515fb9d94",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -771,31 +771,31 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;    const fieldId = &#96;field-${field.id}&#96;;\n    const hasError = Boolean(error);\n+   const describedBy = [\n+     hasError ? &#96;${fieldId}-error&#96; : null,\n+     field.helpText ? &#96;${fieldId}-help&#96; : null,\n+   ]\n+     .filter(Boolean)\n+     .join(\&quot; \&quot;) || undefined;\n  \n    return (&quot;,
-        &quot;oldStart&quot;: 31,
-        &quot;newStart&quot;: 31,
-        &quot;oldLines&quot;: 4,
-        &quot;newLines&quot;: 10,
-        &quot;linesAdded&quot;: 6
+        "diffString": "    const fieldId = &#96;field-${field.id}&#96;;\n    const hasError = Boolean(error);\n+   const describedBy = [\n+     hasError ? &#96;${fieldId}-error&#96; : null,\n+     field.helpText ? &#96;${fieldId}-help&#96; : null,\n+   ]\n+     .filter(Boolean)\n+     .join(\" \") || undefined;\n  \n    return (",
+        "oldStart": 31,
+        "newStart": 31,
+        "oldLines": 4,
+        "newLines": 10,
+        "linesAdded": 6
       },
       {
-        &quot;diffString&quot;: &quot;          placeholder={field.placeholder ?? undefined}\n          disabled={disabled}\n+         required={field.required}\n          aria-invalid={hasError}\n-         aria-describedby={\n-           hasError\n-             ? &#96;${fieldId}-error&#96;\n-             : field.helpText\n-             ? &#96;${fieldId}-help&#96;\n-             : undefined\n-         }\n-         className={cn(hasError &amp;&amp; \&quot;border-destructive\&quot;)}\n+         aria-required={field.required}\n+         aria-describedby={describedBy}\n+         className={cn(\n+           \&quot;text-base\&quot;,\n+           hasError &amp;&amp; \&quot;border-destructive focus-visible:ring-destructive\&quot;\n+         )}\n        /&gt;\n      &lt;/FieldWrapper&gt;&quot;,
-        &quot;oldStart&quot;: 42,
-        &quot;newStart&quot;: 48,
-        &quot;oldLines&quot;: 13,
-        &quot;newLines&quot;: 12,
-        &quot;linesRemoved&quot;: 8,
-        &quot;linesAdded&quot;: 7
+        "diffString": "          placeholder={field.placeholder ?? undefined}\n          disabled={disabled}\n+         required={field.required}\n          aria-invalid={hasError}\n-         aria-describedby={\n-           hasError\n-             ? &#96;${fieldId}-error&#96;\n-             : field.helpText\n-             ? &#96;${fieldId}-help&#96;\n-             : undefined\n-         }\n-         className={cn(hasError &amp;&amp; \"border-destructive\")}\n+         aria-required={field.required}\n+         aria-describedby={describedBy}\n+         className={cn(\n+           \"text-base\",\n+           hasError &amp;&amp; \"border-destructive focus-visible:ring-destructive\"\n+         )}\n        /&gt;\n      &lt;/FieldWrapper&gt;",
+        "oldStart": 42,
+        "newStart": 48,
+        "oldLines": 13,
+        "newLines": 12,
+        "linesRemoved": 8,
+        "linesAdded": 7
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/field-input-tel.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport * as React from \&quot;react\&quot;;\nimport { Input } from \&quot;@/components/ui/input\&quot;;\nimport { FieldWrapper } from \&quot;./field-wrapper\&quot;;\nimport { cn } from \&quot;@/lib/utils\&quot;;\nimport type { FormField } from \&quot;@prisma/client\&quot;;\n\ninterface FieldInputTelProps {\n  field: FormField;\n  value: string;\n  onChange: (value: string) =&gt; void;\n  onBlur?: () =&gt; void;\n  error?: string;\n  disabled?: boolean;\n  touched?: boolean;\n}\n\n/**\n * Telephone input field component\n */\nexport function FieldInputTel({\n  field,\n  value,\n  onChange,\n  onBlur,\n  error,\n  disabled,\n  touched = true,\n}: FieldInputTelProps) {\n  const fieldId = &#96;field-${field.id}&#96;;\n  const hasError = Boolean(error);\n  const describedBy = [\n    hasError ? &#96;${fieldId}-error&#96; : null,\n    field.helpText ? &#96;${fieldId}-help&#96; : null,\n  ]\n    .filter(Boolean)\n    .join(\&quot; \&quot;) || undefined;\n\n  return (\n    &lt;FieldWrapper field={field} error={error} touched={touched}&gt;\n      &lt;Input\n        id={fieldId}\n        type=\&quot;tel\&quot;\n        value={value ?? \&quot;\&quot;}\n        onChange={(e) =&gt; onChange(e.target.value)}\n        onBlur={onBlur}\n        placeholder={field.placeholder ?? undefined}\n        disabled={disabled}\n        required={field.required}\n        aria-invalid={hasError}\n        aria-required={field.required}\n        aria-describedby={describedBy}\n        className={cn(\n          \&quot;text-base\&quot;,\n          hasError &amp;&amp; \&quot;border-destructive focus-visible:ring-destructive\&quot;\n        )}\n      /&gt;\n    &lt;/FieldWrapper&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/field-input-tel.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport * as React from \"react\";\nimport { Input } from \"@/components/ui/input\";\nimport { FieldWrapper } from \"./field-wrapper\";\nimport { cn } from \"@/lib/utils\";\nimport type { FormField } from \"@prisma/client\";\n\ninterface FieldInputTelProps {\n  field: FormField;\n  value: string;\n  onChange: (value: string) =&gt; void;\n  onBlur?: () =&gt; void;\n  error?: string;\n  disabled?: boolean;\n  touched?: boolean;\n}\n\n/**\n * Telephone input field component\n */\nexport function FieldInputTel({\n  field,\n  value,\n  onChange,\n  onBlur,\n  error,\n  disabled,\n  touched = true,\n}: FieldInputTelProps) {\n  const fieldId = &#96;field-${field.id}&#96;;\n  const hasError = Boolean(error);\n  const describedBy = [\n    hasError ? &#96;${fieldId}-error&#96; : null,\n    field.helpText ? &#96;${fieldId}-help&#96; : null,\n  ]\n    .filter(Boolean)\n    .join(\" \") || undefined;\n\n  return (\n    &lt;FieldWrapper field={field} error={error} touched={touched}&gt;\n      &lt;Input\n        id={fieldId}\n        type=\"tel\"\n        value={value ?? \"\"}\n        onChange={(e) =&gt; onChange(e.target.value)}\n        onBlur={onBlur}\n        placeholder={field.placeholder ?? undefined}\n        disabled={disabled}\n        required={field.required}\n        aria-invalid={hasError}\n        aria-required={field.required}\n        aria-describedby={describedBy}\n        className={cn(\n          \"text-base\",\n          hasError &amp;&amp; \"border-destructive focus-visible:ring-destructive\"\n        )}\n      /&gt;\n    &lt;/FieldWrapper&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -835,19 +835,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/field-textarea.tsx&quot;
+  "relativeWorkspacePath": "components/forms/field-textarea.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;3250cb1c-6723-468b-bf64-6949786b0cdb&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "3250cb1c-6723-468b-bf64-6949786b0cdb",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -855,31 +855,31 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;      | undefined;\n  \n+   const describedBy = [\n+     hasError ? &#96;${fieldId}-error&#96; : null,\n+     field.helpText ? &#96;${fieldId}-help&#96; : null,\n+   ]\n+     .filter(Boolean)\n+     .join(\&quot; \&quot;) || undefined;\n+ \n    return (\n      &lt;FieldWrapper field={field} error={error} touched={touched}&gt;&quot;,
-        &quot;oldStart&quot;: 35,
-        &quot;newStart&quot;: 35,
-        &quot;oldLines&quot;: 4,
-        &quot;newLines&quot;: 11,
-        &quot;linesAdded&quot;: 7
+        "diffString": "      | undefined;\n  \n+   const describedBy = [\n+     hasError ? &#96;${fieldId}-error&#96; : null,\n+     field.helpText ? &#96;${fieldId}-help&#96; : null,\n+   ]\n+     .filter(Boolean)\n+     .join(\" \") || undefined;\n+ \n    return (\n      &lt;FieldWrapper field={field} error={error} touched={touched}&gt;",
+        "oldStart": 35,
+        "newStart": 35,
+        "oldLines": 4,
+        "newLines": 11,
+        "linesAdded": 7
       },
       {
-        &quot;diffString&quot;: &quot;          maxLength={validation?.maxLength}\n          rows={4}\n+         required={field.required}\n          aria-invalid={hasError}\n-         aria-describedby={\n-           hasError\n-             ? &#96;${fieldId}-error&#96;\n-             : field.helpText\n-             ? &#96;${fieldId}-help&#96;\n-             : undefined\n-         }\n+         aria-required={field.required}\n+         aria-describedby={describedBy}\n          className={cn(\n-           \&quot;flex min-h-[80px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs transition-[color,box-shadow] outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50\&quot;,\n-           hasError &amp;&amp; \&quot;border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40\&quot;\n+           \&quot;flex min-h-[80px] w-full rounded-md border border-input bg-background/80 px-3 py-2 text-base shadow-xs transition-[color,box-shadow] placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50\&quot;,\n+           hasError &amp;&amp; \&quot;border-destructive focus-visible:ring-destructive/30\&quot;\n          )}\n        /&gt;&quot;,
-        &quot;oldStart&quot;: 47,
-        &quot;newStart&quot;: 54,
-        &quot;oldLines&quot;: 15,
-        &quot;newLines&quot;: 11,
-        &quot;linesRemoved&quot;: 9,
-        &quot;linesAdded&quot;: 5
+        "diffString": "          maxLength={validation?.maxLength}\n          rows={4}\n+         required={field.required}\n          aria-invalid={hasError}\n-         aria-describedby={\n-           hasError\n-             ? &#96;${fieldId}-error&#96;\n-             : field.helpText\n-             ? &#96;${fieldId}-help&#96;\n-             : undefined\n-         }\n+         aria-required={field.required}\n+         aria-describedby={describedBy}\n          className={cn(\n-           \"flex min-h-[80px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs transition-[color,box-shadow] outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50\",\n-           hasError &amp;&amp; \"border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40\"\n+           \"flex min-h-[80px] w-full rounded-md border border-input bg-background/80 px-3 py-2 text-base shadow-xs transition-[color,box-shadow] placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50\",\n+           hasError &amp;&amp; \"border-destructive focus-visible:ring-destructive/30\"\n          )}\n        /&gt;",
+        "oldStart": 47,
+        "newStart": 54,
+        "oldLines": 15,
+        "newLines": 11,
+        "linesRemoved": 9,
+        "linesAdded": 5
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/field-textarea.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport * as React from \&quot;react\&quot;;\nimport { FieldWrapper } from \&quot;./field-wrapper\&quot;;\nimport { cn } from \&quot;@/lib/utils\&quot;;\nimport type { FormField } from \&quot;@prisma/client\&quot;;\n\ninterface FieldTextareaProps {\n  field: FormField;\n  value: string;\n  onChange: (value: string) =&gt; void;\n  onBlur?: () =&gt; void;\n  error?: string;\n  disabled?: boolean;\n  touched?: boolean;\n}\n\n/**\n * Textarea field component\n */\nexport function FieldTextarea({\n  field,\n  value,\n  onChange,\n  onBlur,\n  error,\n  disabled,\n  touched = true,\n}: FieldTextareaProps) {\n  const fieldId = &#96;field-${field.id}&#96;;\n  const hasError = Boolean(error);\n  const validation = field.validation as\n    | { minLength?: number; maxLength?: number }\n    | null\n    | undefined;\n\n  const describedBy = [\n    hasError ? &#96;${fieldId}-error&#96; : null,\n    field.helpText ? &#96;${fieldId}-help&#96; : null,\n  ]\n    .filter(Boolean)\n    .join(\&quot; \&quot;) || undefined;\n\n  return (\n    &lt;FieldWrapper field={field} error={error} touched={touched}&gt;\n      &lt;textarea\n        id={fieldId}\n        value={value ?? \&quot;\&quot;}\n        onChange={(e) =&gt; onChange(e.target.value)}\n        onBlur={onBlur}\n        placeholder={field.placeholder ?? undefined}\n        disabled={disabled}\n        minLength={validation?.minLength}\n        maxLength={validation?.maxLength}\n        rows={4}\n        required={field.required}\n        aria-invalid={hasError}\n        aria-required={field.required}\n        aria-describedby={describedBy}\n        className={cn(\n          \&quot;flex min-h-[80px] w-full rounded-md border border-input bg-background/80 px-3 py-2 text-base shadow-xs transition-[color,box-shadow] placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50\&quot;,\n          hasError &amp;&amp; \&quot;border-destructive focus-visible:ring-destructive/30\&quot;\n        )}\n      /&gt;\n    &lt;/FieldWrapper&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/field-textarea.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport * as React from \"react\";\nimport { FieldWrapper } from \"./field-wrapper\";\nimport { cn } from \"@/lib/utils\";\nimport type { FormField } from \"@prisma/client\";\n\ninterface FieldTextareaProps {\n  field: FormField;\n  value: string;\n  onChange: (value: string) =&gt; void;\n  onBlur?: () =&gt; void;\n  error?: string;\n  disabled?: boolean;\n  touched?: boolean;\n}\n\n/**\n * Textarea field component\n */\nexport function FieldTextarea({\n  field,\n  value,\n  onChange,\n  onBlur,\n  error,\n  disabled,\n  touched = true,\n}: FieldTextareaProps) {\n  const fieldId = &#96;field-${field.id}&#96;;\n  const hasError = Boolean(error);\n  const validation = field.validation as\n    | { minLength?: number; maxLength?: number }\n    | null\n    | undefined;\n\n  const describedBy = [\n    hasError ? &#96;${fieldId}-error&#96; : null,\n    field.helpText ? &#96;${fieldId}-help&#96; : null,\n  ]\n    .filter(Boolean)\n    .join(\" \") || undefined;\n\n  return (\n    &lt;FieldWrapper field={field} error={error} touched={touched}&gt;\n      &lt;textarea\n        id={fieldId}\n        value={value ?? \"\"}\n        onChange={(e) =&gt; onChange(e.target.value)}\n        onBlur={onBlur}\n        placeholder={field.placeholder ?? undefined}\n        disabled={disabled}\n        minLength={validation?.minLength}\n        maxLength={validation?.maxLength}\n        rows={4}\n        required={field.required}\n        aria-invalid={hasError}\n        aria-required={field.required}\n        aria-describedby={describedBy}\n        className={cn(\n          \"flex min-h-[80px] w-full rounded-md border border-input bg-background/80 px-3 py-2 text-base shadow-xs transition-[color,box-shadow] placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50\",\n          hasError &amp;&amp; \"border-destructive focus-visible:ring-destructive/30\"\n        )}\n      /&gt;\n    &lt;/FieldWrapper&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -919,19 +919,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/field-input-select.tsx&quot;
+  "relativeWorkspacePath": "components/forms/field-input-select.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;0e94b544-912e-4dc5-9c91-05be9ae4df7f&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "0e94b544-912e-4dc5-9c91-05be9ae4df7f",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -939,31 +939,31 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;    const fieldId = &#96;field-${field.id}&#96;;\n    const hasError = Boolean(error);\n+   const describedBy = [\n+     hasError ? &#96;${fieldId}-error&#96; : null,\n+     field.helpText ? &#96;${fieldId}-help&#96; : null,\n+   ]\n+     .filter(Boolean)\n+     .join(\&quot; \&quot;) || undefined;\n  \n    // Extract options from field.options JSON&quot;,
-        &quot;oldStart&quot;: 37,
-        &quot;newStart&quot;: 37,
-        &quot;oldLines&quot;: 4,
-        &quot;newLines&quot;: 10,
-        &quot;linesAdded&quot;: 6
+        "diffString": "    const fieldId = &#96;field-${field.id}&#96;;\n    const hasError = Boolean(error);\n+   const describedBy = [\n+     hasError ? &#96;${fieldId}-error&#96; : null,\n+     field.helpText ? &#96;${fieldId}-help&#96; : null,\n+   ]\n+     .filter(Boolean)\n+     .join(\" \") || undefined;\n  \n    // Extract options from field.options JSON",
+        "oldStart": 37,
+        "newStart": 37,
+        "oldLines": 4,
+        "newLines": 10,
+        "linesAdded": 6
       },
       {
-        &quot;diffString&quot;: &quot;          onValueChange={onChange}\n          disabled={disabled}\n+         required={field.required}\n        &gt;\n          &lt;SelectTrigger\n            id={fieldId}\n            onBlur={onBlur}\n            aria-invalid={hasError}\n-           aria-describedby={\n-             hasError\n-               ? &#96;${fieldId}-error&#96;\n-               : field.helpText\n-               ? &#96;${fieldId}-help&#96;\n-               : undefined\n-           }\n-           className={cn(hasError &amp;&amp; \&quot;border-destructive\&quot;)}\n+           aria-required={field.required}\n+           aria-describedby={describedBy}\n+           className={cn(\n+             \&quot;text-base\&quot;,\n+             hasError &amp;&amp; \&quot;border-destructive focus-visible:ring-destructive\&quot;\n+           )}\n          &gt;\n            &lt;SelectValue placeholder={field.placeholder ?? \&quot;Select an option\&quot;} /&gt;&quot;,
-        &quot;oldStart&quot;: 56,
-        &quot;newStart&quot;: 62,
-        &quot;oldLines&quot;: 17,
-        &quot;newLines&quot;: 16,
-        &quot;linesRemoved&quot;: 8,
-        &quot;linesAdded&quot;: 7
+        "diffString": "          onValueChange={onChange}\n          disabled={disabled}\n+         required={field.required}\n        &gt;\n          &lt;SelectTrigger\n            id={fieldId}\n            onBlur={onBlur}\n            aria-invalid={hasError}\n-           aria-describedby={\n-             hasError\n-               ? &#96;${fieldId}-error&#96;\n-               : field.helpText\n-               ? &#96;${fieldId}-help&#96;\n-               : undefined\n-           }\n-           className={cn(hasError &amp;&amp; \"border-destructive\")}\n+           aria-required={field.required}\n+           aria-describedby={describedBy}\n+           className={cn(\n+             \"text-base\",\n+             hasError &amp;&amp; \"border-destructive focus-visible:ring-destructive\"\n+           )}\n          &gt;\n            &lt;SelectValue placeholder={field.placeholder ?? \"Select an option\"} /&gt;",
+        "oldStart": 56,
+        "newStart": 62,
+        "oldLines": 17,
+        "newLines": 16,
+        "linesRemoved": 8,
+        "linesAdded": 7
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/field-input-select.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport * as React from \&quot;react\&quot;;\nimport {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \&quot;@/components/ui/select\&quot;;\nimport { FieldWrapper } from \&quot;./field-wrapper\&quot;;\nimport { cn } from \&quot;@/lib/utils\&quot;;\nimport type { FormField } from \&quot;@prisma/client\&quot;;\n\ninterface FieldInputSelectProps {\n  field: FormField;\n  value: string;\n  onChange: (value: string) =&gt; void;\n  onBlur?: () =&gt; void;\n  error?: string;\n  disabled?: boolean;\n  touched?: boolean;\n}\n\n/**\n * Select dropdown field component\n */\nexport function FieldInputSelect({\n  field,\n  value,\n  onChange,\n  onBlur,\n  error,\n  disabled,\n  touched = true,\n}: FieldInputSelectProps) {\n  const fieldId = &#96;field-${field.id}&#96;;\n  const hasError = Boolean(error);\n  const describedBy = [\n    hasError ? &#96;${fieldId}-error&#96; : null,\n    field.helpText ? &#96;${fieldId}-help&#96; : null,\n  ]\n    .filter(Boolean)\n    .join(\&quot; \&quot;) || undefined;\n\n  // Extract options from field.options JSON\n  const options = React.useMemo(() =&gt; {\n    if (!field.options || typeof field.options !== \&quot;object\&quot;) return [];\n    const optionsObj = field.options as Record&lt;string, unknown&gt;;\n    if (\&quot;values\&quot; in optionsObj &amp;&amp; Array.isArray(optionsObj.values)) {\n      return optionsObj.values.filter(\n        (v): v is string =&gt; typeof v === \&quot;string\&quot;\n      );\n    }\n    return [];\n  }, [field.options]);\n\n  return (\n    &lt;FieldWrapper field={field} error={error} touched={touched}&gt;\n      &lt;Select\n        value={value ?? \&quot;\&quot;}\n        onValueChange={onChange}\n        disabled={disabled}\n        required={field.required}\n      &gt;\n        &lt;SelectTrigger\n          id={fieldId}\n          onBlur={onBlur}\n          aria-invalid={hasError}\n          aria-required={field.required}\n          aria-describedby={describedBy}\n          className={cn(\n            \&quot;text-base\&quot;,\n            hasError &amp;&amp; \&quot;border-destructive focus-visible:ring-destructive\&quot;\n          )}\n        &gt;\n          &lt;SelectValue placeholder={field.placeholder ?? \&quot;Select an option\&quot;} /&gt;\n        &lt;/SelectTrigger&gt;\n        &lt;SelectContent&gt;\n          {options.map((option) =&gt; (\n            &lt;SelectItem key={option} value={option}&gt;\n              {option}\n            &lt;/SelectItem&gt;\n          ))}\n        &lt;/SelectContent&gt;\n      &lt;/Select&gt;\n    &lt;/FieldWrapper&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/field-input-select.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport * as React from \"react\";\nimport {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\";\nimport { FieldWrapper } from \"./field-wrapper\";\nimport { cn } from \"@/lib/utils\";\nimport type { FormField } from \"@prisma/client\";\n\ninterface FieldInputSelectProps {\n  field: FormField;\n  value: string;\n  onChange: (value: string) =&gt; void;\n  onBlur?: () =&gt; void;\n  error?: string;\n  disabled?: boolean;\n  touched?: boolean;\n}\n\n/**\n * Select dropdown field component\n */\nexport function FieldInputSelect({\n  field,\n  value,\n  onChange,\n  onBlur,\n  error,\n  disabled,\n  touched = true,\n}: FieldInputSelectProps) {\n  const fieldId = &#96;field-${field.id}&#96;;\n  const hasError = Boolean(error);\n  const describedBy = [\n    hasError ? &#96;${fieldId}-error&#96; : null,\n    field.helpText ? &#96;${fieldId}-help&#96; : null,\n  ]\n    .filter(Boolean)\n    .join(\" \") || undefined;\n\n  // Extract options from field.options JSON\n  const options = React.useMemo(() =&gt; {\n    if (!field.options || typeof field.options !== \"object\") return [];\n    const optionsObj = field.options as Record&lt;string, unknown&gt;;\n    if (\"values\" in optionsObj &amp;&amp; Array.isArray(optionsObj.values)) {\n      return optionsObj.values.filter(\n        (v): v is string =&gt; typeof v === \"string\"\n      );\n    }\n    return [];\n  }, [field.options]);\n\n  return (\n    &lt;FieldWrapper field={field} error={error} touched={touched}&gt;\n      &lt;Select\n        value={value ?? \"\"}\n        onValueChange={onChange}\n        disabled={disabled}\n        required={field.required}\n      &gt;\n        &lt;SelectTrigger\n          id={fieldId}\n          onBlur={onBlur}\n          aria-invalid={hasError}\n          aria-required={field.required}\n          aria-describedby={describedBy}\n          className={cn(\n            \"text-base\",\n            hasError &amp;&amp; \"border-destructive focus-visible:ring-destructive\"\n          )}\n        &gt;\n          &lt;SelectValue placeholder={field.placeholder ?? \"Select an option\"} /&gt;\n        &lt;/SelectTrigger&gt;\n        &lt;SelectContent&gt;\n          {options.map((option) =&gt; (\n            &lt;SelectItem key={option} value={option}&gt;\n              {option}\n            &lt;/SelectItem&gt;\n          ))}\n        &lt;/SelectContent&gt;\n      &lt;/Select&gt;\n    &lt;/FieldWrapper&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -990,19 +990,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/field-input-select.tsx&quot;
+  "relativeWorkspacePath": "components/forms/field-input-select.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;9630c385-d728-488e-ad0f-e54b71d6b012&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "9630c385-d728-488e-ad0f-e54b71d6b012",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -1010,23 +1010,23 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;    return (\n      &lt;FieldWrapper field={field} error={error} touched={touched}&gt;\n-       &lt;Select\n-         value={value ?? \&quot;\&quot;}\n-         onValueChange={onChange}\n-         disabled={disabled}\n-         required={field.required}\n-       &gt;\n+       &lt;Select value={value ?? \&quot;\&quot;} onValueChange={onChange} disabled={disabled}&gt;\n          &lt;SelectTrigger\n            id={fieldId}&quot;,
-        &quot;oldStart&quot;: 58,
-        &quot;newStart&quot;: 58,
-        &quot;oldLines&quot;: 10,
-        &quot;newLines&quot;: 5,
-        &quot;linesRemoved&quot;: 6,
-        &quot;linesAdded&quot;: 1
+        "diffString": "    return (\n      &lt;FieldWrapper field={field} error={error} touched={touched}&gt;\n-       &lt;Select\n-         value={value ?? \"\"}\n-         onValueChange={onChange}\n-         disabled={disabled}\n-         required={field.required}\n-       &gt;\n+       &lt;Select value={value ?? \"\"} onValueChange={onChange} disabled={disabled}&gt;\n          &lt;SelectTrigger\n            id={fieldId}",
+        "oldStart": 58,
+        "newStart": 58,
+        "oldLines": 10,
+        "newLines": 5,
+        "linesRemoved": 6,
+        "linesAdded": 1
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/field-input-select.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport * as React from \&quot;react\&quot;;\nimport {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \&quot;@/components/ui/select\&quot;;\nimport { FieldWrapper } from \&quot;./field-wrapper\&quot;;\nimport { cn } from \&quot;@/lib/utils\&quot;;\nimport type { FormField } from \&quot;@prisma/client\&quot;;\n\ninterface FieldInputSelectProps {\n  field: FormField;\n  value: string;\n  onChange: (value: string) =&gt; void;\n  onBlur?: () =&gt; void;\n  error?: string;\n  disabled?: boolean;\n  touched?: boolean;\n}\n\n/**\n * Select dropdown field component\n */\nexport function FieldInputSelect({\n  field,\n  value,\n  onChange,\n  onBlur,\n  error,\n  disabled,\n  touched = true,\n}: FieldInputSelectProps) {\n  const fieldId = &#96;field-${field.id}&#96;;\n  const hasError = Boolean(error);\n  const describedBy = [\n    hasError ? &#96;${fieldId}-error&#96; : null,\n    field.helpText ? &#96;${fieldId}-help&#96; : null,\n  ]\n    .filter(Boolean)\n    .join(\&quot; \&quot;) || undefined;\n\n  // Extract options from field.options JSON\n  const options = React.useMemo(() =&gt; {\n    if (!field.options || typeof field.options !== \&quot;object\&quot;) return [];\n    const optionsObj = field.options as Record&lt;string, unknown&gt;;\n    if (\&quot;values\&quot; in optionsObj &amp;&amp; Array.isArray(optionsObj.values)) {\n      return optionsObj.values.filter(\n        (v): v is string =&gt; typeof v === \&quot;string\&quot;\n      );\n    }\n    return [];\n  }, [field.options]);\n\n  return (\n    &lt;FieldWrapper field={field} error={error} touched={touched}&gt;\n      &lt;Select value={value ?? \&quot;\&quot;} onValueChange={onChange} disabled={disabled}&gt;\n        &lt;SelectTrigger\n          id={fieldId}\n          onBlur={onBlur}\n          aria-invalid={hasError}\n          aria-required={field.required}\n          aria-describedby={describedBy}\n          className={cn(\n            \&quot;text-base\&quot;,\n            hasError &amp;&amp; \&quot;border-destructive focus-visible:ring-destructive\&quot;\n          )}\n        &gt;\n          &lt;SelectValue placeholder={field.placeholder ?? \&quot;Select an option\&quot;} /&gt;\n        &lt;/SelectTrigger&gt;\n        &lt;SelectContent&gt;\n          {options.map((option) =&gt; (\n            &lt;SelectItem key={option} value={option}&gt;\n              {option}\n            &lt;/SelectItem&gt;\n          ))}\n        &lt;/SelectContent&gt;\n      &lt;/Select&gt;\n    &lt;/FieldWrapper&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/field-input-select.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport * as React from \"react\";\nimport {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\";\nimport { FieldWrapper } from \"./field-wrapper\";\nimport { cn } from \"@/lib/utils\";\nimport type { FormField } from \"@prisma/client\";\n\ninterface FieldInputSelectProps {\n  field: FormField;\n  value: string;\n  onChange: (value: string) =&gt; void;\n  onBlur?: () =&gt; void;\n  error?: string;\n  disabled?: boolean;\n  touched?: boolean;\n}\n\n/**\n * Select dropdown field component\n */\nexport function FieldInputSelect({\n  field,\n  value,\n  onChange,\n  onBlur,\n  error,\n  disabled,\n  touched = true,\n}: FieldInputSelectProps) {\n  const fieldId = &#96;field-${field.id}&#96;;\n  const hasError = Boolean(error);\n  const describedBy = [\n    hasError ? &#96;${fieldId}-error&#96; : null,\n    field.helpText ? &#96;${fieldId}-help&#96; : null,\n  ]\n    .filter(Boolean)\n    .join(\" \") || undefined;\n\n  // Extract options from field.options JSON\n  const options = React.useMemo(() =&gt; {\n    if (!field.options || typeof field.options !== \"object\") return [];\n    const optionsObj = field.options as Record&lt;string, unknown&gt;;\n    if (\"values\" in optionsObj &amp;&amp; Array.isArray(optionsObj.values)) {\n      return optionsObj.values.filter(\n        (v): v is string =&gt; typeof v === \"string\"\n      );\n    }\n    return [];\n  }, [field.options]);\n\n  return (\n    &lt;FieldWrapper field={field} error={error} touched={touched}&gt;\n      &lt;Select value={value ?? \"\"} onValueChange={onChange} disabled={disabled}&gt;\n        &lt;SelectTrigger\n          id={fieldId}\n          onBlur={onBlur}\n          aria-invalid={hasError}\n          aria-required={field.required}\n          aria-describedby={describedBy}\n          className={cn(\n            \"text-base\",\n            hasError &amp;&amp; \"border-destructive focus-visible:ring-destructive\"\n          )}\n        &gt;\n          &lt;SelectValue placeholder={field.placeholder ?? \"Select an option\"} /&gt;\n        &lt;/SelectTrigger&gt;\n        &lt;SelectContent&gt;\n          {options.map((option) =&gt; (\n            &lt;SelectItem key={option} value={option}&gt;\n              {option}\n            &lt;/SelectItem&gt;\n          ))}\n        &lt;/SelectContent&gt;\n      &lt;/Select&gt;\n    &lt;/FieldWrapper&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -1066,19 +1066,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/field-input-multi-select.tsx&quot;
+  "relativeWorkspacePath": "components/forms/field-input-multi-select.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;75ac0972-11b3-4b97-a13f-646388cdad82&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "75ac0972-11b3-4b97-a13f-646388cdad82",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -1086,31 +1086,31 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;    const fieldId = &#96;field-${field.id}&#96;;\n    const hasError = Boolean(error);\n+   const describedBy = [\n+     hasError ? &#96;${fieldId}-error&#96; : null,\n+     field.helpText ? &#96;${fieldId}-help&#96; : null,\n+   ]\n+     .filter(Boolean)\n+     .join(\&quot; \&quot;) || undefined;\n  \n    // Extract options from field.options JSON&quot;,
-        &quot;oldStart&quot;: 39,
-        &quot;newStart&quot;: 39,
-        &quot;oldLines&quot;: 4,
-        &quot;newLines&quot;: 10,
-        &quot;linesAdded&quot;: 6
+        "diffString": "    const fieldId = &#96;field-${field.id}&#96;;\n    const hasError = Boolean(error);\n+   const describedBy = [\n+     hasError ? &#96;${fieldId}-error&#96; : null,\n+     field.helpText ? &#96;${fieldId}-help&#96; : null,\n+   ]\n+     .filter(Boolean)\n+     .join(\" \") || undefined;\n  \n    // Extract options from field.options JSON",
+        "oldStart": 39,
+        "newStart": 39,
+        "oldLines": 4,
+        "newLines": 10,
+        "linesAdded": 6
       },
       {
-        &quot;diffString&quot;: &quot;              onBlur={onBlur}\n              aria-invalid={hasError}\n-             aria-describedby={\n-               hasError\n-                 ? &#96;${fieldId}-error&#96;\n-                 : field.helpText\n-                 ? &#96;${fieldId}-help&#96;\n-                 : undefined\n-             }\n-             className={cn(hasError &amp;&amp; \&quot;border-destructive\&quot;)}\n+             aria-required={field.required}\n+             aria-describedby={describedBy}\n+             className={cn(\n+               \&quot;text-base\&quot;,\n+               hasError &amp;&amp; \&quot;border-destructive focus-visible:ring-destructive\&quot;\n+             )}\n            &gt;\n              &lt;SelectValue placeholder={displayValue} /&gt;&quot;,
-        &quot;oldStart&quot;: 81,
-        &quot;newStart&quot;: 87,
-        &quot;oldLines&quot;: 12,
-        &quot;newLines&quot;: 10,
-        &quot;linesRemoved&quot;: 8,
-        &quot;linesAdded&quot;: 6
+        "diffString": "              onBlur={onBlur}\n              aria-invalid={hasError}\n-             aria-describedby={\n-               hasError\n-                 ? &#96;${fieldId}-error&#96;\n-                 : field.helpText\n-                 ? &#96;${fieldId}-help&#96;\n-                 : undefined\n-             }\n-             className={cn(hasError &amp;&amp; \"border-destructive\")}\n+             aria-required={field.required}\n+             aria-describedby={describedBy}\n+             className={cn(\n+               \"text-base\",\n+               hasError &amp;&amp; \"border-destructive focus-visible:ring-destructive\"\n+             )}\n            &gt;\n              &lt;SelectValue placeholder={displayValue} /&gt;",
+        "oldStart": 81,
+        "newStart": 87,
+        "oldLines": 12,
+        "newLines": 10,
+        "linesRemoved": 8,
+        "linesAdded": 6
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/field-input-multi-select.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport * as React from \&quot;react\&quot;;\nimport {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \&quot;@/components/ui/select\&quot;;\nimport { FieldWrapper } from \&quot;./field-wrapper\&quot;;\nimport { cn } from \&quot;@/lib/utils\&quot;;\nimport type { FormField } from \&quot;@prisma/client\&quot;;\n\ninterface FieldInputMultiSelectProps {\n  field: FormField;\n  value: string[];\n  onChange: (value: string[]) =&gt; void;\n  onBlur?: () =&gt; void;\n  error?: string;\n  disabled?: boolean;\n  touched?: boolean;\n}\n\n/**\n * Multi-select field component\n * Note: This is a simplified implementation using Select.\n * For production, consider using a dedicated multi-select component like Combobox.\n */\nexport function FieldInputMultiSelect({\n  field,\n  value,\n  onChange,\n  onBlur,\n  error,\n  disabled,\n  touched = true,\n}: FieldInputMultiSelectProps) {\n  const fieldId = &#96;field-${field.id}&#96;;\n  const hasError = Boolean(error);\n  const describedBy = [\n    hasError ? &#96;${fieldId}-error&#96; : null,\n    field.helpText ? &#96;${fieldId}-help&#96; : null,\n  ]\n    .filter(Boolean)\n    .join(\&quot; \&quot;) || undefined;\n\n  // Extract options from field.options JSON\n  const options = React.useMemo(() =&gt; {\n    if (!field.options || typeof field.options !== \&quot;object\&quot;) return [];\n    const optionsObj = field.options as Record&lt;string, unknown&gt;;\n    if (\&quot;values\&quot; in optionsObj &amp;&amp; Array.isArray(optionsObj.values)) {\n      return optionsObj.values.filter(\n        (v): v is string =&gt; typeof v === \&quot;string\&quot;\n      );\n    }\n    return [];\n  }, [field.options]);\n\n  const selectedValues = Array.isArray(value) ? value : [];\n  const displayValue =\n    selectedValues.length &gt; 0\n      ? &#96;${selectedValues.length} selected&#96;\n      : field.placeholder ?? \&quot;Select options\&quot;;\n\n  const handleValueChange = (newValue: string) =&gt; {\n    const currentValues = Array.isArray(value) ? [...value] : [];\n    if (currentValues.includes(newValue)) {\n      // Remove if already selected\n      onChange(currentValues.filter((v) =&gt; v !== newValue));\n    } else {\n      // Add if not selected\n      onChange([...currentValues, newValue]);\n    }\n  };\n\n  return (\n    &lt;FieldWrapper field={field} error={error} touched={touched}&gt;\n      &lt;div className=\&quot;space-y-2\&quot;&gt;\n        &lt;Select\n          value=\&quot;\&quot;\n          onValueChange={handleValueChange}\n          disabled={disabled}\n        &gt;\n          &lt;SelectTrigger\n            id={fieldId}\n            onBlur={onBlur}\n            aria-invalid={hasError}\n            aria-required={field.required}\n            aria-describedby={describedBy}\n            className={cn(\n              \&quot;text-base\&quot;,\n              hasError &amp;&amp; \&quot;border-destructive focus-visible:ring-destructive\&quot;\n            )}\n          &gt;\n            &lt;SelectValue placeholder={displayValue} /&gt;\n          &lt;/SelectTrigger&gt;\n          &lt;SelectContent&gt;\n            {options.map((option) =&gt; (\n              &lt;SelectItem\n                key={option}\n                value={option}\n                className={cn(\n                  selectedValues.includes(option) &amp;&amp; \&quot;bg-accent\&quot;\n                )}\n              &gt;\n                {option}\n                {selectedValues.includes(option) &amp;&amp; \&quot; ✓\&quot;}\n              &lt;/SelectItem&gt;\n            ))}\n          &lt;/SelectContent&gt;\n        &lt;/Select&gt;\n        {selectedValues.length &gt; 0 &amp;&amp; (\n          &lt;div className=\&quot;flex flex-wrap gap-2\&quot;&gt;\n            {selectedValues.map((val) =&gt; (\n              &lt;span\n                key={val}\n                className=\&quot;inline-flex items-center gap-1 rounded-md bg-secondary px-2 py-1 text-xs\&quot;\n              &gt;\n                {val}\n                &lt;button\n                  type=\&quot;button\&quot;\n                  onClick={() =&gt; {\n                    const newValues = selectedValues.filter((v) =&gt; v !== val);\n                    onChange(newValues);\n                  }}\n                  className=\&quot;ml-1 hover:text-destructive\&quot;\n                  aria-label={&#96;Remove ${val}&#96;}\n                &gt;\n                  ×\n                &lt;/button&gt;\n              &lt;/span&gt;\n            ))}\n          &lt;/div&gt;\n        )}\n      &lt;/div&gt;\n    &lt;/FieldWrapper&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/field-input-multi-select.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport * as React from \"react\";\nimport {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\";\nimport { FieldWrapper } from \"./field-wrapper\";\nimport { cn } from \"@/lib/utils\";\nimport type { FormField } from \"@prisma/client\";\n\ninterface FieldInputMultiSelectProps {\n  field: FormField;\n  value: string[];\n  onChange: (value: string[]) =&gt; void;\n  onBlur?: () =&gt; void;\n  error?: string;\n  disabled?: boolean;\n  touched?: boolean;\n}\n\n/**\n * Multi-select field component\n * Note: This is a simplified implementation using Select.\n * For production, consider using a dedicated multi-select component like Combobox.\n */\nexport function FieldInputMultiSelect({\n  field,\n  value,\n  onChange,\n  onBlur,\n  error,\n  disabled,\n  touched = true,\n}: FieldInputMultiSelectProps) {\n  const fieldId = &#96;field-${field.id}&#96;;\n  const hasError = Boolean(error);\n  const describedBy = [\n    hasError ? &#96;${fieldId}-error&#96; : null,\n    field.helpText ? &#96;${fieldId}-help&#96; : null,\n  ]\n    .filter(Boolean)\n    .join(\" \") || undefined;\n\n  // Extract options from field.options JSON\n  const options = React.useMemo(() =&gt; {\n    if (!field.options || typeof field.options !== \"object\") return [];\n    const optionsObj = field.options as Record&lt;string, unknown&gt;;\n    if (\"values\" in optionsObj &amp;&amp; Array.isArray(optionsObj.values)) {\n      return optionsObj.values.filter(\n        (v): v is string =&gt; typeof v === \"string\"\n      );\n    }\n    return [];\n  }, [field.options]);\n\n  const selectedValues = Array.isArray(value) ? value : [];\n  const displayValue =\n    selectedValues.length &gt; 0\n      ? &#96;${selectedValues.length} selected&#96;\n      : field.placeholder ?? \"Select options\";\n\n  const handleValueChange = (newValue: string) =&gt; {\n    const currentValues = Array.isArray(value) ? [...value] : [];\n    if (currentValues.includes(newValue)) {\n      // Remove if already selected\n      onChange(currentValues.filter((v) =&gt; v !== newValue));\n    } else {\n      // Add if not selected\n      onChange([...currentValues, newValue]);\n    }\n  };\n\n  return (\n    &lt;FieldWrapper field={field} error={error} touched={touched}&gt;\n      &lt;div className=\"space-y-2\"&gt;\n        &lt;Select\n          value=\"\"\n          onValueChange={handleValueChange}\n          disabled={disabled}\n        &gt;\n          &lt;SelectTrigger\n            id={fieldId}\n            onBlur={onBlur}\n            aria-invalid={hasError}\n            aria-required={field.required}\n            aria-describedby={describedBy}\n            className={cn(\n              \"text-base\",\n              hasError &amp;&amp; \"border-destructive focus-visible:ring-destructive\"\n            )}\n          &gt;\n            &lt;SelectValue placeholder={displayValue} /&gt;\n          &lt;/SelectTrigger&gt;\n          &lt;SelectContent&gt;\n            {options.map((option) =&gt; (\n              &lt;SelectItem\n                key={option}\n                value={option}\n                className={cn(\n                  selectedValues.includes(option) &amp;&amp; \"bg-accent\"\n                )}\n              &gt;\n                {option}\n                {selectedValues.includes(option) &amp;&amp; \" ✓\"}\n              &lt;/SelectItem&gt;\n            ))}\n          &lt;/SelectContent&gt;\n        &lt;/Select&gt;\n        {selectedValues.length &gt; 0 &amp;&amp; (\n          &lt;div className=\"flex flex-wrap gap-2\"&gt;\n            {selectedValues.map((val) =&gt; (\n              &lt;span\n                key={val}\n                className=\"inline-flex items-center gap-1 rounded-md bg-secondary px-2 py-1 text-xs\"\n              &gt;\n                {val}\n                &lt;button\n                  type=\"button\"\n                  onClick={() =&gt; {\n                    const newValues = selectedValues.filter((v) =&gt; v !== val);\n                    onChange(newValues);\n                  }}\n                  className=\"ml-1 hover:text-destructive\"\n                  aria-label={&#96;Remove ${val}&#96;}\n                &gt;\n                  ×\n                &lt;/button&gt;\n              &lt;/span&gt;\n            ))}\n          &lt;/div&gt;\n        )}\n      &lt;/div&gt;\n    &lt;/FieldWrapper&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -1152,19 +1152,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/field-input-checkbox.tsx&quot;
+  "relativeWorkspacePath": "components/forms/field-input-checkbox.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;7949537d-240d-43cc-8138-1296cc3ad6b6&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "7949537d-240d-43cc-8138-1296cc3ad6b6",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -1172,40 +1172,40 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;    const hasError = Boolean(error);\n    const showError = touched &amp;&amp; hasError;\n+   const describedBy = [\n+     showError ? &#96;${fieldId}-error&#96; : null,\n+     field.helpText ? &#96;${fieldId}-help&#96; : null,\n+   ]\n+     .filter(Boolean)\n+     .join(\&quot; \&quot;) || undefined;\n  \n    return (\n-     &lt;div className=\&quot;space-y-2\&quot;&gt;\n+     &lt;div className=\&quot;space-y-2 rounded-2xl border border-border/60 bg-card/50 p-4 shadow-sm focus-within:border-primary focus-within:shadow-md transition-all\&quot;&gt;\n        &lt;div className=\&quot;flex items-center space-x-2\&quot;&gt;\n          &lt;input&quot;,
-        &quot;oldStart&quot;: 31,
-        &quot;newStart&quot;: 31,
-        &quot;oldLines&quot;: 7,
-        &quot;newLines&quot;: 13,
-        &quot;linesRemoved&quot;: 1,
-        &quot;linesAdded&quot;: 7
+        "diffString": "    const hasError = Boolean(error);\n    const showError = touched &amp;&amp; hasError;\n+   const describedBy = [\n+     showError ? &#96;${fieldId}-error&#96; : null,\n+     field.helpText ? &#96;${fieldId}-help&#96; : null,\n+   ]\n+     .filter(Boolean)\n+     .join(\" \") || undefined;\n  \n    return (\n-     &lt;div className=\"space-y-2\"&gt;\n+     &lt;div className=\"space-y-2 rounded-2xl border border-border/60 bg-card/50 p-4 shadow-sm focus-within:border-primary focus-within:shadow-md transition-all\"&gt;\n        &lt;div className=\"flex items-center space-x-2\"&gt;\n          &lt;input",
+        "oldStart": 31,
+        "newStart": 31,
+        "oldLines": 7,
+        "newLines": 13,
+        "linesRemoved": 1,
+        "linesAdded": 7
       },
       {
-        &quot;diffString&quot;: &quot;            onBlur={onBlur}\n            disabled={disabled}\n+           required={field.required}\n            aria-invalid={showError}\n-           aria-describedby={\n-             showError\n-               ? &#96;${fieldId}-error&#96;\n-               : field.helpText\n-               ? &#96;${fieldId}-help&#96;\n-               : undefined\n-           }\n+           aria-required={field.required}\n+           aria-describedby={describedBy}\n            className={cn(\n              \&quot;h-4 w-4 rounded border border-input shadow-xs transition-colors\&quot;,&quot;,
-        &quot;oldStart&quot;: 42,
-        &quot;newStart&quot;: 48,
-        &quot;oldLines&quot;: 12,
-        &quot;newLines&quot;: 8,
-        &quot;linesRemoved&quot;: 7,
-        &quot;linesAdded&quot;: 3
+        "diffString": "            onBlur={onBlur}\n            disabled={disabled}\n+           required={field.required}\n            aria-invalid={showError}\n-           aria-describedby={\n-             showError\n-               ? &#96;${fieldId}-error&#96;\n-               : field.helpText\n-               ? &#96;${fieldId}-help&#96;\n-               : undefined\n-           }\n+           aria-required={field.required}\n+           aria-describedby={describedBy}\n            className={cn(\n              \"h-4 w-4 rounded border border-input shadow-xs transition-colors\",",
+        "oldStart": 42,
+        "newStart": 48,
+        "oldLines": 12,
+        "newLines": 8,
+        "linesRemoved": 7,
+        "linesAdded": 3
       },
       {
-        &quot;diffString&quot;: &quot;            id={&#96;${fieldId}-help&#96;}\n            className=\&quot;text-xs text-muted-foreground\&quot;\n-           aria-describedby={fieldId}\n          &gt;\n            {field.helpText}&quot;,
-        &quot;oldStart&quot;: 74,
-        &quot;newStart&quot;: 76,
-        &quot;oldLines&quot;: 5,
-        &quot;newLines&quot;: 4,
-        &quot;linesRemoved&quot;: 1
+        "diffString": "            id={&#96;${fieldId}-help&#96;}\n            className=\"text-xs text-muted-foreground\"\n-           aria-describedby={fieldId}\n          &gt;\n            {field.helpText}",
+        "oldStart": 74,
+        "newStart": 76,
+        "oldLines": 5,
+        "newLines": 4,
+        "linesRemoved": 1
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/field-input-checkbox.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport * as React from \&quot;react\&quot;;\nimport { Label } from \&quot;@/components/ui/label\&quot;;\nimport { cn } from \&quot;@/lib/utils\&quot;;\nimport type { FormField } from \&quot;@prisma/client\&quot;;\n\ninterface FieldInputCheckboxProps {\n  field: FormField;\n  value: boolean;\n  onChange: (value: boolean) =&gt; void;\n  onBlur?: () =&gt; void;\n  error?: string;\n  disabled?: boolean;\n  touched?: boolean;\n}\n\n/**\n * Checkbox field component\n */\nexport function FieldInputCheckbox({\n  field,\n  value,\n  onChange,\n  onBlur,\n  error,\n  disabled,\n  touched = true,\n}: FieldInputCheckboxProps) {\n  const fieldId = &#96;field-${field.id}&#96;;\n  const hasError = Boolean(error);\n  const showError = touched &amp;&amp; hasError;\n  const describedBy = [\n    showError ? &#96;${fieldId}-error&#96; : null,\n    field.helpText ? &#96;${fieldId}-help&#96; : null,\n  ]\n    .filter(Boolean)\n    .join(\&quot; \&quot;) || undefined;\n\n  return (\n    &lt;div className=\&quot;space-y-2 rounded-2xl border border-border/60 bg-card/50 p-4 shadow-sm focus-within:border-primary focus-within:shadow-md transition-all\&quot;&gt;\n      &lt;div className=\&quot;flex items-center space-x-2\&quot;&gt;\n        &lt;input\n          id={fieldId}\n          type=\&quot;checkbox\&quot;\n          checked={value ?? false}\n          onChange={(e) =&gt; onChange(e.target.checked)}\n          onBlur={onBlur}\n          disabled={disabled}\n          required={field.required}\n          aria-invalid={showError}\n          aria-required={field.required}\n          aria-describedby={describedBy}\n          className={cn(\n            \&quot;h-4 w-4 rounded border border-input shadow-xs transition-colors\&quot;,\n            \&quot;focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2\&quot;,\n            \&quot;disabled:cursor-not-allowed disabled:opacity-50\&quot;,\n            showError &amp;&amp; \&quot;border-destructive\&quot;,\n            \&quot;checked:bg-primary checked:border-primary\&quot;\n          )}\n        /&gt;\n        &lt;Label\n          htmlFor={fieldId}\n          className=\&quot;text-sm font-medium cursor-pointer\&quot;\n        &gt;\n          {field.label}\n          {field.required &amp;&amp; (\n            &lt;span className=\&quot;ml-0.5 text-destructive\&quot; aria-label=\&quot;required\&quot;&gt;\n              *\n            &lt;/span&gt;\n          )}\n        &lt;/Label&gt;\n      &lt;/div&gt;\n      {field.helpText &amp;&amp; (\n        &lt;p\n          id={&#96;${fieldId}-help&#96;}\n          className=\&quot;text-xs text-muted-foreground\&quot;\n        &gt;\n          {field.helpText}\n        &lt;/p&gt;\n      )}\n      {showError &amp;&amp; (\n        &lt;p\n          id={&#96;${fieldId}-error&#96;}\n          className=\&quot;text-xs text-destructive\&quot;\n          role=\&quot;alert\&quot;\n          aria-live=\&quot;polite\&quot;\n        &gt;\n          {error}\n        &lt;/p&gt;\n      )}\n    &lt;/div&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/field-input-checkbox.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport * as React from \"react\";\nimport { Label } from \"@/components/ui/label\";\nimport { cn } from \"@/lib/utils\";\nimport type { FormField } from \"@prisma/client\";\n\ninterface FieldInputCheckboxProps {\n  field: FormField;\n  value: boolean;\n  onChange: (value: boolean) =&gt; void;\n  onBlur?: () =&gt; void;\n  error?: string;\n  disabled?: boolean;\n  touched?: boolean;\n}\n\n/**\n * Checkbox field component\n */\nexport function FieldInputCheckbox({\n  field,\n  value,\n  onChange,\n  onBlur,\n  error,\n  disabled,\n  touched = true,\n}: FieldInputCheckboxProps) {\n  const fieldId = &#96;field-${field.id}&#96;;\n  const hasError = Boolean(error);\n  const showError = touched &amp;&amp; hasError;\n  const describedBy = [\n    showError ? &#96;${fieldId}-error&#96; : null,\n    field.helpText ? &#96;${fieldId}-help&#96; : null,\n  ]\n    .filter(Boolean)\n    .join(\" \") || undefined;\n\n  return (\n    &lt;div className=\"space-y-2 rounded-2xl border border-border/60 bg-card/50 p-4 shadow-sm focus-within:border-primary focus-within:shadow-md transition-all\"&gt;\n      &lt;div className=\"flex items-center space-x-2\"&gt;\n        &lt;input\n          id={fieldId}\n          type=\"checkbox\"\n          checked={value ?? false}\n          onChange={(e) =&gt; onChange(e.target.checked)}\n          onBlur={onBlur}\n          disabled={disabled}\n          required={field.required}\n          aria-invalid={showError}\n          aria-required={field.required}\n          aria-describedby={describedBy}\n          className={cn(\n            \"h-4 w-4 rounded border border-input shadow-xs transition-colors\",\n            \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2\",\n            \"disabled:cursor-not-allowed disabled:opacity-50\",\n            showError &amp;&amp; \"border-destructive\",\n            \"checked:bg-primary checked:border-primary\"\n          )}\n        /&gt;\n        &lt;Label\n          htmlFor={fieldId}\n          className=\"text-sm font-medium cursor-pointer\"\n        &gt;\n          {field.label}\n          {field.required &amp;&amp; (\n            &lt;span className=\"ml-0.5 text-destructive\" aria-label=\"required\"&gt;\n              *\n            &lt;/span&gt;\n          )}\n        &lt;/Label&gt;\n      &lt;/div&gt;\n      {field.helpText &amp;&amp; (\n        &lt;p\n          id={&#96;${fieldId}-help&#96;}\n          className=\"text-xs text-muted-foreground\"\n        &gt;\n          {field.helpText}\n        &lt;/p&gt;\n      )}\n      {showError &amp;&amp; (\n        &lt;p\n          id={&#96;${fieldId}-error&#96;}\n          className=\"text-xs text-destructive\"\n          role=\"alert\"\n          aria-live=\"polite\"\n        &gt;\n          {error}\n        &lt;/p&gt;\n      )}\n    &lt;/div&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -1245,19 +1245,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/field-wrapper.tsx&quot;
+  "relativeWorkspacePath": "components/forms/field-wrapper.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;51f94314-7eef-4173-afe6-b8500de4feca&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "51f94314-7eef-4173-afe6-b8500de4feca",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -1265,23 +1265,23 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;        )}\n      &gt;\n-       &lt;Label htmlFor={fieldElementId} className=\&quot;text-sm font-medium\&quot;&gt;\n+       &lt;Label\n+         htmlFor={fieldElementId}\n+         id={&#96;${fieldElementId}-label&#96;}\n+         className=\&quot;text-sm font-medium\&quot;\n+       &gt;\n          {field.label}\n          {field.required &amp;&amp; (&quot;,
-        &quot;oldStart&quot;: 37,
-        &quot;newStart&quot;: 37,
-        &quot;oldLines&quot;: 5,
-        &quot;newLines&quot;: 9,
-        &quot;linesRemoved&quot;: 1,
-        &quot;linesAdded&quot;: 5
+        "diffString": "        )}\n      &gt;\n-       &lt;Label htmlFor={fieldElementId} className=\"text-sm font-medium\"&gt;\n+       &lt;Label\n+         htmlFor={fieldElementId}\n+         id={&#96;${fieldElementId}-label&#96;}\n+         className=\"text-sm font-medium\"\n+       &gt;\n          {field.label}\n          {field.required &amp;&amp; (",
+        "oldStart": 37,
+        "newStart": 37,
+        "oldLines": 5,
+        "newLines": 9,
+        "linesRemoved": 1,
+        "linesAdded": 5
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/field-wrapper.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport * as React from \&quot;react\&quot;;\nimport { Label } from \&quot;@/components/ui/label\&quot;;\nimport { FieldError } from \&quot;./field-error\&quot;;\nimport { cn } from \&quot;@/lib/utils\&quot;;\nimport type { FormField } from \&quot;@prisma/client\&quot;;\n\ninterface FieldWrapperProps {\n  field: FormField;\n  error?: string;\n  touched?: boolean;\n  children: React.ReactNode;\n  className?: string;\n}\n\n/**\n * Wrapper component for form fields that provides consistent styling,\n * label, help text, and error display.\n */\nexport function FieldWrapper({\n  field,\n  error,\n  touched = true,\n  children,\n  className,\n}: FieldWrapperProps) {\n  const fieldElementId = &#96;field-${field.id}&#96;;\n  const helpTextId = field.helpText ? &#96;${fieldElementId}-help&#96; : undefined;\n  const errorId = &#96;${fieldElementId}-error&#96;;\n\n  return (\n    &lt;div\n      className={cn(\n        \&quot;space-y-2 rounded-2xl border border-border/60 bg-card/50 p-4 shadow-sm transition-all duration-300 focus-within:border-primary focus-within:shadow-md motion-reduce:transition-none\&quot;,\n        className\n      )}\n    &gt;\n      &lt;Label\n        htmlFor={fieldElementId}\n        id={&#96;${fieldElementId}-label&#96;}\n        className=\&quot;text-sm font-medium\&quot;\n      &gt;\n        {field.label}\n        {field.required &amp;&amp; (\n          &lt;span className=\&quot;ml-0.5 text-destructive\&quot; aria-label=\&quot;required\&quot;&gt;\n            *\n          &lt;/span&gt;\n        )}\n      &lt;/Label&gt;\n      {children}\n      {field.helpText &amp;&amp; (\n        &lt;p id={helpTextId} className=\&quot;text-xs text-muted-foreground\&quot;&gt;\n          {field.helpText}\n        &lt;/p&gt;\n      )}\n      &lt;FieldError error={error} touched={touched} id={errorId} /&gt;\n    &lt;/div&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/field-wrapper.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport * as React from \"react\";\nimport { Label } from \"@/components/ui/label\";\nimport { FieldError } from \"./field-error\";\nimport { cn } from \"@/lib/utils\";\nimport type { FormField } from \"@prisma/client\";\n\ninterface FieldWrapperProps {\n  field: FormField;\n  error?: string;\n  touched?: boolean;\n  children: React.ReactNode;\n  className?: string;\n}\n\n/**\n * Wrapper component for form fields that provides consistent styling,\n * label, help text, and error display.\n */\nexport function FieldWrapper({\n  field,\n  error,\n  touched = true,\n  children,\n  className,\n}: FieldWrapperProps) {\n  const fieldElementId = &#96;field-${field.id}&#96;;\n  const helpTextId = field.helpText ? &#96;${fieldElementId}-help&#96; : undefined;\n  const errorId = &#96;${fieldElementId}-error&#96;;\n\n  return (\n    &lt;div\n      className={cn(\n        \"space-y-2 rounded-2xl border border-border/60 bg-card/50 p-4 shadow-sm transition-all duration-300 focus-within:border-primary focus-within:shadow-md motion-reduce:transition-none\",\n        className\n      )}\n    &gt;\n      &lt;Label\n        htmlFor={fieldElementId}\n        id={&#96;${fieldElementId}-label&#96;}\n        className=\"text-sm font-medium\"\n      &gt;\n        {field.label}\n        {field.required &amp;&amp; (\n          &lt;span className=\"ml-0.5 text-destructive\" aria-label=\"required\"&gt;\n            *\n          &lt;/span&gt;\n        )}\n      &lt;/Label&gt;\n      {children}\n      {field.helpText &amp;&amp; (\n        &lt;p id={helpTextId} className=\"text-xs text-muted-foreground\"&gt;\n          {field.helpText}\n        &lt;/p&gt;\n      )}\n      &lt;FieldError error={error} touched={touched} id={errorId} /&gt;\n    &lt;/div&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -1308,19 +1308,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/field-input-radio.tsx&quot;
+  "relativeWorkspacePath": "components/forms/field-input-radio.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;24c0013a-a304-494a-aa9d-635211d870d3&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "24c0013a-a304-494a-aa9d-635211d870d3",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -1328,40 +1328,40 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;    const fieldId = &#96;field-${field.id}&#96;;\n    const hasError = Boolean(error);\n+   const describedBy = [\n+     hasError ? &#96;${fieldId}-error&#96; : null,\n+     field.helpText ? &#96;${fieldId}-help&#96; : null,\n+   ]\n+     .filter(Boolean)\n+     .join(\&quot; \&quot;) || undefined;\n  \n    // Extract options from field.options JSON&quot;,
-        &quot;oldStart&quot;: 31,
-        &quot;newStart&quot;: 31,
-        &quot;oldLines&quot;: 4,
-        &quot;newLines&quot;: 10,
-        &quot;linesAdded&quot;: 6
+        "diffString": "    const fieldId = &#96;field-${field.id}&#96;;\n    const hasError = Boolean(error);\n+   const describedBy = [\n+     hasError ? &#96;${fieldId}-error&#96; : null,\n+     field.helpText ? &#96;${fieldId}-help&#96; : null,\n+   ]\n+     .filter(Boolean)\n+     .join(\" \") || undefined;\n  \n    // Extract options from field.options JSON",
+        "oldStart": 31,
+        "newStart": 31,
+        "oldLines": 4,
+        "newLines": 10,
+        "linesAdded": 6
       },
       {
-        &quot;diffString&quot;: &quot;    return (\n      &lt;FieldWrapper field={field} error={error} touched={touched}&gt;\n-       &lt;div className=\&quot;space-y-2\&quot; role=\&quot;radiogroup\&quot; aria-labelledby={&#96;${fieldId}-label&#96;}&gt;\n+       &lt;div\n+         className=\&quot;space-y-2\&quot;\n+         role=\&quot;radiogroup\&quot;\n+         aria-labelledby={&#96;${fieldId}-label&#96;}\n+         aria-describedby={describedBy}\n+         aria-invalid={hasError}\n+         aria-required={field.required}\n+       &gt;\n          {options.map((option) =&gt; {\n            const optionId = &#96;${fieldId}-${option}&#96;;&quot;,
-        &quot;oldStart&quot;: 46,
-        &quot;newStart&quot;: 52,
-        &quot;oldLines&quot;: 5,
-        &quot;newLines&quot;: 12,
-        &quot;linesRemoved&quot;: 1,
-        &quot;linesAdded&quot;: 8
+        "diffString": "    return (\n      &lt;FieldWrapper field={field} error={error} touched={touched}&gt;\n-       &lt;div className=\"space-y-2\" role=\"radiogroup\" aria-labelledby={&#96;${fieldId}-label&#96;}&gt;\n+       &lt;div\n+         className=\"space-y-2\"\n+         role=\"radiogroup\"\n+         aria-labelledby={&#96;${fieldId}-label&#96;}\n+         aria-describedby={describedBy}\n+         aria-invalid={hasError}\n+         aria-required={field.required}\n+       &gt;\n          {options.map((option) =&gt; {\n            const optionId = &#96;${fieldId}-${option}&#96;;",
+        "oldStart": 46,
+        "newStart": 52,
+        "oldLines": 5,
+        "newLines": 12,
+        "linesRemoved": 1,
+        "linesAdded": 8
       },
       {
-        &quot;diffString&quot;: &quot;                  onBlur={onBlur}\n                  disabled={disabled}\n+                 required={field.required}\n                  aria-invalid={hasError}\n-                 aria-describedby={\n-                   hasError\n-                     ? &#96;${fieldId}-error&#96;\n-                     : field.helpText\n-                     ? &#96;${fieldId}-help&#96;\n-                     : undefined\n-                 }\n+                 aria-describedby={describedBy}\n+                 aria-required={field.required}\n                  className={cn(\n                    \&quot;h-4 w-4 border border-input shadow-xs transition-colors\&quot;,&quot;,
-        &quot;oldStart&quot;: 61,
-        &quot;newStart&quot;: 74,
-        &quot;oldLines&quot;: 12,
-        &quot;newLines&quot;: 8,
-        &quot;linesRemoved&quot;: 7,
-        &quot;linesAdded&quot;: 3
+        "diffString": "                  onBlur={onBlur}\n                  disabled={disabled}\n+                 required={field.required}\n                  aria-invalid={hasError}\n-                 aria-describedby={\n-                   hasError\n-                     ? &#96;${fieldId}-error&#96;\n-                     : field.helpText\n-                     ? &#96;${fieldId}-help&#96;\n-                     : undefined\n-                 }\n+                 aria-describedby={describedBy}\n+                 aria-required={field.required}\n                  className={cn(\n                    \"h-4 w-4 border border-input shadow-xs transition-colors\",",
+        "oldStart": 61,
+        "newStart": 74,
+        "oldLines": 12,
+        "newLines": 8,
+        "linesRemoved": 7,
+        "linesAdded": 3
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/field-input-radio.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport * as React from \&quot;react\&quot;;\nimport { Label } from \&quot;@/components/ui/label\&quot;;\nimport { FieldWrapper } from \&quot;./field-wrapper\&quot;;\nimport { cn } from \&quot;@/lib/utils\&quot;;\nimport type { FormField } from \&quot;@prisma/client\&quot;;\n\ninterface FieldInputRadioProps {\n  field: FormField;\n  value: string;\n  onChange: (value: string) =&gt; void;\n  onBlur?: () =&gt; void;\n  error?: string;\n  disabled?: boolean;\n  touched?: boolean;\n}\n\n/**\n * Radio group field component\n */\nexport function FieldInputRadio({\n  field,\n  value,\n  onChange,\n  onBlur,\n  error,\n  disabled,\n  touched = true,\n}: FieldInputRadioProps) {\n  const fieldId = &#96;field-${field.id}&#96;;\n  const hasError = Boolean(error);\n  const describedBy = [\n    hasError ? &#96;${fieldId}-error&#96; : null,\n    field.helpText ? &#96;${fieldId}-help&#96; : null,\n  ]\n    .filter(Boolean)\n    .join(\&quot; \&quot;) || undefined;\n\n  // Extract options from field.options JSON\n  const options = React.useMemo(() =&gt; {\n    if (!field.options || typeof field.options !== \&quot;object\&quot;) return [];\n    const optionsObj = field.options as Record&lt;string, unknown&gt;;\n    if (\&quot;values\&quot; in optionsObj &amp;&amp; Array.isArray(optionsObj.values)) {\n      return optionsObj.values.filter(\n        (v): v is string =&gt; typeof v === \&quot;string\&quot;\n      );\n    }\n    return [];\n  }, [field.options]);\n\n  return (\n    &lt;FieldWrapper field={field} error={error} touched={touched}&gt;\n      &lt;div\n        className=\&quot;space-y-2\&quot;\n        role=\&quot;radiogroup\&quot;\n        aria-labelledby={&#96;${fieldId}-label&#96;}\n        aria-describedby={describedBy}\n        aria-invalid={hasError}\n        aria-required={field.required}\n      &gt;\n        {options.map((option) =&gt; {\n          const optionId = &#96;${fieldId}-${option}&#96;;\n          const isChecked = value === option;\n          return (\n            &lt;div key={option} className=\&quot;flex items-center space-x-2\&quot;&gt;\n              &lt;input\n                id={optionId}\n                type=\&quot;radio\&quot;\n                name={fieldId}\n                value={option}\n                checked={isChecked}\n                onChange={(e) =&gt; onChange(e.target.value)}\n                onBlur={onBlur}\n                disabled={disabled}\n                required={field.required}\n                aria-invalid={hasError}\n                aria-describedby={describedBy}\n                aria-required={field.required}\n                className={cn(\n                  \&quot;h-4 w-4 border border-input shadow-xs transition-colors\&quot;,\n                  \&quot;focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2\&quot;,\n                  \&quot;disabled:cursor-not-allowed disabled:opacity-50\&quot;,\n                  hasError &amp;&amp; \&quot;border-destructive\&quot;,\n                  \&quot;checked:bg-primary checked:border-primary\&quot;\n                )}\n              /&gt;\n              &lt;label\n                htmlFor={optionId}\n                className={cn(\n                  \&quot;text-sm font-normal leading-none cursor-pointer\&quot;,\n                  \&quot;peer-disabled:cursor-not-allowed peer-disabled:opacity-70\&quot;\n                )}\n              &gt;\n                {option}\n              &lt;/label&gt;\n            &lt;/div&gt;\n          );\n        })}\n      &lt;/div&gt;\n    &lt;/FieldWrapper&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/field-input-radio.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport * as React from \"react\";\nimport { Label } from \"@/components/ui/label\";\nimport { FieldWrapper } from \"./field-wrapper\";\nimport { cn } from \"@/lib/utils\";\nimport type { FormField } from \"@prisma/client\";\n\ninterface FieldInputRadioProps {\n  field: FormField;\n  value: string;\n  onChange: (value: string) =&gt; void;\n  onBlur?: () =&gt; void;\n  error?: string;\n  disabled?: boolean;\n  touched?: boolean;\n}\n\n/**\n * Radio group field component\n */\nexport function FieldInputRadio({\n  field,\n  value,\n  onChange,\n  onBlur,\n  error,\n  disabled,\n  touched = true,\n}: FieldInputRadioProps) {\n  const fieldId = &#96;field-${field.id}&#96;;\n  const hasError = Boolean(error);\n  const describedBy = [\n    hasError ? &#96;${fieldId}-error&#96; : null,\n    field.helpText ? &#96;${fieldId}-help&#96; : null,\n  ]\n    .filter(Boolean)\n    .join(\" \") || undefined;\n\n  // Extract options from field.options JSON\n  const options = React.useMemo(() =&gt; {\n    if (!field.options || typeof field.options !== \"object\") return [];\n    const optionsObj = field.options as Record&lt;string, unknown&gt;;\n    if (\"values\" in optionsObj &amp;&amp; Array.isArray(optionsObj.values)) {\n      return optionsObj.values.filter(\n        (v): v is string =&gt; typeof v === \"string\"\n      );\n    }\n    return [];\n  }, [field.options]);\n\n  return (\n    &lt;FieldWrapper field={field} error={error} touched={touched}&gt;\n      &lt;div\n        className=\"space-y-2\"\n        role=\"radiogroup\"\n        aria-labelledby={&#96;${fieldId}-label&#96;}\n        aria-describedby={describedBy}\n        aria-invalid={hasError}\n        aria-required={field.required}\n      &gt;\n        {options.map((option) =&gt; {\n          const optionId = &#96;${fieldId}-${option}&#96;;\n          const isChecked = value === option;\n          return (\n            &lt;div key={option} className=\"flex items-center space-x-2\"&gt;\n              &lt;input\n                id={optionId}\n                type=\"radio\"\n                name={fieldId}\n                value={option}\n                checked={isChecked}\n                onChange={(e) =&gt; onChange(e.target.value)}\n                onBlur={onBlur}\n                disabled={disabled}\n                required={field.required}\n                aria-invalid={hasError}\n                aria-describedby={describedBy}\n                aria-required={field.required}\n                className={cn(\n                  \"h-4 w-4 border border-input shadow-xs transition-colors\",\n                  \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2\",\n                  \"disabled:cursor-not-allowed disabled:opacity-50\",\n                  hasError &amp;&amp; \"border-destructive\",\n                  \"checked:bg-primary checked:border-primary\"\n                )}\n              /&gt;\n              &lt;label\n                htmlFor={optionId}\n                className={cn(\n                  \"text-sm font-normal leading-none cursor-pointer\",\n                  \"peer-disabled:cursor-not-allowed peer-disabled:opacity-70\"\n                )}\n              &gt;\n                {option}\n              &lt;/label&gt;\n            &lt;/div&gt;\n          );\n        })}\n      &lt;/div&gt;\n    &lt;/FieldWrapper&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -1401,19 +1401,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/field-input-date.tsx&quot;
+  "relativeWorkspacePath": "components/forms/field-input-date.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;51159bc4-8ee8-49d8-afef-c6dff5311506&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "51159bc4-8ee8-49d8-afef-c6dff5311506",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -1421,31 +1421,31 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;    };\n  \n+   const describedBy = [\n+     hasError ? &#96;${fieldId}-error&#96; : null,\n+     field.helpText ? &#96;${fieldId}-help&#96; : null,\n+   ]\n+     .filter(Boolean)\n+     .join(\&quot; \&quot;) || undefined;\n+ \n    return (\n      &lt;FieldWrapper field={field} error={error} touched={touched}&gt;&quot;,
-        &quot;oldStart&quot;: 61,
-        &quot;newStart&quot;: 61,
-        &quot;oldLines&quot;: 4,
-        &quot;newLines&quot;: 11,
-        &quot;linesAdded&quot;: 7
+        "diffString": "    };\n  \n+   const describedBy = [\n+     hasError ? &#96;${fieldId}-error&#96; : null,\n+     field.helpText ? &#96;${fieldId}-help&#96; : null,\n+   ]\n+     .filter(Boolean)\n+     .join(\" \") || undefined;\n+ \n    return (\n      &lt;FieldWrapper field={field} error={error} touched={touched}&gt;",
+        "oldStart": 61,
+        "newStart": 61,
+        "oldLines": 4,
+        "newLines": 11,
+        "linesAdded": 7
       },
       {
-        &quot;diffString&quot;: &quot;          min={validation?.min}\n          max={validation?.max}\n+         required={field.required}\n          aria-invalid={hasError}\n-         aria-describedby={\n-           hasError\n-             ? &#96;${fieldId}-error&#96;\n-             : field.helpText\n-             ? &#96;${fieldId}-help&#96;\n-             : undefined\n-         }\n-         className={cn(hasError &amp;&amp; \&quot;border-destructive\&quot;)}\n+         aria-required={field.required}\n+         aria-describedby={describedBy}\n+         className={cn(\n+           \&quot;text-base\&quot;,\n+           hasError &amp;&amp; \&quot;border-destructive focus-visible:ring-destructive\&quot;\n+         )}\n        /&gt;\n      &lt;/FieldWrapper&gt;&quot;,
-        &quot;oldStart&quot;: 72,
-        &quot;newStart&quot;: 79,
-        &quot;oldLines&quot;: 13,
-        &quot;newLines&quot;: 12,
-        &quot;linesRemoved&quot;: 8,
-        &quot;linesAdded&quot;: 7
+        "diffString": "          min={validation?.min}\n          max={validation?.max}\n+         required={field.required}\n          aria-invalid={hasError}\n-         aria-describedby={\n-           hasError\n-             ? &#96;${fieldId}-error&#96;\n-             : field.helpText\n-             ? &#96;${fieldId}-help&#96;\n-             : undefined\n-         }\n-         className={cn(hasError &amp;&amp; \"border-destructive\")}\n+         aria-required={field.required}\n+         aria-describedby={describedBy}\n+         className={cn(\n+           \"text-base\",\n+           hasError &amp;&amp; \"border-destructive focus-visible:ring-destructive\"\n+         )}\n        /&gt;\n      &lt;/FieldWrapper&gt;",
+        "oldStart": 72,
+        "newStart": 79,
+        "oldLines": 13,
+        "newLines": 12,
+        "linesRemoved": 8,
+        "linesAdded": 7
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/field-input-date.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport * as React from \&quot;react\&quot;;\nimport { Input } from \&quot;@/components/ui/input\&quot;;\nimport { FieldWrapper } from \&quot;./field-wrapper\&quot;;\nimport { cn } from \&quot;@/lib/utils\&quot;;\nimport type { FormField } from \&quot;@prisma/client\&quot;;\n\ninterface FieldInputDateProps {\n  field: FormField;\n  value: string;\n  onChange: (value: string) =&gt; void;\n  onBlur?: () =&gt; void;\n  error?: string;\n  disabled?: boolean;\n  touched?: boolean;\n}\n\n/**\n * Date picker field component\n * Note: This uses a native HTML5 date input. For more advanced date pickers,\n * consider integrating a library like react-day-picker or similar.\n */\nexport function FieldInputDate({\n  field,\n  value,\n  onChange,\n  onBlur,\n  error,\n  disabled,\n  touched = true,\n}: FieldInputDateProps) {\n  const fieldId = &#96;field-${field.id}&#96;;\n  const hasError = Boolean(error);\n  const validation = field.validation as\n    | { min?: string; max?: string }\n    | null\n    | undefined;\n\n  // Format value for date input (YYYY-MM-DD)\n  const formattedValue = React.useMemo(() =&gt; {\n    if (!value) return \&quot;\&quot;;\n    try {\n      const date = new Date(value);\n      if (isNaN(date.getTime())) return \&quot;\&quot;;\n      return date.toISOString().split(\&quot;T\&quot;)[0];\n    } catch {\n      return \&quot;\&quot;;\n    }\n  }, [value]);\n\n  const handleChange = (e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; {\n    const dateValue = e.target.value;\n    if (dateValue) {\n      // Convert to ISO string for storage\n      const date = new Date(dateValue);\n      onChange(date.toISOString());\n    } else {\n      onChange(\&quot;\&quot;);\n    }\n  };\n\n  const describedBy = [\n    hasError ? &#96;${fieldId}-error&#96; : null,\n    field.helpText ? &#96;${fieldId}-help&#96; : null,\n  ]\n    .filter(Boolean)\n    .join(\&quot; \&quot;) || undefined;\n\n  return (\n    &lt;FieldWrapper field={field} error={error} touched={touched}&gt;\n      &lt;Input\n        id={fieldId}\n        type=\&quot;date\&quot;\n        value={formattedValue}\n        onChange={handleChange}\n        onBlur={onBlur}\n        disabled={disabled}\n        min={validation?.min}\n        max={validation?.max}\n        required={field.required}\n        aria-invalid={hasError}\n        aria-required={field.required}\n        aria-describedby={describedBy}\n        className={cn(\n          \&quot;text-base\&quot;,\n          hasError &amp;&amp; \&quot;border-destructive focus-visible:ring-destructive\&quot;\n        )}\n      /&gt;\n    &lt;/FieldWrapper&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/field-input-date.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport * as React from \"react\";\nimport { Input } from \"@/components/ui/input\";\nimport { FieldWrapper } from \"./field-wrapper\";\nimport { cn } from \"@/lib/utils\";\nimport type { FormField } from \"@prisma/client\";\n\ninterface FieldInputDateProps {\n  field: FormField;\n  value: string;\n  onChange: (value: string) =&gt; void;\n  onBlur?: () =&gt; void;\n  error?: string;\n  disabled?: boolean;\n  touched?: boolean;\n}\n\n/**\n * Date picker field component\n * Note: This uses a native HTML5 date input. For more advanced date pickers,\n * consider integrating a library like react-day-picker or similar.\n */\nexport function FieldInputDate({\n  field,\n  value,\n  onChange,\n  onBlur,\n  error,\n  disabled,\n  touched = true,\n}: FieldInputDateProps) {\n  const fieldId = &#96;field-${field.id}&#96;;\n  const hasError = Boolean(error);\n  const validation = field.validation as\n    | { min?: string; max?: string }\n    | null\n    | undefined;\n\n  // Format value for date input (YYYY-MM-DD)\n  const formattedValue = React.useMemo(() =&gt; {\n    if (!value) return \"\";\n    try {\n      const date = new Date(value);\n      if (isNaN(date.getTime())) return \"\";\n      return date.toISOString().split(\"T\")[0];\n    } catch {\n      return \"\";\n    }\n  }, [value]);\n\n  const handleChange = (e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; {\n    const dateValue = e.target.value;\n    if (dateValue) {\n      // Convert to ISO string for storage\n      const date = new Date(dateValue);\n      onChange(date.toISOString());\n    } else {\n      onChange(\"\");\n    }\n  };\n\n  const describedBy = [\n    hasError ? &#96;${fieldId}-error&#96; : null,\n    field.helpText ? &#96;${fieldId}-help&#96; : null,\n  ]\n    .filter(Boolean)\n    .join(\" \") || undefined;\n\n  return (\n    &lt;FieldWrapper field={field} error={error} touched={touched}&gt;\n      &lt;Input\n        id={fieldId}\n        type=\"date\"\n        value={formattedValue}\n        onChange={handleChange}\n        onBlur={onBlur}\n        disabled={disabled}\n        min={validation?.min}\n        max={validation?.max}\n        required={field.required}\n        aria-invalid={hasError}\n        aria-required={field.required}\n        aria-describedby={describedBy}\n        className={cn(\n          \"text-base\",\n          hasError &amp;&amp; \"border-destructive focus-visible:ring-destructive\"\n        )}\n      /&gt;\n    &lt;/FieldWrapper&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -1472,19 +1472,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/step-indicator.tsx&quot;
+  "relativeWorkspacePath": "components/forms/step-indicator.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;b903de76-224d-4642-b1c0-405f4e24f953&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "b903de76-224d-4642-b1c0-405f4e24f953",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -1492,50 +1492,50 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;  }: StepIndicatorProps) {\n    return (\n-     &lt;nav aria-label=\&quot;Progress\&quot; className=\&quot;w-full\&quot;&gt;\n-       &lt;ol className=\&quot;flex items-center justify-between\&quot;&gt;\n+     &lt;nav aria-label=\&quot;Form progress\&quot; className=\&quot;w-full\&quot;&gt;\n+       &lt;ol className=\&quot;flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between\&quot;&gt;\n          {steps.map((step, index) =&gt; {\n            const isCompleted = completedSteps.has(index);&quot;,
-        &quot;oldStart&quot;: 47,
-        &quot;newStart&quot;: 47,
-        &quot;oldLines&quot;: 6,
-        &quot;newLines&quot;: 6,
-        &quot;linesRemoved&quot;: 2,
-        &quot;linesAdded&quot;: 2
+        "diffString": "  }: StepIndicatorProps) {\n    return (\n-     &lt;nav aria-label=\"Progress\" className=\"w-full\"&gt;\n-       &lt;ol className=\"flex items-center justify-between\"&gt;\n+     &lt;nav aria-label=\"Form progress\" className=\"w-full\"&gt;\n+       &lt;ol className=\"flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between\"&gt;\n          {steps.map((step, index) =&gt; {\n            const isCompleted = completedSteps.has(index);",
+        "oldStart": 47,
+        "newStart": 47,
+        "oldLines": 6,
+        "newLines": 6,
+        "linesRemoved": 2,
+        "linesAdded": 2
       },
       {
-        &quot;diffString&quot;: &quot;                aria-current={isCurrent ? \&quot;step\&quot; : undefined}\n              &gt;\n-               &lt;div className=\&quot;flex flex-col items-center flex-1\&quot;&gt;\n+               &lt;div className=\&quot;flex flex-1 flex-col items-center text-center\&quot;&gt;\n                  &lt;button\n                    type=\&quot;button\&quot;\n                    onClick={() =&gt; onStepClick?.(index)}\n                    disabled={!isClickable}\n                    className={cn(\n-                     \&quot;flex items-center justify-center size-10 rounded-full border-2 transition-all\&quot;,\n+                     \&quot;flex size-12 items-center justify-center rounded-full border-2 text-base font-semibold transition-all duration-300 motion-reduce:transition-none\&quot;,\n                      isCompleted\n                        ? \&quot;bg-primary border-primary text-primary-foreground\&quot;\n                        : isCurrent\n                          ? \&quot;bg-primary/10 border-primary text-primary\&quot;\n                          : \&quot;bg-background border-muted text-muted-foreground\&quot;,\n-                     isClickable &amp;&amp; \&quot;hover:scale-105 cursor-pointer\&quot;,\n+                     isClickable &amp;&amp; \&quot;hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/30\&quot;,\n                      !isClickable &amp;&amp; \&quot;cursor-not-allowed opacity-50\&quot;\n                    )}\n-                   aria-label={&#96;Step ${index + 1}: ${step.label}&#96;}\n+                   aria-label={&#96;Step ${index + 1} of ${steps.length}: ${step.label}&#96;}\n+                   aria-current={isCurrent ? \&quot;step\&quot; : undefined}\n+                   aria-disabled={!isClickable}\n                  &gt;\n                    {isCompleted ? (\n                      &lt;Check className=\&quot;size-5\&quot; /&gt;\n                    ) : (\n-                     &lt;span className=\&quot;text-sm font-semibold\&quot;&gt;{index + 1}&lt;/span&gt;\n+                     &lt;span aria-hidden=\&quot;true\&quot;&gt;{index + 1}&lt;/span&gt;\n                    )}\n                  &lt;/button&gt;\n                  &lt;span\n                    className={cn(\n-                     \&quot;mt-2 text-xs font-medium text-center max-w-[120px]\&quot;,\n+                     \&quot;mt-2 max-w-[160px] text-sm font-medium\&quot;,\n                      isCurrent\n                        ? \&quot;text-primary\&quot;&quot;,
-        &quot;oldStart&quot;: 61,
-        &quot;newStart&quot;: 61,
-        &quot;oldLines&quot;: 30,
-        &quot;newLines&quot;: 32,
-        &quot;linesRemoved&quot;: 6,
-        &quot;linesAdded&quot;: 8
+        "diffString": "                aria-current={isCurrent ? \"step\" : undefined}\n              &gt;\n-               &lt;div className=\"flex flex-col items-center flex-1\"&gt;\n+               &lt;div className=\"flex flex-1 flex-col items-center text-center\"&gt;\n                  &lt;button\n                    type=\"button\"\n                    onClick={() =&gt; onStepClick?.(index)}\n                    disabled={!isClickable}\n                    className={cn(\n-                     \"flex items-center justify-center size-10 rounded-full border-2 transition-all\",\n+                     \"flex size-12 items-center justify-center rounded-full border-2 text-base font-semibold transition-all duration-300 motion-reduce:transition-none\",\n                      isCompleted\n                        ? \"bg-primary border-primary text-primary-foreground\"\n                        : isCurrent\n                          ? \"bg-primary/10 border-primary text-primary\"\n                          : \"bg-background border-muted text-muted-foreground\",\n-                     isClickable &amp;&amp; \"hover:scale-105 cursor-pointer\",\n+                     isClickable &amp;&amp; \"hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/30\",\n                      !isClickable &amp;&amp; \"cursor-not-allowed opacity-50\"\n                    )}\n-                   aria-label={&#96;Step ${index + 1}: ${step.label}&#96;}\n+                   aria-label={&#96;Step ${index + 1} of ${steps.length}: ${step.label}&#96;}\n+                   aria-current={isCurrent ? \"step\" : undefined}\n+                   aria-disabled={!isClickable}\n                  &gt;\n                    {isCompleted ? (\n                      &lt;Check className=\"size-5\" /&gt;\n                    ) : (\n-                     &lt;span className=\"text-sm font-semibold\"&gt;{index + 1}&lt;/span&gt;\n+                     &lt;span aria-hidden=\"true\"&gt;{index + 1}&lt;/span&gt;\n                    )}\n                  &lt;/button&gt;\n                  &lt;span\n                    className={cn(\n-                     \"mt-2 text-xs font-medium text-center max-w-[120px]\",\n+                     \"mt-2 max-w-[160px] text-sm font-medium\",\n                      isCurrent\n                        ? \"text-primary\"",
+        "oldStart": 61,
+        "newStart": 61,
+        "oldLines": 30,
+        "newLines": 32,
+        "linesRemoved": 6,
+        "linesAdded": 8
       },
       {
-        &quot;diffString&quot;: &quot;                  &gt;\n                    {step.label}\n+                   {isCurrent &amp;&amp; (\n+                     &lt;span className=\&quot;sr-only\&quot;&gt;{&#96; (current step, ${Math.round(((index + 1) / steps.length) * 100)}% complete)&#96;}&lt;/span&gt;\n+                   )}\n                  &lt;/span&gt;\n                &lt;/div&gt;\n                {index &lt; steps.length - 1 &amp;&amp; (\n                  &lt;div\n                    className={cn(\n-                     \&quot;flex-1 h-0.5 mx-4 transition-colors\&quot;,\n+                     \&quot;mx-4 hidden h-0.5 flex-1 rounded-full transition-colors duration-300 motion-reduce:transition-none sm:block\&quot;,\n                      isCompleted || index &lt; currentStep\n                        ? \&quot;bg-primary\&quot;&quot;,
-        &quot;oldStart&quot;: 95,
-        &quot;newStart&quot;: 97,
-        &quot;oldLines&quot;: 10,
-        &quot;newLines&quot;: 13,
-        &quot;linesRemoved&quot;: 1,
-        &quot;linesAdded&quot;: 4
+        "diffString": "                  &gt;\n                    {step.label}\n+                   {isCurrent &amp;&amp; (\n+                     &lt;span className=\"sr-only\"&gt;{&#96; (current step, ${Math.round(((index + 1) / steps.length) * 100)}% complete)&#96;}&lt;/span&gt;\n+                   )}\n                  &lt;/span&gt;\n                &lt;/div&gt;\n                {index &lt; steps.length - 1 &amp;&amp; (\n                  &lt;div\n                    className={cn(\n-                     \"flex-1 h-0.5 mx-4 transition-colors\",\n+                     \"mx-4 hidden h-0.5 flex-1 rounded-full transition-colors duration-300 motion-reduce:transition-none sm:block\",\n                      isCompleted || index &lt; currentStep\n                        ? \"bg-primary\"",
+        "oldStart": 95,
+        "newStart": 97,
+        "oldLines": 10,
+        "newLines": 13,
+        "linesRemoved": 1,
+        "linesAdded": 4
       },
       {
-        &quot;diffString&quot;: &quot;  \n    return (\n-     &lt;div className=\&quot;space-y-2\&quot;&gt;\n-       &lt;div className=\&quot;flex items-center justify-between text-sm\&quot;&gt;\n+     &lt;div className=\&quot;space-y-2 rounded-2xl border border-border/60 bg-card/60 p-4 shadow-sm\&quot;&gt;\n+       &lt;div className=\&quot;flex items-center justify-between text-sm\&quot; aria-live=\&quot;polite\&quot;&gt;\n          &lt;span className=\&quot;font-medium text-muted-foreground\&quot;&gt;\n            Step {currentStep + 1} of {steps.length}\n          &lt;/span&gt;\n-         &lt;span className=\&quot;text-muted-foreground/60\&quot;&gt;\n+         &lt;span className=\&quot;text-muted-foreground/80\&quot; aria-hidden=\&quot;true\&quot;&gt;\n            {Math.round(progress)}%\n          &lt;/span&gt;\n        &lt;/div&gt;\n-       &lt;div className=\&quot;relative h-2 w-full overflow-hidden rounded-full bg-muted\&quot;&gt;\n+       &lt;div\n+         className=\&quot;relative h-2 w-full overflow-hidden rounded-full bg-muted\&quot;\n+         role=\&quot;progressbar\&quot;\n+         aria-valuenow={Math.round(progress)}\n+         aria-valuemin={0}\n+         aria-valuemax={100}\n+         aria-label=\&quot;Form completion progress\&quot;\n+       &gt;\n          &lt;div\n-           className=\&quot;h-full bg-primary transition-all duration-300\&quot;\n+           className=\&quot;h-full bg-primary transition-all duration-300 motion-reduce:transition-none\&quot;\n            style={{ width: &#96;${progress}%&#96; }}\n          /&gt;\n        &lt;/div&gt;\n-       &lt;p className=\&quot;text-sm font-medium\&quot;&gt;{currentStepData?.label}&lt;/p&gt;\n+       &lt;p className=\&quot;text-sm font-medium\&quot; aria-live=\&quot;polite\&quot;&gt;\n+         {currentStepData?.label}\n+       &lt;/p&gt;\n      &lt;/div&gt;\n    );&quot;,
-        &quot;oldStart&quot;: 127,
-        &quot;newStart&quot;: 132,
-        &quot;oldLines&quot;: 20,
-        &quot;newLines&quot;: 29,
-        &quot;linesRemoved&quot;: 6,
-        &quot;linesAdded&quot;: 15
+        "diffString": "  \n    return (\n-     &lt;div className=\"space-y-2\"&gt;\n-       &lt;div className=\"flex items-center justify-between text-sm\"&gt;\n+     &lt;div className=\"space-y-2 rounded-2xl border border-border/60 bg-card/60 p-4 shadow-sm\"&gt;\n+       &lt;div className=\"flex items-center justify-between text-sm\" aria-live=\"polite\"&gt;\n          &lt;span className=\"font-medium text-muted-foreground\"&gt;\n            Step {currentStep + 1} of {steps.length}\n          &lt;/span&gt;\n-         &lt;span className=\"text-muted-foreground/60\"&gt;\n+         &lt;span className=\"text-muted-foreground/80\" aria-hidden=\"true\"&gt;\n            {Math.round(progress)}%\n          &lt;/span&gt;\n        &lt;/div&gt;\n-       &lt;div className=\"relative h-2 w-full overflow-hidden rounded-full bg-muted\"&gt;\n+       &lt;div\n+         className=\"relative h-2 w-full overflow-hidden rounded-full bg-muted\"\n+         role=\"progressbar\"\n+         aria-valuenow={Math.round(progress)}\n+         aria-valuemin={0}\n+         aria-valuemax={100}\n+         aria-label=\"Form completion progress\"\n+       &gt;\n          &lt;div\n-           className=\"h-full bg-primary transition-all duration-300\"\n+           className=\"h-full bg-primary transition-all duration-300 motion-reduce:transition-none\"\n            style={{ width: &#96;${progress}%&#96; }}\n          /&gt;\n        &lt;/div&gt;\n-       &lt;p className=\"text-sm font-medium\"&gt;{currentStepData?.label}&lt;/p&gt;\n+       &lt;p className=\"text-sm font-medium\" aria-live=\"polite\"&gt;\n+         {currentStepData?.label}\n+       &lt;/p&gt;\n      &lt;/div&gt;\n    );",
+        "oldStart": 127,
+        "newStart": 132,
+        "oldLines": 20,
+        "newLines": 29,
+        "linesRemoved": 6,
+        "linesAdded": 15
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/step-indicator.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport { Check } from \&quot;lucide-react\&quot;;\nimport { cn } from \&quot;@/lib/utils\&quot;;\nimport { useIsMobile } from \&quot;@/hooks/use-mobile\&quot;;\n\ninterface Step {\n  id: string;\n  label: string;\n  order: number;\n}\n\ninterface StepIndicatorProps {\n  steps: Step[];\n  currentStep: number;\n  completedSteps: Set&lt;number&gt;;\n  onStepClick?: (stepIndex: number) =&gt; void;\n}\n\nexport function StepIndicator({\n  steps,\n  currentStep,\n  completedSteps,\n  onStepClick,\n}: StepIndicatorProps) {\n  const isMobile = useIsMobile();\n\n  if (isMobile) {\n    return &lt;MobileStepIndicator steps={steps} currentStep={currentStep} /&gt;;\n  }\n\n  return (\n    &lt;DesktopStepIndicator\n      steps={steps}\n      currentStep={currentStep}\n      completedSteps={completedSteps}\n      onStepClick={onStepClick}\n    /&gt;\n  );\n}\n\nfunction DesktopStepIndicator({\n  steps,\n  currentStep,\n  completedSteps,\n  onStepClick,\n}: StepIndicatorProps) {\n  return (\n    &lt;nav aria-label=\&quot;Form progress\&quot; className=\&quot;w-full\&quot;&gt;\n      &lt;ol className=\&quot;flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between\&quot;&gt;\n        {steps.map((step, index) =&gt; {\n          const isCompleted = completedSteps.has(index);\n          const isCurrent = index === currentStep;\n          const isClickable =\n            isCompleted || index === currentStep + 1 || index === currentStep;\n\n          return (\n            &lt;li\n              key={step.id}\n              className=\&quot;flex flex-1 items-center\&quot;\n              aria-current={isCurrent ? \&quot;step\&quot; : undefined}\n            &gt;\n              &lt;div className=\&quot;flex flex-1 flex-col items-center text-center\&quot;&gt;\n                &lt;button\n                  type=\&quot;button\&quot;\n                  onClick={() =&gt; onStepClick?.(index)}\n                  disabled={!isClickable}\n                  className={cn(\n                    \&quot;flex size-12 items-center justify-center rounded-full border-2 text-base font-semibold transition-all duration-300 motion-reduce:transition-none\&quot;,\n                    isCompleted\n                      ? \&quot;bg-primary border-primary text-primary-foreground\&quot;\n                      : isCurrent\n                        ? \&quot;bg-primary/10 border-primary text-primary\&quot;\n                        : \&quot;bg-background border-muted text-muted-foreground\&quot;,\n                    isClickable &amp;&amp; \&quot;hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/30\&quot;,\n                    !isClickable &amp;&amp; \&quot;cursor-not-allowed opacity-50\&quot;\n                  )}\n                  aria-label={&#96;Step ${index + 1} of ${steps.length}: ${step.label}&#96;}\n                  aria-current={isCurrent ? \&quot;step\&quot; : undefined}\n                  aria-disabled={!isClickable}\n                &gt;\n                  {isCompleted ? (\n                    &lt;Check className=\&quot;size-5\&quot; /&gt;\n                  ) : (\n                    &lt;span aria-hidden=\&quot;true\&quot;&gt;{index + 1}&lt;/span&gt;\n                  )}\n                &lt;/button&gt;\n                &lt;span\n                  className={cn(\n                    \&quot;mt-2 max-w-[160px] text-sm font-medium\&quot;,\n                    isCurrent\n                      ? \&quot;text-primary\&quot;\n                      : isCompleted\n                        ? \&quot;text-muted-foreground\&quot;\n                        : \&quot;text-muted-foreground/60\&quot;\n                  )}\n                &gt;\n                  {step.label}\n                  {isCurrent &amp;&amp; (\n                    &lt;span className=\&quot;sr-only\&quot;&gt;{&#96; (current step, ${Math.round(((index + 1) / steps.length) * 100)}% complete)&#96;}&lt;/span&gt;\n                  )}\n                &lt;/span&gt;\n              &lt;/div&gt;\n              {index &lt; steps.length - 1 &amp;&amp; (\n                &lt;div\n                  className={cn(\n                    \&quot;mx-4 hidden h-0.5 flex-1 rounded-full transition-colors duration-300 motion-reduce:transition-none sm:block\&quot;,\n                    isCompleted || index &lt; currentStep\n                      ? \&quot;bg-primary\&quot;\n                      : \&quot;bg-muted\&quot;\n                  )}\n                  aria-hidden=\&quot;true\&quot;\n                /&gt;\n              )}\n            &lt;/li&gt;\n          );\n        })}\n      &lt;/ol&gt;\n    &lt;/nav&gt;\n  );\n}\n\nfunction MobileStepIndicator({\n  steps,\n  currentStep,\n}: {\n  steps: Step[];\n  currentStep: number;\n}) {\n  const currentStepData = steps[currentStep];\n  const progress = ((currentStep + 1) / steps.length) * 100;\n\n  return (\n    &lt;div className=\&quot;space-y-2 rounded-2xl border border-border/60 bg-card/60 p-4 shadow-sm\&quot;&gt;\n      &lt;div className=\&quot;flex items-center justify-between text-sm\&quot; aria-live=\&quot;polite\&quot;&gt;\n        &lt;span className=\&quot;font-medium text-muted-foreground\&quot;&gt;\n          Step {currentStep + 1} of {steps.length}\n        &lt;/span&gt;\n        &lt;span className=\&quot;text-muted-foreground/80\&quot; aria-hidden=\&quot;true\&quot;&gt;\n          {Math.round(progress)}%\n        &lt;/span&gt;\n      &lt;/div&gt;\n      &lt;div\n        className=\&quot;relative h-2 w-full overflow-hidden rounded-full bg-muted\&quot;\n        role=\&quot;progressbar\&quot;\n        aria-valuenow={Math.round(progress)}\n        aria-valuemin={0}\n        aria-valuemax={100}\n        aria-label=\&quot;Form completion progress\&quot;\n      &gt;\n        &lt;div\n          className=\&quot;h-full bg-primary transition-all duration-300 motion-reduce:transition-none\&quot;\n          style={{ width: &#96;${progress}%&#96; }}\n        /&gt;\n      &lt;/div&gt;\n      &lt;p className=\&quot;text-sm font-medium\&quot; aria-live=\&quot;polite\&quot;&gt;\n        {currentStepData?.label}\n      &lt;/p&gt;\n    &lt;/div&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/step-indicator.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport { Check } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\nimport { useIsMobile } from \"@/hooks/use-mobile\";\n\ninterface Step {\n  id: string;\n  label: string;\n  order: number;\n}\n\ninterface StepIndicatorProps {\n  steps: Step[];\n  currentStep: number;\n  completedSteps: Set&lt;number&gt;;\n  onStepClick?: (stepIndex: number) =&gt; void;\n}\n\nexport function StepIndicator({\n  steps,\n  currentStep,\n  completedSteps,\n  onStepClick,\n}: StepIndicatorProps) {\n  const isMobile = useIsMobile();\n\n  if (isMobile) {\n    return &lt;MobileStepIndicator steps={steps} currentStep={currentStep} /&gt;;\n  }\n\n  return (\n    &lt;DesktopStepIndicator\n      steps={steps}\n      currentStep={currentStep}\n      completedSteps={completedSteps}\n      onStepClick={onStepClick}\n    /&gt;\n  );\n}\n\nfunction DesktopStepIndicator({\n  steps,\n  currentStep,\n  completedSteps,\n  onStepClick,\n}: StepIndicatorProps) {\n  return (\n    &lt;nav aria-label=\"Form progress\" className=\"w-full\"&gt;\n      &lt;ol className=\"flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between\"&gt;\n        {steps.map((step, index) =&gt; {\n          const isCompleted = completedSteps.has(index);\n          const isCurrent = index === currentStep;\n          const isClickable =\n            isCompleted || index === currentStep + 1 || index === currentStep;\n\n          return (\n            &lt;li\n              key={step.id}\n              className=\"flex flex-1 items-center\"\n              aria-current={isCurrent ? \"step\" : undefined}\n            &gt;\n              &lt;div className=\"flex flex-1 flex-col items-center text-center\"&gt;\n                &lt;button\n                  type=\"button\"\n                  onClick={() =&gt; onStepClick?.(index)}\n                  disabled={!isClickable}\n                  className={cn(\n                    \"flex size-12 items-center justify-center rounded-full border-2 text-base font-semibold transition-all duration-300 motion-reduce:transition-none\",\n                    isCompleted\n                      ? \"bg-primary border-primary text-primary-foreground\"\n                      : isCurrent\n                        ? \"bg-primary/10 border-primary text-primary\"\n                        : \"bg-background border-muted text-muted-foreground\",\n                    isClickable &amp;&amp; \"hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/30\",\n                    !isClickable &amp;&amp; \"cursor-not-allowed opacity-50\"\n                  )}\n                  aria-label={&#96;Step ${index + 1} of ${steps.length}: ${step.label}&#96;}\n                  aria-current={isCurrent ? \"step\" : undefined}\n                  aria-disabled={!isClickable}\n                &gt;\n                  {isCompleted ? (\n                    &lt;Check className=\"size-5\" /&gt;\n                  ) : (\n                    &lt;span aria-hidden=\"true\"&gt;{index + 1}&lt;/span&gt;\n                  )}\n                &lt;/button&gt;\n                &lt;span\n                  className={cn(\n                    \"mt-2 max-w-[160px] text-sm font-medium\",\n                    isCurrent\n                      ? \"text-primary\"\n                      : isCompleted\n                        ? \"text-muted-foreground\"\n                        : \"text-muted-foreground/60\"\n                  )}\n                &gt;\n                  {step.label}\n                  {isCurrent &amp;&amp; (\n                    &lt;span className=\"sr-only\"&gt;{&#96; (current step, ${Math.round(((index + 1) / steps.length) * 100)}% complete)&#96;}&lt;/span&gt;\n                  )}\n                &lt;/span&gt;\n              &lt;/div&gt;\n              {index &lt; steps.length - 1 &amp;&amp; (\n                &lt;div\n                  className={cn(\n                    \"mx-4 hidden h-0.5 flex-1 rounded-full transition-colors duration-300 motion-reduce:transition-none sm:block\",\n                    isCompleted || index &lt; currentStep\n                      ? \"bg-primary\"\n                      : \"bg-muted\"\n                  )}\n                  aria-hidden=\"true\"\n                /&gt;\n              )}\n            &lt;/li&gt;\n          );\n        })}\n      &lt;/ol&gt;\n    &lt;/nav&gt;\n  );\n}\n\nfunction MobileStepIndicator({\n  steps,\n  currentStep,\n}: {\n  steps: Step[];\n  currentStep: number;\n}) {\n  const currentStepData = steps[currentStep];\n  const progress = ((currentStep + 1) / steps.length) * 100;\n\n  return (\n    &lt;div className=\"space-y-2 rounded-2xl border border-border/60 bg-card/60 p-4 shadow-sm\"&gt;\n      &lt;div className=\"flex items-center justify-between text-sm\" aria-live=\"polite\"&gt;\n        &lt;span className=\"font-medium text-muted-foreground\"&gt;\n          Step {currentStep + 1} of {steps.length}\n        &lt;/span&gt;\n        &lt;span className=\"text-muted-foreground/80\" aria-hidden=\"true\"&gt;\n          {Math.round(progress)}%\n        &lt;/span&gt;\n      &lt;/div&gt;\n      &lt;div\n        className=\"relative h-2 w-full overflow-hidden rounded-full bg-muted\"\n        role=\"progressbar\"\n        aria-valuenow={Math.round(progress)}\n        aria-valuemin={0}\n        aria-valuemax={100}\n        aria-label=\"Form completion progress\"\n      &gt;\n        &lt;div\n          className=\"h-full bg-primary transition-all duration-300 motion-reduce:transition-none\"\n          style={{ width: &#96;${progress}%&#96; }}\n        /&gt;\n      &lt;/div&gt;\n      &lt;p className=\"text-sm font-medium\" aria-live=\"polite\"&gt;\n        {currentStepData?.label}\n      &lt;/p&gt;\n    &lt;/div&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -1562,19 +1562,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/form-step.tsx&quot;
+  "relativeWorkspacePath": "components/forms/form-step.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;45aa9ede-f2a2-425f-a4b5-25ff3a9d722b&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "45aa9ede-f2a2-425f-a4b5-25ff3a9d722b",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -1582,31 +1582,31 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;  \n  import type { FormSection, FormField } from \&quot;@prisma/client\&quot;;\n+ import { cn } from \&quot;@/lib/utils\&quot;;\n  import { FormFieldRenderer } from \&quot;./form-field-renderer\&quot;;\n  &quot;,
-        &quot;oldStart&quot;: 2,
-        &quot;newStart&quot;: 2,
-        &quot;oldLines&quot;: 4,
-        &quot;newLines&quot;: 5,
-        &quot;linesAdded&quot;: 1
+        "diffString": "  \n  import type { FormSection, FormField } from \"@prisma/client\";\n+ import { cn } from \"@/lib/utils\";\n  import { FormFieldRenderer } from \"./form-field-renderer\";\n  ",
+        "oldStart": 2,
+        "newStart": 2,
+        "oldLines": 4,
+        "newLines": 5,
+        "linesAdded": 1
       },
       {
-        &quot;diffString&quot;: &quot;  }: FormStepProps) {\n    const sortedFields = [...section.fields].sort((a, b) =&gt; a.order - b.order);\n+   const sectionLabelId = &#96;section-${section.id}-label&#96;;\n  \n    return (\n-     &lt;div className=\&quot;space-y-6\&quot;&gt;\n-       &lt;div&gt;\n-         &lt;h2 className=\&quot;text-2xl font-semibold\&quot;&gt;{section.label}&lt;/h2&gt;\n+     &lt;section className=\&quot;space-y-6\&quot; aria-labelledby={sectionLabelId}&gt;\n+       &lt;div className=\&quot;space-y-2\&quot;&gt;\n+         &lt;h2 id={sectionLabelId} className=\&quot;text-2xl font-semibold\&quot;&gt;\n+           {section.label}\n+         &lt;/h2&gt;\n          {section.fields.length === 0 &amp;&amp; (\n-           &lt;p className=\&quot;mt-2 text-sm text-muted-foreground\&quot;&gt;\n+           &lt;p className=\&quot;text-sm text-muted-foreground\&quot;&gt;\n              No fields in this section.\n            &lt;/p&gt;\n          )}\n        &lt;/div&gt;\n        {sortedFields.length &gt; 0 &amp;&amp; (\n-         &lt;div className=\&quot;space-y-6\&quot;&gt;\n+         &lt;div\n+           className=\&quot;grid gap-6 sm:grid-cols-2\&quot;\n+           role=\&quot;group\&quot;\n+           aria-labelledby={sectionLabelId}\n+         &gt;\n            {sortedFields.map((field) =&gt; {\n              const value = formData[field.key];\n              const error = errors[field.key];\n              const isTouched = touched[field.key] ?? false;\n+             const shouldSpanFullWidth = [\&quot;textarea\&quot;, \&quot;multi-select\&quot;, \&quot;checkbox\&quot;, \&quot;radio\&quot;].includes(field.type);\n  \n              return (\n-               &lt;FormFieldRenderer\n+               &lt;div\n                  key={field.id}\n-                 field={field}\n-                 value={value}\n-                 onChange={(newValue) =&gt; onFieldChange(field.key, newValue)}\n-                 onBlur={() =&gt; onFieldBlur(field.key)}\n-                 error={isTouched ? error : undefined}\n-                 touched={isTouched}\n-               /&gt;\n+                 className={cn(\n+                   \&quot;flex flex-col gap-2\&quot;,\n+                   shouldSpanFullWidth ? \&quot;sm:col-span-2\&quot; : \&quot;sm:col-span-1\&quot;\n+                 )}\n+               &gt;\n+                 &lt;FormFieldRenderer\n+                   field={field}\n+                   value={value}\n+                   onChange={(newValue) =&gt; onFieldChange(field.key, newValue)}\n+                   onBlur={() =&gt; onFieldBlur(field.key)}\n+                   error={isTouched ? error : undefined}\n+                   touched={isTouched}\n+                 /&gt;\n+               &lt;/div&gt;\n              );\n            })}\n          &lt;/div&gt;\n        )}\n-     &lt;/div&gt;\n+     &lt;/section&gt;\n    );\n  }&quot;,
-        &quot;oldStart&quot;: 22,
-        &quot;newStart&quot;: 23,
-        &quot;oldLines&quot;: 37,
-        &quot;newLines&quot;: 52,
-        &quot;linesRemoved&quot;: 14,
-        &quot;linesAdded&quot;: 29
+        "diffString": "  }: FormStepProps) {\n    const sortedFields = [...section.fields].sort((a, b) =&gt; a.order - b.order);\n+   const sectionLabelId = &#96;section-${section.id}-label&#96;;\n  \n    return (\n-     &lt;div className=\"space-y-6\"&gt;\n-       &lt;div&gt;\n-         &lt;h2 className=\"text-2xl font-semibold\"&gt;{section.label}&lt;/h2&gt;\n+     &lt;section className=\"space-y-6\" aria-labelledby={sectionLabelId}&gt;\n+       &lt;div className=\"space-y-2\"&gt;\n+         &lt;h2 id={sectionLabelId} className=\"text-2xl font-semibold\"&gt;\n+           {section.label}\n+         &lt;/h2&gt;\n          {section.fields.length === 0 &amp;&amp; (\n-           &lt;p className=\"mt-2 text-sm text-muted-foreground\"&gt;\n+           &lt;p className=\"text-sm text-muted-foreground\"&gt;\n              No fields in this section.\n            &lt;/p&gt;\n          )}\n        &lt;/div&gt;\n        {sortedFields.length &gt; 0 &amp;&amp; (\n-         &lt;div className=\"space-y-6\"&gt;\n+         &lt;div\n+           className=\"grid gap-6 sm:grid-cols-2\"\n+           role=\"group\"\n+           aria-labelledby={sectionLabelId}\n+         &gt;\n            {sortedFields.map((field) =&gt; {\n              const value = formData[field.key];\n              const error = errors[field.key];\n              const isTouched = touched[field.key] ?? false;\n+             const shouldSpanFullWidth = [\"textarea\", \"multi-select\", \"checkbox\", \"radio\"].includes(field.type);\n  \n              return (\n-               &lt;FormFieldRenderer\n+               &lt;div\n                  key={field.id}\n-                 field={field}\n-                 value={value}\n-                 onChange={(newValue) =&gt; onFieldChange(field.key, newValue)}\n-                 onBlur={() =&gt; onFieldBlur(field.key)}\n-                 error={isTouched ? error : undefined}\n-                 touched={isTouched}\n-               /&gt;\n+                 className={cn(\n+                   \"flex flex-col gap-2\",\n+                   shouldSpanFullWidth ? \"sm:col-span-2\" : \"sm:col-span-1\"\n+                 )}\n+               &gt;\n+                 &lt;FormFieldRenderer\n+                   field={field}\n+                   value={value}\n+                   onChange={(newValue) =&gt; onFieldChange(field.key, newValue)}\n+                   onBlur={() =&gt; onFieldBlur(field.key)}\n+                   error={isTouched ? error : undefined}\n+                   touched={isTouched}\n+                 /&gt;\n+               &lt;/div&gt;\n              );\n            })}\n          &lt;/div&gt;\n        )}\n-     &lt;/div&gt;\n+     &lt;/section&gt;\n    );\n  }",
+        "oldStart": 22,
+        "newStart": 23,
+        "oldLines": 37,
+        "newLines": 52,
+        "linesRemoved": 14,
+        "linesAdded": 29
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/form-step.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport type { FormSection, FormField } from \&quot;@prisma/client\&quot;;\nimport { cn } from \&quot;@/lib/utils\&quot;;\nimport { FormFieldRenderer } from \&quot;./form-field-renderer\&quot;;\n\ninterface FormStepProps {\n  section: FormSection &amp; { fields: FormField[] };\n  formData: Record&lt;string, unknown&gt;;\n  errors: Record&lt;string, string&gt;;\n  touched: Record&lt;string, boolean&gt;;\n  onFieldChange: (fieldKey: string, value: unknown) =&gt; void;\n  onFieldBlur: (fieldKey: string) =&gt; void;\n}\n\nexport function FormStep({\n  section,\n  formData,\n  errors,\n  touched,\n  onFieldChange,\n  onFieldBlur,\n}: FormStepProps) {\n  const sortedFields = [...section.fields].sort((a, b) =&gt; a.order - b.order);\n  const sectionLabelId = &#96;section-${section.id}-label&#96;;\n\n  return (\n    &lt;section className=\&quot;space-y-6\&quot; aria-labelledby={sectionLabelId}&gt;\n      &lt;div className=\&quot;space-y-2\&quot;&gt;\n        &lt;h2 id={sectionLabelId} className=\&quot;text-2xl font-semibold\&quot;&gt;\n          {section.label}\n        &lt;/h2&gt;\n        {section.fields.length === 0 &amp;&amp; (\n          &lt;p className=\&quot;text-sm text-muted-foreground\&quot;&gt;\n            No fields in this section.\n          &lt;/p&gt;\n        )}\n      &lt;/div&gt;\n      {sortedFields.length &gt; 0 &amp;&amp; (\n        &lt;div\n          className=\&quot;grid gap-6 sm:grid-cols-2\&quot;\n          role=\&quot;group\&quot;\n          aria-labelledby={sectionLabelId}\n        &gt;\n          {sortedFields.map((field) =&gt; {\n            const value = formData[field.key];\n            const error = errors[field.key];\n            const isTouched = touched[field.key] ?? false;\n            const shouldSpanFullWidth = [\&quot;textarea\&quot;, \&quot;multi-select\&quot;, \&quot;checkbox\&quot;, \&quot;radio\&quot;].includes(field.type);\n\n            return (\n              &lt;div\n                key={field.id}\n                className={cn(\n                  \&quot;flex flex-col gap-2\&quot;,\n                  shouldSpanFullWidth ? \&quot;sm:col-span-2\&quot; : \&quot;sm:col-span-1\&quot;\n                )}\n              &gt;\n                &lt;FormFieldRenderer\n                  field={field}\n                  value={value}\n                  onChange={(newValue) =&gt; onFieldChange(field.key, newValue)}\n                  onBlur={() =&gt; onFieldBlur(field.key)}\n                  error={isTouched ? error : undefined}\n                  touched={isTouched}\n                /&gt;\n              &lt;/div&gt;\n            );\n          })}\n        &lt;/div&gt;\n      )}\n    &lt;/section&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/form-step.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport type { FormSection, FormField } from \"@prisma/client\";\nimport { cn } from \"@/lib/utils\";\nimport { FormFieldRenderer } from \"./form-field-renderer\";\n\ninterface FormStepProps {\n  section: FormSection &amp; { fields: FormField[] };\n  formData: Record&lt;string, unknown&gt;;\n  errors: Record&lt;string, string&gt;;\n  touched: Record&lt;string, boolean&gt;;\n  onFieldChange: (fieldKey: string, value: unknown) =&gt; void;\n  onFieldBlur: (fieldKey: string) =&gt; void;\n}\n\nexport function FormStep({\n  section,\n  formData,\n  errors,\n  touched,\n  onFieldChange,\n  onFieldBlur,\n}: FormStepProps) {\n  const sortedFields = [...section.fields].sort((a, b) =&gt; a.order - b.order);\n  const sectionLabelId = &#96;section-${section.id}-label&#96;;\n\n  return (\n    &lt;section className=\"space-y-6\" aria-labelledby={sectionLabelId}&gt;\n      &lt;div className=\"space-y-2\"&gt;\n        &lt;h2 id={sectionLabelId} className=\"text-2xl font-semibold\"&gt;\n          {section.label}\n        &lt;/h2&gt;\n        {section.fields.length === 0 &amp;&amp; (\n          &lt;p className=\"text-sm text-muted-foreground\"&gt;\n            No fields in this section.\n          &lt;/p&gt;\n        )}\n      &lt;/div&gt;\n      {sortedFields.length &gt; 0 &amp;&amp; (\n        &lt;div\n          className=\"grid gap-6 sm:grid-cols-2\"\n          role=\"group\"\n          aria-labelledby={sectionLabelId}\n        &gt;\n          {sortedFields.map((field) =&gt; {\n            const value = formData[field.key];\n            const error = errors[field.key];\n            const isTouched = touched[field.key] ?? false;\n            const shouldSpanFullWidth = [\"textarea\", \"multi-select\", \"checkbox\", \"radio\"].includes(field.type);\n\n            return (\n              &lt;div\n                key={field.id}\n                className={cn(\n                  \"flex flex-col gap-2\",\n                  shouldSpanFullWidth ? \"sm:col-span-2\" : \"sm:col-span-1\"\n                )}\n              &gt;\n                &lt;FormFieldRenderer\n                  field={field}\n                  value={value}\n                  onChange={(newValue) =&gt; onFieldChange(field.key, newValue)}\n                  onBlur={() =&gt; onFieldBlur(field.key)}\n                  error={isTouched ? error : undefined}\n                  touched={isTouched}\n                /&gt;\n              &lt;/div&gt;\n            );\n          })}\n        &lt;/div&gt;\n      )}\n    &lt;/section&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -1635,19 +1635,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/form-navigation.tsx&quot;
+  "relativeWorkspacePath": "components/forms/form-navigation.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;cf1f283f-2dcc-4ba4-969f-095b2080c9e7&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "cf1f283f-2dcc-4ba4-969f-095b2080c9e7",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -1655,58 +1655,58 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;  import { Button } from \&quot;@/components/ui/button\&quot;;\n  import { Progress } from \&quot;@/components/ui/progress\&quot;;\n- import { ChevronLeft, ChevronRight, Save } from \&quot;lucide-react\&quot;;\n+ import { ChevronLeft, ChevronRight, Loader2, Save } from \&quot;lucide-react\&quot;;\n  import { Separator } from \&quot;@/components/ui/separator\&quot;;\n+ import { cn } from \&quot;@/lib/utils\&quot;;\n+ import { DraftSaveIndicator, type DraftStatus } from \&quot;./draft-save-indicator\&quot;;\n+ import { useIsMobile } from \&quot;@/hooks/use-mobile\&quot;;\n  \n  interface FormNavigationProps {&quot;,
-        &quot;oldStart&quot;: 3,
-        &quot;newStart&quot;: 3,
-        &quot;oldLines&quot;: 6,
-        &quot;newLines&quot;: 9,
-        &quot;linesRemoved&quot;: 1,
-        &quot;linesAdded&quot;: 4
+        "diffString": "  import { Button } from \"@/components/ui/button\";\n  import { Progress } from \"@/components/ui/progress\";\n- import { ChevronLeft, ChevronRight, Save } from \"lucide-react\";\n+ import { ChevronLeft, ChevronRight, Loader2, Save } from \"lucide-react\";\n  import { Separator } from \"@/components/ui/separator\";\n+ import { cn } from \"@/lib/utils\";\n+ import { DraftSaveIndicator, type DraftStatus } from \"./draft-save-indicator\";\n+ import { useIsMobile } from \"@/hooks/use-mobile\";\n  \n  interface FormNavigationProps {",
+        "oldStart": 3,
+        "newStart": 3,
+        "oldLines": 6,
+        "newLines": 9,
+        "linesRemoved": 1,
+        "linesAdded": 4
       },
       {
-        &quot;diffString&quot;: &quot;    onSaveDraft?: () =&gt; void;\n    progress: number;\n+   isSubmitting?: boolean;\n+   isSavingDraft?: boolean;\n+   draftStatus?: DraftStatus;\n+   draftError?: string | null;\n+   lastSavedAt?: Date | null;\n  }\n  &quot;,
-        &quot;oldStart&quot;: 13,
-        &quot;newStart&quot;: 16,
-        &quot;oldLines&quot;: 4,
-        &quot;newLines&quot;: 9,
-        &quot;linesAdded&quot;: 5
+        "diffString": "    onSaveDraft?: () =&gt; void;\n    progress: number;\n+   isSubmitting?: boolean;\n+   isSavingDraft?: boolean;\n+   draftStatus?: DraftStatus;\n+   draftError?: string | null;\n+   lastSavedAt?: Date | null;\n  }\n  ",
+        "oldStart": 13,
+        "newStart": 16,
+        "oldLines": 4,
+        "newLines": 9,
+        "linesAdded": 5
       },
       {
-        &quot;diffString&quot;: &quot;    onSaveDraft,\n    progress,\n+   isSubmitting = false,\n+   isSavingDraft = false,\n+   draftStatus = \&quot;idle\&quot;,\n+   draftError = null,\n+   lastSavedAt = null,\n  }: FormNavigationProps) {\n+   const isMobile = useIsMobile();\n+   const containerClass = cn(\n+     \&quot;space-y-4 border border-border/60 bg-card/80 p-4 shadow-lg backdrop-blur-lg transition-all motion-reduce:transition-none\&quot;,\n+     isMobile\n+       ? \&quot;fixed bottom-0 left-0 right-0 z-40 w-full rounded-none border-t bg-background/95 px-4 py-4\&quot;\n+       : \&quot;rounded-2xl\&quot;\n+   );\n+ \n    return (\n-     &lt;div className=\&quot;space-y-4\&quot;&gt;\n-       &lt;Separator /&gt;\n+     &lt;div className={containerClass}&gt;\n+       &lt;Separator className=\&quot;hidden sm:block\&quot; /&gt;\n        &lt;div className=\&quot;flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between\&quot;&gt;\n-         &lt;div className=\&quot;flex items-center gap-3\&quot;&gt;\n-           {!isFirstStep &amp;&amp; (\n-             &lt;Button\n-               type=\&quot;button\&quot;\n-               variant=\&quot;outline\&quot;\n-               onClick={onPrevious}\n-               className=\&quot;gap-2\&quot;\n-             &gt;\n-               &lt;ChevronLeft className=\&quot;size-4\&quot; /&gt;\n-               Previous\n-             &lt;/Button&gt;\n-           )}\n+         &lt;div className=\&quot;flex flex-wrap items-center gap-3\&quot;&gt;\n+           &lt;Button\n+             type=\&quot;button\&quot;\n+             variant=\&quot;outline\&quot;\n+             onClick={onPrevious}\n+             className=\&quot;gap-2\&quot;\n+             disabled={isFirstStep || isSubmitting}\n+             aria-disabled={isFirstStep || isSubmitting}\n+           &gt;\n+             &lt;ChevronLeft className=\&quot;size-4\&quot; aria-hidden=\&quot;true\&quot; /&gt;\n+             Previous\n+           &lt;/Button&gt;\n            {onSaveDraft &amp;&amp; (\n              &lt;Button&quot;,
-        &quot;oldStart&quot;: 22,
-        &quot;newStart&quot;: 30,
-        &quot;oldLines&quot;: 21,
-        &quot;newLines&quot;: 34,
-        &quot;linesRemoved&quot;: 14,
-        &quot;linesAdded&quot;: 27
+        "diffString": "    onSaveDraft,\n    progress,\n+   isSubmitting = false,\n+   isSavingDraft = false,\n+   draftStatus = \"idle\",\n+   draftError = null,\n+   lastSavedAt = null,\n  }: FormNavigationProps) {\n+   const isMobile = useIsMobile();\n+   const containerClass = cn(\n+     \"space-y-4 border border-border/60 bg-card/80 p-4 shadow-lg backdrop-blur-lg transition-all motion-reduce:transition-none\",\n+     isMobile\n+       ? \"fixed bottom-0 left-0 right-0 z-40 w-full rounded-none border-t bg-background/95 px-4 py-4\"\n+       : \"rounded-2xl\"\n+   );\n+ \n    return (\n-     &lt;div className=\"space-y-4\"&gt;\n-       &lt;Separator /&gt;\n+     &lt;div className={containerClass}&gt;\n+       &lt;Separator className=\"hidden sm:block\" /&gt;\n        &lt;div className=\"flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between\"&gt;\n-         &lt;div className=\"flex items-center gap-3\"&gt;\n-           {!isFirstStep &amp;&amp; (\n-             &lt;Button\n-               type=\"button\"\n-               variant=\"outline\"\n-               onClick={onPrevious}\n-               className=\"gap-2\"\n-             &gt;\n-               &lt;ChevronLeft className=\"size-4\" /&gt;\n-               Previous\n-             &lt;/Button&gt;\n-           )}\n+         &lt;div className=\"flex flex-wrap items-center gap-3\"&gt;\n+           &lt;Button\n+             type=\"button\"\n+             variant=\"outline\"\n+             onClick={onPrevious}\n+             className=\"gap-2\"\n+             disabled={isFirstStep || isSubmitting}\n+             aria-disabled={isFirstStep || isSubmitting}\n+           &gt;\n+             &lt;ChevronLeft className=\"size-4\" aria-hidden=\"true\" /&gt;\n+             Previous\n+           &lt;/Button&gt;\n            {onSaveDraft &amp;&amp; (\n              &lt;Button",
+        "oldStart": 22,
+        "newStart": 30,
+        "oldLines": 21,
+        "newLines": 34,
+        "linesRemoved": 14,
+        "linesAdded": 27
       },
       {
-        &quot;diffString&quot;: &quot;                onClick={onSaveDraft}\n                className=\&quot;gap-2\&quot;\n-             &gt;\n-               &lt;Save className=\&quot;size-4\&quot; /&gt;\n-               Save Draft\n+               disabled={isSavingDraft || isSubmitting}\n+               aria-disabled={isSavingDraft || isSubmitting}\n+             &gt;\n+               {isSavingDraft ? (\n+                 &lt;Loader2 className=\&quot;size-4 animate-spin\&quot; aria-hidden=\&quot;true\&quot; /&gt;\n+               ) : (\n+                 &lt;Save className=\&quot;size-4\&quot; aria-hidden=\&quot;true\&quot; /&gt;\n+               )}\n+               {isSavingDraft ? \&quot;Saving…\&quot; : \&quot;Save Draft\&quot;}\n              &lt;/Button&gt;\n            )}&quot;,
-        &quot;oldStart&quot;: 45,
-        &quot;newStart&quot;: 66,
-        &quot;oldLines&quot;: 7,
-        &quot;newLines&quot;: 13,
-        &quot;linesRemoved&quot;: 3,
-        &quot;linesAdded&quot;: 9
+        "diffString": "                onClick={onSaveDraft}\n                className=\"gap-2\"\n-             &gt;\n-               &lt;Save className=\"size-4\" /&gt;\n-               Save Draft\n+               disabled={isSavingDraft || isSubmitting}\n+               aria-disabled={isSavingDraft || isSubmitting}\n+             &gt;\n+               {isSavingDraft ? (\n+                 &lt;Loader2 className=\"size-4 animate-spin\" aria-hidden=\"true\" /&gt;\n+               ) : (\n+                 &lt;Save className=\"size-4\" aria-hidden=\"true\" /&gt;\n+               )}\n+               {isSavingDraft ? \"Saving…\" : \"Save Draft\"}\n              &lt;/Button&gt;\n            )}",
+        "oldStart": 45,
+        "newStart": 66,
+        "oldLines": 7,
+        "newLines": 13,
+        "linesRemoved": 3,
+        "linesAdded": 9
       },
       {
-        &quot;diffString&quot;: &quot;            onClick={onNext}\n            className=\&quot;gap-2\&quot;\n+           disabled={isSubmitting}\n+           aria-disabled={isSubmitting}\n          &gt;\n-           {isLastStep ? \&quot;Complete\&quot; : \&quot;Next\&quot;}\n-           {!isLastStep &amp;&amp; &lt;ChevronRight className=\&quot;size-4\&quot; /&gt;}\n+           {isLastStep ? (isSubmitting ? \&quot;Submitting…\&quot; : \&quot;Submit\&quot;) : isSubmitting ? \&quot;Validating…\&quot; : \&quot;Next\&quot;}\n+           {!isLastStep &amp;&amp; &lt;ChevronRight className=\&quot;size-4\&quot; aria-hidden=\&quot;true\&quot; /&gt;}\n          &lt;/Button&gt;\n        &lt;/div&gt;\n+       {onSaveDraft &amp;&amp; (\n+         &lt;DraftSaveIndicator\n+           status={draftStatus}\n+           lastSavedAt={lastSavedAt}\n+           errorMessage={draftError ?? undefined}\n+         /&gt;\n+       )}\n        &lt;div className=\&quot;space-y-2\&quot;&gt;\n          &lt;div className=\&quot;flex items-center justify-between text-xs text-muted-foreground\&quot;&gt;\n            &lt;span&gt;Progress&lt;/span&gt;\n-           &lt;span&gt;{Math.round(progress)}%&lt;/span&gt;\n+           &lt;span aria-live=\&quot;polite\&quot;&gt;{Math.round(progress)}%&lt;/span&gt;\n          &lt;/div&gt;\n-         &lt;Progress value={progress} /&gt;\n+         &lt;Progress\n+           value={progress}\n+           aria-hidden={false}\n+           role=\&quot;progressbar\&quot;\n+           aria-valuenow={Math.round(progress)}\n+           aria-valuemin={0}\n+           aria-valuemax={100}\n+           aria-label=\&quot;Overall form progress\&quot;\n+         /&gt;\n        &lt;/div&gt;\n      &lt;/div&gt;&quot;,
-        &quot;oldStart&quot;: 55,
-        &quot;newStart&quot;: 82,
-        &quot;oldLines&quot;: 15,
-        &quot;newLines&quot;: 32,
-        &quot;linesRemoved&quot;: 4,
-        &quot;linesAdded&quot;: 21
+        "diffString": "            onClick={onNext}\n            className=\"gap-2\"\n+           disabled={isSubmitting}\n+           aria-disabled={isSubmitting}\n          &gt;\n-           {isLastStep ? \"Complete\" : \"Next\"}\n-           {!isLastStep &amp;&amp; &lt;ChevronRight className=\"size-4\" /&gt;}\n+           {isLastStep ? (isSubmitting ? \"Submitting…\" : \"Submit\") : isSubmitting ? \"Validating…\" : \"Next\"}\n+           {!isLastStep &amp;&amp; &lt;ChevronRight className=\"size-4\" aria-hidden=\"true\" /&gt;}\n          &lt;/Button&gt;\n        &lt;/div&gt;\n+       {onSaveDraft &amp;&amp; (\n+         &lt;DraftSaveIndicator\n+           status={draftStatus}\n+           lastSavedAt={lastSavedAt}\n+           errorMessage={draftError ?? undefined}\n+         /&gt;\n+       )}\n        &lt;div className=\"space-y-2\"&gt;\n          &lt;div className=\"flex items-center justify-between text-xs text-muted-foreground\"&gt;\n            &lt;span&gt;Progress&lt;/span&gt;\n-           &lt;span&gt;{Math.round(progress)}%&lt;/span&gt;\n+           &lt;span aria-live=\"polite\"&gt;{Math.round(progress)}%&lt;/span&gt;\n          &lt;/div&gt;\n-         &lt;Progress value={progress} /&gt;\n+         &lt;Progress\n+           value={progress}\n+           aria-hidden={false}\n+           role=\"progressbar\"\n+           aria-valuenow={Math.round(progress)}\n+           aria-valuemin={0}\n+           aria-valuemax={100}\n+           aria-label=\"Overall form progress\"\n+         /&gt;\n        &lt;/div&gt;\n      &lt;/div&gt;",
+        "oldStart": 55,
+        "newStart": 82,
+        "oldLines": 15,
+        "newLines": 32,
+        "linesRemoved": 4,
+        "linesAdded": 21
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/form-navigation.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport { Button } from \&quot;@/components/ui/button\&quot;;\nimport { Progress } from \&quot;@/components/ui/progress\&quot;;\nimport { ChevronLeft, ChevronRight, Loader2, Save } from \&quot;lucide-react\&quot;;\nimport { Separator } from \&quot;@/components/ui/separator\&quot;;\nimport { cn } from \&quot;@/lib/utils\&quot;;\nimport { DraftSaveIndicator, type DraftStatus } from \&quot;./draft-save-indicator\&quot;;\nimport { useIsMobile } from \&quot;@/hooks/use-mobile\&quot;;\n\ninterface FormNavigationProps {\n  isFirstStep: boolean;\n  isLastStep: boolean;\n  onNext: () =&gt; void;\n  onPrevious: () =&gt; void;\n  onSaveDraft?: () =&gt; void;\n  progress: number;\n  isSubmitting?: boolean;\n  isSavingDraft?: boolean;\n  draftStatus?: DraftStatus;\n  draftError?: string | null;\n  lastSavedAt?: Date | null;\n}\n\nexport function FormNavigation({\n  isFirstStep,\n  isLastStep,\n  onNext,\n  onPrevious,\n  onSaveDraft,\n  progress,\n  isSubmitting = false,\n  isSavingDraft = false,\n  draftStatus = \&quot;idle\&quot;,\n  draftError = null,\n  lastSavedAt = null,\n}: FormNavigationProps) {\n  const isMobile = useIsMobile();\n  const containerClass = cn(\n    \&quot;space-y-4 border border-border/60 bg-card/80 p-4 shadow-lg backdrop-blur-lg transition-all motion-reduce:transition-none\&quot;,\n    isMobile\n      ? \&quot;fixed bottom-0 left-0 right-0 z-40 w-full rounded-none border-t bg-background/95 px-4 py-4\&quot;\n      : \&quot;rounded-2xl\&quot;\n  );\n\n  return (\n    &lt;div className={containerClass}&gt;\n      &lt;Separator className=\&quot;hidden sm:block\&quot; /&gt;\n      &lt;div className=\&quot;flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between\&quot;&gt;\n        &lt;div className=\&quot;flex flex-wrap items-center gap-3\&quot;&gt;\n          &lt;Button\n            type=\&quot;button\&quot;\n            variant=\&quot;outline\&quot;\n            onClick={onPrevious}\n            className=\&quot;gap-2\&quot;\n            disabled={isFirstStep || isSubmitting}\n            aria-disabled={isFirstStep || isSubmitting}\n          &gt;\n            &lt;ChevronLeft className=\&quot;size-4\&quot; aria-hidden=\&quot;true\&quot; /&gt;\n            Previous\n          &lt;/Button&gt;\n          {onSaveDraft &amp;&amp; (\n            &lt;Button\n              type=\&quot;button\&quot;\n              variant=\&quot;ghost\&quot;\n              onClick={onSaveDraft}\n              className=\&quot;gap-2\&quot;\n              disabled={isSavingDraft || isSubmitting}\n              aria-disabled={isSavingDraft || isSubmitting}\n            &gt;\n              {isSavingDraft ? (\n                &lt;Loader2 className=\&quot;size-4 animate-spin\&quot; aria-hidden=\&quot;true\&quot; /&gt;\n              ) : (\n                &lt;Save className=\&quot;size-4\&quot; aria-hidden=\&quot;true\&quot; /&gt;\n              )}\n              {isSavingDraft ? \&quot;Saving…\&quot; : \&quot;Save Draft\&quot;}\n            &lt;/Button&gt;\n          )}\n        &lt;/div&gt;\n        &lt;Button\n          type=\&quot;button\&quot;\n          onClick={onNext}\n          className=\&quot;gap-2\&quot;\n          disabled={isSubmitting}\n          aria-disabled={isSubmitting}\n        &gt;\n          {isLastStep ? (isSubmitting ? \&quot;Submitting…\&quot; : \&quot;Submit\&quot;) : isSubmitting ? \&quot;Validating…\&quot; : \&quot;Next\&quot;}\n          {!isLastStep &amp;&amp; &lt;ChevronRight className=\&quot;size-4\&quot; aria-hidden=\&quot;true\&quot; /&gt;}\n        &lt;/Button&gt;\n      &lt;/div&gt;\n      {onSaveDraft &amp;&amp; (\n        &lt;DraftSaveIndicator\n          status={draftStatus}\n          lastSavedAt={lastSavedAt}\n          errorMessage={draftError ?? undefined}\n        /&gt;\n      )}\n      &lt;div className=\&quot;space-y-2\&quot;&gt;\n        &lt;div className=\&quot;flex items-center justify-between text-xs text-muted-foreground\&quot;&gt;\n          &lt;span&gt;Progress&lt;/span&gt;\n          &lt;span aria-live=\&quot;polite\&quot;&gt;{Math.round(progress)}%&lt;/span&gt;\n        &lt;/div&gt;\n        &lt;Progress\n          value={progress}\n          aria-hidden={false}\n          role=\&quot;progressbar\&quot;\n          aria-valuenow={Math.round(progress)}\n          aria-valuemin={0}\n          aria-valuemax={100}\n          aria-label=\&quot;Overall form progress\&quot;\n        /&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/form-navigation.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport { Button } from \"@/components/ui/button\";\nimport { Progress } from \"@/components/ui/progress\";\nimport { ChevronLeft, ChevronRight, Loader2, Save } from \"lucide-react\";\nimport { Separator } from \"@/components/ui/separator\";\nimport { cn } from \"@/lib/utils\";\nimport { DraftSaveIndicator, type DraftStatus } from \"./draft-save-indicator\";\nimport { useIsMobile } from \"@/hooks/use-mobile\";\n\ninterface FormNavigationProps {\n  isFirstStep: boolean;\n  isLastStep: boolean;\n  onNext: () =&gt; void;\n  onPrevious: () =&gt; void;\n  onSaveDraft?: () =&gt; void;\n  progress: number;\n  isSubmitting?: boolean;\n  isSavingDraft?: boolean;\n  draftStatus?: DraftStatus;\n  draftError?: string | null;\n  lastSavedAt?: Date | null;\n}\n\nexport function FormNavigation({\n  isFirstStep,\n  isLastStep,\n  onNext,\n  onPrevious,\n  onSaveDraft,\n  progress,\n  isSubmitting = false,\n  isSavingDraft = false,\n  draftStatus = \"idle\",\n  draftError = null,\n  lastSavedAt = null,\n}: FormNavigationProps) {\n  const isMobile = useIsMobile();\n  const containerClass = cn(\n    \"space-y-4 border border-border/60 bg-card/80 p-4 shadow-lg backdrop-blur-lg transition-all motion-reduce:transition-none\",\n    isMobile\n      ? \"fixed bottom-0 left-0 right-0 z-40 w-full rounded-none border-t bg-background/95 px-4 py-4\"\n      : \"rounded-2xl\"\n  );\n\n  return (\n    &lt;div className={containerClass}&gt;\n      &lt;Separator className=\"hidden sm:block\" /&gt;\n      &lt;div className=\"flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between\"&gt;\n        &lt;div className=\"flex flex-wrap items-center gap-3\"&gt;\n          &lt;Button\n            type=\"button\"\n            variant=\"outline\"\n            onClick={onPrevious}\n            className=\"gap-2\"\n            disabled={isFirstStep || isSubmitting}\n            aria-disabled={isFirstStep || isSubmitting}\n          &gt;\n            &lt;ChevronLeft className=\"size-4\" aria-hidden=\"true\" /&gt;\n            Previous\n          &lt;/Button&gt;\n          {onSaveDraft &amp;&amp; (\n            &lt;Button\n              type=\"button\"\n              variant=\"ghost\"\n              onClick={onSaveDraft}\n              className=\"gap-2\"\n              disabled={isSavingDraft || isSubmitting}\n              aria-disabled={isSavingDraft || isSubmitting}\n            &gt;\n              {isSavingDraft ? (\n                &lt;Loader2 className=\"size-4 animate-spin\" aria-hidden=\"true\" /&gt;\n              ) : (\n                &lt;Save className=\"size-4\" aria-hidden=\"true\" /&gt;\n              )}\n              {isSavingDraft ? \"Saving…\" : \"Save Draft\"}\n            &lt;/Button&gt;\n          )}\n        &lt;/div&gt;\n        &lt;Button\n          type=\"button\"\n          onClick={onNext}\n          className=\"gap-2\"\n          disabled={isSubmitting}\n          aria-disabled={isSubmitting}\n        &gt;\n          {isLastStep ? (isSubmitting ? \"Submitting…\" : \"Submit\") : isSubmitting ? \"Validating…\" : \"Next\"}\n          {!isLastStep &amp;&amp; &lt;ChevronRight className=\"size-4\" aria-hidden=\"true\" /&gt;}\n        &lt;/Button&gt;\n      &lt;/div&gt;\n      {onSaveDraft &amp;&amp; (\n        &lt;DraftSaveIndicator\n          status={draftStatus}\n          lastSavedAt={lastSavedAt}\n          errorMessage={draftError ?? undefined}\n        /&gt;\n      )}\n      &lt;div className=\"space-y-2\"&gt;\n        &lt;div className=\"flex items-center justify-between text-xs text-muted-foreground\"&gt;\n          &lt;span&gt;Progress&lt;/span&gt;\n          &lt;span aria-live=\"polite\"&gt;{Math.round(progress)}%&lt;/span&gt;\n        &lt;/div&gt;\n        &lt;Progress\n          value={progress}\n          aria-hidden={false}\n          role=\"progressbar\"\n          aria-valuenow={Math.round(progress)}\n          aria-valuemin={0}\n          aria-valuemax={100}\n          aria-label=\"Overall form progress\"\n        /&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -1733,19 +1733,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/draft-save-indicator.tsx&quot;
+  "relativeWorkspacePath": "components/forms/draft-save-indicator.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;0c68f90a-5659-461b-8893-df379c9b95d3&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "0c68f90a-5659-461b-8893-df379c9b95d3",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -1753,23 +1753,23 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;- \n+ \&quot;use client\&quot;;\n+ \n+ import { cn } from \&quot;@/lib/utils\&quot;;\n+ import { AlertTriangle, CheckCircle2, Loader2, Save } from \&quot;lucide-react\&quot;;\n+ \n+ export type DraftStatus = \&quot;idle\&quot; | \&quot;saving\&quot; | \&quot;success\&quot; | \&quot;error\&quot;;\n+ \n+ interface DraftSaveIndicatorProps {\n+   status: DraftStatus;\n+   lastSavedAt?: Date | null;\n+   errorMessage?: string;\n+   className?: string;\n+ }\n+ \n+ export function DraftSaveIndicator({\n+   status,\n+   lastSavedAt,\n+   errorMessage,\n+   className,\n+ }: DraftSaveIndicatorProps) {\n+   let icon = &lt;Save className=\&quot;size-4\&quot; aria-hidden=\&quot;true\&quot; /&gt;;\n+   let message = \&quot;Draft not saved yet\&quot;;\n+ \n+   if (status === \&quot;saving\&quot;) {\n+     icon = &lt;Loader2 className=\&quot;size-4 animate-spin\&quot; aria-hidden=\&quot;true\&quot; /&gt;;\n+     message = \&quot;Saving draft…\&quot;;\n+   } else if (status === \&quot;success\&quot; &amp;&amp; lastSavedAt) {\n+     icon = &lt;CheckCircle2 className=\&quot;size-4 text-emerald-600\&quot; aria-hidden=\&quot;true\&quot; /&gt;;\n+     message = &#96;Draft saved ${lastSavedAt.toLocaleTimeString([], { hour: \&quot;numeric\&quot;, minute: \&quot;2-digit\&quot; })}&#96;;\n+   } else if (status === \&quot;error\&quot;) {\n+     icon = &lt;AlertTriangle className=\&quot;size-4 text-destructive\&quot; aria-hidden=\&quot;true\&quot; /&gt;;\n+     message = errorMessage ?? \&quot;Unable to save draft. Please try again.\&quot;;\n+   }\n+ \n+   return (\n+     &lt;div\n+       className={cn(\n+         \&quot;flex items-center gap-2 rounded-xl bg-muted/60 px-3 py-2 text-xs text-muted-foreground\&quot;,\n+         status === \&quot;error\&quot; &amp;&amp; \&quot;text-destructive\&quot;,\n+         className\n+       )}\n+       role=\&quot;status\&quot;\n+       aria-live=\&quot;polite\&quot;\n+     &gt;\n+       {icon}\n+       &lt;span&gt;{message}&lt;/span&gt;\n+     &lt;/div&gt;\n+   );\n+ }\n+ &quot;,
-        &quot;oldStart&quot;: 1,
-        &quot;newStart&quot;: 1,
-        &quot;oldLines&quot;: 1,
-        &quot;newLines&quot;: 50,
-        &quot;linesRemoved&quot;: 1,
-        &quot;linesAdded&quot;: 50
+        "diffString": "- \n+ \"use client\";\n+ \n+ import { cn } from \"@/lib/utils\";\n+ import { AlertTriangle, CheckCircle2, Loader2, Save } from \"lucide-react\";\n+ \n+ export type DraftStatus = \"idle\" | \"saving\" | \"success\" | \"error\";\n+ \n+ interface DraftSaveIndicatorProps {\n+   status: DraftStatus;\n+   lastSavedAt?: Date | null;\n+   errorMessage?: string;\n+   className?: string;\n+ }\n+ \n+ export function DraftSaveIndicator({\n+   status,\n+   lastSavedAt,\n+   errorMessage,\n+   className,\n+ }: DraftSaveIndicatorProps) {\n+   let icon = &lt;Save className=\"size-4\" aria-hidden=\"true\" /&gt;;\n+   let message = \"Draft not saved yet\";\n+ \n+   if (status === \"saving\") {\n+     icon = &lt;Loader2 className=\"size-4 animate-spin\" aria-hidden=\"true\" /&gt;;\n+     message = \"Saving draft…\";\n+   } else if (status === \"success\" &amp;&amp; lastSavedAt) {\n+     icon = &lt;CheckCircle2 className=\"size-4 text-emerald-600\" aria-hidden=\"true\" /&gt;;\n+     message = &#96;Draft saved ${lastSavedAt.toLocaleTimeString([], { hour: \"numeric\", minute: \"2-digit\" })}&#96;;\n+   } else if (status === \"error\") {\n+     icon = &lt;AlertTriangle className=\"size-4 text-destructive\" aria-hidden=\"true\" /&gt;;\n+     message = errorMessage ?? \"Unable to save draft. Please try again.\";\n+   }\n+ \n+   return (\n+     &lt;div\n+       className={cn(\n+         \"flex items-center gap-2 rounded-xl bg-muted/60 px-3 py-2 text-xs text-muted-foreground\",\n+         status === \"error\" &amp;&amp; \"text-destructive\",\n+         className\n+       )}\n+       role=\"status\"\n+       aria-live=\"polite\"\n+     &gt;\n+       {icon}\n+       &lt;span&gt;{message}&lt;/span&gt;\n+     &lt;/div&gt;\n+   );\n+ }\n+ ",
+        "oldStart": 1,
+        "newStart": 1,
+        "oldLines": 1,
+        "newLines": 50,
+        "linesRemoved": 1,
+        "linesAdded": 50
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/draft-save-indicator.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport { cn } from \&quot;@/lib/utils\&quot;;\nimport { AlertTriangle, CheckCircle2, Loader2, Save } from \&quot;lucide-react\&quot;;\n\nexport type DraftStatus = \&quot;idle\&quot; | \&quot;saving\&quot; | \&quot;success\&quot; | \&quot;error\&quot;;\n\ninterface DraftSaveIndicatorProps {\n  status: DraftStatus;\n  lastSavedAt?: Date | null;\n  errorMessage?: string;\n  className?: string;\n}\n\nexport function DraftSaveIndicator({\n  status,\n  lastSavedAt,\n  errorMessage,\n  className,\n}: DraftSaveIndicatorProps) {\n  let icon = &lt;Save className=\&quot;size-4\&quot; aria-hidden=\&quot;true\&quot; /&gt;;\n  let message = \&quot;Draft not saved yet\&quot;;\n\n  if (status === \&quot;saving\&quot;) {\n    icon = &lt;Loader2 className=\&quot;size-4 animate-spin\&quot; aria-hidden=\&quot;true\&quot; /&gt;;\n    message = \&quot;Saving draft…\&quot;;\n  } else if (status === \&quot;success\&quot; &amp;&amp; lastSavedAt) {\n    icon = &lt;CheckCircle2 className=\&quot;size-4 text-emerald-600\&quot; aria-hidden=\&quot;true\&quot; /&gt;;\n    message = &#96;Draft saved ${lastSavedAt.toLocaleTimeString([], { hour: \&quot;numeric\&quot;, minute: \&quot;2-digit\&quot; })}&#96;;\n  } else if (status === \&quot;error\&quot;) {\n    icon = &lt;AlertTriangle className=\&quot;size-4 text-destructive\&quot; aria-hidden=\&quot;true\&quot; /&gt;;\n    message = errorMessage ?? \&quot;Unable to save draft. Please try again.\&quot;;\n  }\n\n  return (\n    &lt;div\n      className={cn(\n        \&quot;flex items-center gap-2 rounded-xl bg-muted/60 px-3 py-2 text-xs text-muted-foreground\&quot;,\n        status === \&quot;error\&quot; &amp;&amp; \&quot;text-destructive\&quot;,\n        className\n      )}\n      role=\&quot;status\&quot;\n      aria-live=\&quot;polite\&quot;\n    &gt;\n      {icon}\n      &lt;span&gt;{message}&lt;/span&gt;\n    &lt;/div&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/draft-save-indicator.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport { cn } from \"@/lib/utils\";\nimport { AlertTriangle, CheckCircle2, Loader2, Save } from \"lucide-react\";\n\nexport type DraftStatus = \"idle\" | \"saving\" | \"success\" | \"error\";\n\ninterface DraftSaveIndicatorProps {\n  status: DraftStatus;\n  lastSavedAt?: Date | null;\n  errorMessage?: string;\n  className?: string;\n}\n\nexport function DraftSaveIndicator({\n  status,\n  lastSavedAt,\n  errorMessage,\n  className,\n}: DraftSaveIndicatorProps) {\n  let icon = &lt;Save className=\"size-4\" aria-hidden=\"true\" /&gt;;\n  let message = \"Draft not saved yet\";\n\n  if (status === \"saving\") {\n    icon = &lt;Loader2 className=\"size-4 animate-spin\" aria-hidden=\"true\" /&gt;;\n    message = \"Saving draft…\";\n  } else if (status === \"success\" &amp;&amp; lastSavedAt) {\n    icon = &lt;CheckCircle2 className=\"size-4 text-emerald-600\" aria-hidden=\"true\" /&gt;;\n    message = &#96;Draft saved ${lastSavedAt.toLocaleTimeString([], { hour: \"numeric\", minute: \"2-digit\" })}&#96;;\n  } else if (status === \"error\") {\n    icon = &lt;AlertTriangle className=\"size-4 text-destructive\" aria-hidden=\"true\" /&gt;;\n    message = errorMessage ?? \"Unable to save draft. Please try again.\";\n  }\n\n  return (\n    &lt;div\n      className={cn(\n        \"flex items-center gap-2 rounded-xl bg-muted/60 px-3 py-2 text-xs text-muted-foreground\",\n        status === \"error\" &amp;&amp; \"text-destructive\",\n        className\n      )}\n      role=\"status\"\n      aria-live=\"polite\"\n    &gt;\n      {icon}\n      &lt;span&gt;{message}&lt;/span&gt;\n    &lt;/div&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -1796,19 +1796,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/index.ts&quot;
+  "relativeWorkspacePath": "components/forms/index.ts"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;ae24333c-2471-4825-9027-2f325338773d&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "ae24333c-2471-4825-9027-2f325338773d",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -1816,22 +1816,22 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;  export { FieldInputRadio } from \&quot;./field-input-radio\&quot;;\n  export { FieldInputDate } from \&quot;./field-input-date\&quot;;\n+ export { DraftSaveIndicator } from \&quot;./draft-save-indicator\&quot;;\n  \n  &quot;,
-        &quot;oldStart&quot;: 18,
-        &quot;newStart&quot;: 18,
-        &quot;oldLines&quot;: 4,
-        &quot;newLines&quot;: 5,
-        &quot;linesAdded&quot;: 1
+        "diffString": "  export { FieldInputRadio } from \"./field-input-radio\";\n  export { FieldInputDate } from \"./field-input-date\";\n+ export { DraftSaveIndicator } from \"./draft-save-indicator\";\n  \n  ",
+        "oldStart": 18,
+        "newStart": 18,
+        "oldLines": 4,
+        "newLines": 5,
+        "linesAdded": 1
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/index.ts&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;/**\n * Form field rendering components\n * \n * These components provide type-safe, accessible form field rendering\n * based on FormField configuration from the database.\n */\n\nexport { FormFieldRenderer } from \&quot;./form-field-renderer\&quot;;\nexport { FieldWrapper } from \&quot;./field-wrapper\&quot;;\nexport { FieldInputText } from \&quot;./field-input-text\&quot;;\nexport { FieldInputEmail } from \&quot;./field-input-email\&quot;;\nexport { FieldInputNumber } from \&quot;./field-input-number\&quot;;\nexport { FieldInputTel } from \&quot;./field-input-tel\&quot;;\nexport { FieldTextarea } from \&quot;./field-textarea\&quot;;\nexport { FieldInputSelect } from \&quot;./field-input-select\&quot;;\nexport { FieldInputMultiSelect } from \&quot;./field-input-multi-select\&quot;;\nexport { FieldInputCheckbox } from \&quot;./field-input-checkbox\&quot;;\nexport { FieldInputRadio } from \&quot;./field-input-radio\&quot;;\nexport { FieldInputDate } from \&quot;./field-input-date\&quot;;\nexport { DraftSaveIndicator } from \&quot;./draft-save-indicator\&quot;;\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/index.ts",
+  "contentsAfterEdit": "/**\n * Form field rendering components\n * \n * These components provide type-safe, accessible form field rendering\n * based on FormField configuration from the database.\n */\n\nexport { FormFieldRenderer } from \"./form-field-renderer\";\nexport { FieldWrapper } from \"./field-wrapper\";\nexport { FieldInputText } from \"./field-input-text\";\nexport { FieldInputEmail } from \"./field-input-email\";\nexport { FieldInputNumber } from \"./field-input-number\";\nexport { FieldInputTel } from \"./field-input-tel\";\nexport { FieldTextarea } from \"./field-textarea\";\nexport { FieldInputSelect } from \"./field-input-select\";\nexport { FieldInputMultiSelect } from \"./field-input-multi-select\";\nexport { FieldInputCheckbox } from \"./field-input-checkbox\";\nexport { FieldInputRadio } from \"./field-input-radio\";\nexport { FieldInputDate } from \"./field-input-date\";\nexport { DraftSaveIndicator } from \"./draft-save-indicator\";\n\n"
 }
 ```
 User decision: **accepted**
@@ -1858,19 +1858,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/form-loading-skeleton.tsx&quot;
+  "relativeWorkspacePath": "components/forms/form-loading-skeleton.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;7b422669-3ae7-42b4-bf4b-76787a44c15e&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "7b422669-3ae7-42b4-bf4b-76787a44c15e",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -1878,23 +1878,23 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;- \n+ \&quot;use client\&quot;;\n+ \n+ import { Skeleton } from \&quot;@/components/ui/skeleton\&quot;;\n+ \n+ export function FormLoadingSkeleton() {\n+   return (\n+     &lt;div className=\&quot;space-y-6\&quot;&gt;\n+       &lt;div className=\&quot;rounded-2xl border border-border/60 bg-card/70 p-4 shadow-sm\&quot;&gt;\n+         &lt;Skeleton className=\&quot;h-4 w-32\&quot; /&gt;\n+         &lt;Skeleton className=\&quot;mt-2 h-2 w-full\&quot; /&gt;\n+       &lt;/div&gt;\n+       &lt;div className=\&quot;space-y-4 rounded-2xl border border-border/60 bg-card/70 p-6 shadow-sm\&quot;&gt;\n+         &lt;Skeleton className=\&quot;h-6 w-48\&quot; /&gt;\n+         &lt;div className=\&quot;grid gap-4 sm:grid-cols-2\&quot;&gt;\n+           {Array.from({ length: 6 }).map((_, index) =&gt; (\n+             &lt;div key={index} className=\&quot;space-y-3\&quot;&gt;\n+               &lt;Skeleton className=\&quot;h-4 w-24\&quot; /&gt;\n+               &lt;Skeleton className=\&quot;h-10 w-full\&quot; /&gt;\n+             &lt;/div&gt;\n+           ))}\n+         &lt;/div&gt;\n+       &lt;/div&gt;\n+       &lt;div className=\&quot;rounded-2xl border border-border/60 bg-card/70 p-4 shadow-sm\&quot;&gt;\n+         &lt;Skeleton className=\&quot;h-4 w-32\&quot; /&gt;\n+         &lt;Skeleton className=\&quot;mt-2 h-2 w-full\&quot; /&gt;\n+       &lt;/div&gt;\n+     &lt;/div&gt;\n+   );\n+ }\n+ &quot;,
-        &quot;oldStart&quot;: 1,
-        &quot;newStart&quot;: 1,
-        &quot;oldLines&quot;: 1,
-        &quot;newLines&quot;: 30,
-        &quot;linesRemoved&quot;: 1,
-        &quot;linesAdded&quot;: 30
+        "diffString": "- \n+ \"use client\";\n+ \n+ import { Skeleton } from \"@/components/ui/skeleton\";\n+ \n+ export function FormLoadingSkeleton() {\n+   return (\n+     &lt;div className=\"space-y-6\"&gt;\n+       &lt;div className=\"rounded-2xl border border-border/60 bg-card/70 p-4 shadow-sm\"&gt;\n+         &lt;Skeleton className=\"h-4 w-32\" /&gt;\n+         &lt;Skeleton className=\"mt-2 h-2 w-full\" /&gt;\n+       &lt;/div&gt;\n+       &lt;div className=\"space-y-4 rounded-2xl border border-border/60 bg-card/70 p-6 shadow-sm\"&gt;\n+         &lt;Skeleton className=\"h-6 w-48\" /&gt;\n+         &lt;div className=\"grid gap-4 sm:grid-cols-2\"&gt;\n+           {Array.from({ length: 6 }).map((_, index) =&gt; (\n+             &lt;div key={index} className=\"space-y-3\"&gt;\n+               &lt;Skeleton className=\"h-4 w-24\" /&gt;\n+               &lt;Skeleton className=\"h-10 w-full\" /&gt;\n+             &lt;/div&gt;\n+           ))}\n+         &lt;/div&gt;\n+       &lt;/div&gt;\n+       &lt;div className=\"rounded-2xl border border-border/60 bg-card/70 p-4 shadow-sm\"&gt;\n+         &lt;Skeleton className=\"h-4 w-32\" /&gt;\n+         &lt;Skeleton className=\"mt-2 h-2 w-full\" /&gt;\n+       &lt;/div&gt;\n+     &lt;/div&gt;\n+   );\n+ }\n+ ",
+        "oldStart": 1,
+        "newStart": 1,
+        "oldLines": 1,
+        "newLines": 30,
+        "linesRemoved": 1,
+        "linesAdded": 30
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/form-loading-skeleton.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport { Skeleton } from \&quot;@/components/ui/skeleton\&quot;;\n\nexport function FormLoadingSkeleton() {\n  return (\n    &lt;div className=\&quot;space-y-6\&quot;&gt;\n      &lt;div className=\&quot;rounded-2xl border border-border/60 bg-card/70 p-4 shadow-sm\&quot;&gt;\n        &lt;Skeleton className=\&quot;h-4 w-32\&quot; /&gt;\n        &lt;Skeleton className=\&quot;mt-2 h-2 w-full\&quot; /&gt;\n      &lt;/div&gt;\n      &lt;div className=\&quot;space-y-4 rounded-2xl border border-border/60 bg-card/70 p-6 shadow-sm\&quot;&gt;\n        &lt;Skeleton className=\&quot;h-6 w-48\&quot; /&gt;\n        &lt;div className=\&quot;grid gap-4 sm:grid-cols-2\&quot;&gt;\n          {Array.from({ length: 6 }).map((_, index) =&gt; (\n            &lt;div key={index} className=\&quot;space-y-3\&quot;&gt;\n              &lt;Skeleton className=\&quot;h-4 w-24\&quot; /&gt;\n              &lt;Skeleton className=\&quot;h-10 w-full\&quot; /&gt;\n            &lt;/div&gt;\n          ))}\n        &lt;/div&gt;\n      &lt;/div&gt;\n      &lt;div className=\&quot;rounded-2xl border border-border/60 bg-card/70 p-4 shadow-sm\&quot;&gt;\n        &lt;Skeleton className=\&quot;h-4 w-32\&quot; /&gt;\n        &lt;Skeleton className=\&quot;mt-2 h-2 w-full\&quot; /&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/form-loading-skeleton.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport { Skeleton } from \"@/components/ui/skeleton\";\n\nexport function FormLoadingSkeleton() {\n  return (\n    &lt;div className=\"space-y-6\"&gt;\n      &lt;div className=\"rounded-2xl border border-border/60 bg-card/70 p-4 shadow-sm\"&gt;\n        &lt;Skeleton className=\"h-4 w-32\" /&gt;\n        &lt;Skeleton className=\"mt-2 h-2 w-full\" /&gt;\n      &lt;/div&gt;\n      &lt;div className=\"space-y-4 rounded-2xl border border-border/60 bg-card/70 p-6 shadow-sm\"&gt;\n        &lt;Skeleton className=\"h-6 w-48\" /&gt;\n        &lt;div className=\"grid gap-4 sm:grid-cols-2\"&gt;\n          {Array.from({ length: 6 }).map((_, index) =&gt; (\n            &lt;div key={index} className=\"space-y-3\"&gt;\n              &lt;Skeleton className=\"h-4 w-24\" /&gt;\n              &lt;Skeleton className=\"h-10 w-full\" /&gt;\n            &lt;/div&gt;\n          ))}\n        &lt;/div&gt;\n      &lt;/div&gt;\n      &lt;div className=\"rounded-2xl border border-border/60 bg-card/70 p-4 shadow-sm\"&gt;\n        &lt;Skeleton className=\"h-4 w-32\" /&gt;\n        &lt;Skeleton className=\"mt-2 h-2 w-full\" /&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -1921,19 +1921,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/step-loading-skeleton.tsx&quot;
+  "relativeWorkspacePath": "components/forms/step-loading-skeleton.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;7dd2e66d-7dca-4581-96a6-16a702437b12&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "7dd2e66d-7dca-4581-96a6-16a702437b12",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -1941,23 +1941,23 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;- \n+ \&quot;use client\&quot;;\n+ \n+ import { Skeleton } from \&quot;@/components/ui/skeleton\&quot;;\n+ \n+ export function StepLoadingSkeleton() {\n+   return (\n+     &lt;div className=\&quot;space-y-4 rounded-2xl border border-border/60 bg-card/70 p-6 shadow-sm\&quot;&gt;\n+       &lt;Skeleton className=\&quot;h-6 w-56\&quot; /&gt;\n+       &lt;div className=\&quot;grid gap-4 sm:grid-cols-2\&quot;&gt;\n+         {Array.from({ length: 4 }).map((_, index) =&gt; (\n+           &lt;div key={index} className=\&quot;space-y-3 sm:col-span-1\&quot;&gt;\n+             &lt;Skeleton className=\&quot;h-4 w-24\&quot; /&gt;\n+             &lt;Skeleton className=\&quot;h-10 w-full\&quot; /&gt;\n+           &lt;/div&gt;\n+         ))}\n+       &lt;/div&gt;\n+     &lt;/div&gt;\n+   );\n+ }\n+ &quot;,
-        &quot;oldStart&quot;: 1,
-        &quot;newStart&quot;: 1,
-        &quot;oldLines&quot;: 1,
-        &quot;newLines&quot;: 20,
-        &quot;linesRemoved&quot;: 1,
-        &quot;linesAdded&quot;: 20
+        "diffString": "- \n+ \"use client\";\n+ \n+ import { Skeleton } from \"@/components/ui/skeleton\";\n+ \n+ export function StepLoadingSkeleton() {\n+   return (\n+     &lt;div className=\"space-y-4 rounded-2xl border border-border/60 bg-card/70 p-6 shadow-sm\"&gt;\n+       &lt;Skeleton className=\"h-6 w-56\" /&gt;\n+       &lt;div className=\"grid gap-4 sm:grid-cols-2\"&gt;\n+         {Array.from({ length: 4 }).map((_, index) =&gt; (\n+           &lt;div key={index} className=\"space-y-3 sm:col-span-1\"&gt;\n+             &lt;Skeleton className=\"h-4 w-24\" /&gt;\n+             &lt;Skeleton className=\"h-10 w-full\" /&gt;\n+           &lt;/div&gt;\n+         ))}\n+       &lt;/div&gt;\n+     &lt;/div&gt;\n+   );\n+ }\n+ ",
+        "oldStart": 1,
+        "newStart": 1,
+        "oldLines": 1,
+        "newLines": 20,
+        "linesRemoved": 1,
+        "linesAdded": 20
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/step-loading-skeleton.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport { Skeleton } from \&quot;@/components/ui/skeleton\&quot;;\n\nexport function StepLoadingSkeleton() {\n  return (\n    &lt;div className=\&quot;space-y-4 rounded-2xl border border-border/60 bg-card/70 p-6 shadow-sm\&quot;&gt;\n      &lt;Skeleton className=\&quot;h-6 w-56\&quot; /&gt;\n      &lt;div className=\&quot;grid gap-4 sm:grid-cols-2\&quot;&gt;\n        {Array.from({ length: 4 }).map((_, index) =&gt; (\n          &lt;div key={index} className=\&quot;space-y-3 sm:col-span-1\&quot;&gt;\n            &lt;Skeleton className=\&quot;h-4 w-24\&quot; /&gt;\n            &lt;Skeleton className=\&quot;h-10 w-full\&quot; /&gt;\n          &lt;/div&gt;\n        ))}\n      &lt;/div&gt;\n    &lt;/div&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/step-loading-skeleton.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport { Skeleton } from \"@/components/ui/skeleton\";\n\nexport function StepLoadingSkeleton() {\n  return (\n    &lt;div className=\"space-y-4 rounded-2xl border border-border/60 bg-card/70 p-6 shadow-sm\"&gt;\n      &lt;Skeleton className=\"h-6 w-56\" /&gt;\n      &lt;div className=\"grid gap-4 sm:grid-cols-2\"&gt;\n        {Array.from({ length: 4 }).map((_, index) =&gt; (\n          &lt;div key={index} className=\"space-y-3 sm:col-span-1\"&gt;\n            &lt;Skeleton className=\"h-4 w-24\" /&gt;\n            &lt;Skeleton className=\"h-10 w-full\" /&gt;\n          &lt;/div&gt;\n        ))}\n      &lt;/div&gt;\n    &lt;/div&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -1984,19 +1984,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/index.ts&quot;
+  "relativeWorkspacePath": "components/forms/index.ts"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;535832cb-ce4d-4059-b62f-1ba8c8840d32&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "535832cb-ce4d-4059-b62f-1ba8c8840d32",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -2004,22 +2004,22 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;  export { FieldInputDate } from \&quot;./field-input-date\&quot;;\n  export { DraftSaveIndicator } from \&quot;./draft-save-indicator\&quot;;\n+ export { FormLoadingSkeleton } from \&quot;./form-loading-skeleton\&quot;;\n+ export { StepLoadingSkeleton } from \&quot;./step-loading-skeleton\&quot;;\n  \n  &quot;,
-        &quot;oldStart&quot;: 19,
-        &quot;newStart&quot;: 19,
-        &quot;oldLines&quot;: 4,
-        &quot;newLines&quot;: 6,
-        &quot;linesAdded&quot;: 2
+        "diffString": "  export { FieldInputDate } from \"./field-input-date\";\n  export { DraftSaveIndicator } from \"./draft-save-indicator\";\n+ export { FormLoadingSkeleton } from \"./form-loading-skeleton\";\n+ export { StepLoadingSkeleton } from \"./step-loading-skeleton\";\n  \n  ",
+        "oldStart": 19,
+        "newStart": 19,
+        "oldLines": 4,
+        "newLines": 6,
+        "linesAdded": 2
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/index.ts&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;/**\n * Form field rendering components\n * \n * These components provide type-safe, accessible form field rendering\n * based on FormField configuration from the database.\n */\n\nexport { FormFieldRenderer } from \&quot;./form-field-renderer\&quot;;\nexport { FieldWrapper } from \&quot;./field-wrapper\&quot;;\nexport { FieldInputText } from \&quot;./field-input-text\&quot;;\nexport { FieldInputEmail } from \&quot;./field-input-email\&quot;;\nexport { FieldInputNumber } from \&quot;./field-input-number\&quot;;\nexport { FieldInputTel } from \&quot;./field-input-tel\&quot;;\nexport { FieldTextarea } from \&quot;./field-textarea\&quot;;\nexport { FieldInputSelect } from \&quot;./field-input-select\&quot;;\nexport { FieldInputMultiSelect } from \&quot;./field-input-multi-select\&quot;;\nexport { FieldInputCheckbox } from \&quot;./field-input-checkbox\&quot;;\nexport { FieldInputRadio } from \&quot;./field-input-radio\&quot;;\nexport { FieldInputDate } from \&quot;./field-input-date\&quot;;\nexport { DraftSaveIndicator } from \&quot;./draft-save-indicator\&quot;;\nexport { FormLoadingSkeleton } from \&quot;./form-loading-skeleton\&quot;;\nexport { StepLoadingSkeleton } from \&quot;./step-loading-skeleton\&quot;;\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/index.ts",
+  "contentsAfterEdit": "/**\n * Form field rendering components\n * \n * These components provide type-safe, accessible form field rendering\n * based on FormField configuration from the database.\n */\n\nexport { FormFieldRenderer } from \"./form-field-renderer\";\nexport { FieldWrapper } from \"./field-wrapper\";\nexport { FieldInputText } from \"./field-input-text\";\nexport { FieldInputEmail } from \"./field-input-email\";\nexport { FieldInputNumber } from \"./field-input-number\";\nexport { FieldInputTel } from \"./field-input-tel\";\nexport { FieldTextarea } from \"./field-textarea\";\nexport { FieldInputSelect } from \"./field-input-select\";\nexport { FieldInputMultiSelect } from \"./field-input-multi-select\";\nexport { FieldInputCheckbox } from \"./field-input-checkbox\";\nexport { FieldInputRadio } from \"./field-input-radio\";\nexport { FieldInputDate } from \"./field-input-date\";\nexport { DraftSaveIndicator } from \"./draft-save-indicator\";\nexport { FormLoadingSkeleton } from \"./form-loading-skeleton\";\nexport { StepLoadingSkeleton } from \"./step-loading-skeleton\";\n\n"
 }
 ```
 User decision: **accepted**
@@ -2046,19 +2046,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;app/forms/[entityCode]/[geographyCode]/loading.tsx&quot;
+  "relativeWorkspacePath": "app/forms/[entityCode]/[geographyCode]/loading.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;dfa9951a-1bf3-4058-b662-286dceed0686&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "dfa9951a-1bf3-4058-b662-286dceed0686",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -2066,23 +2066,23 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;+ import { FormLoadingSkeleton } from \&quot;@/components/forms/form-loading-skeleton\&quot;;\n+ \n  export default function FormLoading() {\n    return (\n-     &lt;div className=\&quot;container mx-auto py-8\&quot;&gt;\n-       &lt;div className=\&quot;space-y-4\&quot;&gt;\n-         &lt;div className=\&quot;h-8 w-64 animate-pulse rounded bg-muted\&quot; /&gt;\n-         &lt;div className=\&quot;h-4 w-96 animate-pulse rounded bg-muted\&quot; /&gt;\n-         &lt;div className=\&quot;h-64 animate-pulse rounded-lg border bg-muted\&quot; /&gt;\n-       &lt;/div&gt;\n+     &lt;div className=\&quot;container mx-auto px-4 py-10\&quot;&gt;\n+       &lt;FormLoadingSkeleton /&gt;\n      &lt;/div&gt;\n    );&quot;,
-        &quot;oldStart&quot;: 1,
-        &quot;newStart&quot;: 1,
-        &quot;oldLines&quot;: 10,
-        &quot;newLines&quot;: 8,
-        &quot;linesRemoved&quot;: 6,
-        &quot;linesAdded&quot;: 4
+        "diffString": "+ import { FormLoadingSkeleton } from \"@/components/forms/form-loading-skeleton\";\n+ \n  export default function FormLoading() {\n    return (\n-     &lt;div className=\"container mx-auto py-8\"&gt;\n-       &lt;div className=\"space-y-4\"&gt;\n-         &lt;div className=\"h-8 w-64 animate-pulse rounded bg-muted\" /&gt;\n-         &lt;div className=\"h-4 w-96 animate-pulse rounded bg-muted\" /&gt;\n-         &lt;div className=\"h-64 animate-pulse rounded-lg border bg-muted\" /&gt;\n-       &lt;/div&gt;\n+     &lt;div className=\"container mx-auto px-4 py-10\"&gt;\n+       &lt;FormLoadingSkeleton /&gt;\n      &lt;/div&gt;\n    );",
+        "oldStart": 1,
+        "newStart": 1,
+        "oldLines": 10,
+        "newLines": 8,
+        "linesRemoved": 6,
+        "linesAdded": 4
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM app/forms/[entityCode]/[geographyCode]/loading.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;import { FormLoadingSkeleton } from \&quot;@/components/forms/form-loading-skeleton\&quot;;\n\nexport default function FormLoading() {\n  return (\n    &lt;div className=\&quot;container mx-auto px-4 py-10\&quot;&gt;\n      &lt;FormLoadingSkeleton /&gt;\n    &lt;/div&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM app/forms/[entityCode]/[geographyCode]/loading.tsx",
+  "contentsAfterEdit": "import { FormLoadingSkeleton } from \"@/components/forms/form-loading-skeleton\";\n\nexport default function FormLoading() {\n  return (\n    &lt;div className=\"container mx-auto px-4 py-10\"&gt;\n      &lt;FormLoadingSkeleton /&gt;\n    &lt;/div&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -2109,19 +2109,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;app/forms/[formConfigId]/loading.tsx&quot;
+  "relativeWorkspacePath": "app/forms/[formConfigId]/loading.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;f236f89c-1aae-40a5-8e9c-110abe90883b&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "f236f89c-1aae-40a5-8e9c-110abe90883b",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -2129,23 +2129,23 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;+ import { FormLoadingSkeleton } from \&quot;@/components/forms/form-loading-skeleton\&quot;;\n+ \n  export default function FormLoading() {\n    return (\n-     &lt;div className=\&quot;container mx-auto py-8\&quot;&gt;\n-       &lt;div className=\&quot;space-y-4\&quot;&gt;\n-         &lt;div className=\&quot;h-8 w-64 animate-pulse rounded bg-muted\&quot; /&gt;\n-         &lt;div className=\&quot;h-4 w-96 animate-pulse rounded bg-muted\&quot; /&gt;\n-         &lt;div className=\&quot;h-64 animate-pulse rounded-lg border bg-muted\&quot; /&gt;\n-       &lt;/div&gt;\n+     &lt;div className=\&quot;container mx-auto px-4 py-10\&quot;&gt;\n+       &lt;FormLoadingSkeleton /&gt;\n      &lt;/div&gt;\n    );&quot;,
-        &quot;oldStart&quot;: 1,
-        &quot;newStart&quot;: 1,
-        &quot;oldLines&quot;: 10,
-        &quot;newLines&quot;: 8,
-        &quot;linesRemoved&quot;: 6,
-        &quot;linesAdded&quot;: 4
+        "diffString": "+ import { FormLoadingSkeleton } from \"@/components/forms/form-loading-skeleton\";\n+ \n  export default function FormLoading() {\n    return (\n-     &lt;div className=\"container mx-auto py-8\"&gt;\n-       &lt;div className=\"space-y-4\"&gt;\n-         &lt;div className=\"h-8 w-64 animate-pulse rounded bg-muted\" /&gt;\n-         &lt;div className=\"h-4 w-96 animate-pulse rounded bg-muted\" /&gt;\n-         &lt;div className=\"h-64 animate-pulse rounded-lg border bg-muted\" /&gt;\n-       &lt;/div&gt;\n+     &lt;div className=\"container mx-auto px-4 py-10\"&gt;\n+       &lt;FormLoadingSkeleton /&gt;\n      &lt;/div&gt;\n    );",
+        "oldStart": 1,
+        "newStart": 1,
+        "oldLines": 10,
+        "newLines": 8,
+        "linesRemoved": 6,
+        "linesAdded": 4
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM app/forms/[formConfigId]/loading.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;import { FormLoadingSkeleton } from \&quot;@/components/forms/form-loading-skeleton\&quot;;\n\nexport default function FormLoading() {\n  return (\n    &lt;div className=\&quot;container mx-auto px-4 py-10\&quot;&gt;\n      &lt;FormLoadingSkeleton /&gt;\n    &lt;/div&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM app/forms/[formConfigId]/loading.tsx",
+  "contentsAfterEdit": "import { FormLoadingSkeleton } from \"@/components/forms/form-loading-skeleton\";\n\nexport default function FormLoading() {\n  return (\n    &lt;div className=\"container mx-auto px-4 py-10\"&gt;\n      &lt;FormLoadingSkeleton /&gt;\n    &lt;/div&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -2172,19 +2172,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;hooks/use-prefers-reduced-motion.ts&quot;
+  "relativeWorkspacePath": "hooks/use-prefers-reduced-motion.ts"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;0e434f88-7134-480f-b76c-ab8d3cca1b9e&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "0e434f88-7134-480f-b76c-ab8d3cca1b9e",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -2192,23 +2192,23 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;- \n+ \&quot;use client\&quot;;\n+ \n+ import * as React from \&quot;react\&quot;;\n+ \n+ export function usePrefersReducedMotion() {\n+   const [prefersReducedMotion, setPrefersReducedMotion] = React.useState(false);\n+ \n+   React.useEffect(() =&gt; {\n+     const mediaQuery = window.matchMedia(\&quot;(prefers-reduced-motion: reduce)\&quot;);\n+     const updatePreference = () =&gt; setPrefersReducedMotion(mediaQuery.matches);\n+ \n+     updatePreference();\n+     mediaQuery.addEventListener(\&quot;change\&quot;, updatePreference);\n+ \n+     return () =&gt; mediaQuery.removeEventListener(\&quot;change\&quot;, updatePreference);\n+   }, []);\n+ \n+   return prefersReducedMotion;\n+ }\n+ &quot;,
-        &quot;oldStart&quot;: 1,
-        &quot;newStart&quot;: 1,
-        &quot;oldLines&quot;: 1,
-        &quot;newLines&quot;: 20,
-        &quot;linesRemoved&quot;: 1,
-        &quot;linesAdded&quot;: 20
+        "diffString": "- \n+ \"use client\";\n+ \n+ import * as React from \"react\";\n+ \n+ export function usePrefersReducedMotion() {\n+   const [prefersReducedMotion, setPrefersReducedMotion] = React.useState(false);\n+ \n+   React.useEffect(() =&gt; {\n+     const mediaQuery = window.matchMedia(\"(prefers-reduced-motion: reduce)\");\n+     const updatePreference = () =&gt; setPrefersReducedMotion(mediaQuery.matches);\n+ \n+     updatePreference();\n+     mediaQuery.addEventListener(\"change\", updatePreference);\n+ \n+     return () =&gt; mediaQuery.removeEventListener(\"change\", updatePreference);\n+   }, []);\n+ \n+   return prefersReducedMotion;\n+ }\n+ ",
+        "oldStart": 1,
+        "newStart": 1,
+        "oldLines": 1,
+        "newLines": 20,
+        "linesRemoved": 1,
+        "linesAdded": 20
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM hooks/use-prefers-reduced-motion.ts&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport * as React from \&quot;react\&quot;;\n\nexport function usePrefersReducedMotion() {\n  const [prefersReducedMotion, setPrefersReducedMotion] = React.useState(false);\n\n  React.useEffect(() =&gt; {\n    const mediaQuery = window.matchMedia(\&quot;(prefers-reduced-motion: reduce)\&quot;);\n    const updatePreference = () =&gt; setPrefersReducedMotion(mediaQuery.matches);\n\n    updatePreference();\n    mediaQuery.addEventListener(\&quot;change\&quot;, updatePreference);\n\n    return () =&gt; mediaQuery.removeEventListener(\&quot;change\&quot;, updatePreference);\n  }, []);\n\n  return prefersReducedMotion;\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM hooks/use-prefers-reduced-motion.ts",
+  "contentsAfterEdit": "\"use client\";\n\nimport * as React from \"react\";\n\nexport function usePrefersReducedMotion() {\n  const [prefersReducedMotion, setPrefersReducedMotion] = React.useState(false);\n\n  React.useEffect(() =&gt; {\n    const mediaQuery = window.matchMedia(\"(prefers-reduced-motion: reduce)\");\n    const updatePreference = () =&gt; setPrefersReducedMotion(mediaQuery.matches);\n\n    updatePreference();\n    mediaQuery.addEventListener(\"change\", updatePreference);\n\n    return () =&gt; mediaQuery.removeEventListener(\"change\", updatePreference);\n  }, []);\n\n  return prefersReducedMotion;\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -2237,19 +2237,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/dynamic-form-wizard.tsx&quot;
+  "relativeWorkspacePath": "components/forms/dynamic-form-wizard.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;6349f78a-5294-4159-823d-bb3ac5a65ffb&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "6349f78a-5294-4159-823d-bb3ac5a65ffb",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -2257,92 +2257,92 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;  import { FormNavigation } from \&quot;./form-navigation\&quot;;\n  import { FormErrorSummary } from \&quot;./form-error-summary\&quot;;\n+ import { usePrefersReducedMotion } from \&quot;@/hooks/use-prefers-reduced-motion\&quot;;\n+ import { useToast } from \&quot;@/components/ui/use-toast\&quot;;\n+ import { cn } from \&quot;@/lib/utils\&quot;;\n+ import type { DraftStatus } from \&quot;./draft-save-indicator\&quot;;\n  \n  interface DynamicFormWizardProps {&quot;,
-        &quot;oldStart&quot;: 9,
-        &quot;newStart&quot;: 9,
-        &quot;oldLines&quot;: 4,
-        &quot;newLines&quot;: 8,
-        &quot;linesAdded&quot;: 4
+        "diffString": "  import { FormNavigation } from \"./form-navigation\";\n  import { FormErrorSummary } from \"./form-error-summary\";\n+ import { usePrefersReducedMotion } from \"@/hooks/use-prefers-reduced-motion\";\n+ import { useToast } from \"@/components/ui/use-toast\";\n+ import { cn } from \"@/lib/utils\";\n+ import type { DraftStatus } from \"./draft-save-indicator\";\n  \n  interface DynamicFormWizardProps {",
+        "oldStart": 9,
+        "newStart": 9,
+        "oldLines": 4,
+        "newLines": 8,
+        "linesAdded": 4
       },
       {
-        &quot;diffString&quot;: &quot;    const [errors, setErrors] = useState&lt;Record&lt;string, string&gt;&gt;({});\n    const [touched, setTouched] = useState&lt;Record&lt;string, boolean&gt;&gt;({});\n+   const [isSubmitting, setIsSubmitting] = useState(false);\n+   const [isSavingDraft, setIsSavingDraft] = useState(false);\n+   const [draftStatus, setDraftStatus] = useState&lt;DraftStatus&gt;(\&quot;idle\&quot;);\n+   const [draftError, setDraftError] = useState&lt;string | null&gt;(null);\n+   const [lastSavedAt, setLastSavedAt] = useState&lt;Date | null&gt;(null);\n+   const [liveMessage, setLiveMessage] = useState(\&quot;\&quot;);\n    const validationTimersRef = useRef&lt;Record&lt;string, NodeJS.Timeout&gt;&gt;({});\n    const formSchemaRef = useRef(buildFormSchema(formConfig));\n+   const prefersReducedMotion = usePrefersReducedMotion();\n+   const { toast } = useToast();\n  \n    const totalSteps = sortedSections.length;&quot;,
-        &quot;oldStart&quot;: 38,
-        &quot;newStart&quot;: 42,
-        &quot;oldLines&quot;: 6,
-        &quot;newLines&quot;: 14,
-        &quot;linesAdded&quot;: 8
+        "diffString": "    const [errors, setErrors] = useState&lt;Record&lt;string, string&gt;&gt;({});\n    const [touched, setTouched] = useState&lt;Record&lt;string, boolean&gt;&gt;({});\n+   const [isSubmitting, setIsSubmitting] = useState(false);\n+   const [isSavingDraft, setIsSavingDraft] = useState(false);\n+   const [draftStatus, setDraftStatus] = useState&lt;DraftStatus&gt;(\"idle\");\n+   const [draftError, setDraftError] = useState&lt;string | null&gt;(null);\n+   const [lastSavedAt, setLastSavedAt] = useState&lt;Date | null&gt;(null);\n+   const [liveMessage, setLiveMessage] = useState(\"\");\n    const validationTimersRef = useRef&lt;Record&lt;string, NodeJS.Timeout&gt;&gt;({});\n    const formSchemaRef = useRef(buildFormSchema(formConfig));\n+   const prefersReducedMotion = usePrefersReducedMotion();\n+   const { toast } = useToast();\n  \n    const totalSteps = sortedSections.length;",
+        "oldStart": 38,
+        "newStart": 42,
+        "oldLines": 6,
+        "newLines": 14,
+        "linesAdded": 8
       },
       {
-        &quot;diffString&quot;: &quot;    }, [currentStep, formData, formConfig, currentSection]);\n  \n-   const handleNext = useCallback(() =&gt; {\n-     if (!validateCurrentStep()) {\n+   const handleNext = useCallback(async () =&gt; {\n+     if (isSubmitting) {\n+       return;\n+     }\n+ \n+     const isStepValid = validateCurrentStep();\n+     if (!isStepValid) {\n+       toast({\n+         variant: \&quot;destructive\&quot;,\n+         title: \&quot;Please fix validation errors\&quot;,\n+         description: \&quot;Resolve highlighted fields before continuing.\&quot;,\n+       });\n        return;\n      }&quot;,
-        &quot;oldStart&quot;: 184,
-        &quot;newStart&quot;: 196,
-        &quot;oldLines&quot;: 6,
-        &quot;newLines&quot;: 16,
-        &quot;linesRemoved&quot;: 2,
-        &quot;linesAdded&quot;: 12
+        "diffString": "    }, [currentStep, formData, formConfig, currentSection]);\n  \n-   const handleNext = useCallback(() =&gt; {\n-     if (!validateCurrentStep()) {\n+   const handleNext = useCallback(async () =&gt; {\n+     if (isSubmitting) {\n+       return;\n+     }\n+ \n+     const isStepValid = validateCurrentStep();\n+     if (!isStepValid) {\n+       toast({\n+         variant: \"destructive\",\n+         title: \"Please fix validation errors\",\n+         description: \"Resolve highlighted fields before continuing.\",\n+       });\n        return;\n      }",
+        "oldStart": 184,
+        "newStart": 196,
+        "oldLines": 6,
+        "newLines": 16,
+        "linesRemoved": 2,
+        "linesAdded": 12
       },
       {
-        &quot;diffString&quot;: &quot;  \n      if (isLastStep) {\n-       onComplete?.(formData);\n+       if (!onComplete) {\n+         return;\n+       }\n+       try {\n+         setIsSubmitting(true);\n+         await onComplete(formData);\n+         toast({\n+           title: \&quot;Form submitted\&quot;,\n+           description: \&quot;Thanks! We received your information.\&quot;,\n+         });\n+       } catch (error) {\n+         toast({\n+           variant: \&quot;destructive\&quot;,\n+           title: \&quot;Submission failed\&quot;,\n+           description:\n+             error instanceof Error\n+               ? error.message\n+               : \&quot;Something went wrong while submitting. Please try again.\&quot;,\n+         });\n+       } finally {\n+         setIsSubmitting(false);\n+       }\n      } else {\n        const nextStep = currentStep + 1;&quot;,
-        &quot;oldStart&quot;: 192,
-        &quot;newStart&quot;: 214,
-        &quot;oldLines&quot;: 5,
-        &quot;newLines&quot;: 26,
-        &quot;linesRemoved&quot;: 1,
-        &quot;linesAdded&quot;: 22
+        "diffString": "  \n      if (isLastStep) {\n-       onComplete?.(formData);\n+       if (!onComplete) {\n+         return;\n+       }\n+       try {\n+         setIsSubmitting(true);\n+         await onComplete(formData);\n+         toast({\n+           title: \"Form submitted\",\n+           description: \"Thanks! We received your information.\",\n+         });\n+       } catch (error) {\n+         toast({\n+           variant: \"destructive\",\n+           title: \"Submission failed\",\n+           description:\n+             error instanceof Error\n+               ? error.message\n+               : \"Something went wrong while submitting. Please try again.\",\n+         });\n+       } finally {\n+         setIsSubmitting(false);\n+       }\n      } else {\n        const nextStep = currentStep + 1;",
+        "oldStart": 192,
+        "newStart": 214,
+        "oldLines": 5,
+        "newLines": 26,
+        "linesRemoved": 1,
+        "linesAdded": 22
       },
       {
-        &quot;diffString&quot;: &quot;    }, [\n      currentStep,\n+     formData,\n      isLastStep,\n-     validateCurrentStep,\n-     formData,\n+     isSubmitting,\n      onComplete,\n      onStepChange,\n+     toast,\n+     validateCurrentStep,\n    ]);\n  &quot;,
-        &quot;oldStart&quot;: 200,
-        &quot;newStart&quot;: 243,
-        &quot;oldLines&quot;: 9,
-        &quot;newLines&quot;: 11,
-        &quot;linesRemoved&quot;: 2,
-        &quot;linesAdded&quot;: 4
+        "diffString": "    }, [\n      currentStep,\n+     formData,\n      isLastStep,\n-     validateCurrentStep,\n-     formData,\n+     isSubmitting,\n      onComplete,\n      onStepChange,\n+     toast,\n+     validateCurrentStep,\n    ]);\n  ",
+        "oldStart": 200,
+        "newStart": 243,
+        "oldLines": 9,
+        "newLines": 11,
+        "linesRemoved": 2,
+        "linesAdded": 4
       },
       {
-        &quot;diffString&quot;: &quot;    );\n  \n-   const handleSaveDraft = useCallback(() =&gt; {\n-     onSaveDraft?.(formData);\n-   }, [formData, onSaveDraft]);\n+   const handleSaveDraft = useCallback(async () =&gt; {\n+     if (!onSaveDraft || isSavingDraft) {\n+       return;\n+     }\n+     try {\n+       setIsSavingDraft(true);\n+       setDraftStatus(\&quot;saving\&quot;);\n+       setDraftError(null);\n+       await onSaveDraft(formData);\n+       setDraftStatus(\&quot;success\&quot;);\n+       const savedAt = new Date();\n+       setLastSavedAt(savedAt);\n+       toast({\n+         title: \&quot;Draft saved\&quot;,\n+         description: &#96;Progress saved at ${savedAt.toLocaleTimeString([], {\n+           hour: \&quot;numeric\&quot;,\n+           minute: \&quot;2-digit\&quot;,\n+         })}&#96;,\n+       });\n+     } catch (error) {\n+       setDraftStatus(\&quot;error\&quot;);\n+       const message =\n+         error instanceof Error\n+           ? error.message\n+           : \&quot;Unable to save your draft right now.\&quot;;\n+       setDraftError(message);\n+       toast({\n+         variant: \&quot;destructive\&quot;,\n+         title: \&quot;Draft not saved\&quot;,\n+         description: message,\n+       });\n+     } finally {\n+       setIsSavingDraft(false);\n+     }\n+   }, [formData, isSavingDraft, onSaveDraft, toast]);\n  \n    // Cleanup timers on unmount&quot;,
-        &quot;oldStart&quot;: 233,
-        &quot;newStart&quot;: 278,
-        &quot;oldLines&quot;: 7,
-        &quot;newLines&quot;: 39,
-        &quot;linesRemoved&quot;: 3,
-        &quot;linesAdded&quot;: 35
+        "diffString": "    );\n  \n-   const handleSaveDraft = useCallback(() =&gt; {\n-     onSaveDraft?.(formData);\n-   }, [formData, onSaveDraft]);\n+   const handleSaveDraft = useCallback(async () =&gt; {\n+     if (!onSaveDraft || isSavingDraft) {\n+       return;\n+     }\n+     try {\n+       setIsSavingDraft(true);\n+       setDraftStatus(\"saving\");\n+       setDraftError(null);\n+       await onSaveDraft(formData);\n+       setDraftStatus(\"success\");\n+       const savedAt = new Date();\n+       setLastSavedAt(savedAt);\n+       toast({\n+         title: \"Draft saved\",\n+         description: &#96;Progress saved at ${savedAt.toLocaleTimeString([], {\n+           hour: \"numeric\",\n+           minute: \"2-digit\",\n+         })}&#96;,\n+       });\n+     } catch (error) {\n+       setDraftStatus(\"error\");\n+       const message =\n+         error instanceof Error\n+           ? error.message\n+           : \"Unable to save your draft right now.\";\n+       setDraftError(message);\n+       toast({\n+         variant: \"destructive\",\n+         title: \"Draft not saved\",\n+         description: message,\n+       });\n+     } finally {\n+       setIsSavingDraft(false);\n+     }\n+   }, [formData, isSavingDraft, onSaveDraft, toast]);\n  \n    // Cleanup timers on unmount",
+        "oldStart": 233,
+        "newStart": 278,
+        "oldLines": 7,
+        "newLines": 39,
+        "linesRemoved": 3,
+        "linesAdded": 35
       },
       {
-        &quot;diffString&quot;: &quot;  \n    const progress = totalSteps &gt; 0 ? ((currentStep + 1) / totalSteps) * 100 : 0;\n+ \n+   useEffect(() =&gt; {\n+     const sectionLabel = currentSection?.label ?? &#96;Step ${currentStep + 1}&#96;;\n+     setLiveMessage(&#96;Now viewing ${sectionLabel} (${currentStep + 1} of ${totalSteps})&#96;);\n+   }, [currentSection, currentStep, totalSteps]);\n  \n    return (\n-     &lt;div className=\&quot;flex flex-col gap-6\&quot;&gt;\n+     &lt;div className=\&quot;flex flex-col gap-6 pb-32 sm:pb-12\&quot;&gt;\n        &lt;StepIndicator\n          steps={sortedSections.map((section, index) =&gt; ({&quot;,
-        &quot;oldStart&quot;: 247,
-        &quot;newStart&quot;: 324,
-        &quot;oldLines&quot;: 7,
-        &quot;newLines&quot;: 12,
-        &quot;linesRemoved&quot;: 1,
-        &quot;linesAdded&quot;: 6
+        "diffString": "  \n    const progress = totalSteps &gt; 0 ? ((currentStep + 1) / totalSteps) * 100 : 0;\n+ \n+   useEffect(() =&gt; {\n+     const sectionLabel = currentSection?.label ?? &#96;Step ${currentStep + 1}&#96;;\n+     setLiveMessage(&#96;Now viewing ${sectionLabel} (${currentStep + 1} of ${totalSteps})&#96;);\n+   }, [currentSection, currentStep, totalSteps]);\n  \n    return (\n-     &lt;div className=\"flex flex-col gap-6\"&gt;\n+     &lt;div className=\"flex flex-col gap-6 pb-32 sm:pb-12\"&gt;\n        &lt;StepIndicator\n          steps={sortedSections.map((section, index) =&gt; ({",
+        "oldStart": 247,
+        "newStart": 324,
+        "oldLines": 7,
+        "newLines": 12,
+        "linesRemoved": 1,
+        "linesAdded": 6
       },
       {
-        &quot;diffString&quot;: &quot;        /&gt;\n  \n-       &lt;div className=\&quot;min-h-[400px] space-y-6\&quot;&gt;\n+       &lt;div\n+         className={cn(\n+           \&quot;min-h-[400px] space-y-6 rounded-3xl border border-border/60 bg-background/70 p-4 shadow-lg sm:p-8\&quot;,\n+           !prefersReducedMotion &amp;&amp; \&quot;transition-shadow duration-300\&quot;\n+         )}\n+       &gt;\n          {/* Error summary for current step */}\n          {(() =&gt; {&quot;,
-        &quot;oldStart&quot;: 261,
-        &quot;newStart&quot;: 343,
-        &quot;oldLines&quot;: 5,
-        &quot;newLines&quot;: 10,
-        &quot;linesRemoved&quot;: 1,
-        &quot;linesAdded&quot;: 6
+        "diffString": "        /&gt;\n  \n-       &lt;div className=\"min-h-[400px] space-y-6\"&gt;\n+       &lt;div\n+         className={cn(\n+           \"min-h-[400px] space-y-6 rounded-3xl border border-border/60 bg-background/70 p-4 shadow-lg sm:p-8\",\n+           !prefersReducedMotion &amp;&amp; \"transition-shadow duration-300\"\n+         )}\n+       &gt;\n          {/* Error summary for current step */}\n          {(() =&gt; {",
+        "oldStart": 261,
+        "newStart": 343,
+        "oldLines": 5,
+        "newLines": 10,
+        "linesRemoved": 1,
+        "linesAdded": 6
       },
       {
-        &quot;diffString&quot;: &quot;          onSaveDraft={handleSaveDraft}\n          progress={progress}\n+         isSubmitting={isSubmitting}\n+         isSavingDraft={isSavingDraft}\n+         draftStatus={draftStatus}\n+         draftError={draftError}\n+         lastSavedAt={lastSavedAt}\n        /&gt;\n+       &lt;p role=\&quot;status\&quot; aria-live=\&quot;polite\&quot; className=\&quot;sr-only\&quot;&gt;\n+         {liveMessage}\n+       &lt;/p&gt;\n      &lt;/div&gt;\n    );&quot;,
-        &quot;oldStart&quot;: 316,
-        &quot;newStart&quot;: 403,
-        &quot;oldLines&quot;: 5,
-        &quot;newLines&quot;: 13,
-        &quot;linesAdded&quot;: 8
+        "diffString": "          onSaveDraft={handleSaveDraft}\n          progress={progress}\n+         isSubmitting={isSubmitting}\n+         isSavingDraft={isSavingDraft}\n+         draftStatus={draftStatus}\n+         draftError={draftError}\n+         lastSavedAt={lastSavedAt}\n        /&gt;\n+       &lt;p role=\"status\" aria-live=\"polite\" className=\"sr-only\"&gt;\n+         {liveMessage}\n+       &lt;/p&gt;\n      &lt;/div&gt;\n    );",
+        "oldStart": 316,
+        "newStart": 403,
+        "oldLines": 5,
+        "newLines": 13,
+        "linesAdded": 8
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/dynamic-form-wizard.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport { useState, useCallback, useRef, useEffect } from \&quot;react\&quot;;\nimport type { FormConfigWithFields } from \&quot;@/lib/forms/types\&quot;;\nimport { validateStep, getStepFieldKeys } from \&quot;@/lib/forms/form-validator\&quot;;\nimport { buildFormSchema } from \&quot;@/lib/form-schema\&quot;;\nimport { StepIndicator } from \&quot;./step-indicator\&quot;;\nimport { FormStep } from \&quot;./form-step\&quot;;\nimport { FormNavigation } from \&quot;./form-navigation\&quot;;\nimport { FormErrorSummary } from \&quot;./form-error-summary\&quot;;\nimport { usePrefersReducedMotion } from \&quot;@/hooks/use-prefers-reduced-motion\&quot;;\nimport { useToast } from \&quot;@/components/ui/use-toast\&quot;;\nimport { cn } from \&quot;@/lib/utils\&quot;;\nimport type { DraftStatus } from \&quot;./draft-save-indicator\&quot;;\n\ninterface DynamicFormWizardProps {\n  formConfig: FormConfigWithFields;\n  initialData?: Record&lt;string, unknown&gt;;\n  onStepChange?: (stepIndex: number) =&gt; void;\n  onComplete?: (formData: Record&lt;string, unknown&gt;) =&gt; void;\n  onSaveDraft?: (formData: Record&lt;string, unknown&gt;) =&gt; void;\n}\n\nexport function DynamicFormWizard({\n  formConfig,\n  initialData = {},\n  onStepChange,\n  onComplete,\n  onSaveDraft,\n}: DynamicFormWizardProps) {\n  const sortedSections = [...formConfig.sections].sort(\n    (a, b) =&gt; a.order - b.order\n  );\n\n  const [currentStep, setCurrentStep] = useState(0);\n  const [formData, setFormData] = useState&lt;Record&lt;string, unknown&gt;&gt;(\n    initialData\n  );\n  const [completedSteps, setCompletedSteps] = useState&lt;Set&lt;number&gt;&gt;(\n    new Set()\n  );\n  const [errors, setErrors] = useState&lt;Record&lt;string, string&gt;&gt;({});\n  const [touched, setTouched] = useState&lt;Record&lt;string, boolean&gt;&gt;({});\n  const [isSubmitting, setIsSubmitting] = useState(false);\n  const [isSavingDraft, setIsSavingDraft] = useState(false);\n  const [draftStatus, setDraftStatus] = useState&lt;DraftStatus&gt;(\&quot;idle\&quot;);\n  const [draftError, setDraftError] = useState&lt;string | null&gt;(null);\n  const [lastSavedAt, setLastSavedAt] = useState&lt;Date | null&gt;(null);\n  const [liveMessage, setLiveMessage] = useState(\&quot;\&quot;);\n  const validationTimersRef = useRef&lt;Record&lt;string, NodeJS.Timeout&gt;&gt;({});\n  const formSchemaRef = useRef(buildFormSchema(formConfig));\n  const prefersReducedMotion = usePrefersReducedMotion();\n  const { toast } = useToast();\n\n  const totalSteps = sortedSections.length;\n  const currentSection = sortedSections[currentStep];\n  const isFirstStep = currentStep === 0;\n  const isLastStep = currentStep === totalSteps - 1;\n\n  // Rebuild schema if form config changes\n  useEffect(() =&gt; {\n    formSchemaRef.current = buildFormSchema(formConfig);\n  }, [formConfig]);\n\n  /**\n   * Validate a single field with debouncing\n   */\n  const validateField = useCallback(\n    (fieldKey: string, value: unknown, immediate = false) =&gt; {\n      // Clear existing timer for this field\n      if (validationTimersRef.current[fieldKey]) {\n        clearTimeout(validationTimersRef.current[fieldKey]);\n      }\n\n      const performValidation = () =&gt; {\n        const fieldSchema = formSchemaRef.current.shape[fieldKey];\n        if (!fieldSchema) {\n          return;\n        }\n\n        try {\n          fieldSchema.parse(value);\n          // Clear error if validation passes\n          setErrors((prev) =&gt; {\n            const next = { ...prev };\n            delete next[fieldKey];\n            return next;\n          });\n        } catch (error) {\n          if (error &amp;&amp; typeof error === \&quot;object\&quot; &amp;&amp; \&quot;issues\&quot; in error) {\n            const zodError = error as { issues: Array&lt;{ message: string }&gt; };\n            const firstIssue = zodError.issues[0];\n            if (firstIssue) {\n              setErrors((prev) =&gt; ({\n                ...prev,\n                [fieldKey]: firstIssue.message,\n              }));\n            }\n          } else if (error instanceof Error) {\n            setErrors((prev) =&gt; ({\n              ...prev,\n              [fieldKey]: error.message,\n            }));\n          }\n        }\n      };\n\n      if (immediate) {\n        performValidation();\n      } else {\n        // Debounce validation on change (300ms)\n        validationTimersRef.current[fieldKey] = setTimeout(performValidation, 300);\n      }\n    },\n    []\n  );\n\n  const handleFieldChange = useCallback(\n    (fieldKey: string, value: unknown) =&gt; {\n      setFormData((prev) =&gt; ({\n        ...prev,\n        [fieldKey]: value,\n      }));\n\n      // Validate on change with debounce (only if field has been touched)\n      if (touched[fieldKey]) {\n        validateField(fieldKey, value, false);\n      }\n    },\n    [touched, validateField]\n  );\n\n  const handleFieldBlur = useCallback(\n    (fieldKey: string) =&gt; {\n      setTouched((prev) =&gt; ({\n        ...prev,\n        [fieldKey]: true,\n      }));\n\n      // Validate immediately on blur\n      const value = formData[fieldKey];\n      validateField(fieldKey, value, true);\n    },\n    [formData, validateField]\n  );\n\n  /**\n   * Validate current step using the validation utilities\n   */\n  const validateCurrentStep = useCallback((): boolean =&gt; {\n    const stepResult = validateStep(currentStep, formData, formConfig);\n\n    if (!stepResult.isValid) {\n      // Update errors for current step fields only\n      const stepFieldKeys = getStepFieldKeys(currentStep, formConfig);\n      setErrors((prev) =&gt; {\n        const next = { ...prev };\n        // Clear errors for fields not in current step\n        stepFieldKeys.forEach((key) =&gt; {\n          if (stepResult.errors[key]) {\n            next[key] = stepResult.errors[key];\n          } else {\n            delete next[key];\n          }\n        });\n        return next;\n      });\n\n      // Mark all fields in step as touched\n      setTouched((prev) =&gt; {\n        const next = { ...prev };\n        stepFieldKeys.forEach((key) =&gt; {\n          next[key] = true;\n        });\n        return next;\n      });\n\n      // Focus first error field\n      if (stepResult.firstErrorField) {\n        // Find the field by key to get its ID\n        const errorField = currentSection.fields.find(\n          (f) =&gt; f.key === stepResult.firstErrorField\n        );\n        if (errorField) {\n          // Field components use &#96;field-${field.id}&#96; as the ID\n          const fieldElement = document.getElementById(&#96;field-${errorField.id}&#96;);\n          if (fieldElement) {\n            fieldElement.focus();\n            fieldElement.scrollIntoView({ behavior: \&quot;smooth\&quot;, block: \&quot;center\&quot; });\n          }\n        }\n      }\n    }\n\n    return stepResult.isValid;\n  }, [currentStep, formData, formConfig, currentSection]);\n\n  const handleNext = useCallback(async () =&gt; {\n    if (isSubmitting) {\n      return;\n    }\n\n    const isStepValid = validateCurrentStep();\n    if (!isStepValid) {\n      toast({\n        variant: \&quot;destructive\&quot;,\n        title: \&quot;Please fix validation errors\&quot;,\n        description: \&quot;Resolve highlighted fields before continuing.\&quot;,\n      });\n      return;\n    }\n\n    setCompletedSteps((prev) =&gt; new Set(prev).add(currentStep));\n\n    if (isLastStep) {\n      if (!onComplete) {\n        return;\n      }\n      try {\n        setIsSubmitting(true);\n        await onComplete(formData);\n        toast({\n          title: \&quot;Form submitted\&quot;,\n          description: \&quot;Thanks! We received your information.\&quot;,\n        });\n      } catch (error) {\n        toast({\n          variant: \&quot;destructive\&quot;,\n          title: \&quot;Submission failed\&quot;,\n          description:\n            error instanceof Error\n              ? error.message\n              : \&quot;Something went wrong while submitting. Please try again.\&quot;,\n        });\n      } finally {\n        setIsSubmitting(false);\n      }\n    } else {\n      const nextStep = currentStep + 1;\n      setCurrentStep(nextStep);\n      onStepChange?.(nextStep);\n    }\n  }, [\n    currentStep,\n    formData,\n    isLastStep,\n    isSubmitting,\n    onComplete,\n    onStepChange,\n    toast,\n    validateCurrentStep,\n  ]);\n\n  const handlePrevious = useCallback(() =&gt; {\n    if (!isFirstStep) {\n      const prevStep = currentStep - 1;\n      setCurrentStep(prevStep);\n      onStepChange?.(prevStep);\n    }\n  }, [currentStep, isFirstStep, onStepChange]);\n\n  const handleStepClick = useCallback(\n    (stepIndex: number) =&gt; {\n      // Validate current step before allowing navigation\n      if (stepIndex !== currentStep) {\n        if (!validateCurrentStep()) {\n          return; // Don&#39;t allow navigation if current step is invalid\n        }\n      }\n\n      // Allow navigation to completed steps or the next step\n      if (completedSteps.has(stepIndex) || stepIndex === currentStep + 1) {\n        setCurrentStep(stepIndex);\n        onStepChange?.(stepIndex);\n      }\n    },\n    [completedSteps, currentStep, onStepChange, validateCurrentStep]\n  );\n\n  const handleSaveDraft = useCallback(async () =&gt; {\n    if (!onSaveDraft || isSavingDraft) {\n      return;\n    }\n    try {\n      setIsSavingDraft(true);\n      setDraftStatus(\&quot;saving\&quot;);\n      setDraftError(null);\n      await onSaveDraft(formData);\n      setDraftStatus(\&quot;success\&quot;);\n      const savedAt = new Date();\n      setLastSavedAt(savedAt);\n      toast({\n        title: \&quot;Draft saved\&quot;,\n        description: &#96;Progress saved at ${savedAt.toLocaleTimeString([], {\n          hour: \&quot;numeric\&quot;,\n          minute: \&quot;2-digit\&quot;,\n        })}&#96;,\n      });\n    } catch (error) {\n      setDraftStatus(\&quot;error\&quot;);\n      const message =\n        error instanceof Error\n          ? error.message\n          : \&quot;Unable to save your draft right now.\&quot;;\n      setDraftError(message);\n      toast({\n        variant: \&quot;destructive\&quot;,\n        title: \&quot;Draft not saved\&quot;,\n        description: message,\n      });\n    } finally {\n      setIsSavingDraft(false);\n    }\n  }, [formData, isSavingDraft, onSaveDraft, toast]);\n\n  // Cleanup timers on unmount\n  useEffect(() =&gt; {\n    return () =&gt; {\n      Object.values(validationTimersRef.current).forEach((timer) =&gt; {\n        clearTimeout(timer);\n      });\n    };\n  }, []);\n\n  const progress = totalSteps &gt; 0 ? ((currentStep + 1) / totalSteps) * 100 : 0;\n\n  useEffect(() =&gt; {\n    const sectionLabel = currentSection?.label ?? &#96;Step ${currentStep + 1}&#96;;\n    setLiveMessage(&#96;Now viewing ${sectionLabel} (${currentStep + 1} of ${totalSteps})&#96;);\n  }, [currentSection, currentStep, totalSteps]);\n\n  return (\n    &lt;div className=\&quot;flex flex-col gap-6 pb-32 sm:pb-12\&quot;&gt;\n      &lt;StepIndicator\n        steps={sortedSections.map((section, index) =&gt; ({\n          id: section.id,\n          label: section.label,\n          order: section.order,\n        }))}\n        currentStep={currentStep}\n        completedSteps={completedSteps}\n        onStepClick={handleStepClick}\n      /&gt;\n\n      &lt;div\n        className={cn(\n          \&quot;min-h-[400px] space-y-6 rounded-3xl border border-border/60 bg-background/70 p-4 shadow-lg sm:p-8\&quot;,\n          !prefersReducedMotion &amp;&amp; \&quot;transition-shadow duration-300\&quot;\n        )}\n      &gt;\n        {/* Error summary for current step */}\n        {(() =&gt; {\n          const stepFieldKeys = getStepFieldKeys(currentStep, formConfig);\n          const stepErrors: Record&lt;string, string&gt; = {};\n          stepFieldKeys.forEach((key) =&gt; {\n            if (errors[key] &amp;&amp; touched[key]) {\n              stepErrors[key] = errors[key];\n            }\n          });\n\n          if (Object.keys(stepErrors).length &gt; 0) {\n            return (\n              &lt;FormErrorSummary\n                errors={stepErrors}\n                onErrorClick={(fieldKey) =&gt; {\n                  // Find the field by key to get its ID\n                  const errorField = currentSection.fields.find(\n                    (f) =&gt; f.key === fieldKey\n                  );\n                  if (errorField) {\n                    // Field components use &#96;field-${field.id}&#96; as the ID\n                    const fieldElement = document.getElementById(&#96;field-${errorField.id}&#96;);\n                    if (fieldElement) {\n                      fieldElement.focus();\n                      fieldElement.scrollIntoView({\n                        behavior: \&quot;smooth\&quot;,\n                        block: \&quot;center\&quot;,\n                      });\n                    }\n                  }\n                }}\n              /&gt;\n            );\n          }\n          return null;\n        })()}\n\n        &lt;FormStep\n          section={currentSection}\n          formData={formData}\n          errors={errors}\n          touched={touched}\n          onFieldChange={handleFieldChange}\n          onFieldBlur={handleFieldBlur}\n        /&gt;\n      &lt;/div&gt;\n\n      &lt;FormNavigation\n        isFirstStep={isFirstStep}\n        isLastStep={isLastStep}\n        onNext={handleNext}\n        onPrevious={handlePrevious}\n        onSaveDraft={handleSaveDraft}\n        progress={progress}\n        isSubmitting={isSubmitting}\n        isSavingDraft={isSavingDraft}\n        draftStatus={draftStatus}\n        draftError={draftError}\n        lastSavedAt={lastSavedAt}\n      /&gt;\n      &lt;p role=\&quot;status\&quot; aria-live=\&quot;polite\&quot; className=\&quot;sr-only\&quot;&gt;\n        {liveMessage}\n      &lt;/p&gt;\n    &lt;/div&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/dynamic-form-wizard.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport { useState, useCallback, useRef, useEffect } from \"react\";\nimport type { FormConfigWithFields } from \"@/lib/forms/types\";\nimport { validateStep, getStepFieldKeys } from \"@/lib/forms/form-validator\";\nimport { buildFormSchema } from \"@/lib/form-schema\";\nimport { StepIndicator } from \"./step-indicator\";\nimport { FormStep } from \"./form-step\";\nimport { FormNavigation } from \"./form-navigation\";\nimport { FormErrorSummary } from \"./form-error-summary\";\nimport { usePrefersReducedMotion } from \"@/hooks/use-prefers-reduced-motion\";\nimport { useToast } from \"@/components/ui/use-toast\";\nimport { cn } from \"@/lib/utils\";\nimport type { DraftStatus } from \"./draft-save-indicator\";\n\ninterface DynamicFormWizardProps {\n  formConfig: FormConfigWithFields;\n  initialData?: Record&lt;string, unknown&gt;;\n  onStepChange?: (stepIndex: number) =&gt; void;\n  onComplete?: (formData: Record&lt;string, unknown&gt;) =&gt; void;\n  onSaveDraft?: (formData: Record&lt;string, unknown&gt;) =&gt; void;\n}\n\nexport function DynamicFormWizard({\n  formConfig,\n  initialData = {},\n  onStepChange,\n  onComplete,\n  onSaveDraft,\n}: DynamicFormWizardProps) {\n  const sortedSections = [...formConfig.sections].sort(\n    (a, b) =&gt; a.order - b.order\n  );\n\n  const [currentStep, setCurrentStep] = useState(0);\n  const [formData, setFormData] = useState&lt;Record&lt;string, unknown&gt;&gt;(\n    initialData\n  );\n  const [completedSteps, setCompletedSteps] = useState&lt;Set&lt;number&gt;&gt;(\n    new Set()\n  );\n  const [errors, setErrors] = useState&lt;Record&lt;string, string&gt;&gt;({});\n  const [touched, setTouched] = useState&lt;Record&lt;string, boolean&gt;&gt;({});\n  const [isSubmitting, setIsSubmitting] = useState(false);\n  const [isSavingDraft, setIsSavingDraft] = useState(false);\n  const [draftStatus, setDraftStatus] = useState&lt;DraftStatus&gt;(\"idle\");\n  const [draftError, setDraftError] = useState&lt;string | null&gt;(null);\n  const [lastSavedAt, setLastSavedAt] = useState&lt;Date | null&gt;(null);\n  const [liveMessage, setLiveMessage] = useState(\"\");\n  const validationTimersRef = useRef&lt;Record&lt;string, NodeJS.Timeout&gt;&gt;({});\n  const formSchemaRef = useRef(buildFormSchema(formConfig));\n  const prefersReducedMotion = usePrefersReducedMotion();\n  const { toast } = useToast();\n\n  const totalSteps = sortedSections.length;\n  const currentSection = sortedSections[currentStep];\n  const isFirstStep = currentStep === 0;\n  const isLastStep = currentStep === totalSteps - 1;\n\n  // Rebuild schema if form config changes\n  useEffect(() =&gt; {\n    formSchemaRef.current = buildFormSchema(formConfig);\n  }, [formConfig]);\n\n  /**\n   * Validate a single field with debouncing\n   */\n  const validateField = useCallback(\n    (fieldKey: string, value: unknown, immediate = false) =&gt; {\n      // Clear existing timer for this field\n      if (validationTimersRef.current[fieldKey]) {\n        clearTimeout(validationTimersRef.current[fieldKey]);\n      }\n\n      const performValidation = () =&gt; {\n        const fieldSchema = formSchemaRef.current.shape[fieldKey];\n        if (!fieldSchema) {\n          return;\n        }\n\n        try {\n          fieldSchema.parse(value);\n          // Clear error if validation passes\n          setErrors((prev) =&gt; {\n            const next = { ...prev };\n            delete next[fieldKey];\n            return next;\n          });\n        } catch (error) {\n          if (error &amp;&amp; typeof error === \"object\" &amp;&amp; \"issues\" in error) {\n            const zodError = error as { issues: Array&lt;{ message: string }&gt; };\n            const firstIssue = zodError.issues[0];\n            if (firstIssue) {\n              setErrors((prev) =&gt; ({\n                ...prev,\n                [fieldKey]: firstIssue.message,\n              }));\n            }\n          } else if (error instanceof Error) {\n            setErrors((prev) =&gt; ({\n              ...prev,\n              [fieldKey]: error.message,\n            }));\n          }\n        }\n      };\n\n      if (immediate) {\n        performValidation();\n      } else {\n        // Debounce validation on change (300ms)\n        validationTimersRef.current[fieldKey] = setTimeout(performValidation, 300);\n      }\n    },\n    []\n  );\n\n  const handleFieldChange = useCallback(\n    (fieldKey: string, value: unknown) =&gt; {\n      setFormData((prev) =&gt; ({\n        ...prev,\n        [fieldKey]: value,\n      }));\n\n      // Validate on change with debounce (only if field has been touched)\n      if (touched[fieldKey]) {\n        validateField(fieldKey, value, false);\n      }\n    },\n    [touched, validateField]\n  );\n\n  const handleFieldBlur = useCallback(\n    (fieldKey: string) =&gt; {\n      setTouched((prev) =&gt; ({\n        ...prev,\n        [fieldKey]: true,\n      }));\n\n      // Validate immediately on blur\n      const value = formData[fieldKey];\n      validateField(fieldKey, value, true);\n    },\n    [formData, validateField]\n  );\n\n  /**\n   * Validate current step using the validation utilities\n   */\n  const validateCurrentStep = useCallback((): boolean =&gt; {\n    const stepResult = validateStep(currentStep, formData, formConfig);\n\n    if (!stepResult.isValid) {\n      // Update errors for current step fields only\n      const stepFieldKeys = getStepFieldKeys(currentStep, formConfig);\n      setErrors((prev) =&gt; {\n        const next = { ...prev };\n        // Clear errors for fields not in current step\n        stepFieldKeys.forEach((key) =&gt; {\n          if (stepResult.errors[key]) {\n            next[key] = stepResult.errors[key];\n          } else {\n            delete next[key];\n          }\n        });\n        return next;\n      });\n\n      // Mark all fields in step as touched\n      setTouched((prev) =&gt; {\n        const next = { ...prev };\n        stepFieldKeys.forEach((key) =&gt; {\n          next[key] = true;\n        });\n        return next;\n      });\n\n      // Focus first error field\n      if (stepResult.firstErrorField) {\n        // Find the field by key to get its ID\n        const errorField = currentSection.fields.find(\n          (f) =&gt; f.key === stepResult.firstErrorField\n        );\n        if (errorField) {\n          // Field components use &#96;field-${field.id}&#96; as the ID\n          const fieldElement = document.getElementById(&#96;field-${errorField.id}&#96;);\n          if (fieldElement) {\n            fieldElement.focus();\n            fieldElement.scrollIntoView({ behavior: \"smooth\", block: \"center\" });\n          }\n        }\n      }\n    }\n\n    return stepResult.isValid;\n  }, [currentStep, formData, formConfig, currentSection]);\n\n  const handleNext = useCallback(async () =&gt; {\n    if (isSubmitting) {\n      return;\n    }\n\n    const isStepValid = validateCurrentStep();\n    if (!isStepValid) {\n      toast({\n        variant: \"destructive\",\n        title: \"Please fix validation errors\",\n        description: \"Resolve highlighted fields before continuing.\",\n      });\n      return;\n    }\n\n    setCompletedSteps((prev) =&gt; new Set(prev).add(currentStep));\n\n    if (isLastStep) {\n      if (!onComplete) {\n        return;\n      }\n      try {\n        setIsSubmitting(true);\n        await onComplete(formData);\n        toast({\n          title: \"Form submitted\",\n          description: \"Thanks! We received your information.\",\n        });\n      } catch (error) {\n        toast({\n          variant: \"destructive\",\n          title: \"Submission failed\",\n          description:\n            error instanceof Error\n              ? error.message\n              : \"Something went wrong while submitting. Please try again.\",\n        });\n      } finally {\n        setIsSubmitting(false);\n      }\n    } else {\n      const nextStep = currentStep + 1;\n      setCurrentStep(nextStep);\n      onStepChange?.(nextStep);\n    }\n  }, [\n    currentStep,\n    formData,\n    isLastStep,\n    isSubmitting,\n    onComplete,\n    onStepChange,\n    toast,\n    validateCurrentStep,\n  ]);\n\n  const handlePrevious = useCallback(() =&gt; {\n    if (!isFirstStep) {\n      const prevStep = currentStep - 1;\n      setCurrentStep(prevStep);\n      onStepChange?.(prevStep);\n    }\n  }, [currentStep, isFirstStep, onStepChange]);\n\n  const handleStepClick = useCallback(\n    (stepIndex: number) =&gt; {\n      // Validate current step before allowing navigation\n      if (stepIndex !== currentStep) {\n        if (!validateCurrentStep()) {\n          return; // Don't allow navigation if current step is invalid\n        }\n      }\n\n      // Allow navigation to completed steps or the next step\n      if (completedSteps.has(stepIndex) || stepIndex === currentStep + 1) {\n        setCurrentStep(stepIndex);\n        onStepChange?.(stepIndex);\n      }\n    },\n    [completedSteps, currentStep, onStepChange, validateCurrentStep]\n  );\n\n  const handleSaveDraft = useCallback(async () =&gt; {\n    if (!onSaveDraft || isSavingDraft) {\n      return;\n    }\n    try {\n      setIsSavingDraft(true);\n      setDraftStatus(\"saving\");\n      setDraftError(null);\n      await onSaveDraft(formData);\n      setDraftStatus(\"success\");\n      const savedAt = new Date();\n      setLastSavedAt(savedAt);\n      toast({\n        title: \"Draft saved\",\n        description: &#96;Progress saved at ${savedAt.toLocaleTimeString([], {\n          hour: \"numeric\",\n          minute: \"2-digit\",\n        })}&#96;,\n      });\n    } catch (error) {\n      setDraftStatus(\"error\");\n      const message =\n        error instanceof Error\n          ? error.message\n          : \"Unable to save your draft right now.\";\n      setDraftError(message);\n      toast({\n        variant: \"destructive\",\n        title: \"Draft not saved\",\n        description: message,\n      });\n    } finally {\n      setIsSavingDraft(false);\n    }\n  }, [formData, isSavingDraft, onSaveDraft, toast]);\n\n  // Cleanup timers on unmount\n  useEffect(() =&gt; {\n    return () =&gt; {\n      Object.values(validationTimersRef.current).forEach((timer) =&gt; {\n        clearTimeout(timer);\n      });\n    };\n  }, []);\n\n  const progress = totalSteps &gt; 0 ? ((currentStep + 1) / totalSteps) * 100 : 0;\n\n  useEffect(() =&gt; {\n    const sectionLabel = currentSection?.label ?? &#96;Step ${currentStep + 1}&#96;;\n    setLiveMessage(&#96;Now viewing ${sectionLabel} (${currentStep + 1} of ${totalSteps})&#96;);\n  }, [currentSection, currentStep, totalSteps]);\n\n  return (\n    &lt;div className=\"flex flex-col gap-6 pb-32 sm:pb-12\"&gt;\n      &lt;StepIndicator\n        steps={sortedSections.map((section, index) =&gt; ({\n          id: section.id,\n          label: section.label,\n          order: section.order,\n        }))}\n        currentStep={currentStep}\n        completedSteps={completedSteps}\n        onStepClick={handleStepClick}\n      /&gt;\n\n      &lt;div\n        className={cn(\n          \"min-h-[400px] space-y-6 rounded-3xl border border-border/60 bg-background/70 p-4 shadow-lg sm:p-8\",\n          !prefersReducedMotion &amp;&amp; \"transition-shadow duration-300\"\n        )}\n      &gt;\n        {/* Error summary for current step */}\n        {(() =&gt; {\n          const stepFieldKeys = getStepFieldKeys(currentStep, formConfig);\n          const stepErrors: Record&lt;string, string&gt; = {};\n          stepFieldKeys.forEach((key) =&gt; {\n            if (errors[key] &amp;&amp; touched[key]) {\n              stepErrors[key] = errors[key];\n            }\n          });\n\n          if (Object.keys(stepErrors).length &gt; 0) {\n            return (\n              &lt;FormErrorSummary\n                errors={stepErrors}\n                onErrorClick={(fieldKey) =&gt; {\n                  // Find the field by key to get its ID\n                  const errorField = currentSection.fields.find(\n                    (f) =&gt; f.key === fieldKey\n                  );\n                  if (errorField) {\n                    // Field components use &#96;field-${field.id}&#96; as the ID\n                    const fieldElement = document.getElementById(&#96;field-${errorField.id}&#96;);\n                    if (fieldElement) {\n                      fieldElement.focus();\n                      fieldElement.scrollIntoView({\n                        behavior: \"smooth\",\n                        block: \"center\",\n                      });\n                    }\n                  }\n                }}\n              /&gt;\n            );\n          }\n          return null;\n        })()}\n\n        &lt;FormStep\n          section={currentSection}\n          formData={formData}\n          errors={errors}\n          touched={touched}\n          onFieldChange={handleFieldChange}\n          onFieldBlur={handleFieldBlur}\n        /&gt;\n      &lt;/div&gt;\n\n      &lt;FormNavigation\n        isFirstStep={isFirstStep}\n        isLastStep={isLastStep}\n        onNext={handleNext}\n        onPrevious={handlePrevious}\n        onSaveDraft={handleSaveDraft}\n        progress={progress}\n        isSubmitting={isSubmitting}\n        isSavingDraft={isSavingDraft}\n        draftStatus={draftStatus}\n        draftError={draftError}\n        lastSavedAt={lastSavedAt}\n      /&gt;\n      &lt;p role=\"status\" aria-live=\"polite\" className=\"sr-only\"&gt;\n        {liveMessage}\n      &lt;/p&gt;\n    &lt;/div&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -2371,19 +2371,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/ui/toast.tsx&quot;
+  "relativeWorkspacePath": "components/ui/toast.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;d7649ee3-b980-4ec0-8f9b-7e7e1160ed27&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "d7649ee3-b980-4ec0-8f9b-7e7e1160ed27",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -2391,23 +2391,23 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;- \n+ \&quot;use client\&quot;;\n+ \n+ import * as React from \&quot;react\&quot;;\n+ import * as ToastPrimitives from \&quot;@radix-ui/react-toast\&quot;;\n+ import { cva, type VariantProps } from \&quot;class-variance-authority\&quot;;\n+ import { X } from \&quot;lucide-react\&quot;;\n+ import { cn } from \&quot;@/lib/utils\&quot;;\n+ \n+ const ToastProvider = ToastPrimitives.Provider;\n+ \n+ const ToastViewport = React.forwardRef&lt;\n+   React.ElementRef&lt;typeof ToastPrimitives.Viewport&gt;,\n+   React.ComponentPropsWithoutRef&lt;typeof ToastPrimitives.Viewport&gt;\n+ &gt;(({ className, ...props }, ref) =&gt; (\n+   &lt;ToastPrimitives.Viewport\n+     ref={ref}\n+     className={cn(\n+       \&quot;fixed bottom-0 right-0 z-[100] flex max-h-screen w-full flex-col-reverse gap-2 p-4 sm:bottom-4 sm:right-4 sm:max-w-sm\&quot;,\n+       className\n+     )}\n+     {...props}\n+   /&gt;\n+ ));\n+ ToastViewport.displayName = ToastPrimitives.Viewport.displayName;\n+ \n+ const toastVariants = cva(\n+   \&quot;group pointer-events-auto relative flex w-full items-center justify-between space-x-2 overflow-hidden rounded-2xl border border-border/60 bg-card/95 p-4 text-sm shadow-lg transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=end]:opacity-0 data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-80 data-[state=open]:slide-in-from-bottom data-[state=closed]:slide-out-to-right\&quot;,\n+   {\n+     variants: {\n+       variant: {\n+         default: \&quot;border-border bg-card text-foreground\&quot;,\n+         destructive:\n+           \&quot;border-destructive/50 bg-destructive text-destructive-foreground\&quot;,\n+       },\n+     },\n+     defaultVariants: {\n+       variant: \&quot;default\&quot;,\n+     },\n+   }\n+ );\n+ \n+ const Toast = React.forwardRef&lt;\n+   React.ElementRef&lt;typeof ToastPrimitives.Root&gt;,\n+   React.ComponentPropsWithoutRef&lt;typeof ToastPrimitives.Root&gt; &amp;\n+     VariantProps&lt;typeof toastVariants&gt;\n+ &gt;(({ className, variant, ...props }, ref) =&gt; {\n+   return (\n+     &lt;ToastPrimitives.Root\n+       ref={ref}\n+       className={cn(toastVariants({ variant }), className)}\n+       {...props}\n+     /&gt;\n+   );\n+ });\n+ Toast.displayName = ToastPrimitives.Root.displayName;\n+ \n+ const ToastAction = React.forwardRef&lt;\n+   React.ElementRef&lt;typeof ToastPrimitives.Action&gt;,\n+   React.ComponentPropsWithoutRef&lt;typeof ToastPrimitives.Action&gt;\n+ &gt;(({ className, ...props }, ref) =&gt; (\n+   &lt;ToastPrimitives.Action\n+     ref={ref}\n+     className={cn(\n+       \&quot;inline-flex h-8 shrink-0 items-center justify-center rounded-md border border-input bg-transparent px-3 text-xs font-semibold uppercase tracking-wide transition-colors hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50\&quot;,\n+       className\n+     )}\n+     {...props}\n+   /&gt;\n+ ));\n+ ToastAction.displayName = ToastPrimitives.Action.displayName;\n+ \n+ const ToastClose = React.forwardRef&lt;\n+   React.ElementRef&lt;typeof ToastPrimitives.Close&gt;,\n+   React.ComponentPropsWithoutRef&lt;typeof ToastPrimitives.Close&gt;\n+ &gt;(({ className, ...props }, ref) =&gt; (\n+   &lt;ToastPrimitives.Close\n+     ref={ref}\n+     className={cn(\n+       \&quot;absolute right-3 top-3 rounded-full p-1 text-muted-foreground transition hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring\&quot;,\n+       className\n+     )}\n+     toast-close=\&quot;\&quot;\n+     aria-label=\&quot;Close notification\&quot;\n+     {...props}\n+   &gt;\n+     &lt;X className=\&quot;size-4\&quot; /&gt;\n+   &lt;/ToastPrimitives.Close&gt;\n+ ));\n+ ToastClose.displayName = ToastPrimitives.Close.displayName;\n+ \n+ const ToastTitle = React.forwardRef&lt;\n+   React.ElementRef&lt;typeof ToastPrimitives.Title&gt;,\n+   React.ComponentPropsWithoutRef&lt;typeof ToastPrimitives.Title&gt;\n+ &gt;(({ className, ...props }, ref) =&gt; (\n+   &lt;ToastPrimitives.Title\n+     ref={ref}\n+     className={cn(\&quot;text-sm font-semibold\&quot;, className)}\n+     {...props}\n+   /&gt;\n+ ));\n+ ToastTitle.displayName = ToastPrimitives.Title.displayName;\n+ \n+ const ToastDescription = React.forwardRef&lt;\n+   React.ElementRef&lt;typeof ToastPrimitives.Description&gt;,\n+   React.ComponentPropsWithoutRef&lt;typeof ToastPrimitives.Description&gt;\n+ &gt;(({ className, ...props }, ref) =&gt; (\n+   &lt;ToastPrimitives.Description\n+     ref={ref}\n+     className={cn(\&quot;text-sm text-muted-foreground\&quot;, className)}\n+     {...props}\n+   /&gt;\n+ ));\n+ ToastDescription.displayName = ToastPrimitives.Description.displayName;\n+ \n+ export {\n+   ToastProvider,\n+   ToastViewport,\n+   Toast,\n+   ToastTitle,\n+   ToastDescription,\n+   ToastClose,\n+   ToastAction,\n+ };\n+ &quot;,
-        &quot;oldStart&quot;: 1,
-        &quot;newStart&quot;: 1,
-        &quot;oldLines&quot;: 1,
-        &quot;newLines&quot;: 124,
-        &quot;linesRemoved&quot;: 1,
-        &quot;linesAdded&quot;: 124
+        "diffString": "- \n+ \"use client\";\n+ \n+ import * as React from \"react\";\n+ import * as ToastPrimitives from \"@radix-ui/react-toast\";\n+ import { cva, type VariantProps } from \"class-variance-authority\";\n+ import { X } from \"lucide-react\";\n+ import { cn } from \"@/lib/utils\";\n+ \n+ const ToastProvider = ToastPrimitives.Provider;\n+ \n+ const ToastViewport = React.forwardRef&lt;\n+   React.ElementRef&lt;typeof ToastPrimitives.Viewport&gt;,\n+   React.ComponentPropsWithoutRef&lt;typeof ToastPrimitives.Viewport&gt;\n+ &gt;(({ className, ...props }, ref) =&gt; (\n+   &lt;ToastPrimitives.Viewport\n+     ref={ref}\n+     className={cn(\n+       \"fixed bottom-0 right-0 z-[100] flex max-h-screen w-full flex-col-reverse gap-2 p-4 sm:bottom-4 sm:right-4 sm:max-w-sm\",\n+       className\n+     )}\n+     {...props}\n+   /&gt;\n+ ));\n+ ToastViewport.displayName = ToastPrimitives.Viewport.displayName;\n+ \n+ const toastVariants = cva(\n+   \"group pointer-events-auto relative flex w-full items-center justify-between space-x-2 overflow-hidden rounded-2xl border border-border/60 bg-card/95 p-4 text-sm shadow-lg transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=end]:opacity-0 data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-80 data-[state=open]:slide-in-from-bottom data-[state=closed]:slide-out-to-right\",\n+   {\n+     variants: {\n+       variant: {\n+         default: \"border-border bg-card text-foreground\",\n+         destructive:\n+           \"border-destructive/50 bg-destructive text-destructive-foreground\",\n+       },\n+     },\n+     defaultVariants: {\n+       variant: \"default\",\n+     },\n+   }\n+ );\n+ \n+ const Toast = React.forwardRef&lt;\n+   React.ElementRef&lt;typeof ToastPrimitives.Root&gt;,\n+   React.ComponentPropsWithoutRef&lt;typeof ToastPrimitives.Root&gt; &amp;\n+     VariantProps&lt;typeof toastVariants&gt;\n+ &gt;(({ className, variant, ...props }, ref) =&gt; {\n+   return (\n+     &lt;ToastPrimitives.Root\n+       ref={ref}\n+       className={cn(toastVariants({ variant }), className)}\n+       {...props}\n+     /&gt;\n+   );\n+ });\n+ Toast.displayName = ToastPrimitives.Root.displayName;\n+ \n+ const ToastAction = React.forwardRef&lt;\n+   React.ElementRef&lt;typeof ToastPrimitives.Action&gt;,\n+   React.ComponentPropsWithoutRef&lt;typeof ToastPrimitives.Action&gt;\n+ &gt;(({ className, ...props }, ref) =&gt; (\n+   &lt;ToastPrimitives.Action\n+     ref={ref}\n+     className={cn(\n+       \"inline-flex h-8 shrink-0 items-center justify-center rounded-md border border-input bg-transparent px-3 text-xs font-semibold uppercase tracking-wide transition-colors hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50\",\n+       className\n+     )}\n+     {...props}\n+   /&gt;\n+ ));\n+ ToastAction.displayName = ToastPrimitives.Action.displayName;\n+ \n+ const ToastClose = React.forwardRef&lt;\n+   React.ElementRef&lt;typeof ToastPrimitives.Close&gt;,\n+   React.ComponentPropsWithoutRef&lt;typeof ToastPrimitives.Close&gt;\n+ &gt;(({ className, ...props }, ref) =&gt; (\n+   &lt;ToastPrimitives.Close\n+     ref={ref}\n+     className={cn(\n+       \"absolute right-3 top-3 rounded-full p-1 text-muted-foreground transition hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring\",\n+       className\n+     )}\n+     toast-close=\"\"\n+     aria-label=\"Close notification\"\n+     {...props}\n+   &gt;\n+     &lt;X className=\"size-4\" /&gt;\n+   &lt;/ToastPrimitives.Close&gt;\n+ ));\n+ ToastClose.displayName = ToastPrimitives.Close.displayName;\n+ \n+ const ToastTitle = React.forwardRef&lt;\n+   React.ElementRef&lt;typeof ToastPrimitives.Title&gt;,\n+   React.ComponentPropsWithoutRef&lt;typeof ToastPrimitives.Title&gt;\n+ &gt;(({ className, ...props }, ref) =&gt; (\n+   &lt;ToastPrimitives.Title\n+     ref={ref}\n+     className={cn(\"text-sm font-semibold\", className)}\n+     {...props}\n+   /&gt;\n+ ));\n+ ToastTitle.displayName = ToastPrimitives.Title.displayName;\n+ \n+ const ToastDescription = React.forwardRef&lt;\n+   React.ElementRef&lt;typeof ToastPrimitives.Description&gt;,\n+   React.ComponentPropsWithoutRef&lt;typeof ToastPrimitives.Description&gt;\n+ &gt;(({ className, ...props }, ref) =&gt; (\n+   &lt;ToastPrimitives.Description\n+     ref={ref}\n+     className={cn(\"text-sm text-muted-foreground\", className)}\n+     {...props}\n+   /&gt;\n+ ));\n+ ToastDescription.displayName = ToastPrimitives.Description.displayName;\n+ \n+ export {\n+   ToastProvider,\n+   ToastViewport,\n+   Toast,\n+   ToastTitle,\n+   ToastDescription,\n+   ToastClose,\n+   ToastAction,\n+ };\n+ ",
+        "oldStart": 1,
+        "newStart": 1,
+        "oldLines": 1,
+        "newLines": 124,
+        "linesRemoved": 1,
+        "linesAdded": 124
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/ui/toast.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport * as React from \&quot;react\&quot;;\nimport * as ToastPrimitives from \&quot;@radix-ui/react-toast\&quot;;\nimport { cva, type VariantProps } from \&quot;class-variance-authority\&quot;;\nimport { X } from \&quot;lucide-react\&quot;;\nimport { cn } from \&quot;@/lib/utils\&quot;;\n\nconst ToastProvider = ToastPrimitives.Provider;\n\nconst ToastViewport = React.forwardRef&lt;\n  React.ElementRef&lt;typeof ToastPrimitives.Viewport&gt;,\n  React.ComponentPropsWithoutRef&lt;typeof ToastPrimitives.Viewport&gt;\n&gt;(({ className, ...props }, ref) =&gt; (\n  &lt;ToastPrimitives.Viewport\n    ref={ref}\n    className={cn(\n      \&quot;fixed bottom-0 right-0 z-[100] flex max-h-screen w-full flex-col-reverse gap-2 p-4 sm:bottom-4 sm:right-4 sm:max-w-sm\&quot;,\n      className\n    )}\n    {...props}\n  /&gt;\n));\nToastViewport.displayName = ToastPrimitives.Viewport.displayName;\n\nconst toastVariants = cva(\n  \&quot;group pointer-events-auto relative flex w-full items-center justify-between space-x-2 overflow-hidden rounded-2xl border border-border/60 bg-card/95 p-4 text-sm shadow-lg transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=end]:opacity-0 data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-80 data-[state=open]:slide-in-from-bottom data-[state=closed]:slide-out-to-right\&quot;,\n  {\n    variants: {\n      variant: {\n        default: \&quot;border-border bg-card text-foreground\&quot;,\n        destructive:\n          \&quot;border-destructive/50 bg-destructive text-destructive-foreground\&quot;,\n      },\n    },\n    defaultVariants: {\n      variant: \&quot;default\&quot;,\n    },\n  }\n);\n\nconst Toast = React.forwardRef&lt;\n  React.ElementRef&lt;typeof ToastPrimitives.Root&gt;,\n  React.ComponentPropsWithoutRef&lt;typeof ToastPrimitives.Root&gt; &amp;\n    VariantProps&lt;typeof toastVariants&gt;\n&gt;(({ className, variant, ...props }, ref) =&gt; {\n  return (\n    &lt;ToastPrimitives.Root\n      ref={ref}\n      className={cn(toastVariants({ variant }), className)}\n      {...props}\n    /&gt;\n  );\n});\nToast.displayName = ToastPrimitives.Root.displayName;\n\nconst ToastAction = React.forwardRef&lt;\n  React.ElementRef&lt;typeof ToastPrimitives.Action&gt;,\n  React.ComponentPropsWithoutRef&lt;typeof ToastPrimitives.Action&gt;\n&gt;(({ className, ...props }, ref) =&gt; (\n  &lt;ToastPrimitives.Action\n    ref={ref}\n    className={cn(\n      \&quot;inline-flex h-8 shrink-0 items-center justify-center rounded-md border border-input bg-transparent px-3 text-xs font-semibold uppercase tracking-wide transition-colors hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50\&quot;,\n      className\n    )}\n    {...props}\n  /&gt;\n));\nToastAction.displayName = ToastPrimitives.Action.displayName;\n\nconst ToastClose = React.forwardRef&lt;\n  React.ElementRef&lt;typeof ToastPrimitives.Close&gt;,\n  React.ComponentPropsWithoutRef&lt;typeof ToastPrimitives.Close&gt;\n&gt;(({ className, ...props }, ref) =&gt; (\n  &lt;ToastPrimitives.Close\n    ref={ref}\n    className={cn(\n      \&quot;absolute right-3 top-3 rounded-full p-1 text-muted-foreground transition hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring\&quot;,\n      className\n    )}\n    toast-close=\&quot;\&quot;\n    aria-label=\&quot;Close notification\&quot;\n    {...props}\n  &gt;\n    &lt;X className=\&quot;size-4\&quot; /&gt;\n  &lt;/ToastPrimitives.Close&gt;\n));\nToastClose.displayName = ToastPrimitives.Close.displayName;\n\nconst ToastTitle = React.forwardRef&lt;\n  React.ElementRef&lt;typeof ToastPrimitives.Title&gt;,\n  React.ComponentPropsWithoutRef&lt;typeof ToastPrimitives.Title&gt;\n&gt;(({ className, ...props }, ref) =&gt; (\n  &lt;ToastPrimitives.Title\n    ref={ref}\n    className={cn(\&quot;text-sm font-semibold\&quot;, className)}\n    {...props}\n  /&gt;\n));\nToastTitle.displayName = ToastPrimitives.Title.displayName;\n\nconst ToastDescription = React.forwardRef&lt;\n  React.ElementRef&lt;typeof ToastPrimitives.Description&gt;,\n  React.ComponentPropsWithoutRef&lt;typeof ToastPrimitives.Description&gt;\n&gt;(({ className, ...props }, ref) =&gt; (\n  &lt;ToastPrimitives.Description\n    ref={ref}\n    className={cn(\&quot;text-sm text-muted-foreground\&quot;, className)}\n    {...props}\n  /&gt;\n));\nToastDescription.displayName = ToastPrimitives.Description.displayName;\n\nexport {\n  ToastProvider,\n  ToastViewport,\n  Toast,\n  ToastTitle,\n  ToastDescription,\n  ToastClose,\n  ToastAction,\n};\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/ui/toast.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport * as React from \"react\";\nimport * as ToastPrimitives from \"@radix-ui/react-toast\";\nimport { cva, type VariantProps } from \"class-variance-authority\";\nimport { X } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\nconst ToastProvider = ToastPrimitives.Provider;\n\nconst ToastViewport = React.forwardRef&lt;\n  React.ElementRef&lt;typeof ToastPrimitives.Viewport&gt;,\n  React.ComponentPropsWithoutRef&lt;typeof ToastPrimitives.Viewport&gt;\n&gt;(({ className, ...props }, ref) =&gt; (\n  &lt;ToastPrimitives.Viewport\n    ref={ref}\n    className={cn(\n      \"fixed bottom-0 right-0 z-[100] flex max-h-screen w-full flex-col-reverse gap-2 p-4 sm:bottom-4 sm:right-4 sm:max-w-sm\",\n      className\n    )}\n    {...props}\n  /&gt;\n));\nToastViewport.displayName = ToastPrimitives.Viewport.displayName;\n\nconst toastVariants = cva(\n  \"group pointer-events-auto relative flex w-full items-center justify-between space-x-2 overflow-hidden rounded-2xl border border-border/60 bg-card/95 p-4 text-sm shadow-lg transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=end]:opacity-0 data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-80 data-[state=open]:slide-in-from-bottom data-[state=closed]:slide-out-to-right\",\n  {\n    variants: {\n      variant: {\n        default: \"border-border bg-card text-foreground\",\n        destructive:\n          \"border-destructive/50 bg-destructive text-destructive-foreground\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n    },\n  }\n);\n\nconst Toast = React.forwardRef&lt;\n  React.ElementRef&lt;typeof ToastPrimitives.Root&gt;,\n  React.ComponentPropsWithoutRef&lt;typeof ToastPrimitives.Root&gt; &amp;\n    VariantProps&lt;typeof toastVariants&gt;\n&gt;(({ className, variant, ...props }, ref) =&gt; {\n  return (\n    &lt;ToastPrimitives.Root\n      ref={ref}\n      className={cn(toastVariants({ variant }), className)}\n      {...props}\n    /&gt;\n  );\n});\nToast.displayName = ToastPrimitives.Root.displayName;\n\nconst ToastAction = React.forwardRef&lt;\n  React.ElementRef&lt;typeof ToastPrimitives.Action&gt;,\n  React.ComponentPropsWithoutRef&lt;typeof ToastPrimitives.Action&gt;\n&gt;(({ className, ...props }, ref) =&gt; (\n  &lt;ToastPrimitives.Action\n    ref={ref}\n    className={cn(\n      \"inline-flex h-8 shrink-0 items-center justify-center rounded-md border border-input bg-transparent px-3 text-xs font-semibold uppercase tracking-wide transition-colors hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50\",\n      className\n    )}\n    {...props}\n  /&gt;\n));\nToastAction.displayName = ToastPrimitives.Action.displayName;\n\nconst ToastClose = React.forwardRef&lt;\n  React.ElementRef&lt;typeof ToastPrimitives.Close&gt;,\n  React.ComponentPropsWithoutRef&lt;typeof ToastPrimitives.Close&gt;\n&gt;(({ className, ...props }, ref) =&gt; (\n  &lt;ToastPrimitives.Close\n    ref={ref}\n    className={cn(\n      \"absolute right-3 top-3 rounded-full p-1 text-muted-foreground transition hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring\",\n      className\n    )}\n    toast-close=\"\"\n    aria-label=\"Close notification\"\n    {...props}\n  &gt;\n    &lt;X className=\"size-4\" /&gt;\n  &lt;/ToastPrimitives.Close&gt;\n));\nToastClose.displayName = ToastPrimitives.Close.displayName;\n\nconst ToastTitle = React.forwardRef&lt;\n  React.ElementRef&lt;typeof ToastPrimitives.Title&gt;,\n  React.ComponentPropsWithoutRef&lt;typeof ToastPrimitives.Title&gt;\n&gt;(({ className, ...props }, ref) =&gt; (\n  &lt;ToastPrimitives.Title\n    ref={ref}\n    className={cn(\"text-sm font-semibold\", className)}\n    {...props}\n  /&gt;\n));\nToastTitle.displayName = ToastPrimitives.Title.displayName;\n\nconst ToastDescription = React.forwardRef&lt;\n  React.ElementRef&lt;typeof ToastPrimitives.Description&gt;,\n  React.ComponentPropsWithoutRef&lt;typeof ToastPrimitives.Description&gt;\n&gt;(({ className, ...props }, ref) =&gt; (\n  &lt;ToastPrimitives.Description\n    ref={ref}\n    className={cn(\"text-sm text-muted-foreground\", className)}\n    {...props}\n  /&gt;\n));\nToastDescription.displayName = ToastPrimitives.Description.displayName;\n\nexport {\n  ToastProvider,\n  ToastViewport,\n  Toast,\n  ToastTitle,\n  ToastDescription,\n  ToastClose,\n  ToastAction,\n};\n\n"
 }
 ```
 User decision: **accepted**
@@ -2434,19 +2434,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/ui/use-toast.ts&quot;
+  "relativeWorkspacePath": "components/ui/use-toast.ts"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;74965030-4e40-4cfc-bfb9-8f423da43bdd&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "74965030-4e40-4cfc-bfb9-8f423da43bdd",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -2454,23 +2454,23 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;- \n+ \&quot;use client\&quot;;\n+ \n+ import * as React from \&quot;react\&quot;;\n+ \n+ type ToastActionElement = React.ReactElement&lt;typeof ToastAction&gt;;\n+ \n+ interface ToastProps {\n+   id?: string;\n+   title?: React.ReactNode;\n+   description?: React.ReactNode;\n+   action?: ToastActionElement;\n+   open?: boolean;\n+   onOpenChange?: (open: boolean) =&gt; void;\n+   variant?: \&quot;default\&quot; | \&quot;destructive\&quot;;\n+ }\n+ \n+ const TOAST_LIMIT = 1;\n+ const TOAST_REMOVE_DELAY = 1000;\n+ \n+ type ToasterToast = ToastProps &amp; {\n+   id: string;\n+   title?: React.ReactNode;\n+   description?: React.ReactNode;\n+ };\n+ \n+ const actionTypes = {\n+   ADD_TOAST: \&quot;ADD_TOAST\&quot;,\n+   UPDATE_TOAST: \&quot;UPDATE_TOAST\&quot;,\n+   DISMISS_TOAST: \&quot;DISMISS_TOAST\&quot;,\n+   REMOVE_TOAST: \&quot;REMOVE_TOAST\&quot;,\n+ } as const;\n+ \n+ let count = 0;\n+ \n+ function genId() {\n+   count = (count + 1) % Number.MAX_SAFE_INTEGER;\n+   return count.toString();\n+ }\n+ \n+ type ActionType = typeof actionTypes;\n+ \n+ type Action =\n+   | {\n+       type: ActionType[\&quot;ADD_TOAST\&quot;];\n+       toast: ToasterToast;\n+     }\n+   | {\n+       type: ActionType[\&quot;UPDATE_TOAST\&quot;];\n+       toast: Partial&lt;ToasterToast&gt;;\n+     }\n+   | {\n+       type: ActionType[\&quot;DISMISS_TOAST\&quot;];\n+       toastId?: ToasterToast[\&quot;id\&quot;];\n+     }\n+   | {\n+       type: ActionType[\&quot;REMOVE_TOAST\&quot;];\n+       toastId?: ToasterToast[\&quot;id\&quot;];\n+     };\n+ \n+ interface State {\n+   toasts: ToasterToast[];\n+ }\n+ \n+ const toastTimeouts = new Map&lt;string, ReturnType&lt;typeof setTimeout&gt;&gt;();\n+ \n+ const addToRemoveQueue = (toastId: string) =&gt; {\n+   if (toastTimeouts.has(toastId)) {\n+     return;\n+   }\n+ \n+   const timeout = setTimeout(() =&gt; {\n+     toastTimeouts.delete(toastId);\n+     dispatch({\n+       type: actionTypes.REMOVE_TOAST,\n+       toastId,\n+     });\n+   }, TOAST_REMOVE_DELAY);\n+ \n+   toastTimeouts.set(toastId, timeout);\n+ };\n+ \n+ const reducer = (state: State, action: Action): State =&gt; {\n+   switch (action.type) {\n+     case actionTypes.ADD_TOAST:\n+       return {\n+         ...state,\n+         toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),\n+       };\n+ \n+     case actionTypes.UPDATE_TOAST:\n+       return {\n+         ...state,\n+         toasts: state.toasts.map((toast) =&gt;\n+           toast.id === action.toast.id ? { ...toast, ...action.toast } : toast\n+         ),\n+       };\n+ \n+     case actionTypes.DISMISS_TOAST: {\n+       const { toastId } = action;\n+ \n+       if (toastId) {\n+         addToRemoveQueue(toastId);\n+       } else {\n+         state.toasts.forEach((toast) =&gt; {\n+           addToRemoveQueue(toast.id);\n+         });\n+       }\n+ \n+       return {\n+         ...state,\n+         toasts: state.toasts.map((toast) =&gt;\n+           toast.id === toastId || toastId === undefined\n+             ? {\n+                 ...toast,\n+                 open: false,\n+               }\n+             : toast\n+         ),\n+       };\n+     }\n+ \n+     case actionTypes.REMOVE_TOAST:\n+       if (action.toastId === undefined) {\n+         return {\n+           ...state,\n+           toasts: [],\n+         };\n+       }\n+       return {\n+         ...state,\n+         toasts: state.toasts.filter((toast) =&gt; toast.id !== action.toastId),\n+       };\n+   }\n+ };\n+ \n+ const listeners: Array&lt;(state: State) =&gt; void&gt; = [];\n+ \n+ let memoryState: State = { toasts: [] };\n+ \n+ function dispatch(action: Action) {\n+   memoryState = reducer(memoryState, action);\n+   listeners.forEach((listener) =&gt; {\n+     listener(memoryState);\n+   });\n+ }\n+ \n+ type Toast = (props: ToastProps) =&gt; {\n+   id: string;\n+   dismiss: () =&gt; void;\n+   update: (props: ToastProps) =&gt; void;\n+ };\n+ \n+ export const toast: Toast = ({ ...props }) =&gt; {\n+   const id = genId();\n+ \n+   const update = (props: ToastProps) =&gt;\n+     dispatch({\n+       type: actionTypes.UPDATE_TOAST,\n+       toast: { ...props, id },\n+     });\n+   const dismiss = () =&gt; dispatch({ type: actionTypes.DISMISS_TOAST, toastId: id });\n+ \n+   dispatch({\n+     type: actionTypes.ADD_TOAST,\n+     toast: {\n+       ...props,\n+       id,\n+       open: true,\n+       onOpenChange: (open) =&gt; {\n+         if (!open) dismiss();\n+       },\n+     },\n+   });\n+ \n+   return {\n+     id,\n+     dismiss,\n+     update,\n+   };\n+ };\n+ \n+ export function useToast() {\n+   const [state, setState] = React.useState&lt;State&gt;(memoryState);\n+ \n+   React.useEffect(() =&gt; {\n+     listeners.push(setState);\n+     return () =&gt; {\n+       const index = listeners.indexOf(setState);\n+       if (index &gt; -1) {\n+         listeners.splice(index, 1);\n+       }\n+     };\n+   }, [state]);\n+ \n+   return {\n+     ...state,\n+     toast,\n+     dismiss: (toastId?: string) =&gt;\n+       dispatch({ type: actionTypes.DISMISS_TOAST, toastId }),\n+   };\n+ }\n+ \n+ export { ToastAction } from \&quot;./toast\&quot;;\n+ &quot;,
-        &quot;oldStart&quot;: 1,
-        &quot;newStart&quot;: 1,
-        &quot;oldLines&quot;: 1,
-        &quot;newLines&quot;: 204,
-        &quot;linesRemoved&quot;: 1,
-        &quot;linesAdded&quot;: 204
+        "diffString": "- \n+ \"use client\";\n+ \n+ import * as React from \"react\";\n+ \n+ type ToastActionElement = React.ReactElement&lt;typeof ToastAction&gt;;\n+ \n+ interface ToastProps {\n+   id?: string;\n+   title?: React.ReactNode;\n+   description?: React.ReactNode;\n+   action?: ToastActionElement;\n+   open?: boolean;\n+   onOpenChange?: (open: boolean) =&gt; void;\n+   variant?: \"default\" | \"destructive\";\n+ }\n+ \n+ const TOAST_LIMIT = 1;\n+ const TOAST_REMOVE_DELAY = 1000;\n+ \n+ type ToasterToast = ToastProps &amp; {\n+   id: string;\n+   title?: React.ReactNode;\n+   description?: React.ReactNode;\n+ };\n+ \n+ const actionTypes = {\n+   ADD_TOAST: \"ADD_TOAST\",\n+   UPDATE_TOAST: \"UPDATE_TOAST\",\n+   DISMISS_TOAST: \"DISMISS_TOAST\",\n+   REMOVE_TOAST: \"REMOVE_TOAST\",\n+ } as const;\n+ \n+ let count = 0;\n+ \n+ function genId() {\n+   count = (count + 1) % Number.MAX_SAFE_INTEGER;\n+   return count.toString();\n+ }\n+ \n+ type ActionType = typeof actionTypes;\n+ \n+ type Action =\n+   | {\n+       type: ActionType[\"ADD_TOAST\"];\n+       toast: ToasterToast;\n+     }\n+   | {\n+       type: ActionType[\"UPDATE_TOAST\"];\n+       toast: Partial&lt;ToasterToast&gt;;\n+     }\n+   | {\n+       type: ActionType[\"DISMISS_TOAST\"];\n+       toastId?: ToasterToast[\"id\"];\n+     }\n+   | {\n+       type: ActionType[\"REMOVE_TOAST\"];\n+       toastId?: ToasterToast[\"id\"];\n+     };\n+ \n+ interface State {\n+   toasts: ToasterToast[];\n+ }\n+ \n+ const toastTimeouts = new Map&lt;string, ReturnType&lt;typeof setTimeout&gt;&gt;();\n+ \n+ const addToRemoveQueue = (toastId: string) =&gt; {\n+   if (toastTimeouts.has(toastId)) {\n+     return;\n+   }\n+ \n+   const timeout = setTimeout(() =&gt; {\n+     toastTimeouts.delete(toastId);\n+     dispatch({\n+       type: actionTypes.REMOVE_TOAST,\n+       toastId,\n+     });\n+   }, TOAST_REMOVE_DELAY);\n+ \n+   toastTimeouts.set(toastId, timeout);\n+ };\n+ \n+ const reducer = (state: State, action: Action): State =&gt; {\n+   switch (action.type) {\n+     case actionTypes.ADD_TOAST:\n+       return {\n+         ...state,\n+         toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),\n+       };\n+ \n+     case actionTypes.UPDATE_TOAST:\n+       return {\n+         ...state,\n+         toasts: state.toasts.map((toast) =&gt;\n+           toast.id === action.toast.id ? { ...toast, ...action.toast } : toast\n+         ),\n+       };\n+ \n+     case actionTypes.DISMISS_TOAST: {\n+       const { toastId } = action;\n+ \n+       if (toastId) {\n+         addToRemoveQueue(toastId);\n+       } else {\n+         state.toasts.forEach((toast) =&gt; {\n+           addToRemoveQueue(toast.id);\n+         });\n+       }\n+ \n+       return {\n+         ...state,\n+         toasts: state.toasts.map((toast) =&gt;\n+           toast.id === toastId || toastId === undefined\n+             ? {\n+                 ...toast,\n+                 open: false,\n+               }\n+             : toast\n+         ),\n+       };\n+     }\n+ \n+     case actionTypes.REMOVE_TOAST:\n+       if (action.toastId === undefined) {\n+         return {\n+           ...state,\n+           toasts: [],\n+         };\n+       }\n+       return {\n+         ...state,\n+         toasts: state.toasts.filter((toast) =&gt; toast.id !== action.toastId),\n+       };\n+   }\n+ };\n+ \n+ const listeners: Array&lt;(state: State) =&gt; void&gt; = [];\n+ \n+ let memoryState: State = { toasts: [] };\n+ \n+ function dispatch(action: Action) {\n+   memoryState = reducer(memoryState, action);\n+   listeners.forEach((listener) =&gt; {\n+     listener(memoryState);\n+   });\n+ }\n+ \n+ type Toast = (props: ToastProps) =&gt; {\n+   id: string;\n+   dismiss: () =&gt; void;\n+   update: (props: ToastProps) =&gt; void;\n+ };\n+ \n+ export const toast: Toast = ({ ...props }) =&gt; {\n+   const id = genId();\n+ \n+   const update = (props: ToastProps) =&gt;\n+     dispatch({\n+       type: actionTypes.UPDATE_TOAST,\n+       toast: { ...props, id },\n+     });\n+   const dismiss = () =&gt; dispatch({ type: actionTypes.DISMISS_TOAST, toastId: id });\n+ \n+   dispatch({\n+     type: actionTypes.ADD_TOAST,\n+     toast: {\n+       ...props,\n+       id,\n+       open: true,\n+       onOpenChange: (open) =&gt; {\n+         if (!open) dismiss();\n+       },\n+     },\n+   });\n+ \n+   return {\n+     id,\n+     dismiss,\n+     update,\n+   };\n+ };\n+ \n+ export function useToast() {\n+   const [state, setState] = React.useState&lt;State&gt;(memoryState);\n+ \n+   React.useEffect(() =&gt; {\n+     listeners.push(setState);\n+     return () =&gt; {\n+       const index = listeners.indexOf(setState);\n+       if (index &gt; -1) {\n+         listeners.splice(index, 1);\n+       }\n+     };\n+   }, [state]);\n+ \n+   return {\n+     ...state,\n+     toast,\n+     dismiss: (toastId?: string) =&gt;\n+       dispatch({ type: actionTypes.DISMISS_TOAST, toastId }),\n+   };\n+ }\n+ \n+ export { ToastAction } from \"./toast\";\n+ ",
+        "oldStart": 1,
+        "newStart": 1,
+        "oldLines": 1,
+        "newLines": 204,
+        "linesRemoved": 1,
+        "linesAdded": 204
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/ui/use-toast.ts&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport * as React from \&quot;react\&quot;;\n\ntype ToastActionElement = React.ReactElement&lt;typeof ToastAction&gt;;\n\ninterface ToastProps {\n  id?: string;\n  title?: React.ReactNode;\n  description?: React.ReactNode;\n  action?: ToastActionElement;\n  open?: boolean;\n  onOpenChange?: (open: boolean) =&gt; void;\n  variant?: \&quot;default\&quot; | \&quot;destructive\&quot;;\n}\n\nconst TOAST_LIMIT = 1;\nconst TOAST_REMOVE_DELAY = 1000;\n\ntype ToasterToast = ToastProps &amp; {\n  id: string;\n  title?: React.ReactNode;\n  description?: React.ReactNode;\n};\n\nconst actionTypes = {\n  ADD_TOAST: \&quot;ADD_TOAST\&quot;,\n  UPDATE_TOAST: \&quot;UPDATE_TOAST\&quot;,\n  DISMISS_TOAST: \&quot;DISMISS_TOAST\&quot;,\n  REMOVE_TOAST: \&quot;REMOVE_TOAST\&quot;,\n} as const;\n\nlet count = 0;\n\nfunction genId() {\n  count = (count + 1) % Number.MAX_SAFE_INTEGER;\n  return count.toString();\n}\n\ntype ActionType = typeof actionTypes;\n\ntype Action =\n  | {\n      type: ActionType[\&quot;ADD_TOAST\&quot;];\n      toast: ToasterToast;\n    }\n  | {\n      type: ActionType[\&quot;UPDATE_TOAST\&quot;];\n      toast: Partial&lt;ToasterToast&gt;;\n    }\n  | {\n      type: ActionType[\&quot;DISMISS_TOAST\&quot;];\n      toastId?: ToasterToast[\&quot;id\&quot;];\n    }\n  | {\n      type: ActionType[\&quot;REMOVE_TOAST\&quot;];\n      toastId?: ToasterToast[\&quot;id\&quot;];\n    };\n\ninterface State {\n  toasts: ToasterToast[];\n}\n\nconst toastTimeouts = new Map&lt;string, ReturnType&lt;typeof setTimeout&gt;&gt;();\n\nconst addToRemoveQueue = (toastId: string) =&gt; {\n  if (toastTimeouts.has(toastId)) {\n    return;\n  }\n\n  const timeout = setTimeout(() =&gt; {\n    toastTimeouts.delete(toastId);\n    dispatch({\n      type: actionTypes.REMOVE_TOAST,\n      toastId,\n    });\n  }, TOAST_REMOVE_DELAY);\n\n  toastTimeouts.set(toastId, timeout);\n};\n\nconst reducer = (state: State, action: Action): State =&gt; {\n  switch (action.type) {\n    case actionTypes.ADD_TOAST:\n      return {\n        ...state,\n        toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),\n      };\n\n    case actionTypes.UPDATE_TOAST:\n      return {\n        ...state,\n        toasts: state.toasts.map((toast) =&gt;\n          toast.id === action.toast.id ? { ...toast, ...action.toast } : toast\n        ),\n      };\n\n    case actionTypes.DISMISS_TOAST: {\n      const { toastId } = action;\n\n      if (toastId) {\n        addToRemoveQueue(toastId);\n      } else {\n        state.toasts.forEach((toast) =&gt; {\n          addToRemoveQueue(toast.id);\n        });\n      }\n\n      return {\n        ...state,\n        toasts: state.toasts.map((toast) =&gt;\n          toast.id === toastId || toastId === undefined\n            ? {\n                ...toast,\n                open: false,\n              }\n            : toast\n        ),\n      };\n    }\n\n    case actionTypes.REMOVE_TOAST:\n      if (action.toastId === undefined) {\n        return {\n          ...state,\n          toasts: [],\n        };\n      }\n      return {\n        ...state,\n        toasts: state.toasts.filter((toast) =&gt; toast.id !== action.toastId),\n      };\n  }\n};\n\nconst listeners: Array&lt;(state: State) =&gt; void&gt; = [];\n\nlet memoryState: State = { toasts: [] };\n\nfunction dispatch(action: Action) {\n  memoryState = reducer(memoryState, action);\n  listeners.forEach((listener) =&gt; {\n    listener(memoryState);\n  });\n}\n\ntype Toast = (props: ToastProps) =&gt; {\n  id: string;\n  dismiss: () =&gt; void;\n  update: (props: ToastProps) =&gt; void;\n};\n\nexport const toast: Toast = ({ ...props }) =&gt; {\n  const id = genId();\n\n  const update = (props: ToastProps) =&gt;\n    dispatch({\n      type: actionTypes.UPDATE_TOAST,\n      toast: { ...props, id },\n    });\n  const dismiss = () =&gt; dispatch({ type: actionTypes.DISMISS_TOAST, toastId: id });\n\n  dispatch({\n    type: actionTypes.ADD_TOAST,\n    toast: {\n      ...props,\n      id,\n      open: true,\n      onOpenChange: (open) =&gt; {\n        if (!open) dismiss();\n      },\n    },\n  });\n\n  return {\n    id,\n    dismiss,\n    update,\n  };\n};\n\nexport function useToast() {\n  const [state, setState] = React.useState&lt;State&gt;(memoryState);\n\n  React.useEffect(() =&gt; {\n    listeners.push(setState);\n    return () =&gt; {\n      const index = listeners.indexOf(setState);\n      if (index &gt; -1) {\n        listeners.splice(index, 1);\n      }\n    };\n  }, [state]);\n\n  return {\n    ...state,\n    toast,\n    dismiss: (toastId?: string) =&gt;\n      dispatch({ type: actionTypes.DISMISS_TOAST, toastId }),\n  };\n}\n\nexport { ToastAction } from \&quot;./toast\&quot;;\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/ui/use-toast.ts",
+  "contentsAfterEdit": "\"use client\";\n\nimport * as React from \"react\";\n\ntype ToastActionElement = React.ReactElement&lt;typeof ToastAction&gt;;\n\ninterface ToastProps {\n  id?: string;\n  title?: React.ReactNode;\n  description?: React.ReactNode;\n  action?: ToastActionElement;\n  open?: boolean;\n  onOpenChange?: (open: boolean) =&gt; void;\n  variant?: \"default\" | \"destructive\";\n}\n\nconst TOAST_LIMIT = 1;\nconst TOAST_REMOVE_DELAY = 1000;\n\ntype ToasterToast = ToastProps &amp; {\n  id: string;\n  title?: React.ReactNode;\n  description?: React.ReactNode;\n};\n\nconst actionTypes = {\n  ADD_TOAST: \"ADD_TOAST\",\n  UPDATE_TOAST: \"UPDATE_TOAST\",\n  DISMISS_TOAST: \"DISMISS_TOAST\",\n  REMOVE_TOAST: \"REMOVE_TOAST\",\n} as const;\n\nlet count = 0;\n\nfunction genId() {\n  count = (count + 1) % Number.MAX_SAFE_INTEGER;\n  return count.toString();\n}\n\ntype ActionType = typeof actionTypes;\n\ntype Action =\n  | {\n      type: ActionType[\"ADD_TOAST\"];\n      toast: ToasterToast;\n    }\n  | {\n      type: ActionType[\"UPDATE_TOAST\"];\n      toast: Partial&lt;ToasterToast&gt;;\n    }\n  | {\n      type: ActionType[\"DISMISS_TOAST\"];\n      toastId?: ToasterToast[\"id\"];\n    }\n  | {\n      type: ActionType[\"REMOVE_TOAST\"];\n      toastId?: ToasterToast[\"id\"];\n    };\n\ninterface State {\n  toasts: ToasterToast[];\n}\n\nconst toastTimeouts = new Map&lt;string, ReturnType&lt;typeof setTimeout&gt;&gt;();\n\nconst addToRemoveQueue = (toastId: string) =&gt; {\n  if (toastTimeouts.has(toastId)) {\n    return;\n  }\n\n  const timeout = setTimeout(() =&gt; {\n    toastTimeouts.delete(toastId);\n    dispatch({\n      type: actionTypes.REMOVE_TOAST,\n      toastId,\n    });\n  }, TOAST_REMOVE_DELAY);\n\n  toastTimeouts.set(toastId, timeout);\n};\n\nconst reducer = (state: State, action: Action): State =&gt; {\n  switch (action.type) {\n    case actionTypes.ADD_TOAST:\n      return {\n        ...state,\n        toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),\n      };\n\n    case actionTypes.UPDATE_TOAST:\n      return {\n        ...state,\n        toasts: state.toasts.map((toast) =&gt;\n          toast.id === action.toast.id ? { ...toast, ...action.toast } : toast\n        ),\n      };\n\n    case actionTypes.DISMISS_TOAST: {\n      const { toastId } = action;\n\n      if (toastId) {\n        addToRemoveQueue(toastId);\n      } else {\n        state.toasts.forEach((toast) =&gt; {\n          addToRemoveQueue(toast.id);\n        });\n      }\n\n      return {\n        ...state,\n        toasts: state.toasts.map((toast) =&gt;\n          toast.id === toastId || toastId === undefined\n            ? {\n                ...toast,\n                open: false,\n              }\n            : toast\n        ),\n      };\n    }\n\n    case actionTypes.REMOVE_TOAST:\n      if (action.toastId === undefined) {\n        return {\n          ...state,\n          toasts: [],\n        };\n      }\n      return {\n        ...state,\n        toasts: state.toasts.filter((toast) =&gt; toast.id !== action.toastId),\n      };\n  }\n};\n\nconst listeners: Array&lt;(state: State) =&gt; void&gt; = [];\n\nlet memoryState: State = { toasts: [] };\n\nfunction dispatch(action: Action) {\n  memoryState = reducer(memoryState, action);\n  listeners.forEach((listener) =&gt; {\n    listener(memoryState);\n  });\n}\n\ntype Toast = (props: ToastProps) =&gt; {\n  id: string;\n  dismiss: () =&gt; void;\n  update: (props: ToastProps) =&gt; void;\n};\n\nexport const toast: Toast = ({ ...props }) =&gt; {\n  const id = genId();\n\n  const update = (props: ToastProps) =&gt;\n    dispatch({\n      type: actionTypes.UPDATE_TOAST,\n      toast: { ...props, id },\n    });\n  const dismiss = () =&gt; dispatch({ type: actionTypes.DISMISS_TOAST, toastId: id });\n\n  dispatch({\n    type: actionTypes.ADD_TOAST,\n    toast: {\n      ...props,\n      id,\n      open: true,\n      onOpenChange: (open) =&gt; {\n        if (!open) dismiss();\n      },\n    },\n  });\n\n  return {\n    id,\n    dismiss,\n    update,\n  };\n};\n\nexport function useToast() {\n  const [state, setState] = React.useState&lt;State&gt;(memoryState);\n\n  React.useEffect(() =&gt; {\n    listeners.push(setState);\n    return () =&gt; {\n      const index = listeners.indexOf(setState);\n      if (index &gt; -1) {\n        listeners.splice(index, 1);\n      }\n    };\n  }, [state]);\n\n  return {\n    ...state,\n    toast,\n    dismiss: (toastId?: string) =&gt;\n      dispatch({ type: actionTypes.DISMISS_TOAST, toastId }),\n  };\n}\n\nexport { ToastAction } from \"./toast\";\n\n"
 }
 ```
 User decision: **accepted**
@@ -2497,19 +2497,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/ui/toaster.tsx&quot;
+  "relativeWorkspacePath": "components/ui/toaster.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;e4b83a97-ed41-4e37-9926-1c4f0272f14d&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "e4b83a97-ed41-4e37-9926-1c4f0272f14d",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -2517,23 +2517,23 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;- \n+ \&quot;use client\&quot;;\n+ \n+ import * as React from \&quot;react\&quot;;\n+ import {\n+   Toast,\n+   ToastAction,\n+   ToastClose,\n+   ToastDescription,\n+   ToastProvider,\n+   ToastTitle,\n+   ToastViewport,\n+ } from \&quot;@/components/ui/toast\&quot;;\n+ import { useToast } from \&quot;@/components/ui/use-toast\&quot;;\n+ \n+ export function Toaster() {\n+   const { toasts } = useToast();\n+ \n+   return (\n+     &lt;ToastProvider&gt;\n+       {toasts.map(function ({ id, title, description, action, ...props }) {\n+         return (\n+           &lt;Toast key={id} {...props}&gt;\n+             &lt;div className=\&quot;grid gap-1\&quot;&gt;\n+               {title &amp;&amp; &lt;ToastTitle&gt;{title}&lt;/ToastTitle&gt;}\n+               {description &amp;&amp; (\n+                 &lt;ToastDescription&gt;{description}&lt;/ToastDescription&gt;\n+               )}\n+             &lt;/div&gt;\n+             {action}\n+             &lt;ToastClose /&gt;\n+           &lt;/Toast&gt;\n+         );\n+       })}\n+       &lt;ToastViewport /&gt;\n+     &lt;/ToastProvider&gt;\n+   );\n+ }\n+ \n+ export { ToastAction };\n+ &quot;,
-        &quot;oldStart&quot;: 1,
-        &quot;newStart&quot;: 1,
-        &quot;oldLines&quot;: 1,
-        &quot;newLines&quot;: 40,
-        &quot;linesRemoved&quot;: 1,
-        &quot;linesAdded&quot;: 40
+        "diffString": "- \n+ \"use client\";\n+ \n+ import * as React from \"react\";\n+ import {\n+   Toast,\n+   ToastAction,\n+   ToastClose,\n+   ToastDescription,\n+   ToastProvider,\n+   ToastTitle,\n+   ToastViewport,\n+ } from \"@/components/ui/toast\";\n+ import { useToast } from \"@/components/ui/use-toast\";\n+ \n+ export function Toaster() {\n+   const { toasts } = useToast();\n+ \n+   return (\n+     &lt;ToastProvider&gt;\n+       {toasts.map(function ({ id, title, description, action, ...props }) {\n+         return (\n+           &lt;Toast key={id} {...props}&gt;\n+             &lt;div className=\"grid gap-1\"&gt;\n+               {title &amp;&amp; &lt;ToastTitle&gt;{title}&lt;/ToastTitle&gt;}\n+               {description &amp;&amp; (\n+                 &lt;ToastDescription&gt;{description}&lt;/ToastDescription&gt;\n+               )}\n+             &lt;/div&gt;\n+             {action}\n+             &lt;ToastClose /&gt;\n+           &lt;/Toast&gt;\n+         );\n+       })}\n+       &lt;ToastViewport /&gt;\n+     &lt;/ToastProvider&gt;\n+   );\n+ }\n+ \n+ export { ToastAction };\n+ ",
+        "oldStart": 1,
+        "newStart": 1,
+        "oldLines": 1,
+        "newLines": 40,
+        "linesRemoved": 1,
+        "linesAdded": 40
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/ui/toaster.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport * as React from \&quot;react\&quot;;\nimport {\n  Toast,\n  ToastAction,\n  ToastClose,\n  ToastDescription,\n  ToastProvider,\n  ToastTitle,\n  ToastViewport,\n} from \&quot;@/components/ui/toast\&quot;;\nimport { useToast } from \&quot;@/components/ui/use-toast\&quot;;\n\nexport function Toaster() {\n  const { toasts } = useToast();\n\n  return (\n    &lt;ToastProvider&gt;\n      {toasts.map(function ({ id, title, description, action, ...props }) {\n        return (\n          &lt;Toast key={id} {...props}&gt;\n            &lt;div className=\&quot;grid gap-1\&quot;&gt;\n              {title &amp;&amp; &lt;ToastTitle&gt;{title}&lt;/ToastTitle&gt;}\n              {description &amp;&amp; (\n                &lt;ToastDescription&gt;{description}&lt;/ToastDescription&gt;\n              )}\n            &lt;/div&gt;\n            {action}\n            &lt;ToastClose /&gt;\n          &lt;/Toast&gt;\n        );\n      })}\n      &lt;ToastViewport /&gt;\n    &lt;/ToastProvider&gt;\n  );\n}\n\nexport { ToastAction };\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/ui/toaster.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport * as React from \"react\";\nimport {\n  Toast,\n  ToastAction,\n  ToastClose,\n  ToastDescription,\n  ToastProvider,\n  ToastTitle,\n  ToastViewport,\n} from \"@/components/ui/toast\";\nimport { useToast } from \"@/components/ui/use-toast\";\n\nexport function Toaster() {\n  const { toasts } = useToast();\n\n  return (\n    &lt;ToastProvider&gt;\n      {toasts.map(function ({ id, title, description, action, ...props }) {\n        return (\n          &lt;Toast key={id} {...props}&gt;\n            &lt;div className=\"grid gap-1\"&gt;\n              {title &amp;&amp; &lt;ToastTitle&gt;{title}&lt;/ToastTitle&gt;}\n              {description &amp;&amp; (\n                &lt;ToastDescription&gt;{description}&lt;/ToastDescription&gt;\n              )}\n            &lt;/div&gt;\n            {action}\n            &lt;ToastClose /&gt;\n          &lt;/Toast&gt;\n        );\n      })}\n      &lt;ToastViewport /&gt;\n    &lt;/ToastProvider&gt;\n  );\n}\n\nexport { ToastAction };\n\n"
 }
 ```
 User decision: **accepted**
@@ -2560,19 +2560,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/ui/use-toast.ts&quot;
+  "relativeWorkspacePath": "components/ui/use-toast.ts"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;69e0b409-ad10-40da-b842-0d43c1d5708b&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "69e0b409-ad10-40da-b842-0d43c1d5708b",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -2580,23 +2580,23 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;        }\n      };\n-   }, [state]);\n+     // eslint-disable-next-line react-hooks/exhaustive-deps\n+   }, []);\n  \n    return {&quot;,
-        &quot;oldStart&quot;: 191,
-        &quot;newStart&quot;: 191,
-        &quot;oldLines&quot;: 5,
-        &quot;newLines&quot;: 6,
-        &quot;linesRemoved&quot;: 1,
-        &quot;linesAdded&quot;: 2
+        "diffString": "        }\n      };\n-   }, [state]);\n+     // eslint-disable-next-line react-hooks/exhaustive-deps\n+   }, []);\n  \n    return {",
+        "oldStart": 191,
+        "newStart": 191,
+        "oldLines": 5,
+        "newLines": 6,
+        "linesRemoved": 1,
+        "linesAdded": 2
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/ui/use-toast.ts&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport * as React from \&quot;react\&quot;;\n\ntype ToastActionElement = React.ReactElement&lt;typeof ToastAction&gt;;\n\ninterface ToastProps {\n  id?: string;\n  title?: React.ReactNode;\n  description?: React.ReactNode;\n  action?: ToastActionElement;\n  open?: boolean;\n  onOpenChange?: (open: boolean) =&gt; void;\n  variant?: \&quot;default\&quot; | \&quot;destructive\&quot;;\n}\n\nconst TOAST_LIMIT = 1;\nconst TOAST_REMOVE_DELAY = 1000;\n\ntype ToasterToast = ToastProps &amp; {\n  id: string;\n  title?: React.ReactNode;\n  description?: React.ReactNode;\n};\n\nconst actionTypes = {\n  ADD_TOAST: \&quot;ADD_TOAST\&quot;,\n  UPDATE_TOAST: \&quot;UPDATE_TOAST\&quot;,\n  DISMISS_TOAST: \&quot;DISMISS_TOAST\&quot;,\n  REMOVE_TOAST: \&quot;REMOVE_TOAST\&quot;,\n} as const;\n\nlet count = 0;\n\nfunction genId() {\n  count = (count + 1) % Number.MAX_SAFE_INTEGER;\n  return count.toString();\n}\n\ntype ActionType = typeof actionTypes;\n\ntype Action =\n  | {\n      type: ActionType[\&quot;ADD_TOAST\&quot;];\n      toast: ToasterToast;\n    }\n  | {\n      type: ActionType[\&quot;UPDATE_TOAST\&quot;];\n      toast: Partial&lt;ToasterToast&gt;;\n    }\n  | {\n      type: ActionType[\&quot;DISMISS_TOAST\&quot;];\n      toastId?: ToasterToast[\&quot;id\&quot;];\n    }\n  | {\n      type: ActionType[\&quot;REMOVE_TOAST\&quot;];\n      toastId?: ToasterToast[\&quot;id\&quot;];\n    };\n\ninterface State {\n  toasts: ToasterToast[];\n}\n\nconst toastTimeouts = new Map&lt;string, ReturnType&lt;typeof setTimeout&gt;&gt;();\n\nconst addToRemoveQueue = (toastId: string) =&gt; {\n  if (toastTimeouts.has(toastId)) {\n    return;\n  }\n\n  const timeout = setTimeout(() =&gt; {\n    toastTimeouts.delete(toastId);\n    dispatch({\n      type: actionTypes.REMOVE_TOAST,\n      toastId,\n    });\n  }, TOAST_REMOVE_DELAY);\n\n  toastTimeouts.set(toastId, timeout);\n};\n\nconst reducer = (state: State, action: Action): State =&gt; {\n  switch (action.type) {\n    case actionTypes.ADD_TOAST:\n      return {\n        ...state,\n        toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),\n      };\n\n    case actionTypes.UPDATE_TOAST:\n      return {\n        ...state,\n        toasts: state.toasts.map((toast) =&gt;\n          toast.id === action.toast.id ? { ...toast, ...action.toast } : toast\n        ),\n      };\n\n    case actionTypes.DISMISS_TOAST: {\n      const { toastId } = action;\n\n      if (toastId) {\n        addToRemoveQueue(toastId);\n      } else {\n        state.toasts.forEach((toast) =&gt; {\n          addToRemoveQueue(toast.id);\n        });\n      }\n\n      return {\n        ...state,\n        toasts: state.toasts.map((toast) =&gt;\n          toast.id === toastId || toastId === undefined\n            ? {\n                ...toast,\n                open: false,\n              }\n            : toast\n        ),\n      };\n    }\n\n    case actionTypes.REMOVE_TOAST:\n      if (action.toastId === undefined) {\n        return {\n          ...state,\n          toasts: [],\n        };\n      }\n      return {\n        ...state,\n        toasts: state.toasts.filter((toast) =&gt; toast.id !== action.toastId),\n      };\n  }\n};\n\nconst listeners: Array&lt;(state: State) =&gt; void&gt; = [];\n\nlet memoryState: State = { toasts: [] };\n\nfunction dispatch(action: Action) {\n  memoryState = reducer(memoryState, action);\n  listeners.forEach((listener) =&gt; {\n    listener(memoryState);\n  });\n}\n\ntype Toast = (props: ToastProps) =&gt; {\n  id: string;\n  dismiss: () =&gt; void;\n  update: (props: ToastProps) =&gt; void;\n};\n\nexport const toast: Toast = ({ ...props }) =&gt; {\n  const id = genId();\n\n  const update = (props: ToastProps) =&gt;\n    dispatch({\n      type: actionTypes.UPDATE_TOAST,\n      toast: { ...props, id },\n    });\n  const dismiss = () =&gt; dispatch({ type: actionTypes.DISMISS_TOAST, toastId: id });\n\n  dispatch({\n    type: actionTypes.ADD_TOAST,\n    toast: {\n      ...props,\n      id,\n      open: true,\n      onOpenChange: (open) =&gt; {\n        if (!open) dismiss();\n      },\n    },\n  });\n\n  return {\n    id,\n    dismiss,\n    update,\n  };\n};\n\nexport function useToast() {\n  const [state, setState] = React.useState&lt;State&gt;(memoryState);\n\n  React.useEffect(() =&gt; {\n    listeners.push(setState);\n    return () =&gt; {\n      const index = listeners.indexOf(setState);\n      if (index &gt; -1) {\n        listeners.splice(index, 1);\n      }\n    };\n    // eslint-disable-next-line react-hooks/exhaustive-deps\n  }, []);\n\n  return {\n    ...state,\n    toast,\n    dismiss: (toastId?: string) =&gt;\n      dispatch({ type: actionTypes.DISMISS_TOAST, toastId }),\n  };\n}\n\nexport { ToastAction } from \&quot;./toast\&quot;;\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/ui/use-toast.ts",
+  "contentsAfterEdit": "\"use client\";\n\nimport * as React from \"react\";\n\ntype ToastActionElement = React.ReactElement&lt;typeof ToastAction&gt;;\n\ninterface ToastProps {\n  id?: string;\n  title?: React.ReactNode;\n  description?: React.ReactNode;\n  action?: ToastActionElement;\n  open?: boolean;\n  onOpenChange?: (open: boolean) =&gt; void;\n  variant?: \"default\" | \"destructive\";\n}\n\nconst TOAST_LIMIT = 1;\nconst TOAST_REMOVE_DELAY = 1000;\n\ntype ToasterToast = ToastProps &amp; {\n  id: string;\n  title?: React.ReactNode;\n  description?: React.ReactNode;\n};\n\nconst actionTypes = {\n  ADD_TOAST: \"ADD_TOAST\",\n  UPDATE_TOAST: \"UPDATE_TOAST\",\n  DISMISS_TOAST: \"DISMISS_TOAST\",\n  REMOVE_TOAST: \"REMOVE_TOAST\",\n} as const;\n\nlet count = 0;\n\nfunction genId() {\n  count = (count + 1) % Number.MAX_SAFE_INTEGER;\n  return count.toString();\n}\n\ntype ActionType = typeof actionTypes;\n\ntype Action =\n  | {\n      type: ActionType[\"ADD_TOAST\"];\n      toast: ToasterToast;\n    }\n  | {\n      type: ActionType[\"UPDATE_TOAST\"];\n      toast: Partial&lt;ToasterToast&gt;;\n    }\n  | {\n      type: ActionType[\"DISMISS_TOAST\"];\n      toastId?: ToasterToast[\"id\"];\n    }\n  | {\n      type: ActionType[\"REMOVE_TOAST\"];\n      toastId?: ToasterToast[\"id\"];\n    };\n\ninterface State {\n  toasts: ToasterToast[];\n}\n\nconst toastTimeouts = new Map&lt;string, ReturnType&lt;typeof setTimeout&gt;&gt;();\n\nconst addToRemoveQueue = (toastId: string) =&gt; {\n  if (toastTimeouts.has(toastId)) {\n    return;\n  }\n\n  const timeout = setTimeout(() =&gt; {\n    toastTimeouts.delete(toastId);\n    dispatch({\n      type: actionTypes.REMOVE_TOAST,\n      toastId,\n    });\n  }, TOAST_REMOVE_DELAY);\n\n  toastTimeouts.set(toastId, timeout);\n};\n\nconst reducer = (state: State, action: Action): State =&gt; {\n  switch (action.type) {\n    case actionTypes.ADD_TOAST:\n      return {\n        ...state,\n        toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),\n      };\n\n    case actionTypes.UPDATE_TOAST:\n      return {\n        ...state,\n        toasts: state.toasts.map((toast) =&gt;\n          toast.id === action.toast.id ? { ...toast, ...action.toast } : toast\n        ),\n      };\n\n    case actionTypes.DISMISS_TOAST: {\n      const { toastId } = action;\n\n      if (toastId) {\n        addToRemoveQueue(toastId);\n      } else {\n        state.toasts.forEach((toast) =&gt; {\n          addToRemoveQueue(toast.id);\n        });\n      }\n\n      return {\n        ...state,\n        toasts: state.toasts.map((toast) =&gt;\n          toast.id === toastId || toastId === undefined\n            ? {\n                ...toast,\n                open: false,\n              }\n            : toast\n        ),\n      };\n    }\n\n    case actionTypes.REMOVE_TOAST:\n      if (action.toastId === undefined) {\n        return {\n          ...state,\n          toasts: [],\n        };\n      }\n      return {\n        ...state,\n        toasts: state.toasts.filter((toast) =&gt; toast.id !== action.toastId),\n      };\n  }\n};\n\nconst listeners: Array&lt;(state: State) =&gt; void&gt; = [];\n\nlet memoryState: State = { toasts: [] };\n\nfunction dispatch(action: Action) {\n  memoryState = reducer(memoryState, action);\n  listeners.forEach((listener) =&gt; {\n    listener(memoryState);\n  });\n}\n\ntype Toast = (props: ToastProps) =&gt; {\n  id: string;\n  dismiss: () =&gt; void;\n  update: (props: ToastProps) =&gt; void;\n};\n\nexport const toast: Toast = ({ ...props }) =&gt; {\n  const id = genId();\n\n  const update = (props: ToastProps) =&gt;\n    dispatch({\n      type: actionTypes.UPDATE_TOAST,\n      toast: { ...props, id },\n    });\n  const dismiss = () =&gt; dispatch({ type: actionTypes.DISMISS_TOAST, toastId: id });\n\n  dispatch({\n    type: actionTypes.ADD_TOAST,\n    toast: {\n      ...props,\n      id,\n      open: true,\n      onOpenChange: (open) =&gt; {\n        if (!open) dismiss();\n      },\n    },\n  });\n\n  return {\n    id,\n    dismiss,\n    update,\n  };\n};\n\nexport function useToast() {\n  const [state, setState] = React.useState&lt;State&gt;(memoryState);\n\n  React.useEffect(() =&gt; {\n    listeners.push(setState);\n    return () =&gt; {\n      const index = listeners.indexOf(setState);\n      if (index &gt; -1) {\n        listeners.splice(index, 1);\n      }\n    };\n    // eslint-disable-next-line react-hooks/exhaustive-deps\n  }, []);\n\n  return {\n    ...state,\n    toast,\n    dismiss: (toastId?: string) =&gt;\n      dispatch({ type: actionTypes.DISMISS_TOAST, toastId }),\n  };\n}\n\nexport { ToastAction } from \"./toast\";\n\n"
 }
 ```
 User decision: **accepted**
@@ -2622,19 +2622,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;app/layout.tsx&quot;
+  "relativeWorkspacePath": "app/layout.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;56651056-5671-4d51-9aff-97dd281fab3c&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "56651056-5671-4d51-9aff-97dd281fab3c",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -2642,30 +2642,30 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;  import { auth } from \&quot;@/lib/auth\&quot;;\n  import { AuthProvider } from \&quot;@/components/providers/session-provider\&quot;;\n+ import { Toaster } from \&quot;@/components/ui/toaster\&quot;;\n  import \&quot;./globals.css\&quot;;\n  &quot;,
-        &quot;oldStart&quot;: 3,
-        &quot;newStart&quot;: 3,
-        &quot;oldLines&quot;: 4,
-        &quot;newLines&quot;: 5,
-        &quot;linesAdded&quot;: 1
+        "diffString": "  import { auth } from \"@/lib/auth\";\n  import { AuthProvider } from \"@/components/providers/session-provider\";\n+ import { Toaster } from \"@/components/ui/toaster\";\n  import \"./globals.css\";\n  ",
+        "oldStart": 3,
+        "newStart": 3,
+        "oldLines": 4,
+        "newLines": 5,
+        "linesAdded": 1
       },
       {
-        &quot;diffString&quot;: &quot;        &gt;\n          &lt;AuthProvider session={session}&gt;{children}&lt;/AuthProvider&gt;\n+         &lt;Toaster /&gt;\n        &lt;/body&gt;\n      &lt;/html&gt;&quot;,
-        &quot;oldStart&quot;: 33,
-        &quot;newStart&quot;: 34,
-        &quot;oldLines&quot;: 4,
-        &quot;newLines&quot;: 5,
-        &quot;linesAdded&quot;: 1
+        "diffString": "        &gt;\n          &lt;AuthProvider session={session}&gt;{children}&lt;/AuthProvider&gt;\n+         &lt;Toaster /&gt;\n        &lt;/body&gt;\n      &lt;/html&gt;",
+        "oldStart": 33,
+        "newStart": 34,
+        "oldLines": 4,
+        "newLines": 5,
+        "linesAdded": 1
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM app/layout.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;import type { Metadata } from \&quot;next\&quot;;\nimport { Geist, Geist_Mono } from \&quot;next/font/google\&quot;;\nimport { auth } from \&quot;@/lib/auth\&quot;;\nimport { AuthProvider } from \&quot;@/components/providers/session-provider\&quot;;\nimport { Toaster } from \&quot;@/components/ui/toaster\&quot;;\nimport \&quot;./globals.css\&quot;;\n\nconst geistSans = Geist({\n  variable: \&quot;--font-geist-sans\&quot;,\n  subsets: [\&quot;latin\&quot;],\n});\n\nconst geistMono = Geist_Mono({\n  variable: \&quot;--font-geist-mono\&quot;,\n  subsets: [\&quot;latin\&quot;],\n});\n\nexport const metadata: Metadata = {\n  title: \&quot;Supplier Hub\&quot;,\n  description: \&quot;Internal supplier onboarding workspace\&quot;,\n};\n\nexport default async function RootLayout({\n  children,\n}: Readonly&lt;{\n  children: React.ReactNode;\n}&gt;) {\n  const session = await auth();\n\n  return (\n    &lt;html lang=\&quot;en\&quot;&gt;\n      &lt;body\n        className={&#96;${geistSans.variable} ${geistMono.variable} antialiased&#96;}\n      &gt;\n        &lt;AuthProvider session={session}&gt;{children}&lt;/AuthProvider&gt;\n        &lt;Toaster /&gt;\n      &lt;/body&gt;\n    &lt;/html&gt;\n  );\n}\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM app/layout.tsx",
+  "contentsAfterEdit": "import type { Metadata } from \"next\";\nimport { Geist, Geist_Mono } from \"next/font/google\";\nimport { auth } from \"@/lib/auth\";\nimport { AuthProvider } from \"@/components/providers/session-provider\";\nimport { Toaster } from \"@/components/ui/toaster\";\nimport \"./globals.css\";\n\nconst geistSans = Geist({\n  variable: \"--font-geist-sans\",\n  subsets: [\"latin\"],\n});\n\nconst geistMono = Geist_Mono({\n  variable: \"--font-geist-mono\",\n  subsets: [\"latin\"],\n});\n\nexport const metadata: Metadata = {\n  title: \"Supplier Hub\",\n  description: \"Internal supplier onboarding workspace\",\n};\n\nexport default async function RootLayout({\n  children,\n}: Readonly&lt;{\n  children: React.ReactNode;\n}&gt;) {\n  const session = await auth();\n\n  return (\n    &lt;html lang=\"en\"&gt;\n      &lt;body\n        className={&#96;${geistSans.variable} ${geistMono.variable} antialiased&#96;}\n      &gt;\n        &lt;AuthProvider session={session}&gt;{children}&lt;/AuthProvider&gt;\n        &lt;Toaster /&gt;\n      &lt;/body&gt;\n    &lt;/html&gt;\n  );\n}\n"
 }
 ```
 User decision: **accepted**
@@ -2692,19 +2692,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/form-wizard-client.tsx&quot;
+  "relativeWorkspacePath": "components/forms/form-wizard-client.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;4ef260ab-ed8e-4a80-9978-e527853be9ce&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "4ef260ab-ed8e-4a80-9978-e527853be9ce",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -2712,23 +2712,23 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;   */\n  export function FormWizardClient({ formConfig }: FormWizardClientProps) {\n-   const handleComplete = (formData: Record&lt;string, unknown&gt;) =&gt; {\n-     // TODO: Implement form submission logic\n-     // This could make an API call to submit the form data\n+   const simulateNetwork = async () =&gt;\n+     new Promise((resolve) =&gt; setTimeout(resolve, 600));\n+ \n+   const handleComplete = async (formData: Record&lt;string, unknown&gt;) =&gt; {\n+     await simulateNetwork();\n      console.log(\&quot;Form completed with data:\&quot;, formData);\n-     \n-     // Example: Could redirect to a success page\n-     // router.push(&#96;/forms/${formConfig.id}/success&#96;);\n    };\n  \n-   const handleSaveDraft = (formData: Record&lt;string, unknown&gt;) =&gt; {\n-     // TODO: Implement draft save logic\n-     // This could make an API call to save draft data\n+   const handleSaveDraft = async (formData: Record&lt;string, unknown&gt;) =&gt; {\n+     await simulateNetwork();\n      console.log(\&quot;Form draft saved:\&quot;, formData);\n    };&quot;,
-        &quot;oldStart&quot;: 13,
-        &quot;newStart&quot;: 13,
-        &quot;oldLines&quot;: 16,
-        &quot;newLines&quot;: 14,
-        &quot;linesRemoved&quot;: 9,
-        &quot;linesAdded&quot;: 7
+        "diffString": "   */\n  export function FormWizardClient({ formConfig }: FormWizardClientProps) {\n-   const handleComplete = (formData: Record&lt;string, unknown&gt;) =&gt; {\n-     // TODO: Implement form submission logic\n-     // This could make an API call to submit the form data\n+   const simulateNetwork = async () =&gt;\n+     new Promise((resolve) =&gt; setTimeout(resolve, 600));\n+ \n+   const handleComplete = async (formData: Record&lt;string, unknown&gt;) =&gt; {\n+     await simulateNetwork();\n      console.log(\"Form completed with data:\", formData);\n-     \n-     // Example: Could redirect to a success page\n-     // router.push(&#96;/forms/${formConfig.id}/success&#96;);\n    };\n  \n-   const handleSaveDraft = (formData: Record&lt;string, unknown&gt;) =&gt; {\n-     // TODO: Implement draft save logic\n-     // This could make an API call to save draft data\n+   const handleSaveDraft = async (formData: Record&lt;string, unknown&gt;) =&gt; {\n+     await simulateNetwork();\n      console.log(\"Form draft saved:\", formData);\n    };",
+        "oldStart": 13,
+        "newStart": 13,
+        "oldLines": 16,
+        "newLines": 14,
+        "linesRemoved": 9,
+        "linesAdded": 7
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/form-wizard-client.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport type { FormConfigWithFields } from \&quot;@/lib/forms/types\&quot;;\nimport { DynamicFormWizard } from \&quot;./dynamic-form-wizard\&quot;;\n\ninterface FormWizardClientProps {\n  formConfig: FormConfigWithFields;\n}\n\n/**\n * Client component wrapper for DynamicFormWizard\n * Handles form submission callbacks that can&#39;t be passed from server components\n */\nexport function FormWizardClient({ formConfig }: FormWizardClientProps) {\n  const simulateNetwork = async () =&gt;\n    new Promise((resolve) =&gt; setTimeout(resolve, 600));\n\n  const handleComplete = async (formData: Record&lt;string, unknown&gt;) =&gt; {\n    await simulateNetwork();\n    console.log(\&quot;Form completed with data:\&quot;, formData);\n  };\n\n  const handleSaveDraft = async (formData: Record&lt;string, unknown&gt;) =&gt; {\n    await simulateNetwork();\n    console.log(\&quot;Form draft saved:\&quot;, formData);\n  };\n\n  return (\n    &lt;DynamicFormWizard\n      formConfig={formConfig}\n      onComplete={handleComplete}\n      onSaveDraft={handleSaveDraft}\n    /&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/form-wizard-client.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport type { FormConfigWithFields } from \"@/lib/forms/types\";\nimport { DynamicFormWizard } from \"./dynamic-form-wizard\";\n\ninterface FormWizardClientProps {\n  formConfig: FormConfigWithFields;\n}\n\n/**\n * Client component wrapper for DynamicFormWizard\n * Handles form submission callbacks that can't be passed from server components\n */\nexport function FormWizardClient({ formConfig }: FormWizardClientProps) {\n  const simulateNetwork = async () =&gt;\n    new Promise((resolve) =&gt; setTimeout(resolve, 600));\n\n  const handleComplete = async (formData: Record&lt;string, unknown&gt;) =&gt; {\n    await simulateNetwork();\n    console.log(\"Form completed with data:\", formData);\n  };\n\n  const handleSaveDraft = async (formData: Record&lt;string, unknown&gt;) =&gt; {\n    await simulateNetwork();\n    console.log(\"Form draft saved:\", formData);\n  };\n\n  return (\n    &lt;DynamicFormWizard\n      formConfig={formConfig}\n      onComplete={handleComplete}\n      onSaveDraft={handleSaveDraft}\n    /&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -2770,19 +2770,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;app/forms/[entityCode]/[geographyCode]/page.tsx&quot;
+  "relativeWorkspacePath": "app/forms/[entityCode]/[geographyCode]/page.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;cae2ca44-424c-47ee-b880-ad56ece92b59&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "cae2ca44-424c-47ee-b880-ad56ece92b59",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -2790,23 +2790,23 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;  \n    return (\n-     &lt;div className=\&quot;container mx-auto py-8\&quot;&gt;\n+     &lt;div className=\&quot;container mx-auto w-full max-w-5xl px-4 py-10\&quot;&gt;\n        &lt;div className=\&quot;space-y-6\&quot;&gt;\n-         &lt;div&gt;\n-           &lt;h1 className=\&quot;text-2xl font-semibold\&quot;&gt;\n+         &lt;header&gt;\n+           &lt;p className=\&quot;text-sm font-semibold uppercase tracking-wide text-muted-foreground\&quot;&gt;\n+             Responsive Wizard\n+           &lt;/p&gt;\n+           &lt;h1 className=\&quot;mt-1 text-3xl font-semibold\&quot;&gt;\n              {formConfig.title || \&quot;Form Configuration\&quot;}\n            &lt;/h1&gt;\n            {formConfig.description &amp;&amp; (\n-             &lt;p className=\&quot;mt-2 text-muted-foreground\&quot;&gt;\n+             &lt;p className=\&quot;mt-2 text-base text-muted-foreground\&quot;&gt;\n                {formConfig.description}\n              &lt;/p&gt;\n            )}\n-         &lt;/div&gt;\n+         &lt;/header&gt;\n          &lt;FormWizardClient formConfig={formConfig} /&gt;\n        &lt;/div&gt;&quot;,
-        &quot;oldStart&quot;: 34,
-        &quot;newStart&quot;: 34,
-        &quot;oldLines&quot;: 16,
-        &quot;newLines&quot;: 19,
-        &quot;linesRemoved&quot;: 5,
-        &quot;linesAdded&quot;: 8
+        "diffString": "  \n    return (\n-     &lt;div className=\"container mx-auto py-8\"&gt;\n+     &lt;div className=\"container mx-auto w-full max-w-5xl px-4 py-10\"&gt;\n        &lt;div className=\"space-y-6\"&gt;\n-         &lt;div&gt;\n-           &lt;h1 className=\"text-2xl font-semibold\"&gt;\n+         &lt;header&gt;\n+           &lt;p className=\"text-sm font-semibold uppercase tracking-wide text-muted-foreground\"&gt;\n+             Responsive Wizard\n+           &lt;/p&gt;\n+           &lt;h1 className=\"mt-1 text-3xl font-semibold\"&gt;\n              {formConfig.title || \"Form Configuration\"}\n            &lt;/h1&gt;\n            {formConfig.description &amp;&amp; (\n-             &lt;p className=\"mt-2 text-muted-foreground\"&gt;\n+             &lt;p className=\"mt-2 text-base text-muted-foreground\"&gt;\n                {formConfig.description}\n              &lt;/p&gt;\n            )}\n-         &lt;/div&gt;\n+         &lt;/header&gt;\n          &lt;FormWizardClient formConfig={formConfig} /&gt;\n        &lt;/div&gt;",
+        "oldStart": 34,
+        "newStart": 34,
+        "oldLines": 16,
+        "newLines": 19,
+        "linesRemoved": 5,
+        "linesAdded": 8
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM app/forms/[entityCode]/[geographyCode]/page.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;import { redirect } from \&quot;next/navigation\&quot;;\nimport { notFound } from \&quot;next/navigation\&quot;;\nimport { auth } from \&quot;@/lib/auth\&quot;;\nimport { getFormConfigByEntityAndGeography } from \&quot;@/lib/forms/form-config-fetcher\&quot;;\nimport { FormWizardClient } from \&quot;@/components/forms/form-wizard-client\&quot;;\n\ninterface Params {\n  entityCode: string;\n  geographyCode: string;\n}\n\nexport default async function FormByEntityGeographyPage({\n  params,\n}: {\n  params: Promise&lt;Params&gt;;\n}) {\n  const { entityCode, geographyCode } = await params;\n  const session = await auth();\n\n  // Authentication check\n  if (!session?.user?.id) {\n    redirect(\&quot;/signin\&quot;);\n  }\n\n  // Fetch form config\n  const formConfig = await getFormConfigByEntityAndGeography(\n    entityCode,\n    geographyCode\n  );\n\n  if (!formConfig) {\n    notFound();\n  }\n\n  return (\n    &lt;div className=\&quot;container mx-auto w-full max-w-5xl px-4 py-10\&quot;&gt;\n      &lt;div className=\&quot;space-y-6\&quot;&gt;\n        &lt;header&gt;\n          &lt;p className=\&quot;text-sm font-semibold uppercase tracking-wide text-muted-foreground\&quot;&gt;\n            Responsive Wizard\n          &lt;/p&gt;\n          &lt;h1 className=\&quot;mt-1 text-3xl font-semibold\&quot;&gt;\n            {formConfig.title || \&quot;Form Configuration\&quot;}\n          &lt;/h1&gt;\n          {formConfig.description &amp;&amp; (\n            &lt;p className=\&quot;mt-2 text-base text-muted-foreground\&quot;&gt;\n              {formConfig.description}\n            &lt;/p&gt;\n          )}\n        &lt;/header&gt;\n        &lt;FormWizardClient formConfig={formConfig} /&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM app/forms/[entityCode]/[geographyCode]/page.tsx",
+  "contentsAfterEdit": "import { redirect } from \"next/navigation\";\nimport { notFound } from \"next/navigation\";\nimport { auth } from \"@/lib/auth\";\nimport { getFormConfigByEntityAndGeography } from \"@/lib/forms/form-config-fetcher\";\nimport { FormWizardClient } from \"@/components/forms/form-wizard-client\";\n\ninterface Params {\n  entityCode: string;\n  geographyCode: string;\n}\n\nexport default async function FormByEntityGeographyPage({\n  params,\n}: {\n  params: Promise&lt;Params&gt;;\n}) {\n  const { entityCode, geographyCode } = await params;\n  const session = await auth();\n\n  // Authentication check\n  if (!session?.user?.id) {\n    redirect(\"/signin\");\n  }\n\n  // Fetch form config\n  const formConfig = await getFormConfigByEntityAndGeography(\n    entityCode,\n    geographyCode\n  );\n\n  if (!formConfig) {\n    notFound();\n  }\n\n  return (\n    &lt;div className=\"container mx-auto w-full max-w-5xl px-4 py-10\"&gt;\n      &lt;div className=\"space-y-6\"&gt;\n        &lt;header&gt;\n          &lt;p className=\"text-sm font-semibold uppercase tracking-wide text-muted-foreground\"&gt;\n            Responsive Wizard\n          &lt;/p&gt;\n          &lt;h1 className=\"mt-1 text-3xl font-semibold\"&gt;\n            {formConfig.title || \"Form Configuration\"}\n          &lt;/h1&gt;\n          {formConfig.description &amp;&amp; (\n            &lt;p className=\"mt-2 text-base text-muted-foreground\"&gt;\n              {formConfig.description}\n            &lt;/p&gt;\n          )}\n        &lt;/header&gt;\n        &lt;FormWizardClient formConfig={formConfig} /&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -2833,19 +2833,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;app/forms/[formConfigId]/page.tsx&quot;
+  "relativeWorkspacePath": "app/forms/[formConfigId]/page.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;2c6b43bb-f91a-4b83-bc06-7333b4f30be7&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "2c6b43bb-f91a-4b83-bc06-7333b4f30be7",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -2853,32 +2853,32 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;  \n    return (\n-     &lt;div className=\&quot;container mx-auto py-8\&quot;&gt;\n+     &lt;div className=\&quot;container mx-auto w-full max-w-5xl px-4 py-10\&quot;&gt;\n        &lt;div className=\&quot;space-y-6\&quot;&gt;\n-         &lt;div&gt;\n-           &lt;h1 className=\&quot;text-2xl font-semibold\&quot;&gt;\n+         &lt;header&gt;\n+           &lt;p className=\&quot;text-sm font-semibold uppercase tracking-wide text-muted-foreground\&quot;&gt;\n+             Responsive Wizard\n+           &lt;/p&gt;\n+           &lt;h1 className=\&quot;mt-1 text-3xl font-semibold\&quot;&gt;\n              {formConfig.title || \&quot;Form Configuration\&quot;}\n            &lt;/h1&gt;\n            {formConfig.description &amp;&amp; (\n-             &lt;p className=\&quot;mt-2 text-muted-foreground\&quot;&gt;\n+             &lt;p className=\&quot;mt-2 text-base text-muted-foreground\&quot;&gt;\n                {formConfig.description}\n              &lt;/p&gt;&quot;,
-        &quot;oldStart&quot;: 30,
-        &quot;newStart&quot;: 30,
-        &quot;oldLines&quot;: 12,
-        &quot;newLines&quot;: 15,
-        &quot;linesRemoved&quot;: 4,
-        &quot;linesAdded&quot;: 7
+        "diffString": "  \n    return (\n-     &lt;div className=\"container mx-auto py-8\"&gt;\n+     &lt;div className=\"container mx-auto w-full max-w-5xl px-4 py-10\"&gt;\n        &lt;div className=\"space-y-6\"&gt;\n-         &lt;div&gt;\n-           &lt;h1 className=\"text-2xl font-semibold\"&gt;\n+         &lt;header&gt;\n+           &lt;p className=\"text-sm font-semibold uppercase tracking-wide text-muted-foreground\"&gt;\n+             Responsive Wizard\n+           &lt;/p&gt;\n+           &lt;h1 className=\"mt-1 text-3xl font-semibold\"&gt;\n              {formConfig.title || \"Form Configuration\"}\n            &lt;/h1&gt;\n            {formConfig.description &amp;&amp; (\n-             &lt;p className=\"mt-2 text-muted-foreground\"&gt;\n+             &lt;p className=\"mt-2 text-base text-muted-foreground\"&gt;\n                {formConfig.description}\n              &lt;/p&gt;",
+        "oldStart": 30,
+        "newStart": 30,
+        "oldLines": 12,
+        "newLines": 15,
+        "linesRemoved": 4,
+        "linesAdded": 7
       },
       {
-        &quot;diffString&quot;: &quot;              &lt;/p&gt;\n            )}\n-         &lt;/div&gt;\n+         &lt;/header&gt;\n          &lt;FormWizardClient formConfig={formConfig} /&gt;\n        &lt;/div&gt;&quot;,
-        &quot;oldStart&quot;: 46,
-        &quot;newStart&quot;: 49,
-        &quot;oldLines&quot;: 5,
-        &quot;newLines&quot;: 5,
-        &quot;linesRemoved&quot;: 1,
-        &quot;linesAdded&quot;: 1
+        "diffString": "              &lt;/p&gt;\n            )}\n-         &lt;/div&gt;\n+         &lt;/header&gt;\n          &lt;FormWizardClient formConfig={formConfig} /&gt;\n        &lt;/div&gt;",
+        "oldStart": 46,
+        "newStart": 49,
+        "oldLines": 5,
+        "newLines": 5,
+        "linesRemoved": 1,
+        "linesAdded": 1
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM app/forms/[formConfigId]/page.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;import { redirect } from \&quot;next/navigation\&quot;;\nimport { notFound } from \&quot;next/navigation\&quot;;\nimport { auth } from \&quot;@/lib/auth\&quot;;\nimport { getFormConfigById } from \&quot;@/lib/forms/form-config-fetcher\&quot;;\nimport { FormWizardClient } from \&quot;@/components/forms/form-wizard-client\&quot;;\n\ninterface Params {\n  formConfigId: string;\n}\n\nexport default async function FormByConfigIdPage({\n  params,\n}: {\n  params: Promise&lt;Params&gt;;\n}) {\n  const { formConfigId } = await params;\n  const session = await auth();\n\n  // Authentication check\n  if (!session?.user?.id) {\n    redirect(\&quot;/signin\&quot;);\n  }\n\n  // Fetch form config\n  const formConfig = await getFormConfigById(formConfigId);\n\n  if (!formConfig) {\n    notFound();\n  }\n\n  return (\n    &lt;div className=\&quot;container mx-auto w-full max-w-5xl px-4 py-10\&quot;&gt;\n      &lt;div className=\&quot;space-y-6\&quot;&gt;\n        &lt;header&gt;\n          &lt;p className=\&quot;text-sm font-semibold uppercase tracking-wide text-muted-foreground\&quot;&gt;\n            Responsive Wizard\n          &lt;/p&gt;\n          &lt;h1 className=\&quot;mt-1 text-3xl font-semibold\&quot;&gt;\n            {formConfig.title || \&quot;Form Configuration\&quot;}\n          &lt;/h1&gt;\n          {formConfig.description &amp;&amp; (\n            &lt;p className=\&quot;mt-2 text-base text-muted-foreground\&quot;&gt;\n              {formConfig.description}\n            &lt;/p&gt;\n          )}\n          {!formConfig.isActive &amp;&amp; (\n            &lt;p className=\&quot;mt-2 text-sm text-amber-600\&quot;&gt;\n              (This form configuration is inactive)\n            &lt;/p&gt;\n          )}\n        &lt;/header&gt;\n        &lt;FormWizardClient formConfig={formConfig} /&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM app/forms/[formConfigId]/page.tsx",
+  "contentsAfterEdit": "import { redirect } from \"next/navigation\";\nimport { notFound } from \"next/navigation\";\nimport { auth } from \"@/lib/auth\";\nimport { getFormConfigById } from \"@/lib/forms/form-config-fetcher\";\nimport { FormWizardClient } from \"@/components/forms/form-wizard-client\";\n\ninterface Params {\n  formConfigId: string;\n}\n\nexport default async function FormByConfigIdPage({\n  params,\n}: {\n  params: Promise&lt;Params&gt;;\n}) {\n  const { formConfigId } = await params;\n  const session = await auth();\n\n  // Authentication check\n  if (!session?.user?.id) {\n    redirect(\"/signin\");\n  }\n\n  // Fetch form config\n  const formConfig = await getFormConfigById(formConfigId);\n\n  if (!formConfig) {\n    notFound();\n  }\n\n  return (\n    &lt;div className=\"container mx-auto w-full max-w-5xl px-4 py-10\"&gt;\n      &lt;div className=\"space-y-6\"&gt;\n        &lt;header&gt;\n          &lt;p className=\"text-sm font-semibold uppercase tracking-wide text-muted-foreground\"&gt;\n            Responsive Wizard\n          &lt;/p&gt;\n          &lt;h1 className=\"mt-1 text-3xl font-semibold\"&gt;\n            {formConfig.title || \"Form Configuration\"}\n          &lt;/h1&gt;\n          {formConfig.description &amp;&amp; (\n            &lt;p className=\"mt-2 text-base text-muted-foreground\"&gt;\n              {formConfig.description}\n            &lt;/p&gt;\n          )}\n          {!formConfig.isActive &amp;&amp; (\n            &lt;p className=\"mt-2 text-sm text-amber-600\"&gt;\n              (This form configuration is inactive)\n            &lt;/p&gt;\n          )}\n        &lt;/header&gt;\n        &lt;FormWizardClient formConfig={formConfig} /&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -2905,19 +2905,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/ui/use-toast.ts&quot;
+  "relativeWorkspacePath": "components/ui/use-toast.ts"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;ed838ea1-35e8-48a8-8eb6-c9407b1f4bcc&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "ed838ea1-35e8-48a8-8eb6-c9407b1f4bcc",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -2925,22 +2925,22 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;  \n  import * as React from \&quot;react\&quot;;\n+ import { ToastAction } from \&quot;./toast\&quot;;\n  \n  type ToastActionElement = React.ReactElement&lt;typeof ToastAction&gt;;&quot;,
-        &quot;oldStart&quot;: 2,
-        &quot;newStart&quot;: 2,
-        &quot;oldLines&quot;: 4,
-        &quot;newLines&quot;: 5,
-        &quot;linesAdded&quot;: 1
+        "diffString": "  \n  import * as React from \"react\";\n+ import { ToastAction } from \"./toast\";\n  \n  type ToastActionElement = React.ReactElement&lt;typeof ToastAction&gt;;",
+        "oldStart": 2,
+        "newStart": 2,
+        "oldLines": 4,
+        "newLines": 5,
+        "linesAdded": 1
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/ui/use-toast.ts&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport * as React from \&quot;react\&quot;;\nimport { ToastAction } from \&quot;./toast\&quot;;\n\ntype ToastActionElement = React.ReactElement&lt;typeof ToastAction&gt;;\n\ninterface ToastProps {\n  id?: string;\n  title?: React.ReactNode;\n  description?: React.ReactNode;\n  action?: ToastActionElement;\n  open?: boolean;\n  onOpenChange?: (open: boolean) =&gt; void;\n  variant?: \&quot;default\&quot; | \&quot;destructive\&quot;;\n}\n\nconst TOAST_LIMIT = 1;\nconst TOAST_REMOVE_DELAY = 1000;\n\ntype ToasterToast = ToastProps &amp; {\n  id: string;\n  title?: React.ReactNode;\n  description?: React.ReactNode;\n};\n\nconst actionTypes = {\n  ADD_TOAST: \&quot;ADD_TOAST\&quot;,\n  UPDATE_TOAST: \&quot;UPDATE_TOAST\&quot;,\n  DISMISS_TOAST: \&quot;DISMISS_TOAST\&quot;,\n  REMOVE_TOAST: \&quot;REMOVE_TOAST\&quot;,\n} as const;\n\nlet count = 0;\n\nfunction genId() {\n  count = (count + 1) % Number.MAX_SAFE_INTEGER;\n  return count.toString();\n}\n\ntype ActionType = typeof actionTypes;\n\ntype Action =\n  | {\n      type: ActionType[\&quot;ADD_TOAST\&quot;];\n      toast: ToasterToast;\n    }\n  | {\n      type: ActionType[\&quot;UPDATE_TOAST\&quot;];\n      toast: Partial&lt;ToasterToast&gt;;\n    }\n  | {\n      type: ActionType[\&quot;DISMISS_TOAST\&quot;];\n      toastId?: ToasterToast[\&quot;id\&quot;];\n    }\n  | {\n      type: ActionType[\&quot;REMOVE_TOAST\&quot;];\n      toastId?: ToasterToast[\&quot;id\&quot;];\n    };\n\ninterface State {\n  toasts: ToasterToast[];\n}\n\nconst toastTimeouts = new Map&lt;string, ReturnType&lt;typeof setTimeout&gt;&gt;();\n\nconst addToRemoveQueue = (toastId: string) =&gt; {\n  if (toastTimeouts.has(toastId)) {\n    return;\n  }\n\n  const timeout = setTimeout(() =&gt; {\n    toastTimeouts.delete(toastId);\n    dispatch({\n      type: actionTypes.REMOVE_TOAST,\n      toastId,\n    });\n  }, TOAST_REMOVE_DELAY);\n\n  toastTimeouts.set(toastId, timeout);\n};\n\nconst reducer = (state: State, action: Action): State =&gt; {\n  switch (action.type) {\n    case actionTypes.ADD_TOAST:\n      return {\n        ...state,\n        toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),\n      };\n\n    case actionTypes.UPDATE_TOAST:\n      return {\n        ...state,\n        toasts: state.toasts.map((toast) =&gt;\n          toast.id === action.toast.id ? { ...toast, ...action.toast } : toast\n        ),\n      };\n\n    case actionTypes.DISMISS_TOAST: {\n      const { toastId } = action;\n\n      if (toastId) {\n        addToRemoveQueue(toastId);\n      } else {\n        state.toasts.forEach((toast) =&gt; {\n          addToRemoveQueue(toast.id);\n        });\n      }\n\n      return {\n        ...state,\n        toasts: state.toasts.map((toast) =&gt;\n          toast.id === toastId || toastId === undefined\n            ? {\n                ...toast,\n                open: false,\n              }\n            : toast\n        ),\n      };\n    }\n\n    case actionTypes.REMOVE_TOAST:\n      if (action.toastId === undefined) {\n        return {\n          ...state,\n          toasts: [],\n        };\n      }\n      return {\n        ...state,\n        toasts: state.toasts.filter((toast) =&gt; toast.id !== action.toastId),\n      };\n  }\n};\n\nconst listeners: Array&lt;(state: State) =&gt; void&gt; = [];\n\nlet memoryState: State = { toasts: [] };\n\nfunction dispatch(action: Action) {\n  memoryState = reducer(memoryState, action);\n  listeners.forEach((listener) =&gt; {\n    listener(memoryState);\n  });\n}\n\ntype Toast = (props: ToastProps) =&gt; {\n  id: string;\n  dismiss: () =&gt; void;\n  update: (props: ToastProps) =&gt; void;\n};\n\nexport const toast: Toast = ({ ...props }) =&gt; {\n  const id = genId();\n\n  const update = (props: ToastProps) =&gt;\n    dispatch({\n      type: actionTypes.UPDATE_TOAST,\n      toast: { ...props, id },\n    });\n  const dismiss = () =&gt; dispatch({ type: actionTypes.DISMISS_TOAST, toastId: id });\n\n  dispatch({\n    type: actionTypes.ADD_TOAST,\n    toast: {\n      ...props,\n      id,\n      open: true,\n      onOpenChange: (open) =&gt; {\n        if (!open) dismiss();\n      },\n    },\n  });\n\n  return {\n    id,\n    dismiss,\n    update,\n  };\n};\n\nexport function useToast() {\n  const [state, setState] = React.useState&lt;State&gt;(memoryState);\n\n  React.useEffect(() =&gt; {\n    listeners.push(setState);\n    return () =&gt; {\n      const index = listeners.indexOf(setState);\n      if (index &gt; -1) {\n        listeners.splice(index, 1);\n      }\n    };\n    // eslint-disable-next-line react-hooks/exhaustive-deps\n  }, []);\n\n  return {\n    ...state,\n    toast,\n    dismiss: (toastId?: string) =&gt;\n      dispatch({ type: actionTypes.DISMISS_TOAST, toastId }),\n  };\n}\n\nexport { ToastAction } from \&quot;./toast\&quot;;\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/ui/use-toast.ts",
+  "contentsAfterEdit": "\"use client\";\n\nimport * as React from \"react\";\nimport { ToastAction } from \"./toast\";\n\ntype ToastActionElement = React.ReactElement&lt;typeof ToastAction&gt;;\n\ninterface ToastProps {\n  id?: string;\n  title?: React.ReactNode;\n  description?: React.ReactNode;\n  action?: ToastActionElement;\n  open?: boolean;\n  onOpenChange?: (open: boolean) =&gt; void;\n  variant?: \"default\" | \"destructive\";\n}\n\nconst TOAST_LIMIT = 1;\nconst TOAST_REMOVE_DELAY = 1000;\n\ntype ToasterToast = ToastProps &amp; {\n  id: string;\n  title?: React.ReactNode;\n  description?: React.ReactNode;\n};\n\nconst actionTypes = {\n  ADD_TOAST: \"ADD_TOAST\",\n  UPDATE_TOAST: \"UPDATE_TOAST\",\n  DISMISS_TOAST: \"DISMISS_TOAST\",\n  REMOVE_TOAST: \"REMOVE_TOAST\",\n} as const;\n\nlet count = 0;\n\nfunction genId() {\n  count = (count + 1) % Number.MAX_SAFE_INTEGER;\n  return count.toString();\n}\n\ntype ActionType = typeof actionTypes;\n\ntype Action =\n  | {\n      type: ActionType[\"ADD_TOAST\"];\n      toast: ToasterToast;\n    }\n  | {\n      type: ActionType[\"UPDATE_TOAST\"];\n      toast: Partial&lt;ToasterToast&gt;;\n    }\n  | {\n      type: ActionType[\"DISMISS_TOAST\"];\n      toastId?: ToasterToast[\"id\"];\n    }\n  | {\n      type: ActionType[\"REMOVE_TOAST\"];\n      toastId?: ToasterToast[\"id\"];\n    };\n\ninterface State {\n  toasts: ToasterToast[];\n}\n\nconst toastTimeouts = new Map&lt;string, ReturnType&lt;typeof setTimeout&gt;&gt;();\n\nconst addToRemoveQueue = (toastId: string) =&gt; {\n  if (toastTimeouts.has(toastId)) {\n    return;\n  }\n\n  const timeout = setTimeout(() =&gt; {\n    toastTimeouts.delete(toastId);\n    dispatch({\n      type: actionTypes.REMOVE_TOAST,\n      toastId,\n    });\n  }, TOAST_REMOVE_DELAY);\n\n  toastTimeouts.set(toastId, timeout);\n};\n\nconst reducer = (state: State, action: Action): State =&gt; {\n  switch (action.type) {\n    case actionTypes.ADD_TOAST:\n      return {\n        ...state,\n        toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),\n      };\n\n    case actionTypes.UPDATE_TOAST:\n      return {\n        ...state,\n        toasts: state.toasts.map((toast) =&gt;\n          toast.id === action.toast.id ? { ...toast, ...action.toast } : toast\n        ),\n      };\n\n    case actionTypes.DISMISS_TOAST: {\n      const { toastId } = action;\n\n      if (toastId) {\n        addToRemoveQueue(toastId);\n      } else {\n        state.toasts.forEach((toast) =&gt; {\n          addToRemoveQueue(toast.id);\n        });\n      }\n\n      return {\n        ...state,\n        toasts: state.toasts.map((toast) =&gt;\n          toast.id === toastId || toastId === undefined\n            ? {\n                ...toast,\n                open: false,\n              }\n            : toast\n        ),\n      };\n    }\n\n    case actionTypes.REMOVE_TOAST:\n      if (action.toastId === undefined) {\n        return {\n          ...state,\n          toasts: [],\n        };\n      }\n      return {\n        ...state,\n        toasts: state.toasts.filter((toast) =&gt; toast.id !== action.toastId),\n      };\n  }\n};\n\nconst listeners: Array&lt;(state: State) =&gt; void&gt; = [];\n\nlet memoryState: State = { toasts: [] };\n\nfunction dispatch(action: Action) {\n  memoryState = reducer(memoryState, action);\n  listeners.forEach((listener) =&gt; {\n    listener(memoryState);\n  });\n}\n\ntype Toast = (props: ToastProps) =&gt; {\n  id: string;\n  dismiss: () =&gt; void;\n  update: (props: ToastProps) =&gt; void;\n};\n\nexport const toast: Toast = ({ ...props }) =&gt; {\n  const id = genId();\n\n  const update = (props: ToastProps) =&gt;\n    dispatch({\n      type: actionTypes.UPDATE_TOAST,\n      toast: { ...props, id },\n    });\n  const dismiss = () =&gt; dispatch({ type: actionTypes.DISMISS_TOAST, toastId: id });\n\n  dispatch({\n    type: actionTypes.ADD_TOAST,\n    toast: {\n      ...props,\n      id,\n      open: true,\n      onOpenChange: (open) =&gt; {\n        if (!open) dismiss();\n      },\n    },\n  });\n\n  return {\n    id,\n    dismiss,\n    update,\n  };\n};\n\nexport function useToast() {\n  const [state, setState] = React.useState&lt;State&gt;(memoryState);\n\n  React.useEffect(() =&gt; {\n    listeners.push(setState);\n    return () =&gt; {\n      const index = listeners.indexOf(setState);\n      if (index &gt; -1) {\n        listeners.splice(index, 1);\n      }\n    };\n    // eslint-disable-next-line react-hooks/exhaustive-deps\n  }, []);\n\n  return {\n    ...state,\n    toast,\n    dismiss: (toastId?: string) =&gt;\n      dispatch({ type: actionTypes.DISMISS_TOAST, toastId }),\n  };\n}\n\nexport { ToastAction } from \"./toast\";\n\n"
 }
 ```
 User decision: **accepted**
@@ -2961,7 +2961,7 @@ I'm confirming various component exports, hooks, and UI behaviors are correctly 
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm run lint</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm run lint</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && npm run lint
@@ -2973,20 +2973,20 @@ cd /Users/sahilmehta/supplier-onboarding-simple && npm run lint
 
 
 /Users/sahilmehta/supplier-onboarding-simple/components/forms/draft-resume-dialog.tsx                                                                           
-  161:10  error  Parsing error: Expected corresponding JSX closing tag for &#39;DialogContent&#39;                                                                      
+  161:10  error  Parsing error: Expected corresponding JSX closing tag for 'DialogContent'                                                                      
 
 /Users/sahilmehta/supplier-onboarding-simple/components/forms/dynamic-form-wizard.tsx                                                                           
-  319:41  warning  The ref value &#39;validationTimersRef.current&#39; will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy &#39;validationTimersRef.current&#39; to a variable inside the effect, and use that variable in the cleanup function  react-hooks/exhaustive-deps                                                                           
+  319:41  warning  The ref value 'validationTimersRef.current' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy 'validationTimersRef.current' to a variable inside the effect, and use that variable in the cleanup function  react-hooks/exhaustive-deps                                                                           
 
 /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-radio.tsx                                                                             
   67:15  warning  The attribute aria-invalid is not supported by the role radio. This role is implicit on the element input   jsx-a11y/role-supports-aria-props 
   67:15  warning  The attribute aria-required is not supported by the role radio. This role is implicit on the element input  jsx-a11y/role-supports-aria-props 
 
 /Users/sahilmehta/supplier-onboarding-simple/components/ui/use-toast.ts
-  194:5  warning  Unused eslint-disable directive (no problems were reported from &#39;react-hooks/exhaustive-deps&#39;)                                                
+  194:5  warning  Unused eslint-disable directive (no problems were reported from 'react-hooks/exhaustive-deps')                                                
 
 /Users/sahilmehta/supplier-onboarding-simple/hooks/use-autosave.ts
-  144:7  warning  Unused eslint-disable directive (no problems were reported from &#39;no-param-reassign&#39;)                                                          
+  144:7  warning  Unused eslint-disable directive (no problems were reported from 'no-param-reassign')                                                          
 
 ✖ 6 problems (1 error, 5 warnings)
   0 errors and 2 warnings potentially fixable with the &#96;--fix&#96; option.
@@ -3036,19 +3036,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/draft-resume-dialog.tsx&quot;
+  "relativeWorkspacePath": "components/forms/draft-resume-dialog.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;ad762c03-37b3-4828-8e3f-7dd5f4da3646&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "ad762c03-37b3-4828-8e3f-7dd5f4da3646",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -3056,23 +3056,23 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;          &lt;/DialogHeader&gt;\n          &lt;div className=\&quot;max-h-80 space-y-3 overflow-y-auto py-2 pr-2\&quot;&gt;\n-             {drafts.map((draft) =&gt; {\n-               const isResuming =\n-                 resumingId !== null &amp;&amp;\n-                 (resumingId === draft.applicationId || resumingId === \&quot;new\&quot;);\n-               const isDeleting = deletingId === draft.applicationId;\n+           {drafts.map((draft) =&gt; {\n+             const isResuming =\n+               resumingId !== null &amp;&amp;\n+               (resumingId === draft.applicationId || resumingId === \&quot;new\&quot;);\n+             const isDeleting = deletingId === draft.applicationId;\n  \n-               return (\n-                 &lt;div\n-                   key={draft.applicationId}\n-                   className=\&quot;rounded-lg border border-border/60 p-4\&quot;\n-                 &gt;\n-                   &lt;div className=\&quot;flex items-center justify-between gap-4\&quot;&gt;\n-                     &lt;div&gt;\n-                       &lt;p className=\&quot;text-sm font-semibold\&quot;&gt;\n-                         Draft #{draft.applicationId.slice(0, 6).toUpperCase()}\n-                       &lt;/p&gt;\n-                       &lt;p className=\&quot;text-xs text-muted-foreground\&quot;&gt;\n-                         Step {draft.currentStep + 1} · Updated{\&quot; \&quot;}\n-                         {formatDistanceToNow(new Date(draft.updatedAt), {\n-                           addSuffix: true,\n-                         })}\n-                       &lt;/p&gt;\n-                     &lt;/div&gt;\n-                     &lt;div className=\&quot;flex items-center gap-2\&quot;&gt;\n-                       &lt;Button\n-                         type=\&quot;button\&quot;\n-                         size=\&quot;sm\&quot;\n-                         onClick={() =&gt; void handleSelect(draft.applicationId)}\n-                         disabled={isDeleting || resumingId !== null}\n-                       &gt;\n-                         {isResuming &amp;&amp; (\n-                           &lt;Loader2 className=\&quot;mr-2 size-3 animate-spin\&quot; /&gt;\n-                         )}\n-                         Resume\n-                       &lt;/Button&gt;\n-                       &lt;Button\n-                         type=\&quot;button\&quot;\n-                         variant=\&quot;ghost\&quot;\n-                         size=\&quot;icon\&quot;\n-                         onClick={() =&gt; void handleDelete(draft.applicationId)}\n-                         disabled={isDeleting || resumingId !== null}\n-                         aria-label=\&quot;Delete draft\&quot;\n-                       &gt;\n-                         {isDeleting ? (\n-                           &lt;Loader2 className=\&quot;size-4 animate-spin\&quot; /&gt;\n-                         ) : (\n-                           &lt;Trash2 className=\&quot;size-4 text-muted-foreground\&quot; /&gt;\n-                         )}\n-                       &lt;/Button&gt;\n-                     &lt;/div&gt;\n-                   &lt;/div&gt;\n-                 &lt;/div&gt;\n-               );\n-             })}\n-           &lt;/div&gt;\n-         &lt;/div&gt;\n+             return (\n+               &lt;div\n+                 key={draft.applicationId}\n+                 className=\&quot;rounded-lg border border-border/60 p-4\&quot;\n+               &gt;\n+                 &lt;div className=\&quot;flex items-center justify-between gap-4\&quot;&gt;\n+                   &lt;div&gt;\n+                     &lt;p className=\&quot;text-sm font-semibold\&quot;&gt;\n+                       Draft #{draft.applicationId.slice(0, 6).toUpperCase()}\n+                     &lt;/p&gt;\n+                     &lt;p className=\&quot;text-xs text-muted-foreground\&quot;&gt;\n+                       Step {draft.currentStep + 1} · Updated{\&quot; \&quot;}\n+                       {formatDistanceToNow(new Date(draft.updatedAt), {\n+                         addSuffix: true,\n+                       })}\n+                     &lt;/p&gt;\n+                   &lt;/div&gt;\n+                   &lt;div className=\&quot;flex items-center gap-2\&quot;&gt;\n+                     &lt;Button\n+                       type=\&quot;button\&quot;\n+                       size=\&quot;sm\&quot;\n+                       onClick={() =&gt; void handleSelect(draft.applicationId)}\n+                       disabled={isDeleting || resumingId !== null}\n+                     &gt;\n+                       {isResuming &amp;&amp; (\n+                         &lt;Loader2 className=\&quot;mr-2 size-3 animate-spin\&quot; /&gt;\n+                       )}\n+                       Resume\n+                     &lt;/Button&gt;\n+                     &lt;Button\n+                       type=\&quot;button\&quot;\n+                       variant=\&quot;ghost\&quot;\n+                       size=\&quot;icon\&quot;\n+                       onClick={() =&gt; void handleDelete(draft.applicationId)}\n+                       disabled={isDeleting || resumingId !== null}\n+                       aria-label=\&quot;Delete draft\&quot;\n+                     &gt;\n+                       {isDeleting ? (\n+                         &lt;Loader2 className=\&quot;size-4 animate-spin\&quot; /&gt;\n+                       ) : (\n+                         &lt;Trash2 className=\&quot;size-4 text-muted-foreground\&quot; /&gt;\n+                       )}\n+                     &lt;/Button&gt;\n+                   &lt;/div&gt;\n+                 &lt;/div&gt;\n+               &lt;/div&gt;\n+             );\n+           })}\n+         &lt;/div&gt;\n          &lt;div className=\&quot;flex flex-col gap-3 border-t border-border/60 pt-4\&quot;&gt;\n            {error &amp;&amp; &lt;p className=\&quot;text-sm text-red-600\&quot;&gt;{error}&lt;/p&gt;}&quot;,
-        &quot;oldStart&quot;: 104,
-        &quot;newStart&quot;: 104,
-        &quot;oldLines&quot;: 60,
-        &quot;newLines&quot;: 59,
-        &quot;linesRemoved&quot;: 55,
-        &quot;linesAdded&quot;: 54
+        "diffString": "          &lt;/DialogHeader&gt;\n          &lt;div className=\"max-h-80 space-y-3 overflow-y-auto py-2 pr-2\"&gt;\n-             {drafts.map((draft) =&gt; {\n-               const isResuming =\n-                 resumingId !== null &amp;&amp;\n-                 (resumingId === draft.applicationId || resumingId === \"new\");\n-               const isDeleting = deletingId === draft.applicationId;\n+           {drafts.map((draft) =&gt; {\n+             const isResuming =\n+               resumingId !== null &amp;&amp;\n+               (resumingId === draft.applicationId || resumingId === \"new\");\n+             const isDeleting = deletingId === draft.applicationId;\n  \n-               return (\n-                 &lt;div\n-                   key={draft.applicationId}\n-                   className=\"rounded-lg border border-border/60 p-4\"\n-                 &gt;\n-                   &lt;div className=\"flex items-center justify-between gap-4\"&gt;\n-                     &lt;div&gt;\n-                       &lt;p className=\"text-sm font-semibold\"&gt;\n-                         Draft #{draft.applicationId.slice(0, 6).toUpperCase()}\n-                       &lt;/p&gt;\n-                       &lt;p className=\"text-xs text-muted-foreground\"&gt;\n-                         Step {draft.currentStep + 1} · Updated{\" \"}\n-                         {formatDistanceToNow(new Date(draft.updatedAt), {\n-                           addSuffix: true,\n-                         })}\n-                       &lt;/p&gt;\n-                     &lt;/div&gt;\n-                     &lt;div className=\"flex items-center gap-2\"&gt;\n-                       &lt;Button\n-                         type=\"button\"\n-                         size=\"sm\"\n-                         onClick={() =&gt; void handleSelect(draft.applicationId)}\n-                         disabled={isDeleting || resumingId !== null}\n-                       &gt;\n-                         {isResuming &amp;&amp; (\n-                           &lt;Loader2 className=\"mr-2 size-3 animate-spin\" /&gt;\n-                         )}\n-                         Resume\n-                       &lt;/Button&gt;\n-                       &lt;Button\n-                         type=\"button\"\n-                         variant=\"ghost\"\n-                         size=\"icon\"\n-                         onClick={() =&gt; void handleDelete(draft.applicationId)}\n-                         disabled={isDeleting || resumingId !== null}\n-                         aria-label=\"Delete draft\"\n-                       &gt;\n-                         {isDeleting ? (\n-                           &lt;Loader2 className=\"size-4 animate-spin\" /&gt;\n-                         ) : (\n-                           &lt;Trash2 className=\"size-4 text-muted-foreground\" /&gt;\n-                         )}\n-                       &lt;/Button&gt;\n-                     &lt;/div&gt;\n-                   &lt;/div&gt;\n-                 &lt;/div&gt;\n-               );\n-             })}\n-           &lt;/div&gt;\n-         &lt;/div&gt;\n+             return (\n+               &lt;div\n+                 key={draft.applicationId}\n+                 className=\"rounded-lg border border-border/60 p-4\"\n+               &gt;\n+                 &lt;div className=\"flex items-center justify-between gap-4\"&gt;\n+                   &lt;div&gt;\n+                     &lt;p className=\"text-sm font-semibold\"&gt;\n+                       Draft #{draft.applicationId.slice(0, 6).toUpperCase()}\n+                     &lt;/p&gt;\n+                     &lt;p className=\"text-xs text-muted-foreground\"&gt;\n+                       Step {draft.currentStep + 1} · Updated{\" \"}\n+                       {formatDistanceToNow(new Date(draft.updatedAt), {\n+                         addSuffix: true,\n+                       })}\n+                     &lt;/p&gt;\n+                   &lt;/div&gt;\n+                   &lt;div className=\"flex items-center gap-2\"&gt;\n+                     &lt;Button\n+                       type=\"button\"\n+                       size=\"sm\"\n+                       onClick={() =&gt; void handleSelect(draft.applicationId)}\n+                       disabled={isDeleting || resumingId !== null}\n+                     &gt;\n+                       {isResuming &amp;&amp; (\n+                         &lt;Loader2 className=\"mr-2 size-3 animate-spin\" /&gt;\n+                       )}\n+                       Resume\n+                     &lt;/Button&gt;\n+                     &lt;Button\n+                       type=\"button\"\n+                       variant=\"ghost\"\n+                       size=\"icon\"\n+                       onClick={() =&gt; void handleDelete(draft.applicationId)}\n+                       disabled={isDeleting || resumingId !== null}\n+                       aria-label=\"Delete draft\"\n+                     &gt;\n+                       {isDeleting ? (\n+                         &lt;Loader2 className=\"size-4 animate-spin\" /&gt;\n+                       ) : (\n+                         &lt;Trash2 className=\"size-4 text-muted-foreground\" /&gt;\n+                       )}\n+                     &lt;/Button&gt;\n+                   &lt;/div&gt;\n+                 &lt;/div&gt;\n+               &lt;/div&gt;\n+             );\n+           })}\n+         &lt;/div&gt;\n          &lt;div className=\"flex flex-col gap-3 border-t border-border/60 pt-4\"&gt;\n            {error &amp;&amp; &lt;p className=\"text-sm text-red-600\"&gt;{error}&lt;/p&gt;}",
+        "oldStart": 104,
+        "newStart": 104,
+        "oldLines": 60,
+        "newLines": 59,
+        "linesRemoved": 55,
+        "linesAdded": 54
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/draft-resume-dialog.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport { useCallback, useState } from \&quot;react\&quot;;\nimport { formatDistanceToNow } from \&quot;date-fns\&quot;;\nimport { Loader2, Trash2 } from \&quot;lucide-react\&quot;;\nimport type { DraftSummary } from \&quot;@/lib/forms/draft-manager\&quot;;\nimport {\n  Dialog,\n  DialogContent,\n  DialogDescription,\n  DialogHeader,\n  DialogTitle,\n  DialogTrigger,\n} from \&quot;@/components/ui/dialog\&quot;;\nimport { Button } from \&quot;@/components/ui/button\&quot;;\n\ninterface DraftResumeDialogProps {\n  drafts: DraftSummary[];\n  open?: boolean;\n  onOpenChange?: (open: boolean) =&gt; void;\n  onSelectDraft: (applicationId: string | null) =&gt; Promise&lt;void&gt; | void;\n  onDeleteDraft: (applicationId: string) =&gt; Promise&lt;void&gt; | void;\n  triggerLabel?: string;\n}\n\nexport function DraftResumeDialog({\n  drafts,\n  open,\n  onOpenChange,\n  onSelectDraft,\n  onDeleteDraft,\n  triggerLabel = \&quot;Resume draft\&quot;,\n}: DraftResumeDialogProps) {\n  const [isOpen, setIsOpen] = useState(open ?? false);\n  const [resumingId, setResumingId] = useState&lt;string | null&gt;(null);\n  const [deletingId, setDeletingId] = useState&lt;string | null&gt;(null);\n  const [error, setError] = useState&lt;string | null&gt;(null);\n\n  const handleOpenChange = useCallback(\n    (nextOpen: boolean) =&gt; {\n      setIsOpen(nextOpen);\n      onOpenChange?.(nextOpen);\n      if (!nextOpen) {\n        setError(null);\n      }\n    },\n    [onOpenChange]\n  );\n\n  const handleSelect = useCallback(\n    async (applicationId: string | null) =&gt; {\n      setResumingId(applicationId ?? \&quot;new\&quot;);\n      setError(null);\n      try {\n        await onSelectDraft(applicationId);\n        handleOpenChange(false);\n      } catch (err) {\n        console.error(\&quot;Failed to select draft\&quot;, err);\n        setError(\n          err instanceof Error ? err.message : \&quot;Failed to resume draft. Try again.\&quot;\n        );\n      } finally {\n        setResumingId(null);\n      }\n    },\n    [handleOpenChange, onSelectDraft]\n  );\n\n  const handleDelete = useCallback(\n    async (applicationId: string) =&gt; {\n      setDeletingId(applicationId);\n      setError(null);\n      try {\n        await onDeleteDraft(applicationId);\n      } catch (err) {\n        console.error(\&quot;Failed to delete draft\&quot;, err);\n        setError(\n          err instanceof Error ? err.message : \&quot;Failed to delete draft. Try again.\&quot;\n        );\n      } finally {\n        setDeletingId(null);\n      }\n    },\n    [onDeleteDraft]\n  );\n\n  if (drafts.length === 0) {\n    return null;\n  }\n\n  return (\n    &lt;Dialog open={isOpen} onOpenChange={handleOpenChange}&gt;\n      &lt;DialogTrigger asChild&gt;\n        &lt;Button variant=\&quot;outline\&quot; size=\&quot;sm\&quot;&gt;\n          {triggerLabel}\n        &lt;/Button&gt;\n      &lt;/DialogTrigger&gt;\n      &lt;DialogContent className=\&quot;sm:max-w-lg\&quot;&gt;\n        &lt;DialogHeader&gt;\n          &lt;DialogTitle&gt;Resume a saved draft&lt;/DialogTitle&gt;\n          &lt;DialogDescription&gt;\n            Choose an existing draft to continue or start a new submission.\n          &lt;/DialogDescription&gt;\n        &lt;/DialogHeader&gt;\n        &lt;div className=\&quot;max-h-80 space-y-3 overflow-y-auto py-2 pr-2\&quot;&gt;\n          {drafts.map((draft) =&gt; {\n            const isResuming =\n              resumingId !== null &amp;&amp;\n              (resumingId === draft.applicationId || resumingId === \&quot;new\&quot;);\n            const isDeleting = deletingId === draft.applicationId;\n\n            return (\n              &lt;div\n                key={draft.applicationId}\n                className=\&quot;rounded-lg border border-border/60 p-4\&quot;\n              &gt;\n                &lt;div className=\&quot;flex items-center justify-between gap-4\&quot;&gt;\n                  &lt;div&gt;\n                    &lt;p className=\&quot;text-sm font-semibold\&quot;&gt;\n                      Draft #{draft.applicationId.slice(0, 6).toUpperCase()}\n                    &lt;/p&gt;\n                    &lt;p className=\&quot;text-xs text-muted-foreground\&quot;&gt;\n                      Step {draft.currentStep + 1} · Updated{\&quot; \&quot;}\n                      {formatDistanceToNow(new Date(draft.updatedAt), {\n                        addSuffix: true,\n                      })}\n                    &lt;/p&gt;\n                  &lt;/div&gt;\n                  &lt;div className=\&quot;flex items-center gap-2\&quot;&gt;\n                    &lt;Button\n                      type=\&quot;button\&quot;\n                      size=\&quot;sm\&quot;\n                      onClick={() =&gt; void handleSelect(draft.applicationId)}\n                      disabled={isDeleting || resumingId !== null}\n                    &gt;\n                      {isResuming &amp;&amp; (\n                        &lt;Loader2 className=\&quot;mr-2 size-3 animate-spin\&quot; /&gt;\n                      )}\n                      Resume\n                    &lt;/Button&gt;\n                    &lt;Button\n                      type=\&quot;button\&quot;\n                      variant=\&quot;ghost\&quot;\n                      size=\&quot;icon\&quot;\n                      onClick={() =&gt; void handleDelete(draft.applicationId)}\n                      disabled={isDeleting || resumingId !== null}\n                      aria-label=\&quot;Delete draft\&quot;\n                    &gt;\n                      {isDeleting ? (\n                        &lt;Loader2 className=\&quot;size-4 animate-spin\&quot; /&gt;\n                      ) : (\n                        &lt;Trash2 className=\&quot;size-4 text-muted-foreground\&quot; /&gt;\n                      )}\n                    &lt;/Button&gt;\n                  &lt;/div&gt;\n                &lt;/div&gt;\n              &lt;/div&gt;\n            );\n          })}\n        &lt;/div&gt;\n        &lt;div className=\&quot;flex flex-col gap-3 border-t border-border/60 pt-4\&quot;&gt;\n          {error &amp;&amp; &lt;p className=\&quot;text-sm text-red-600\&quot;&gt;{error}&lt;/p&gt;}\n          &lt;Button\n            type=\&quot;button\&quot;\n            variant=\&quot;secondary\&quot;\n            onClick={() =&gt; void handleSelect(null)}\n            disabled={resumingId !== null}\n          &gt;\n            {resumingId === \&quot;new\&quot; &amp;&amp; (\n              &lt;Loader2 className=\&quot;mr-2 size-3 animate-spin\&quot; /&gt;\n            )}\n            Start new submission\n          &lt;/Button&gt;\n        &lt;/div&gt;\n      &lt;/DialogContent&gt;\n    &lt;/Dialog&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/draft-resume-dialog.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport { useCallback, useState } from \"react\";\nimport { formatDistanceToNow } from \"date-fns\";\nimport { Loader2, Trash2 } from \"lucide-react\";\nimport type { DraftSummary } from \"@/lib/forms/draft-manager\";\nimport {\n  Dialog,\n  DialogContent,\n  DialogDescription,\n  DialogHeader,\n  DialogTitle,\n  DialogTrigger,\n} from \"@/components/ui/dialog\";\nimport { Button } from \"@/components/ui/button\";\n\ninterface DraftResumeDialogProps {\n  drafts: DraftSummary[];\n  open?: boolean;\n  onOpenChange?: (open: boolean) =&gt; void;\n  onSelectDraft: (applicationId: string | null) =&gt; Promise&lt;void&gt; | void;\n  onDeleteDraft: (applicationId: string) =&gt; Promise&lt;void&gt; | void;\n  triggerLabel?: string;\n}\n\nexport function DraftResumeDialog({\n  drafts,\n  open,\n  onOpenChange,\n  onSelectDraft,\n  onDeleteDraft,\n  triggerLabel = \"Resume draft\",\n}: DraftResumeDialogProps) {\n  const [isOpen, setIsOpen] = useState(open ?? false);\n  const [resumingId, setResumingId] = useState&lt;string | null&gt;(null);\n  const [deletingId, setDeletingId] = useState&lt;string | null&gt;(null);\n  const [error, setError] = useState&lt;string | null&gt;(null);\n\n  const handleOpenChange = useCallback(\n    (nextOpen: boolean) =&gt; {\n      setIsOpen(nextOpen);\n      onOpenChange?.(nextOpen);\n      if (!nextOpen) {\n        setError(null);\n      }\n    },\n    [onOpenChange]\n  );\n\n  const handleSelect = useCallback(\n    async (applicationId: string | null) =&gt; {\n      setResumingId(applicationId ?? \"new\");\n      setError(null);\n      try {\n        await onSelectDraft(applicationId);\n        handleOpenChange(false);\n      } catch (err) {\n        console.error(\"Failed to select draft\", err);\n        setError(\n          err instanceof Error ? err.message : \"Failed to resume draft. Try again.\"\n        );\n      } finally {\n        setResumingId(null);\n      }\n    },\n    [handleOpenChange, onSelectDraft]\n  );\n\n  const handleDelete = useCallback(\n    async (applicationId: string) =&gt; {\n      setDeletingId(applicationId);\n      setError(null);\n      try {\n        await onDeleteDraft(applicationId);\n      } catch (err) {\n        console.error(\"Failed to delete draft\", err);\n        setError(\n          err instanceof Error ? err.message : \"Failed to delete draft. Try again.\"\n        );\n      } finally {\n        setDeletingId(null);\n      }\n    },\n    [onDeleteDraft]\n  );\n\n  if (drafts.length === 0) {\n    return null;\n  }\n\n  return (\n    &lt;Dialog open={isOpen} onOpenChange={handleOpenChange}&gt;\n      &lt;DialogTrigger asChild&gt;\n        &lt;Button variant=\"outline\" size=\"sm\"&gt;\n          {triggerLabel}\n        &lt;/Button&gt;\n      &lt;/DialogTrigger&gt;\n      &lt;DialogContent className=\"sm:max-w-lg\"&gt;\n        &lt;DialogHeader&gt;\n          &lt;DialogTitle&gt;Resume a saved draft&lt;/DialogTitle&gt;\n          &lt;DialogDescription&gt;\n            Choose an existing draft to continue or start a new submission.\n          &lt;/DialogDescription&gt;\n        &lt;/DialogHeader&gt;\n        &lt;div className=\"max-h-80 space-y-3 overflow-y-auto py-2 pr-2\"&gt;\n          {drafts.map((draft) =&gt; {\n            const isResuming =\n              resumingId !== null &amp;&amp;\n              (resumingId === draft.applicationId || resumingId === \"new\");\n            const isDeleting = deletingId === draft.applicationId;\n\n            return (\n              &lt;div\n                key={draft.applicationId}\n                className=\"rounded-lg border border-border/60 p-4\"\n              &gt;\n                &lt;div className=\"flex items-center justify-between gap-4\"&gt;\n                  &lt;div&gt;\n                    &lt;p className=\"text-sm font-semibold\"&gt;\n                      Draft #{draft.applicationId.slice(0, 6).toUpperCase()}\n                    &lt;/p&gt;\n                    &lt;p className=\"text-xs text-muted-foreground\"&gt;\n                      Step {draft.currentStep + 1} · Updated{\" \"}\n                      {formatDistanceToNow(new Date(draft.updatedAt), {\n                        addSuffix: true,\n                      })}\n                    &lt;/p&gt;\n                  &lt;/div&gt;\n                  &lt;div className=\"flex items-center gap-2\"&gt;\n                    &lt;Button\n                      type=\"button\"\n                      size=\"sm\"\n                      onClick={() =&gt; void handleSelect(draft.applicationId)}\n                      disabled={isDeleting || resumingId !== null}\n                    &gt;\n                      {isResuming &amp;&amp; (\n                        &lt;Loader2 className=\"mr-2 size-3 animate-spin\" /&gt;\n                      )}\n                      Resume\n                    &lt;/Button&gt;\n                    &lt;Button\n                      type=\"button\"\n                      variant=\"ghost\"\n                      size=\"icon\"\n                      onClick={() =&gt; void handleDelete(draft.applicationId)}\n                      disabled={isDeleting || resumingId !== null}\n                      aria-label=\"Delete draft\"\n                    &gt;\n                      {isDeleting ? (\n                        &lt;Loader2 className=\"size-4 animate-spin\" /&gt;\n                      ) : (\n                        &lt;Trash2 className=\"size-4 text-muted-foreground\" /&gt;\n                      )}\n                    &lt;/Button&gt;\n                  &lt;/div&gt;\n                &lt;/div&gt;\n              &lt;/div&gt;\n            );\n          })}\n        &lt;/div&gt;\n        &lt;div className=\"flex flex-col gap-3 border-t border-border/60 pt-4\"&gt;\n          {error &amp;&amp; &lt;p className=\"text-sm text-red-600\"&gt;{error}&lt;/p&gt;}\n          &lt;Button\n            type=\"button\"\n            variant=\"secondary\"\n            onClick={() =&gt; void handleSelect(null)}\n            disabled={resumingId !== null}\n          &gt;\n            {resumingId === \"new\" &amp;&amp; (\n              &lt;Loader2 className=\"mr-2 size-3 animate-spin\" /&gt;\n            )}\n            Start new submission\n          &lt;/Button&gt;\n        &lt;/div&gt;\n      &lt;/DialogContent&gt;\n    &lt;/Dialog&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -3099,19 +3099,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/dynamic-form-wizard.tsx&quot;
+  "relativeWorkspacePath": "components/forms/dynamic-form-wizard.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;e9771f15-47fd-4fd6-9ede-8975e423f204&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "e9771f15-47fd-4fd6-9ede-8975e423f204",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -3119,23 +3119,23 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;    useEffect(() =&gt; {\n      return () =&gt; {\n-       Object.values(validationTimersRef.current).forEach((timer) =&gt; {\n+       const timers = validationTimersRef.current;\n+       Object.values(timers).forEach((timer) =&gt; {\n          clearTimeout(timer);\n        });&quot;,
-        &quot;oldStart&quot;: 317,
-        &quot;newStart&quot;: 317,
-        &quot;oldLines&quot;: 5,
-        &quot;newLines&quot;: 6,
-        &quot;linesRemoved&quot;: 1,
-        &quot;linesAdded&quot;: 2
+        "diffString": "    useEffect(() =&gt; {\n      return () =&gt; {\n-       Object.values(validationTimersRef.current).forEach((timer) =&gt; {\n+       const timers = validationTimersRef.current;\n+       Object.values(timers).forEach((timer) =&gt; {\n          clearTimeout(timer);\n        });",
+        "oldStart": 317,
+        "newStart": 317,
+        "oldLines": 5,
+        "newLines": 6,
+        "linesRemoved": 1,
+        "linesAdded": 2
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/dynamic-form-wizard.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport { useState, useCallback, useRef, useEffect } from \&quot;react\&quot;;\nimport type { FormConfigWithFields } from \&quot;@/lib/forms/types\&quot;;\nimport { validateStep, getStepFieldKeys } from \&quot;@/lib/forms/form-validator\&quot;;\nimport { buildFormSchema } from \&quot;@/lib/form-schema\&quot;;\nimport { StepIndicator } from \&quot;./step-indicator\&quot;;\nimport { FormStep } from \&quot;./form-step\&quot;;\nimport { FormNavigation } from \&quot;./form-navigation\&quot;;\nimport { FormErrorSummary } from \&quot;./form-error-summary\&quot;;\nimport { usePrefersReducedMotion } from \&quot;@/hooks/use-prefers-reduced-motion\&quot;;\nimport { useToast } from \&quot;@/components/ui/use-toast\&quot;;\nimport { cn } from \&quot;@/lib/utils\&quot;;\nimport type { DraftStatus } from \&quot;./draft-save-indicator\&quot;;\n\ninterface DynamicFormWizardProps {\n  formConfig: FormConfigWithFields;\n  initialData?: Record&lt;string, unknown&gt;;\n  onStepChange?: (stepIndex: number) =&gt; void;\n  onComplete?: (formData: Record&lt;string, unknown&gt;) =&gt; void;\n  onSaveDraft?: (formData: Record&lt;string, unknown&gt;) =&gt; void;\n}\n\nexport function DynamicFormWizard({\n  formConfig,\n  initialData = {},\n  onStepChange,\n  onComplete,\n  onSaveDraft,\n}: DynamicFormWizardProps) {\n  const sortedSections = [...formConfig.sections].sort(\n    (a, b) =&gt; a.order - b.order\n  );\n\n  const [currentStep, setCurrentStep] = useState(0);\n  const [formData, setFormData] = useState&lt;Record&lt;string, unknown&gt;&gt;(\n    initialData\n  );\n  const [completedSteps, setCompletedSteps] = useState&lt;Set&lt;number&gt;&gt;(\n    new Set()\n  );\n  const [errors, setErrors] = useState&lt;Record&lt;string, string&gt;&gt;({});\n  const [touched, setTouched] = useState&lt;Record&lt;string, boolean&gt;&gt;({});\n  const [isSubmitting, setIsSubmitting] = useState(false);\n  const [isSavingDraft, setIsSavingDraft] = useState(false);\n  const [draftStatus, setDraftStatus] = useState&lt;DraftStatus&gt;(\&quot;idle\&quot;);\n  const [draftError, setDraftError] = useState&lt;string | null&gt;(null);\n  const [lastSavedAt, setLastSavedAt] = useState&lt;Date | null&gt;(null);\n  const [liveMessage, setLiveMessage] = useState(\&quot;\&quot;);\n  const validationTimersRef = useRef&lt;Record&lt;string, NodeJS.Timeout&gt;&gt;({});\n  const formSchemaRef = useRef(buildFormSchema(formConfig));\n  const prefersReducedMotion = usePrefersReducedMotion();\n  const { toast } = useToast();\n\n  const totalSteps = sortedSections.length;\n  const currentSection = sortedSections[currentStep];\n  const isFirstStep = currentStep === 0;\n  const isLastStep = currentStep === totalSteps - 1;\n\n  // Rebuild schema if form config changes\n  useEffect(() =&gt; {\n    formSchemaRef.current = buildFormSchema(formConfig);\n  }, [formConfig]);\n\n  /**\n   * Validate a single field with debouncing\n   */\n  const validateField = useCallback(\n    (fieldKey: string, value: unknown, immediate = false) =&gt; {\n      // Clear existing timer for this field\n      if (validationTimersRef.current[fieldKey]) {\n        clearTimeout(validationTimersRef.current[fieldKey]);\n      }\n\n      const performValidation = () =&gt; {\n        const fieldSchema = formSchemaRef.current.shape[fieldKey];\n        if (!fieldSchema) {\n          return;\n        }\n\n        try {\n          fieldSchema.parse(value);\n          // Clear error if validation passes\n          setErrors((prev) =&gt; {\n            const next = { ...prev };\n            delete next[fieldKey];\n            return next;\n          });\n        } catch (error) {\n          if (error &amp;&amp; typeof error === \&quot;object\&quot; &amp;&amp; \&quot;issues\&quot; in error) {\n            const zodError = error as { issues: Array&lt;{ message: string }&gt; };\n            const firstIssue = zodError.issues[0];\n            if (firstIssue) {\n              setErrors((prev) =&gt; ({\n                ...prev,\n                [fieldKey]: firstIssue.message,\n              }));\n            }\n          } else if (error instanceof Error) {\n            setErrors((prev) =&gt; ({\n              ...prev,\n              [fieldKey]: error.message,\n            }));\n          }\n        }\n      };\n\n      if (immediate) {\n        performValidation();\n      } else {\n        // Debounce validation on change (300ms)\n        validationTimersRef.current[fieldKey] = setTimeout(performValidation, 300);\n      }\n    },\n    []\n  );\n\n  const handleFieldChange = useCallback(\n    (fieldKey: string, value: unknown) =&gt; {\n      setFormData((prev) =&gt; ({\n        ...prev,\n        [fieldKey]: value,\n      }));\n\n      // Validate on change with debounce (only if field has been touched)\n      if (touched[fieldKey]) {\n        validateField(fieldKey, value, false);\n      }\n    },\n    [touched, validateField]\n  );\n\n  const handleFieldBlur = useCallback(\n    (fieldKey: string) =&gt; {\n      setTouched((prev) =&gt; ({\n        ...prev,\n        [fieldKey]: true,\n      }));\n\n      // Validate immediately on blur\n      const value = formData[fieldKey];\n      validateField(fieldKey, value, true);\n    },\n    [formData, validateField]\n  );\n\n  /**\n   * Validate current step using the validation utilities\n   */\n  const validateCurrentStep = useCallback((): boolean =&gt; {\n    const stepResult = validateStep(currentStep, formData, formConfig);\n\n    if (!stepResult.isValid) {\n      // Update errors for current step fields only\n      const stepFieldKeys = getStepFieldKeys(currentStep, formConfig);\n      setErrors((prev) =&gt; {\n        const next = { ...prev };\n        // Clear errors for fields not in current step\n        stepFieldKeys.forEach((key) =&gt; {\n          if (stepResult.errors[key]) {\n            next[key] = stepResult.errors[key];\n          } else {\n            delete next[key];\n          }\n        });\n        return next;\n      });\n\n      // Mark all fields in step as touched\n      setTouched((prev) =&gt; {\n        const next = { ...prev };\n        stepFieldKeys.forEach((key) =&gt; {\n          next[key] = true;\n        });\n        return next;\n      });\n\n      // Focus first error field\n      if (stepResult.firstErrorField) {\n        // Find the field by key to get its ID\n        const errorField = currentSection.fields.find(\n          (f) =&gt; f.key === stepResult.firstErrorField\n        );\n        if (errorField) {\n          // Field components use &#96;field-${field.id}&#96; as the ID\n          const fieldElement = document.getElementById(&#96;field-${errorField.id}&#96;);\n          if (fieldElement) {\n            fieldElement.focus();\n            fieldElement.scrollIntoView({ behavior: \&quot;smooth\&quot;, block: \&quot;center\&quot; });\n          }\n        }\n      }\n    }\n\n    return stepResult.isValid;\n  }, [currentStep, formData, formConfig, currentSection]);\n\n  const handleNext = useCallback(async () =&gt; {\n    if (isSubmitting) {\n      return;\n    }\n\n    const isStepValid = validateCurrentStep();\n    if (!isStepValid) {\n      toast({\n        variant: \&quot;destructive\&quot;,\n        title: \&quot;Please fix validation errors\&quot;,\n        description: \&quot;Resolve highlighted fields before continuing.\&quot;,\n      });\n      return;\n    }\n\n    setCompletedSteps((prev) =&gt; new Set(prev).add(currentStep));\n\n    if (isLastStep) {\n      if (!onComplete) {\n        return;\n      }\n      try {\n        setIsSubmitting(true);\n        await onComplete(formData);\n        toast({\n          title: \&quot;Form submitted\&quot;,\n          description: \&quot;Thanks! We received your information.\&quot;,\n        });\n      } catch (error) {\n        toast({\n          variant: \&quot;destructive\&quot;,\n          title: \&quot;Submission failed\&quot;,\n          description:\n            error instanceof Error\n              ? error.message\n              : \&quot;Something went wrong while submitting. Please try again.\&quot;,\n        });\n      } finally {\n        setIsSubmitting(false);\n      }\n    } else {\n      const nextStep = currentStep + 1;\n      setCurrentStep(nextStep);\n      onStepChange?.(nextStep);\n    }\n  }, [\n    currentStep,\n    formData,\n    isLastStep,\n    isSubmitting,\n    onComplete,\n    onStepChange,\n    toast,\n    validateCurrentStep,\n  ]);\n\n  const handlePrevious = useCallback(() =&gt; {\n    if (!isFirstStep) {\n      const prevStep = currentStep - 1;\n      setCurrentStep(prevStep);\n      onStepChange?.(prevStep);\n    }\n  }, [currentStep, isFirstStep, onStepChange]);\n\n  const handleStepClick = useCallback(\n    (stepIndex: number) =&gt; {\n      // Validate current step before allowing navigation\n      if (stepIndex !== currentStep) {\n        if (!validateCurrentStep()) {\n          return; // Don&#39;t allow navigation if current step is invalid\n        }\n      }\n\n      // Allow navigation to completed steps or the next step\n      if (completedSteps.has(stepIndex) || stepIndex === currentStep + 1) {\n        setCurrentStep(stepIndex);\n        onStepChange?.(stepIndex);\n      }\n    },\n    [completedSteps, currentStep, onStepChange, validateCurrentStep]\n  );\n\n  const handleSaveDraft = useCallback(async () =&gt; {\n    if (!onSaveDraft || isSavingDraft) {\n      return;\n    }\n    try {\n      setIsSavingDraft(true);\n      setDraftStatus(\&quot;saving\&quot;);\n      setDraftError(null);\n      await onSaveDraft(formData);\n      setDraftStatus(\&quot;success\&quot;);\n      const savedAt = new Date();\n      setLastSavedAt(savedAt);\n      toast({\n        title: \&quot;Draft saved\&quot;,\n        description: &#96;Progress saved at ${savedAt.toLocaleTimeString([], {\n          hour: \&quot;numeric\&quot;,\n          minute: \&quot;2-digit\&quot;,\n        })}&#96;,\n      });\n    } catch (error) {\n      setDraftStatus(\&quot;error\&quot;);\n      const message =\n        error instanceof Error\n          ? error.message\n          : \&quot;Unable to save your draft right now.\&quot;;\n      setDraftError(message);\n      toast({\n        variant: \&quot;destructive\&quot;,\n        title: \&quot;Draft not saved\&quot;,\n        description: message,\n      });\n    } finally {\n      setIsSavingDraft(false);\n    }\n  }, [formData, isSavingDraft, onSaveDraft, toast]);\n\n  // Cleanup timers on unmount\n  useEffect(() =&gt; {\n    return () =&gt; {\n      const timers = validationTimersRef.current;\n      Object.values(timers).forEach((timer) =&gt; {\n        clearTimeout(timer);\n      });\n    };\n  }, []);\n\n  const progress = totalSteps &gt; 0 ? ((currentStep + 1) / totalSteps) * 100 : 0;\n\n  useEffect(() =&gt; {\n    const sectionLabel = currentSection?.label ?? &#96;Step ${currentStep + 1}&#96;;\n    setLiveMessage(&#96;Now viewing ${sectionLabel} (${currentStep + 1} of ${totalSteps})&#96;);\n  }, [currentSection, currentStep, totalSteps]);\n\n  return (\n    &lt;div className=\&quot;flex flex-col gap-6 pb-32 sm:pb-12\&quot;&gt;\n      &lt;StepIndicator\n        steps={sortedSections.map((section, index) =&gt; ({\n          id: section.id,\n          label: section.label,\n          order: section.order,\n        }))}\n        currentStep={currentStep}\n        completedSteps={completedSteps}\n        onStepClick={handleStepClick}\n      /&gt;\n\n      &lt;div\n        className={cn(\n          \&quot;min-h-[400px] space-y-6 rounded-3xl border border-border/60 bg-background/70 p-4 shadow-lg sm:p-8\&quot;,\n          !prefersReducedMotion &amp;&amp; \&quot;transition-shadow duration-300\&quot;\n        )}\n      &gt;\n        {/* Error summary for current step */}\n        {(() =&gt; {\n          const stepFieldKeys = getStepFieldKeys(currentStep, formConfig);\n          const stepErrors: Record&lt;string, string&gt; = {};\n          stepFieldKeys.forEach((key) =&gt; {\n            if (errors[key] &amp;&amp; touched[key]) {\n              stepErrors[key] = errors[key];\n            }\n          });\n\n          if (Object.keys(stepErrors).length &gt; 0) {\n            return (\n              &lt;FormErrorSummary\n                errors={stepErrors}\n                onErrorClick={(fieldKey) =&gt; {\n                  // Find the field by key to get its ID\n                  const errorField = currentSection.fields.find(\n                    (f) =&gt; f.key === fieldKey\n                  );\n                  if (errorField) {\n                    // Field components use &#96;field-${field.id}&#96; as the ID\n                    const fieldElement = document.getElementById(&#96;field-${errorField.id}&#96;);\n                    if (fieldElement) {\n                      fieldElement.focus();\n                      fieldElement.scrollIntoView({\n                        behavior: \&quot;smooth\&quot;,\n                        block: \&quot;center\&quot;,\n                      });\n                    }\n                  }\n                }}\n              /&gt;\n            );\n          }\n          return null;\n        })()}\n\n        &lt;FormStep\n          section={currentSection}\n          formData={formData}\n          errors={errors}\n          touched={touched}\n          onFieldChange={handleFieldChange}\n          onFieldBlur={handleFieldBlur}\n        /&gt;\n      &lt;/div&gt;\n\n      &lt;FormNavigation\n        isFirstStep={isFirstStep}\n        isLastStep={isLastStep}\n        onNext={handleNext}\n        onPrevious={handlePrevious}\n        onSaveDraft={handleSaveDraft}\n        progress={progress}\n        isSubmitting={isSubmitting}\n        isSavingDraft={isSavingDraft}\n        draftStatus={draftStatus}\n        draftError={draftError}\n        lastSavedAt={lastSavedAt}\n      /&gt;\n      &lt;p role=\&quot;status\&quot; aria-live=\&quot;polite\&quot; className=\&quot;sr-only\&quot;&gt;\n        {liveMessage}\n      &lt;/p&gt;\n    &lt;/div&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/dynamic-form-wizard.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport { useState, useCallback, useRef, useEffect } from \"react\";\nimport type { FormConfigWithFields } from \"@/lib/forms/types\";\nimport { validateStep, getStepFieldKeys } from \"@/lib/forms/form-validator\";\nimport { buildFormSchema } from \"@/lib/form-schema\";\nimport { StepIndicator } from \"./step-indicator\";\nimport { FormStep } from \"./form-step\";\nimport { FormNavigation } from \"./form-navigation\";\nimport { FormErrorSummary } from \"./form-error-summary\";\nimport { usePrefersReducedMotion } from \"@/hooks/use-prefers-reduced-motion\";\nimport { useToast } from \"@/components/ui/use-toast\";\nimport { cn } from \"@/lib/utils\";\nimport type { DraftStatus } from \"./draft-save-indicator\";\n\ninterface DynamicFormWizardProps {\n  formConfig: FormConfigWithFields;\n  initialData?: Record&lt;string, unknown&gt;;\n  onStepChange?: (stepIndex: number) =&gt; void;\n  onComplete?: (formData: Record&lt;string, unknown&gt;) =&gt; void;\n  onSaveDraft?: (formData: Record&lt;string, unknown&gt;) =&gt; void;\n}\n\nexport function DynamicFormWizard({\n  formConfig,\n  initialData = {},\n  onStepChange,\n  onComplete,\n  onSaveDraft,\n}: DynamicFormWizardProps) {\n  const sortedSections = [...formConfig.sections].sort(\n    (a, b) =&gt; a.order - b.order\n  );\n\n  const [currentStep, setCurrentStep] = useState(0);\n  const [formData, setFormData] = useState&lt;Record&lt;string, unknown&gt;&gt;(\n    initialData\n  );\n  const [completedSteps, setCompletedSteps] = useState&lt;Set&lt;number&gt;&gt;(\n    new Set()\n  );\n  const [errors, setErrors] = useState&lt;Record&lt;string, string&gt;&gt;({});\n  const [touched, setTouched] = useState&lt;Record&lt;string, boolean&gt;&gt;({});\n  const [isSubmitting, setIsSubmitting] = useState(false);\n  const [isSavingDraft, setIsSavingDraft] = useState(false);\n  const [draftStatus, setDraftStatus] = useState&lt;DraftStatus&gt;(\"idle\");\n  const [draftError, setDraftError] = useState&lt;string | null&gt;(null);\n  const [lastSavedAt, setLastSavedAt] = useState&lt;Date | null&gt;(null);\n  const [liveMessage, setLiveMessage] = useState(\"\");\n  const validationTimersRef = useRef&lt;Record&lt;string, NodeJS.Timeout&gt;&gt;({});\n  const formSchemaRef = useRef(buildFormSchema(formConfig));\n  const prefersReducedMotion = usePrefersReducedMotion();\n  const { toast } = useToast();\n\n  const totalSteps = sortedSections.length;\n  const currentSection = sortedSections[currentStep];\n  const isFirstStep = currentStep === 0;\n  const isLastStep = currentStep === totalSteps - 1;\n\n  // Rebuild schema if form config changes\n  useEffect(() =&gt; {\n    formSchemaRef.current = buildFormSchema(formConfig);\n  }, [formConfig]);\n\n  /**\n   * Validate a single field with debouncing\n   */\n  const validateField = useCallback(\n    (fieldKey: string, value: unknown, immediate = false) =&gt; {\n      // Clear existing timer for this field\n      if (validationTimersRef.current[fieldKey]) {\n        clearTimeout(validationTimersRef.current[fieldKey]);\n      }\n\n      const performValidation = () =&gt; {\n        const fieldSchema = formSchemaRef.current.shape[fieldKey];\n        if (!fieldSchema) {\n          return;\n        }\n\n        try {\n          fieldSchema.parse(value);\n          // Clear error if validation passes\n          setErrors((prev) =&gt; {\n            const next = { ...prev };\n            delete next[fieldKey];\n            return next;\n          });\n        } catch (error) {\n          if (error &amp;&amp; typeof error === \"object\" &amp;&amp; \"issues\" in error) {\n            const zodError = error as { issues: Array&lt;{ message: string }&gt; };\n            const firstIssue = zodError.issues[0];\n            if (firstIssue) {\n              setErrors((prev) =&gt; ({\n                ...prev,\n                [fieldKey]: firstIssue.message,\n              }));\n            }\n          } else if (error instanceof Error) {\n            setErrors((prev) =&gt; ({\n              ...prev,\n              [fieldKey]: error.message,\n            }));\n          }\n        }\n      };\n\n      if (immediate) {\n        performValidation();\n      } else {\n        // Debounce validation on change (300ms)\n        validationTimersRef.current[fieldKey] = setTimeout(performValidation, 300);\n      }\n    },\n    []\n  );\n\n  const handleFieldChange = useCallback(\n    (fieldKey: string, value: unknown) =&gt; {\n      setFormData((prev) =&gt; ({\n        ...prev,\n        [fieldKey]: value,\n      }));\n\n      // Validate on change with debounce (only if field has been touched)\n      if (touched[fieldKey]) {\n        validateField(fieldKey, value, false);\n      }\n    },\n    [touched, validateField]\n  );\n\n  const handleFieldBlur = useCallback(\n    (fieldKey: string) =&gt; {\n      setTouched((prev) =&gt; ({\n        ...prev,\n        [fieldKey]: true,\n      }));\n\n      // Validate immediately on blur\n      const value = formData[fieldKey];\n      validateField(fieldKey, value, true);\n    },\n    [formData, validateField]\n  );\n\n  /**\n   * Validate current step using the validation utilities\n   */\n  const validateCurrentStep = useCallback((): boolean =&gt; {\n    const stepResult = validateStep(currentStep, formData, formConfig);\n\n    if (!stepResult.isValid) {\n      // Update errors for current step fields only\n      const stepFieldKeys = getStepFieldKeys(currentStep, formConfig);\n      setErrors((prev) =&gt; {\n        const next = { ...prev };\n        // Clear errors for fields not in current step\n        stepFieldKeys.forEach((key) =&gt; {\n          if (stepResult.errors[key]) {\n            next[key] = stepResult.errors[key];\n          } else {\n            delete next[key];\n          }\n        });\n        return next;\n      });\n\n      // Mark all fields in step as touched\n      setTouched((prev) =&gt; {\n        const next = { ...prev };\n        stepFieldKeys.forEach((key) =&gt; {\n          next[key] = true;\n        });\n        return next;\n      });\n\n      // Focus first error field\n      if (stepResult.firstErrorField) {\n        // Find the field by key to get its ID\n        const errorField = currentSection.fields.find(\n          (f) =&gt; f.key === stepResult.firstErrorField\n        );\n        if (errorField) {\n          // Field components use &#96;field-${field.id}&#96; as the ID\n          const fieldElement = document.getElementById(&#96;field-${errorField.id}&#96;);\n          if (fieldElement) {\n            fieldElement.focus();\n            fieldElement.scrollIntoView({ behavior: \"smooth\", block: \"center\" });\n          }\n        }\n      }\n    }\n\n    return stepResult.isValid;\n  }, [currentStep, formData, formConfig, currentSection]);\n\n  const handleNext = useCallback(async () =&gt; {\n    if (isSubmitting) {\n      return;\n    }\n\n    const isStepValid = validateCurrentStep();\n    if (!isStepValid) {\n      toast({\n        variant: \"destructive\",\n        title: \"Please fix validation errors\",\n        description: \"Resolve highlighted fields before continuing.\",\n      });\n      return;\n    }\n\n    setCompletedSteps((prev) =&gt; new Set(prev).add(currentStep));\n\n    if (isLastStep) {\n      if (!onComplete) {\n        return;\n      }\n      try {\n        setIsSubmitting(true);\n        await onComplete(formData);\n        toast({\n          title: \"Form submitted\",\n          description: \"Thanks! We received your information.\",\n        });\n      } catch (error) {\n        toast({\n          variant: \"destructive\",\n          title: \"Submission failed\",\n          description:\n            error instanceof Error\n              ? error.message\n              : \"Something went wrong while submitting. Please try again.\",\n        });\n      } finally {\n        setIsSubmitting(false);\n      }\n    } else {\n      const nextStep = currentStep + 1;\n      setCurrentStep(nextStep);\n      onStepChange?.(nextStep);\n    }\n  }, [\n    currentStep,\n    formData,\n    isLastStep,\n    isSubmitting,\n    onComplete,\n    onStepChange,\n    toast,\n    validateCurrentStep,\n  ]);\n\n  const handlePrevious = useCallback(() =&gt; {\n    if (!isFirstStep) {\n      const prevStep = currentStep - 1;\n      setCurrentStep(prevStep);\n      onStepChange?.(prevStep);\n    }\n  }, [currentStep, isFirstStep, onStepChange]);\n\n  const handleStepClick = useCallback(\n    (stepIndex: number) =&gt; {\n      // Validate current step before allowing navigation\n      if (stepIndex !== currentStep) {\n        if (!validateCurrentStep()) {\n          return; // Don't allow navigation if current step is invalid\n        }\n      }\n\n      // Allow navigation to completed steps or the next step\n      if (completedSteps.has(stepIndex) || stepIndex === currentStep + 1) {\n        setCurrentStep(stepIndex);\n        onStepChange?.(stepIndex);\n      }\n    },\n    [completedSteps, currentStep, onStepChange, validateCurrentStep]\n  );\n\n  const handleSaveDraft = useCallback(async () =&gt; {\n    if (!onSaveDraft || isSavingDraft) {\n      return;\n    }\n    try {\n      setIsSavingDraft(true);\n      setDraftStatus(\"saving\");\n      setDraftError(null);\n      await onSaveDraft(formData);\n      setDraftStatus(\"success\");\n      const savedAt = new Date();\n      setLastSavedAt(savedAt);\n      toast({\n        title: \"Draft saved\",\n        description: &#96;Progress saved at ${savedAt.toLocaleTimeString([], {\n          hour: \"numeric\",\n          minute: \"2-digit\",\n        })}&#96;,\n      });\n    } catch (error) {\n      setDraftStatus(\"error\");\n      const message =\n        error instanceof Error\n          ? error.message\n          : \"Unable to save your draft right now.\";\n      setDraftError(message);\n      toast({\n        variant: \"destructive\",\n        title: \"Draft not saved\",\n        description: message,\n      });\n    } finally {\n      setIsSavingDraft(false);\n    }\n  }, [formData, isSavingDraft, onSaveDraft, toast]);\n\n  // Cleanup timers on unmount\n  useEffect(() =&gt; {\n    return () =&gt; {\n      const timers = validationTimersRef.current;\n      Object.values(timers).forEach((timer) =&gt; {\n        clearTimeout(timer);\n      });\n    };\n  }, []);\n\n  const progress = totalSteps &gt; 0 ? ((currentStep + 1) / totalSteps) * 100 : 0;\n\n  useEffect(() =&gt; {\n    const sectionLabel = currentSection?.label ?? &#96;Step ${currentStep + 1}&#96;;\n    setLiveMessage(&#96;Now viewing ${sectionLabel} (${currentStep + 1} of ${totalSteps})&#96;);\n  }, [currentSection, currentStep, totalSteps]);\n\n  return (\n    &lt;div className=\"flex flex-col gap-6 pb-32 sm:pb-12\"&gt;\n      &lt;StepIndicator\n        steps={sortedSections.map((section, index) =&gt; ({\n          id: section.id,\n          label: section.label,\n          order: section.order,\n        }))}\n        currentStep={currentStep}\n        completedSteps={completedSteps}\n        onStepClick={handleStepClick}\n      /&gt;\n\n      &lt;div\n        className={cn(\n          \"min-h-[400px] space-y-6 rounded-3xl border border-border/60 bg-background/70 p-4 shadow-lg sm:p-8\",\n          !prefersReducedMotion &amp;&amp; \"transition-shadow duration-300\"\n        )}\n      &gt;\n        {/* Error summary for current step */}\n        {(() =&gt; {\n          const stepFieldKeys = getStepFieldKeys(currentStep, formConfig);\n          const stepErrors: Record&lt;string, string&gt; = {};\n          stepFieldKeys.forEach((key) =&gt; {\n            if (errors[key] &amp;&amp; touched[key]) {\n              stepErrors[key] = errors[key];\n            }\n          });\n\n          if (Object.keys(stepErrors).length &gt; 0) {\n            return (\n              &lt;FormErrorSummary\n                errors={stepErrors}\n                onErrorClick={(fieldKey) =&gt; {\n                  // Find the field by key to get its ID\n                  const errorField = currentSection.fields.find(\n                    (f) =&gt; f.key === fieldKey\n                  );\n                  if (errorField) {\n                    // Field components use &#96;field-${field.id}&#96; as the ID\n                    const fieldElement = document.getElementById(&#96;field-${errorField.id}&#96;);\n                    if (fieldElement) {\n                      fieldElement.focus();\n                      fieldElement.scrollIntoView({\n                        behavior: \"smooth\",\n                        block: \"center\",\n                      });\n                    }\n                  }\n                }}\n              /&gt;\n            );\n          }\n          return null;\n        })()}\n\n        &lt;FormStep\n          section={currentSection}\n          formData={formData}\n          errors={errors}\n          touched={touched}\n          onFieldChange={handleFieldChange}\n          onFieldBlur={handleFieldBlur}\n        /&gt;\n      &lt;/div&gt;\n\n      &lt;FormNavigation\n        isFirstStep={isFirstStep}\n        isLastStep={isLastStep}\n        onNext={handleNext}\n        onPrevious={handlePrevious}\n        onSaveDraft={handleSaveDraft}\n        progress={progress}\n        isSubmitting={isSubmitting}\n        isSavingDraft={isSavingDraft}\n        draftStatus={draftStatus}\n        draftError={draftError}\n        lastSavedAt={lastSavedAt}\n      /&gt;\n      &lt;p role=\"status\" aria-live=\"polite\" className=\"sr-only\"&gt;\n        {liveMessage}\n      &lt;/p&gt;\n    &lt;/div&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -3162,19 +3162,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/field-input-radio.tsx&quot;
+  "relativeWorkspacePath": "components/forms/field-input-radio.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;c9fda332-4f78-4bc1-82a0-f1e0cf707292&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "c9fda332-4f78-4bc1-82a0-f1e0cf707292",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -3182,22 +3182,22 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;                  onBlur={onBlur}\n                  disabled={disabled}\n-                 required={field.required}\n-                 aria-invalid={hasError}\n                  aria-describedby={describedBy}\n-                 aria-required={field.required}\n                  className={cn(\n                    \&quot;h-4 w-4 border border-input shadow-xs transition-colors\&quot;,&quot;,
-        &quot;oldStart&quot;: 74,
-        &quot;newStart&quot;: 74,
-        &quot;oldLines&quot;: 8,
-        &quot;newLines&quot;: 5,
-        &quot;linesRemoved&quot;: 3
+        "diffString": "                  onBlur={onBlur}\n                  disabled={disabled}\n-                 required={field.required}\n-                 aria-invalid={hasError}\n                  aria-describedby={describedBy}\n-                 aria-required={field.required}\n                  className={cn(\n                    \"h-4 w-4 border border-input shadow-xs transition-colors\",",
+        "oldStart": 74,
+        "newStart": 74,
+        "oldLines": 8,
+        "newLines": 5,
+        "linesRemoved": 3
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/field-input-radio.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport * as React from \&quot;react\&quot;;\nimport { Label } from \&quot;@/components/ui/label\&quot;;\nimport { FieldWrapper } from \&quot;./field-wrapper\&quot;;\nimport { cn } from \&quot;@/lib/utils\&quot;;\nimport type { FormField } from \&quot;@prisma/client\&quot;;\n\ninterface FieldInputRadioProps {\n  field: FormField;\n  value: string;\n  onChange: (value: string) =&gt; void;\n  onBlur?: () =&gt; void;\n  error?: string;\n  disabled?: boolean;\n  touched?: boolean;\n}\n\n/**\n * Radio group field component\n */\nexport function FieldInputRadio({\n  field,\n  value,\n  onChange,\n  onBlur,\n  error,\n  disabled,\n  touched = true,\n}: FieldInputRadioProps) {\n  const fieldId = &#96;field-${field.id}&#96;;\n  const hasError = Boolean(error);\n  const describedBy = [\n    hasError ? &#96;${fieldId}-error&#96; : null,\n    field.helpText ? &#96;${fieldId}-help&#96; : null,\n  ]\n    .filter(Boolean)\n    .join(\&quot; \&quot;) || undefined;\n\n  // Extract options from field.options JSON\n  const options = React.useMemo(() =&gt; {\n    if (!field.options || typeof field.options !== \&quot;object\&quot;) return [];\n    const optionsObj = field.options as Record&lt;string, unknown&gt;;\n    if (\&quot;values\&quot; in optionsObj &amp;&amp; Array.isArray(optionsObj.values)) {\n      return optionsObj.values.filter(\n        (v): v is string =&gt; typeof v === \&quot;string\&quot;\n      );\n    }\n    return [];\n  }, [field.options]);\n\n  return (\n    &lt;FieldWrapper field={field} error={error} touched={touched}&gt;\n      &lt;div\n        className=\&quot;space-y-2\&quot;\n        role=\&quot;radiogroup\&quot;\n        aria-labelledby={&#96;${fieldId}-label&#96;}\n        aria-describedby={describedBy}\n        aria-invalid={hasError}\n        aria-required={field.required}\n      &gt;\n        {options.map((option) =&gt; {\n          const optionId = &#96;${fieldId}-${option}&#96;;\n          const isChecked = value === option;\n          return (\n            &lt;div key={option} className=\&quot;flex items-center space-x-2\&quot;&gt;\n              &lt;input\n                id={optionId}\n                type=\&quot;radio\&quot;\n                name={fieldId}\n                value={option}\n                checked={isChecked}\n                onChange={(e) =&gt; onChange(e.target.value)}\n                onBlur={onBlur}\n                disabled={disabled}\n                aria-describedby={describedBy}\n                className={cn(\n                  \&quot;h-4 w-4 border border-input shadow-xs transition-colors\&quot;,\n                  \&quot;focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2\&quot;,\n                  \&quot;disabled:cursor-not-allowed disabled:opacity-50\&quot;,\n                  hasError &amp;&amp; \&quot;border-destructive\&quot;,\n                  \&quot;checked:bg-primary checked:border-primary\&quot;\n                )}\n              /&gt;\n              &lt;label\n                htmlFor={optionId}\n                className={cn(\n                  \&quot;text-sm font-normal leading-none cursor-pointer\&quot;,\n                  \&quot;peer-disabled:cursor-not-allowed peer-disabled:opacity-70\&quot;\n                )}\n              &gt;\n                {option}\n              &lt;/label&gt;\n            &lt;/div&gt;\n          );\n        })}\n      &lt;/div&gt;\n    &lt;/FieldWrapper&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/field-input-radio.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport * as React from \"react\";\nimport { Label } from \"@/components/ui/label\";\nimport { FieldWrapper } from \"./field-wrapper\";\nimport { cn } from \"@/lib/utils\";\nimport type { FormField } from \"@prisma/client\";\n\ninterface FieldInputRadioProps {\n  field: FormField;\n  value: string;\n  onChange: (value: string) =&gt; void;\n  onBlur?: () =&gt; void;\n  error?: string;\n  disabled?: boolean;\n  touched?: boolean;\n}\n\n/**\n * Radio group field component\n */\nexport function FieldInputRadio({\n  field,\n  value,\n  onChange,\n  onBlur,\n  error,\n  disabled,\n  touched = true,\n}: FieldInputRadioProps) {\n  const fieldId = &#96;field-${field.id}&#96;;\n  const hasError = Boolean(error);\n  const describedBy = [\n    hasError ? &#96;${fieldId}-error&#96; : null,\n    field.helpText ? &#96;${fieldId}-help&#96; : null,\n  ]\n    .filter(Boolean)\n    .join(\" \") || undefined;\n\n  // Extract options from field.options JSON\n  const options = React.useMemo(() =&gt; {\n    if (!field.options || typeof field.options !== \"object\") return [];\n    const optionsObj = field.options as Record&lt;string, unknown&gt;;\n    if (\"values\" in optionsObj &amp;&amp; Array.isArray(optionsObj.values)) {\n      return optionsObj.values.filter(\n        (v): v is string =&gt; typeof v === \"string\"\n      );\n    }\n    return [];\n  }, [field.options]);\n\n  return (\n    &lt;FieldWrapper field={field} error={error} touched={touched}&gt;\n      &lt;div\n        className=\"space-y-2\"\n        role=\"radiogroup\"\n        aria-labelledby={&#96;${fieldId}-label&#96;}\n        aria-describedby={describedBy}\n        aria-invalid={hasError}\n        aria-required={field.required}\n      &gt;\n        {options.map((option) =&gt; {\n          const optionId = &#96;${fieldId}-${option}&#96;;\n          const isChecked = value === option;\n          return (\n            &lt;div key={option} className=\"flex items-center space-x-2\"&gt;\n              &lt;input\n                id={optionId}\n                type=\"radio\"\n                name={fieldId}\n                value={option}\n                checked={isChecked}\n                onChange={(e) =&gt; onChange(e.target.value)}\n                onBlur={onBlur}\n                disabled={disabled}\n                aria-describedby={describedBy}\n                className={cn(\n                  \"h-4 w-4 border border-input shadow-xs transition-colors\",\n                  \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2\",\n                  \"disabled:cursor-not-allowed disabled:opacity-50\",\n                  hasError &amp;&amp; \"border-destructive\",\n                  \"checked:bg-primary checked:border-primary\"\n                )}\n              /&gt;\n              &lt;label\n                htmlFor={optionId}\n                className={cn(\n                  \"text-sm font-normal leading-none cursor-pointer\",\n                  \"peer-disabled:cursor-not-allowed peer-disabled:opacity-70\"\n                )}\n              &gt;\n                {option}\n              &lt;/label&gt;\n            &lt;/div&gt;\n          );\n        })}\n      &lt;/div&gt;\n    &lt;/FieldWrapper&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -3224,19 +3224,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/field-input-radio.tsx&quot;
+  "relativeWorkspacePath": "components/forms/field-input-radio.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;d17acc4e-7217-4b1b-9a23-8f4abf7facf5&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "d17acc4e-7217-4b1b-9a23-8f4abf7facf5",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -3244,22 +3244,22 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;                  onBlur={onBlur}\n                  disabled={disabled}\n+                 required={field.required}\n                  aria-describedby={describedBy}\n                  className={cn(&quot;,
-        &quot;oldStart&quot;: 74,
-        &quot;newStart&quot;: 74,
-        &quot;oldLines&quot;: 4,
-        &quot;newLines&quot;: 5,
-        &quot;linesAdded&quot;: 1
+        "diffString": "                  onBlur={onBlur}\n                  disabled={disabled}\n+                 required={field.required}\n                  aria-describedby={describedBy}\n                  className={cn(",
+        "oldStart": 74,
+        "newStart": 74,
+        "oldLines": 4,
+        "newLines": 5,
+        "linesAdded": 1
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/field-input-radio.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport * as React from \&quot;react\&quot;;\nimport { Label } from \&quot;@/components/ui/label\&quot;;\nimport { FieldWrapper } from \&quot;./field-wrapper\&quot;;\nimport { cn } from \&quot;@/lib/utils\&quot;;\nimport type { FormField } from \&quot;@prisma/client\&quot;;\n\ninterface FieldInputRadioProps {\n  field: FormField;\n  value: string;\n  onChange: (value: string) =&gt; void;\n  onBlur?: () =&gt; void;\n  error?: string;\n  disabled?: boolean;\n  touched?: boolean;\n}\n\n/**\n * Radio group field component\n */\nexport function FieldInputRadio({\n  field,\n  value,\n  onChange,\n  onBlur,\n  error,\n  disabled,\n  touched = true,\n}: FieldInputRadioProps) {\n  const fieldId = &#96;field-${field.id}&#96;;\n  const hasError = Boolean(error);\n  const describedBy = [\n    hasError ? &#96;${fieldId}-error&#96; : null,\n    field.helpText ? &#96;${fieldId}-help&#96; : null,\n  ]\n    .filter(Boolean)\n    .join(\&quot; \&quot;) || undefined;\n\n  // Extract options from field.options JSON\n  const options = React.useMemo(() =&gt; {\n    if (!field.options || typeof field.options !== \&quot;object\&quot;) return [];\n    const optionsObj = field.options as Record&lt;string, unknown&gt;;\n    if (\&quot;values\&quot; in optionsObj &amp;&amp; Array.isArray(optionsObj.values)) {\n      return optionsObj.values.filter(\n        (v): v is string =&gt; typeof v === \&quot;string\&quot;\n      );\n    }\n    return [];\n  }, [field.options]);\n\n  return (\n    &lt;FieldWrapper field={field} error={error} touched={touched}&gt;\n      &lt;div\n        className=\&quot;space-y-2\&quot;\n        role=\&quot;radiogroup\&quot;\n        aria-labelledby={&#96;${fieldId}-label&#96;}\n        aria-describedby={describedBy}\n        aria-invalid={hasError}\n        aria-required={field.required}\n      &gt;\n        {options.map((option) =&gt; {\n          const optionId = &#96;${fieldId}-${option}&#96;;\n          const isChecked = value === option;\n          return (\n            &lt;div key={option} className=\&quot;flex items-center space-x-2\&quot;&gt;\n              &lt;input\n                id={optionId}\n                type=\&quot;radio\&quot;\n                name={fieldId}\n                value={option}\n                checked={isChecked}\n                onChange={(e) =&gt; onChange(e.target.value)}\n                onBlur={onBlur}\n                disabled={disabled}\n                required={field.required}\n                aria-describedby={describedBy}\n                className={cn(\n                  \&quot;h-4 w-4 border border-input shadow-xs transition-colors\&quot;,\n                  \&quot;focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2\&quot;,\n                  \&quot;disabled:cursor-not-allowed disabled:opacity-50\&quot;,\n                  hasError &amp;&amp; \&quot;border-destructive\&quot;,\n                  \&quot;checked:bg-primary checked:border-primary\&quot;\n                )}\n              /&gt;\n              &lt;label\n                htmlFor={optionId}\n                className={cn(\n                  \&quot;text-sm font-normal leading-none cursor-pointer\&quot;,\n                  \&quot;peer-disabled:cursor-not-allowed peer-disabled:opacity-70\&quot;\n                )}\n              &gt;\n                {option}\n              &lt;/label&gt;\n            &lt;/div&gt;\n          );\n        })}\n      &lt;/div&gt;\n    &lt;/FieldWrapper&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/field-input-radio.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport * as React from \"react\";\nimport { Label } from \"@/components/ui/label\";\nimport { FieldWrapper } from \"./field-wrapper\";\nimport { cn } from \"@/lib/utils\";\nimport type { FormField } from \"@prisma/client\";\n\ninterface FieldInputRadioProps {\n  field: FormField;\n  value: string;\n  onChange: (value: string) =&gt; void;\n  onBlur?: () =&gt; void;\n  error?: string;\n  disabled?: boolean;\n  touched?: boolean;\n}\n\n/**\n * Radio group field component\n */\nexport function FieldInputRadio({\n  field,\n  value,\n  onChange,\n  onBlur,\n  error,\n  disabled,\n  touched = true,\n}: FieldInputRadioProps) {\n  const fieldId = &#96;field-${field.id}&#96;;\n  const hasError = Boolean(error);\n  const describedBy = [\n    hasError ? &#96;${fieldId}-error&#96; : null,\n    field.helpText ? &#96;${fieldId}-help&#96; : null,\n  ]\n    .filter(Boolean)\n    .join(\" \") || undefined;\n\n  // Extract options from field.options JSON\n  const options = React.useMemo(() =&gt; {\n    if (!field.options || typeof field.options !== \"object\") return [];\n    const optionsObj = field.options as Record&lt;string, unknown&gt;;\n    if (\"values\" in optionsObj &amp;&amp; Array.isArray(optionsObj.values)) {\n      return optionsObj.values.filter(\n        (v): v is string =&gt; typeof v === \"string\"\n      );\n    }\n    return [];\n  }, [field.options]);\n\n  return (\n    &lt;FieldWrapper field={field} error={error} touched={touched}&gt;\n      &lt;div\n        className=\"space-y-2\"\n        role=\"radiogroup\"\n        aria-labelledby={&#96;${fieldId}-label&#96;}\n        aria-describedby={describedBy}\n        aria-invalid={hasError}\n        aria-required={field.required}\n      &gt;\n        {options.map((option) =&gt; {\n          const optionId = &#96;${fieldId}-${option}&#96;;\n          const isChecked = value === option;\n          return (\n            &lt;div key={option} className=\"flex items-center space-x-2\"&gt;\n              &lt;input\n                id={optionId}\n                type=\"radio\"\n                name={fieldId}\n                value={option}\n                checked={isChecked}\n                onChange={(e) =&gt; onChange(e.target.value)}\n                onBlur={onBlur}\n                disabled={disabled}\n                required={field.required}\n                aria-describedby={describedBy}\n                className={cn(\n                  \"h-4 w-4 border border-input shadow-xs transition-colors\",\n                  \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2\",\n                  \"disabled:cursor-not-allowed disabled:opacity-50\",\n                  hasError &amp;&amp; \"border-destructive\",\n                  \"checked:bg-primary checked:border-primary\"\n                )}\n              /&gt;\n              &lt;label\n                htmlFor={optionId}\n                className={cn(\n                  \"text-sm font-normal leading-none cursor-pointer\",\n                  \"peer-disabled:cursor-not-allowed peer-disabled:opacity-70\"\n                )}\n              &gt;\n                {option}\n              &lt;/label&gt;\n            &lt;/div&gt;\n          );\n        })}\n      &lt;/div&gt;\n    &lt;/FieldWrapper&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -3286,19 +3286,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/ui/use-toast.ts&quot;
+  "relativeWorkspacePath": "components/ui/use-toast.ts"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;c399b4e7-d900-45ba-afbf-14249c17fa7e&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "c399b4e7-d900-45ba-afbf-14249c17fa7e",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -3306,22 +3306,22 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;        }\n      };\n-     // eslint-disable-next-line react-hooks/exhaustive-deps\n    }, []);\n  &quot;,
-        &quot;oldStart&quot;: 192,
-        &quot;newStart&quot;: 192,
-        &quot;oldLines&quot;: 5,
-        &quot;newLines&quot;: 4,
-        &quot;linesRemoved&quot;: 1
+        "diffString": "        }\n      };\n-     // eslint-disable-next-line react-hooks/exhaustive-deps\n    }, []);\n  ",
+        "oldStart": 192,
+        "newStart": 192,
+        "oldLines": 5,
+        "newLines": 4,
+        "linesRemoved": 1
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/ui/use-toast.ts&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport * as React from \&quot;react\&quot;;\nimport { ToastAction } from \&quot;./toast\&quot;;\n\ntype ToastActionElement = React.ReactElement&lt;typeof ToastAction&gt;;\n\ninterface ToastProps {\n  id?: string;\n  title?: React.ReactNode;\n  description?: React.ReactNode;\n  action?: ToastActionElement;\n  open?: boolean;\n  onOpenChange?: (open: boolean) =&gt; void;\n  variant?: \&quot;default\&quot; | \&quot;destructive\&quot;;\n}\n\nconst TOAST_LIMIT = 1;\nconst TOAST_REMOVE_DELAY = 1000;\n\ntype ToasterToast = ToastProps &amp; {\n  id: string;\n  title?: React.ReactNode;\n  description?: React.ReactNode;\n};\n\nconst actionTypes = {\n  ADD_TOAST: \&quot;ADD_TOAST\&quot;,\n  UPDATE_TOAST: \&quot;UPDATE_TOAST\&quot;,\n  DISMISS_TOAST: \&quot;DISMISS_TOAST\&quot;,\n  REMOVE_TOAST: \&quot;REMOVE_TOAST\&quot;,\n} as const;\n\nlet count = 0;\n\nfunction genId() {\n  count = (count + 1) % Number.MAX_SAFE_INTEGER;\n  return count.toString();\n}\n\ntype ActionType = typeof actionTypes;\n\ntype Action =\n  | {\n      type: ActionType[\&quot;ADD_TOAST\&quot;];\n      toast: ToasterToast;\n    }\n  | {\n      type: ActionType[\&quot;UPDATE_TOAST\&quot;];\n      toast: Partial&lt;ToasterToast&gt;;\n    }\n  | {\n      type: ActionType[\&quot;DISMISS_TOAST\&quot;];\n      toastId?: ToasterToast[\&quot;id\&quot;];\n    }\n  | {\n      type: ActionType[\&quot;REMOVE_TOAST\&quot;];\n      toastId?: ToasterToast[\&quot;id\&quot;];\n    };\n\ninterface State {\n  toasts: ToasterToast[];\n}\n\nconst toastTimeouts = new Map&lt;string, ReturnType&lt;typeof setTimeout&gt;&gt;();\n\nconst addToRemoveQueue = (toastId: string) =&gt; {\n  if (toastTimeouts.has(toastId)) {\n    return;\n  }\n\n  const timeout = setTimeout(() =&gt; {\n    toastTimeouts.delete(toastId);\n    dispatch({\n      type: actionTypes.REMOVE_TOAST,\n      toastId,\n    });\n  }, TOAST_REMOVE_DELAY);\n\n  toastTimeouts.set(toastId, timeout);\n};\n\nconst reducer = (state: State, action: Action): State =&gt; {\n  switch (action.type) {\n    case actionTypes.ADD_TOAST:\n      return {\n        ...state,\n        toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),\n      };\n\n    case actionTypes.UPDATE_TOAST:\n      return {\n        ...state,\n        toasts: state.toasts.map((toast) =&gt;\n          toast.id === action.toast.id ? { ...toast, ...action.toast } : toast\n        ),\n      };\n\n    case actionTypes.DISMISS_TOAST: {\n      const { toastId } = action;\n\n      if (toastId) {\n        addToRemoveQueue(toastId);\n      } else {\n        state.toasts.forEach((toast) =&gt; {\n          addToRemoveQueue(toast.id);\n        });\n      }\n\n      return {\n        ...state,\n        toasts: state.toasts.map((toast) =&gt;\n          toast.id === toastId || toastId === undefined\n            ? {\n                ...toast,\n                open: false,\n              }\n            : toast\n        ),\n      };\n    }\n\n    case actionTypes.REMOVE_TOAST:\n      if (action.toastId === undefined) {\n        return {\n          ...state,\n          toasts: [],\n        };\n      }\n      return {\n        ...state,\n        toasts: state.toasts.filter((toast) =&gt; toast.id !== action.toastId),\n      };\n  }\n};\n\nconst listeners: Array&lt;(state: State) =&gt; void&gt; = [];\n\nlet memoryState: State = { toasts: [] };\n\nfunction dispatch(action: Action) {\n  memoryState = reducer(memoryState, action);\n  listeners.forEach((listener) =&gt; {\n    listener(memoryState);\n  });\n}\n\ntype Toast = (props: ToastProps) =&gt; {\n  id: string;\n  dismiss: () =&gt; void;\n  update: (props: ToastProps) =&gt; void;\n};\n\nexport const toast: Toast = ({ ...props }) =&gt; {\n  const id = genId();\n\n  const update = (props: ToastProps) =&gt;\n    dispatch({\n      type: actionTypes.UPDATE_TOAST,\n      toast: { ...props, id },\n    });\n  const dismiss = () =&gt; dispatch({ type: actionTypes.DISMISS_TOAST, toastId: id });\n\n  dispatch({\n    type: actionTypes.ADD_TOAST,\n    toast: {\n      ...props,\n      id,\n      open: true,\n      onOpenChange: (open) =&gt; {\n        if (!open) dismiss();\n      },\n    },\n  });\n\n  return {\n    id,\n    dismiss,\n    update,\n  };\n};\n\nexport function useToast() {\n  const [state, setState] = React.useState&lt;State&gt;(memoryState);\n\n  React.useEffect(() =&gt; {\n    listeners.push(setState);\n    return () =&gt; {\n      const index = listeners.indexOf(setState);\n      if (index &gt; -1) {\n        listeners.splice(index, 1);\n      }\n    };\n  }, []);\n\n  return {\n    ...state,\n    toast,\n    dismiss: (toastId?: string) =&gt;\n      dispatch({ type: actionTypes.DISMISS_TOAST, toastId }),\n  };\n}\n\nexport { ToastAction } from \&quot;./toast\&quot;;\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/ui/use-toast.ts",
+  "contentsAfterEdit": "\"use client\";\n\nimport * as React from \"react\";\nimport { ToastAction } from \"./toast\";\n\ntype ToastActionElement = React.ReactElement&lt;typeof ToastAction&gt;;\n\ninterface ToastProps {\n  id?: string;\n  title?: React.ReactNode;\n  description?: React.ReactNode;\n  action?: ToastActionElement;\n  open?: boolean;\n  onOpenChange?: (open: boolean) =&gt; void;\n  variant?: \"default\" | \"destructive\";\n}\n\nconst TOAST_LIMIT = 1;\nconst TOAST_REMOVE_DELAY = 1000;\n\ntype ToasterToast = ToastProps &amp; {\n  id: string;\n  title?: React.ReactNode;\n  description?: React.ReactNode;\n};\n\nconst actionTypes = {\n  ADD_TOAST: \"ADD_TOAST\",\n  UPDATE_TOAST: \"UPDATE_TOAST\",\n  DISMISS_TOAST: \"DISMISS_TOAST\",\n  REMOVE_TOAST: \"REMOVE_TOAST\",\n} as const;\n\nlet count = 0;\n\nfunction genId() {\n  count = (count + 1) % Number.MAX_SAFE_INTEGER;\n  return count.toString();\n}\n\ntype ActionType = typeof actionTypes;\n\ntype Action =\n  | {\n      type: ActionType[\"ADD_TOAST\"];\n      toast: ToasterToast;\n    }\n  | {\n      type: ActionType[\"UPDATE_TOAST\"];\n      toast: Partial&lt;ToasterToast&gt;;\n    }\n  | {\n      type: ActionType[\"DISMISS_TOAST\"];\n      toastId?: ToasterToast[\"id\"];\n    }\n  | {\n      type: ActionType[\"REMOVE_TOAST\"];\n      toastId?: ToasterToast[\"id\"];\n    };\n\ninterface State {\n  toasts: ToasterToast[];\n}\n\nconst toastTimeouts = new Map&lt;string, ReturnType&lt;typeof setTimeout&gt;&gt;();\n\nconst addToRemoveQueue = (toastId: string) =&gt; {\n  if (toastTimeouts.has(toastId)) {\n    return;\n  }\n\n  const timeout = setTimeout(() =&gt; {\n    toastTimeouts.delete(toastId);\n    dispatch({\n      type: actionTypes.REMOVE_TOAST,\n      toastId,\n    });\n  }, TOAST_REMOVE_DELAY);\n\n  toastTimeouts.set(toastId, timeout);\n};\n\nconst reducer = (state: State, action: Action): State =&gt; {\n  switch (action.type) {\n    case actionTypes.ADD_TOAST:\n      return {\n        ...state,\n        toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),\n      };\n\n    case actionTypes.UPDATE_TOAST:\n      return {\n        ...state,\n        toasts: state.toasts.map((toast) =&gt;\n          toast.id === action.toast.id ? { ...toast, ...action.toast } : toast\n        ),\n      };\n\n    case actionTypes.DISMISS_TOAST: {\n      const { toastId } = action;\n\n      if (toastId) {\n        addToRemoveQueue(toastId);\n      } else {\n        state.toasts.forEach((toast) =&gt; {\n          addToRemoveQueue(toast.id);\n        });\n      }\n\n      return {\n        ...state,\n        toasts: state.toasts.map((toast) =&gt;\n          toast.id === toastId || toastId === undefined\n            ? {\n                ...toast,\n                open: false,\n              }\n            : toast\n        ),\n      };\n    }\n\n    case actionTypes.REMOVE_TOAST:\n      if (action.toastId === undefined) {\n        return {\n          ...state,\n          toasts: [],\n        };\n      }\n      return {\n        ...state,\n        toasts: state.toasts.filter((toast) =&gt; toast.id !== action.toastId),\n      };\n  }\n};\n\nconst listeners: Array&lt;(state: State) =&gt; void&gt; = [];\n\nlet memoryState: State = { toasts: [] };\n\nfunction dispatch(action: Action) {\n  memoryState = reducer(memoryState, action);\n  listeners.forEach((listener) =&gt; {\n    listener(memoryState);\n  });\n}\n\ntype Toast = (props: ToastProps) =&gt; {\n  id: string;\n  dismiss: () =&gt; void;\n  update: (props: ToastProps) =&gt; void;\n};\n\nexport const toast: Toast = ({ ...props }) =&gt; {\n  const id = genId();\n\n  const update = (props: ToastProps) =&gt;\n    dispatch({\n      type: actionTypes.UPDATE_TOAST,\n      toast: { ...props, id },\n    });\n  const dismiss = () =&gt; dispatch({ type: actionTypes.DISMISS_TOAST, toastId: id });\n\n  dispatch({\n    type: actionTypes.ADD_TOAST,\n    toast: {\n      ...props,\n      id,\n      open: true,\n      onOpenChange: (open) =&gt; {\n        if (!open) dismiss();\n      },\n    },\n  });\n\n  return {\n    id,\n    dismiss,\n    update,\n  };\n};\n\nexport function useToast() {\n  const [state, setState] = React.useState&lt;State&gt;(memoryState);\n\n  React.useEffect(() =&gt; {\n    listeners.push(setState);\n    return () =&gt; {\n      const index = listeners.indexOf(setState);\n      if (index &gt; -1) {\n        listeners.splice(index, 1);\n      }\n    };\n  }, []);\n\n  return {\n    ...state,\n    toast,\n    dismiss: (toastId?: string) =&gt;\n      dispatch({ type: actionTypes.DISMISS_TOAST, toastId }),\n  };\n}\n\nexport { ToastAction } from \"./toast\";\n\n"
 }
 ```
 User decision: **accepted**
@@ -3361,19 +3361,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;hooks/use-autosave.ts&quot;
+  "relativeWorkspacePath": "hooks/use-autosave.ts"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;df5f3eff-5399-4e44-84fe-c3a544cff042&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "df5f3eff-5399-4e44-84fe-c3a544cff042",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -3381,22 +3381,22 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;        }\n        event.preventDefault();\n-       // eslint-disable-next-line no-param-reassign\n        event.returnValue = \&quot;\&quot;;\n      };&quot;,
-        &quot;oldStart&quot;: 142,
-        &quot;newStart&quot;: 142,
-        &quot;oldLines&quot;: 5,
-        &quot;newLines&quot;: 4,
-        &quot;linesRemoved&quot;: 1
+        "diffString": "        }\n        event.preventDefault();\n-       // eslint-disable-next-line no-param-reassign\n        event.returnValue = \"\";\n      };",
+        "oldStart": 142,
+        "newStart": 142,
+        "oldLines": 5,
+        "newLines": 4,
+        "linesRemoved": 1
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM hooks/use-autosave.ts&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport { useCallback, useEffect, useRef, useState, useTransition } from \&quot;react\&quot;;\n\nexport type AutosaveStatus = \&quot;idle\&quot; | \&quot;saving\&quot; | \&quot;saved\&quot; | \&quot;error\&quot;;\nexport type AutosaveReason = \&quot;debounce\&quot; | \&quot;step-change\&quot; | \&quot;manual\&quot;;\n\nexport interface UseAutosaveOptions&lt;TResult&gt; {\n  /**\n   * When true, autosave timers will run. Typically tied to &#96;isDirty&#96;.\n   */\n  shouldAutosave: boolean;\n  /**\n   * Unique string representing the data that should trigger autosave.\n   * Commonly a JSON string of the form data.\n   */\n  dataFingerprint: string;\n  /**\n   * Debounce delay in milliseconds before triggering autosave.\n   */\n  debounceMs?: number;\n  /**\n   * Called to persist the draft. Should throw on failure.\n   */\n  save: () =&gt; Promise&lt;TResult&gt;;\n  /**\n   * Optional callback invoked when a save succeeds.\n   */\n  onSuccess?: (result: TResult) =&gt; void;\n  /**\n   * Optional callback invoked when a save fails.\n   */\n  onError?: (error: Error) =&gt; void;\n  /**\n   * Whether to show a browser prompt on unload when unsaved changes exist.\n   */\n  warnOnUnload?: boolean;\n}\n\nexport interface UseAutosaveReturn&lt;TResult&gt; {\n  status: AutosaveStatus;\n  isSaving: boolean;\n  lastSavedAt?: string;\n  error?: string;\n  triggerSave: (reason?: AutosaveReason) =&gt; Promise&lt;TResult | null&gt;;\n}\n\nexport function useAutosave&lt;TResult&gt;({\n  shouldAutosave,\n  dataFingerprint,\n  debounceMs = 2000,\n  save,\n  onSuccess,\n  onError,\n  warnOnUnload = true,\n}: UseAutosaveOptions&lt;TResult&gt;): UseAutosaveReturn&lt;TResult&gt; {\n  const [status, setStatus] = useState&lt;AutosaveStatus&gt;(\&quot;idle\&quot;);\n  const [error, setError] = useState&lt;string | undefined&gt;();\n  const [lastSavedAt, setLastSavedAt] = useState&lt;string | undefined&gt;();\n  const [isSaving, startSaving] = useTransition();\n\n  const debounceTimerRef = useRef&lt;NodeJS.Timeout | null&gt;(null);\n  const lastFingerprintRef = useRef&lt;string&gt;(dataFingerprint);\n  const lastSuccessfulFingerprintRef = useRef&lt;string | null&gt;(null);\n\n  const clearTimer = () =&gt; {\n    if (debounceTimerRef.current) {\n      clearTimeout(debounceTimerRef.current);\n      debounceTimerRef.current = null;\n    }\n  };\n\n  const performSave = useCallback(\n    async (reason: AutosaveReason) =&gt; {\n      clearTimer();\n      setStatus(\&quot;saving\&quot;);\n      setError(undefined);\n\n      return new Promise&lt;TResult | null&gt;((resolve) =&gt; {\n        startSaving(async () =&gt; {\n          try {\n            const result = await save();\n            lastSuccessfulFingerprintRef.current = dataFingerprint;\n            setStatus(\&quot;saved\&quot;);\n            setLastSavedAt(new Date().toISOString());\n            onSuccess?.(result);\n            resolve(result);\n          } catch (err) {\n            console.error(&#96;[autosave] Failed to save draft (${reason})&#96;, err);\n            setStatus(\&quot;error\&quot;);\n            const message =\n              err instanceof Error ? err.message : \&quot;Failed to save draft\&quot;;\n            setError(message);\n            onError?.(err instanceof Error ? err : new Error(message));\n            resolve(null);\n          }\n        });\n      });\n    },\n    [dataFingerprint, onError, onSuccess, save]\n  );\n\n  const triggerSave = useCallback(\n    async (reason: AutosaveReason = \&quot;manual\&quot;) =&gt; {\n      return performSave(reason);\n    },\n    [performSave]\n  );\n\n  useEffect(() =&gt; {\n    if (!shouldAutosave) {\n      clearTimer();\n      return;\n    }\n\n    if (dataFingerprint === lastSuccessfulFingerprintRef.current) {\n      lastFingerprintRef.current = dataFingerprint;\n      return;\n    }\n\n    if (dataFingerprint === lastFingerprintRef.current) {\n      return;\n    }\n\n    lastFingerprintRef.current = dataFingerprint;\n    clearTimer();\n    debounceTimerRef.current = setTimeout(() =&gt; {\n      void triggerSave(\&quot;debounce\&quot;);\n    }, debounceMs);\n\n    return clearTimer;\n  }, [dataFingerprint, debounceMs, shouldAutosave, triggerSave]);\n\n  useEffect(() =&gt; {\n    if (!warnOnUnload) {\n      return;\n    }\n\n    const handler = (event: BeforeUnloadEvent) =&gt; {\n      if (!shouldAutosave) {\n        return;\n      }\n      event.preventDefault();\n      event.returnValue = \&quot;\&quot;;\n    };\n\n    window.addEventListener(\&quot;beforeunload\&quot;, handler);\n    return () =&gt; {\n      window.removeEventListener(\&quot;beforeunload\&quot;, handler);\n    };\n  }, [shouldAutosave, warnOnUnload]);\n\n  return {\n    status,\n    isSaving,\n    lastSavedAt,\n    error,\n    triggerSave,\n  };\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM hooks/use-autosave.ts",
+  "contentsAfterEdit": "\"use client\";\n\nimport { useCallback, useEffect, useRef, useState, useTransition } from \"react\";\n\nexport type AutosaveStatus = \"idle\" | \"saving\" | \"saved\" | \"error\";\nexport type AutosaveReason = \"debounce\" | \"step-change\" | \"manual\";\n\nexport interface UseAutosaveOptions&lt;TResult&gt; {\n  /**\n   * When true, autosave timers will run. Typically tied to &#96;isDirty&#96;.\n   */\n  shouldAutosave: boolean;\n  /**\n   * Unique string representing the data that should trigger autosave.\n   * Commonly a JSON string of the form data.\n   */\n  dataFingerprint: string;\n  /**\n   * Debounce delay in milliseconds before triggering autosave.\n   */\n  debounceMs?: number;\n  /**\n   * Called to persist the draft. Should throw on failure.\n   */\n  save: () =&gt; Promise&lt;TResult&gt;;\n  /**\n   * Optional callback invoked when a save succeeds.\n   */\n  onSuccess?: (result: TResult) =&gt; void;\n  /**\n   * Optional callback invoked when a save fails.\n   */\n  onError?: (error: Error) =&gt; void;\n  /**\n   * Whether to show a browser prompt on unload when unsaved changes exist.\n   */\n  warnOnUnload?: boolean;\n}\n\nexport interface UseAutosaveReturn&lt;TResult&gt; {\n  status: AutosaveStatus;\n  isSaving: boolean;\n  lastSavedAt?: string;\n  error?: string;\n  triggerSave: (reason?: AutosaveReason) =&gt; Promise&lt;TResult | null&gt;;\n}\n\nexport function useAutosave&lt;TResult&gt;({\n  shouldAutosave,\n  dataFingerprint,\n  debounceMs = 2000,\n  save,\n  onSuccess,\n  onError,\n  warnOnUnload = true,\n}: UseAutosaveOptions&lt;TResult&gt;): UseAutosaveReturn&lt;TResult&gt; {\n  const [status, setStatus] = useState&lt;AutosaveStatus&gt;(\"idle\");\n  const [error, setError] = useState&lt;string | undefined&gt;();\n  const [lastSavedAt, setLastSavedAt] = useState&lt;string | undefined&gt;();\n  const [isSaving, startSaving] = useTransition();\n\n  const debounceTimerRef = useRef&lt;NodeJS.Timeout | null&gt;(null);\n  const lastFingerprintRef = useRef&lt;string&gt;(dataFingerprint);\n  const lastSuccessfulFingerprintRef = useRef&lt;string | null&gt;(null);\n\n  const clearTimer = () =&gt; {\n    if (debounceTimerRef.current) {\n      clearTimeout(debounceTimerRef.current);\n      debounceTimerRef.current = null;\n    }\n  };\n\n  const performSave = useCallback(\n    async (reason: AutosaveReason) =&gt; {\n      clearTimer();\n      setStatus(\"saving\");\n      setError(undefined);\n\n      return new Promise&lt;TResult | null&gt;((resolve) =&gt; {\n        startSaving(async () =&gt; {\n          try {\n            const result = await save();\n            lastSuccessfulFingerprintRef.current = dataFingerprint;\n            setStatus(\"saved\");\n            setLastSavedAt(new Date().toISOString());\n            onSuccess?.(result);\n            resolve(result);\n          } catch (err) {\n            console.error(&#96;[autosave] Failed to save draft (${reason})&#96;, err);\n            setStatus(\"error\");\n            const message =\n              err instanceof Error ? err.message : \"Failed to save draft\";\n            setError(message);\n            onError?.(err instanceof Error ? err : new Error(message));\n            resolve(null);\n          }\n        });\n      });\n    },\n    [dataFingerprint, onError, onSuccess, save]\n  );\n\n  const triggerSave = useCallback(\n    async (reason: AutosaveReason = \"manual\") =&gt; {\n      return performSave(reason);\n    },\n    [performSave]\n  );\n\n  useEffect(() =&gt; {\n    if (!shouldAutosave) {\n      clearTimer();\n      return;\n    }\n\n    if (dataFingerprint === lastSuccessfulFingerprintRef.current) {\n      lastFingerprintRef.current = dataFingerprint;\n      return;\n    }\n\n    if (dataFingerprint === lastFingerprintRef.current) {\n      return;\n    }\n\n    lastFingerprintRef.current = dataFingerprint;\n    clearTimer();\n    debounceTimerRef.current = setTimeout(() =&gt; {\n      void triggerSave(\"debounce\");\n    }, debounceMs);\n\n    return clearTimer;\n  }, [dataFingerprint, debounceMs, shouldAutosave, triggerSave]);\n\n  useEffect(() =&gt; {\n    if (!warnOnUnload) {\n      return;\n    }\n\n    const handler = (event: BeforeUnloadEvent) =&gt; {\n      if (!shouldAutosave) {\n        return;\n      }\n      event.preventDefault();\n      event.returnValue = \"\";\n    };\n\n    window.addEventListener(\"beforeunload\", handler);\n    return () =&gt; {\n      window.removeEventListener(\"beforeunload\", handler);\n    };\n  }, [shouldAutosave, warnOnUnload]);\n\n  return {\n    status,\n    isSaving,\n    lastSavedAt,\n    error,\n    triggerSave,\n  };\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -3415,7 +3415,7 @@ Status: **completed**
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm run lint</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm run lint</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && npm run lint
@@ -3427,7 +3427,7 @@ cd /Users/sahilmehta/supplier-onboarding-simple && npm run lint
 
 
 /Users/sahilmehta/supplier-onboarding-simple/components/forms/dynamic-form-wizard.tsx                                                                           
-  319:42  warning  The ref value &#39;validationTimersRef.current&#39; will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy &#39;validationTimersRef.current&#39; to a variable inside the effect, and use that variable in the cleanup function  react-hooks/exhaustive-deps                                                                           
+  319:42  warning  The ref value 'validationTimersRef.current' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy 'validationTimersRef.current' to a variable inside the effect, and use that variable in the cleanup function  react-hooks/exhaustive-deps                                                                           
 
 ✖ 1 problem (0 errors, 1 warning)
 ```
@@ -3450,19 +3450,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/dynamic-form-wizard.tsx&quot;
+  "relativeWorkspacePath": "components/forms/dynamic-form-wizard.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;2e434611-e31e-488c-b8c1-6befd4cba05f&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "2e434611-e31e-488c-b8c1-6befd4cba05f",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -3470,23 +3470,23 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;    // Cleanup timers on unmount\n    useEffect(() =&gt; {\n+     const timers = validationTimersRef.current;\n      return () =&gt; {\n-       const timers = validationTimersRef.current;\n        Object.values(timers).forEach((timer) =&gt; {\n          clearTimeout(timer);&quot;,
-        &quot;oldStart&quot;: 316,
-        &quot;newStart&quot;: 316,
-        &quot;oldLines&quot;: 6,
-        &quot;newLines&quot;: 6,
-        &quot;linesRemoved&quot;: 1,
-        &quot;linesAdded&quot;: 1
+        "diffString": "    // Cleanup timers on unmount\n    useEffect(() =&gt; {\n+     const timers = validationTimersRef.current;\n      return () =&gt; {\n-       const timers = validationTimersRef.current;\n        Object.values(timers).forEach((timer) =&gt; {\n          clearTimeout(timer);",
+        "oldStart": 316,
+        "newStart": 316,
+        "oldLines": 6,
+        "newLines": 6,
+        "linesRemoved": 1,
+        "linesAdded": 1
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/dynamic-form-wizard.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport { useState, useCallback, useRef, useEffect } from \&quot;react\&quot;;\nimport type { FormConfigWithFields } from \&quot;@/lib/forms/types\&quot;;\nimport { validateStep, getStepFieldKeys } from \&quot;@/lib/forms/form-validator\&quot;;\nimport { buildFormSchema } from \&quot;@/lib/form-schema\&quot;;\nimport { StepIndicator } from \&quot;./step-indicator\&quot;;\nimport { FormStep } from \&quot;./form-step\&quot;;\nimport { FormNavigation } from \&quot;./form-navigation\&quot;;\nimport { FormErrorSummary } from \&quot;./form-error-summary\&quot;;\nimport { usePrefersReducedMotion } from \&quot;@/hooks/use-prefers-reduced-motion\&quot;;\nimport { useToast } from \&quot;@/components/ui/use-toast\&quot;;\nimport { cn } from \&quot;@/lib/utils\&quot;;\nimport type { DraftStatus } from \&quot;./draft-save-indicator\&quot;;\n\ninterface DynamicFormWizardProps {\n  formConfig: FormConfigWithFields;\n  initialData?: Record&lt;string, unknown&gt;;\n  onStepChange?: (stepIndex: number) =&gt; void;\n  onComplete?: (formData: Record&lt;string, unknown&gt;) =&gt; void;\n  onSaveDraft?: (formData: Record&lt;string, unknown&gt;) =&gt; void;\n}\n\nexport function DynamicFormWizard({\n  formConfig,\n  initialData = {},\n  onStepChange,\n  onComplete,\n  onSaveDraft,\n}: DynamicFormWizardProps) {\n  const sortedSections = [...formConfig.sections].sort(\n    (a, b) =&gt; a.order - b.order\n  );\n\n  const [currentStep, setCurrentStep] = useState(0);\n  const [formData, setFormData] = useState&lt;Record&lt;string, unknown&gt;&gt;(\n    initialData\n  );\n  const [completedSteps, setCompletedSteps] = useState&lt;Set&lt;number&gt;&gt;(\n    new Set()\n  );\n  const [errors, setErrors] = useState&lt;Record&lt;string, string&gt;&gt;({});\n  const [touched, setTouched] = useState&lt;Record&lt;string, boolean&gt;&gt;({});\n  const [isSubmitting, setIsSubmitting] = useState(false);\n  const [isSavingDraft, setIsSavingDraft] = useState(false);\n  const [draftStatus, setDraftStatus] = useState&lt;DraftStatus&gt;(\&quot;idle\&quot;);\n  const [draftError, setDraftError] = useState&lt;string | null&gt;(null);\n  const [lastSavedAt, setLastSavedAt] = useState&lt;Date | null&gt;(null);\n  const [liveMessage, setLiveMessage] = useState(\&quot;\&quot;);\n  const validationTimersRef = useRef&lt;Record&lt;string, NodeJS.Timeout&gt;&gt;({});\n  const formSchemaRef = useRef(buildFormSchema(formConfig));\n  const prefersReducedMotion = usePrefersReducedMotion();\n  const { toast } = useToast();\n\n  const totalSteps = sortedSections.length;\n  const currentSection = sortedSections[currentStep];\n  const isFirstStep = currentStep === 0;\n  const isLastStep = currentStep === totalSteps - 1;\n\n  // Rebuild schema if form config changes\n  useEffect(() =&gt; {\n    formSchemaRef.current = buildFormSchema(formConfig);\n  }, [formConfig]);\n\n  /**\n   * Validate a single field with debouncing\n   */\n  const validateField = useCallback(\n    (fieldKey: string, value: unknown, immediate = false) =&gt; {\n      // Clear existing timer for this field\n      if (validationTimersRef.current[fieldKey]) {\n        clearTimeout(validationTimersRef.current[fieldKey]);\n      }\n\n      const performValidation = () =&gt; {\n        const fieldSchema = formSchemaRef.current.shape[fieldKey];\n        if (!fieldSchema) {\n          return;\n        }\n\n        try {\n          fieldSchema.parse(value);\n          // Clear error if validation passes\n          setErrors((prev) =&gt; {\n            const next = { ...prev };\n            delete next[fieldKey];\n            return next;\n          });\n        } catch (error) {\n          if (error &amp;&amp; typeof error === \&quot;object\&quot; &amp;&amp; \&quot;issues\&quot; in error) {\n            const zodError = error as { issues: Array&lt;{ message: string }&gt; };\n            const firstIssue = zodError.issues[0];\n            if (firstIssue) {\n              setErrors((prev) =&gt; ({\n                ...prev,\n                [fieldKey]: firstIssue.message,\n              }));\n            }\n          } else if (error instanceof Error) {\n            setErrors((prev) =&gt; ({\n              ...prev,\n              [fieldKey]: error.message,\n            }));\n          }\n        }\n      };\n\n      if (immediate) {\n        performValidation();\n      } else {\n        // Debounce validation on change (300ms)\n        validationTimersRef.current[fieldKey] = setTimeout(performValidation, 300);\n      }\n    },\n    []\n  );\n\n  const handleFieldChange = useCallback(\n    (fieldKey: string, value: unknown) =&gt; {\n      setFormData((prev) =&gt; ({\n        ...prev,\n        [fieldKey]: value,\n      }));\n\n      // Validate on change with debounce (only if field has been touched)\n      if (touched[fieldKey]) {\n        validateField(fieldKey, value, false);\n      }\n    },\n    [touched, validateField]\n  );\n\n  const handleFieldBlur = useCallback(\n    (fieldKey: string) =&gt; {\n      setTouched((prev) =&gt; ({\n        ...prev,\n        [fieldKey]: true,\n      }));\n\n      // Validate immediately on blur\n      const value = formData[fieldKey];\n      validateField(fieldKey, value, true);\n    },\n    [formData, validateField]\n  );\n\n  /**\n   * Validate current step using the validation utilities\n   */\n  const validateCurrentStep = useCallback((): boolean =&gt; {\n    const stepResult = validateStep(currentStep, formData, formConfig);\n\n    if (!stepResult.isValid) {\n      // Update errors for current step fields only\n      const stepFieldKeys = getStepFieldKeys(currentStep, formConfig);\n      setErrors((prev) =&gt; {\n        const next = { ...prev };\n        // Clear errors for fields not in current step\n        stepFieldKeys.forEach((key) =&gt; {\n          if (stepResult.errors[key]) {\n            next[key] = stepResult.errors[key];\n          } else {\n            delete next[key];\n          }\n        });\n        return next;\n      });\n\n      // Mark all fields in step as touched\n      setTouched((prev) =&gt; {\n        const next = { ...prev };\n        stepFieldKeys.forEach((key) =&gt; {\n          next[key] = true;\n        });\n        return next;\n      });\n\n      // Focus first error field\n      if (stepResult.firstErrorField) {\n        // Find the field by key to get its ID\n        const errorField = currentSection.fields.find(\n          (f) =&gt; f.key === stepResult.firstErrorField\n        );\n        if (errorField) {\n          // Field components use &#96;field-${field.id}&#96; as the ID\n          const fieldElement = document.getElementById(&#96;field-${errorField.id}&#96;);\n          if (fieldElement) {\n            fieldElement.focus();\n            fieldElement.scrollIntoView({ behavior: \&quot;smooth\&quot;, block: \&quot;center\&quot; });\n          }\n        }\n      }\n    }\n\n    return stepResult.isValid;\n  }, [currentStep, formData, formConfig, currentSection]);\n\n  const handleNext = useCallback(async () =&gt; {\n    if (isSubmitting) {\n      return;\n    }\n\n    const isStepValid = validateCurrentStep();\n    if (!isStepValid) {\n      toast({\n        variant: \&quot;destructive\&quot;,\n        title: \&quot;Please fix validation errors\&quot;,\n        description: \&quot;Resolve highlighted fields before continuing.\&quot;,\n      });\n      return;\n    }\n\n    setCompletedSteps((prev) =&gt; new Set(prev).add(currentStep));\n\n    if (isLastStep) {\n      if (!onComplete) {\n        return;\n      }\n      try {\n        setIsSubmitting(true);\n        await onComplete(formData);\n        toast({\n          title: \&quot;Form submitted\&quot;,\n          description: \&quot;Thanks! We received your information.\&quot;,\n        });\n      } catch (error) {\n        toast({\n          variant: \&quot;destructive\&quot;,\n          title: \&quot;Submission failed\&quot;,\n          description:\n            error instanceof Error\n              ? error.message\n              : \&quot;Something went wrong while submitting. Please try again.\&quot;,\n        });\n      } finally {\n        setIsSubmitting(false);\n      }\n    } else {\n      const nextStep = currentStep + 1;\n      setCurrentStep(nextStep);\n      onStepChange?.(nextStep);\n    }\n  }, [\n    currentStep,\n    formData,\n    isLastStep,\n    isSubmitting,\n    onComplete,\n    onStepChange,\n    toast,\n    validateCurrentStep,\n  ]);\n\n  const handlePrevious = useCallback(() =&gt; {\n    if (!isFirstStep) {\n      const prevStep = currentStep - 1;\n      setCurrentStep(prevStep);\n      onStepChange?.(prevStep);\n    }\n  }, [currentStep, isFirstStep, onStepChange]);\n\n  const handleStepClick = useCallback(\n    (stepIndex: number) =&gt; {\n      // Validate current step before allowing navigation\n      if (stepIndex !== currentStep) {\n        if (!validateCurrentStep()) {\n          return; // Don&#39;t allow navigation if current step is invalid\n        }\n      }\n\n      // Allow navigation to completed steps or the next step\n      if (completedSteps.has(stepIndex) || stepIndex === currentStep + 1) {\n        setCurrentStep(stepIndex);\n        onStepChange?.(stepIndex);\n      }\n    },\n    [completedSteps, currentStep, onStepChange, validateCurrentStep]\n  );\n\n  const handleSaveDraft = useCallback(async () =&gt; {\n    if (!onSaveDraft || isSavingDraft) {\n      return;\n    }\n    try {\n      setIsSavingDraft(true);\n      setDraftStatus(\&quot;saving\&quot;);\n      setDraftError(null);\n      await onSaveDraft(formData);\n      setDraftStatus(\&quot;success\&quot;);\n      const savedAt = new Date();\n      setLastSavedAt(savedAt);\n      toast({\n        title: \&quot;Draft saved\&quot;,\n        description: &#96;Progress saved at ${savedAt.toLocaleTimeString([], {\n          hour: \&quot;numeric\&quot;,\n          minute: \&quot;2-digit\&quot;,\n        })}&#96;,\n      });\n    } catch (error) {\n      setDraftStatus(\&quot;error\&quot;);\n      const message =\n        error instanceof Error\n          ? error.message\n          : \&quot;Unable to save your draft right now.\&quot;;\n      setDraftError(message);\n      toast({\n        variant: \&quot;destructive\&quot;,\n        title: \&quot;Draft not saved\&quot;,\n        description: message,\n      });\n    } finally {\n      setIsSavingDraft(false);\n    }\n  }, [formData, isSavingDraft, onSaveDraft, toast]);\n\n  // Cleanup timers on unmount\n  useEffect(() =&gt; {\n    const timers = validationTimersRef.current;\n    return () =&gt; {\n      Object.values(timers).forEach((timer) =&gt; {\n        clearTimeout(timer);\n      });\n    };\n  }, []);\n\n  const progress = totalSteps &gt; 0 ? ((currentStep + 1) / totalSteps) * 100 : 0;\n\n  useEffect(() =&gt; {\n    const sectionLabel = currentSection?.label ?? &#96;Step ${currentStep + 1}&#96;;\n    setLiveMessage(&#96;Now viewing ${sectionLabel} (${currentStep + 1} of ${totalSteps})&#96;);\n  }, [currentSection, currentStep, totalSteps]);\n\n  return (\n    &lt;div className=\&quot;flex flex-col gap-6 pb-32 sm:pb-12\&quot;&gt;\n      &lt;StepIndicator\n        steps={sortedSections.map((section, index) =&gt; ({\n          id: section.id,\n          label: section.label,\n          order: section.order,\n        }))}\n        currentStep={currentStep}\n        completedSteps={completedSteps}\n        onStepClick={handleStepClick}\n      /&gt;\n\n      &lt;div\n        className={cn(\n          \&quot;min-h-[400px] space-y-6 rounded-3xl border border-border/60 bg-background/70 p-4 shadow-lg sm:p-8\&quot;,\n          !prefersReducedMotion &amp;&amp; \&quot;transition-shadow duration-300\&quot;\n        )}\n      &gt;\n        {/* Error summary for current step */}\n        {(() =&gt; {\n          const stepFieldKeys = getStepFieldKeys(currentStep, formConfig);\n          const stepErrors: Record&lt;string, string&gt; = {};\n          stepFieldKeys.forEach((key) =&gt; {\n            if (errors[key] &amp;&amp; touched[key]) {\n              stepErrors[key] = errors[key];\n            }\n          });\n\n          if (Object.keys(stepErrors).length &gt; 0) {\n            return (\n              &lt;FormErrorSummary\n                errors={stepErrors}\n                onErrorClick={(fieldKey) =&gt; {\n                  // Find the field by key to get its ID\n                  const errorField = currentSection.fields.find(\n                    (f) =&gt; f.key === fieldKey\n                  );\n                  if (errorField) {\n                    // Field components use &#96;field-${field.id}&#96; as the ID\n                    const fieldElement = document.getElementById(&#96;field-${errorField.id}&#96;);\n                    if (fieldElement) {\n                      fieldElement.focus();\n                      fieldElement.scrollIntoView({\n                        behavior: \&quot;smooth\&quot;,\n                        block: \&quot;center\&quot;,\n                      });\n                    }\n                  }\n                }}\n              /&gt;\n            );\n          }\n          return null;\n        })()}\n\n        &lt;FormStep\n          section={currentSection}\n          formData={formData}\n          errors={errors}\n          touched={touched}\n          onFieldChange={handleFieldChange}\n          onFieldBlur={handleFieldBlur}\n        /&gt;\n      &lt;/div&gt;\n\n      &lt;FormNavigation\n        isFirstStep={isFirstStep}\n        isLastStep={isLastStep}\n        onNext={handleNext}\n        onPrevious={handlePrevious}\n        onSaveDraft={handleSaveDraft}\n        progress={progress}\n        isSubmitting={isSubmitting}\n        isSavingDraft={isSavingDraft}\n        draftStatus={draftStatus}\n        draftError={draftError}\n        lastSavedAt={lastSavedAt}\n      /&gt;\n      &lt;p role=\&quot;status\&quot; aria-live=\&quot;polite\&quot; className=\&quot;sr-only\&quot;&gt;\n        {liveMessage}\n      &lt;/p&gt;\n    &lt;/div&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/dynamic-form-wizard.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport { useState, useCallback, useRef, useEffect } from \"react\";\nimport type { FormConfigWithFields } from \"@/lib/forms/types\";\nimport { validateStep, getStepFieldKeys } from \"@/lib/forms/form-validator\";\nimport { buildFormSchema } from \"@/lib/form-schema\";\nimport { StepIndicator } from \"./step-indicator\";\nimport { FormStep } from \"./form-step\";\nimport { FormNavigation } from \"./form-navigation\";\nimport { FormErrorSummary } from \"./form-error-summary\";\nimport { usePrefersReducedMotion } from \"@/hooks/use-prefers-reduced-motion\";\nimport { useToast } from \"@/components/ui/use-toast\";\nimport { cn } from \"@/lib/utils\";\nimport type { DraftStatus } from \"./draft-save-indicator\";\n\ninterface DynamicFormWizardProps {\n  formConfig: FormConfigWithFields;\n  initialData?: Record&lt;string, unknown&gt;;\n  onStepChange?: (stepIndex: number) =&gt; void;\n  onComplete?: (formData: Record&lt;string, unknown&gt;) =&gt; void;\n  onSaveDraft?: (formData: Record&lt;string, unknown&gt;) =&gt; void;\n}\n\nexport function DynamicFormWizard({\n  formConfig,\n  initialData = {},\n  onStepChange,\n  onComplete,\n  onSaveDraft,\n}: DynamicFormWizardProps) {\n  const sortedSections = [...formConfig.sections].sort(\n    (a, b) =&gt; a.order - b.order\n  );\n\n  const [currentStep, setCurrentStep] = useState(0);\n  const [formData, setFormData] = useState&lt;Record&lt;string, unknown&gt;&gt;(\n    initialData\n  );\n  const [completedSteps, setCompletedSteps] = useState&lt;Set&lt;number&gt;&gt;(\n    new Set()\n  );\n  const [errors, setErrors] = useState&lt;Record&lt;string, string&gt;&gt;({});\n  const [touched, setTouched] = useState&lt;Record&lt;string, boolean&gt;&gt;({});\n  const [isSubmitting, setIsSubmitting] = useState(false);\n  const [isSavingDraft, setIsSavingDraft] = useState(false);\n  const [draftStatus, setDraftStatus] = useState&lt;DraftStatus&gt;(\"idle\");\n  const [draftError, setDraftError] = useState&lt;string | null&gt;(null);\n  const [lastSavedAt, setLastSavedAt] = useState&lt;Date | null&gt;(null);\n  const [liveMessage, setLiveMessage] = useState(\"\");\n  const validationTimersRef = useRef&lt;Record&lt;string, NodeJS.Timeout&gt;&gt;({});\n  const formSchemaRef = useRef(buildFormSchema(formConfig));\n  const prefersReducedMotion = usePrefersReducedMotion();\n  const { toast } = useToast();\n\n  const totalSteps = sortedSections.length;\n  const currentSection = sortedSections[currentStep];\n  const isFirstStep = currentStep === 0;\n  const isLastStep = currentStep === totalSteps - 1;\n\n  // Rebuild schema if form config changes\n  useEffect(() =&gt; {\n    formSchemaRef.current = buildFormSchema(formConfig);\n  }, [formConfig]);\n\n  /**\n   * Validate a single field with debouncing\n   */\n  const validateField = useCallback(\n    (fieldKey: string, value: unknown, immediate = false) =&gt; {\n      // Clear existing timer for this field\n      if (validationTimersRef.current[fieldKey]) {\n        clearTimeout(validationTimersRef.current[fieldKey]);\n      }\n\n      const performValidation = () =&gt; {\n        const fieldSchema = formSchemaRef.current.shape[fieldKey];\n        if (!fieldSchema) {\n          return;\n        }\n\n        try {\n          fieldSchema.parse(value);\n          // Clear error if validation passes\n          setErrors((prev) =&gt; {\n            const next = { ...prev };\n            delete next[fieldKey];\n            return next;\n          });\n        } catch (error) {\n          if (error &amp;&amp; typeof error === \"object\" &amp;&amp; \"issues\" in error) {\n            const zodError = error as { issues: Array&lt;{ message: string }&gt; };\n            const firstIssue = zodError.issues[0];\n            if (firstIssue) {\n              setErrors((prev) =&gt; ({\n                ...prev,\n                [fieldKey]: firstIssue.message,\n              }));\n            }\n          } else if (error instanceof Error) {\n            setErrors((prev) =&gt; ({\n              ...prev,\n              [fieldKey]: error.message,\n            }));\n          }\n        }\n      };\n\n      if (immediate) {\n        performValidation();\n      } else {\n        // Debounce validation on change (300ms)\n        validationTimersRef.current[fieldKey] = setTimeout(performValidation, 300);\n      }\n    },\n    []\n  );\n\n  const handleFieldChange = useCallback(\n    (fieldKey: string, value: unknown) =&gt; {\n      setFormData((prev) =&gt; ({\n        ...prev,\n        [fieldKey]: value,\n      }));\n\n      // Validate on change with debounce (only if field has been touched)\n      if (touched[fieldKey]) {\n        validateField(fieldKey, value, false);\n      }\n    },\n    [touched, validateField]\n  );\n\n  const handleFieldBlur = useCallback(\n    (fieldKey: string) =&gt; {\n      setTouched((prev) =&gt; ({\n        ...prev,\n        [fieldKey]: true,\n      }));\n\n      // Validate immediately on blur\n      const value = formData[fieldKey];\n      validateField(fieldKey, value, true);\n    },\n    [formData, validateField]\n  );\n\n  /**\n   * Validate current step using the validation utilities\n   */\n  const validateCurrentStep = useCallback((): boolean =&gt; {\n    const stepResult = validateStep(currentStep, formData, formConfig);\n\n    if (!stepResult.isValid) {\n      // Update errors for current step fields only\n      const stepFieldKeys = getStepFieldKeys(currentStep, formConfig);\n      setErrors((prev) =&gt; {\n        const next = { ...prev };\n        // Clear errors for fields not in current step\n        stepFieldKeys.forEach((key) =&gt; {\n          if (stepResult.errors[key]) {\n            next[key] = stepResult.errors[key];\n          } else {\n            delete next[key];\n          }\n        });\n        return next;\n      });\n\n      // Mark all fields in step as touched\n      setTouched((prev) =&gt; {\n        const next = { ...prev };\n        stepFieldKeys.forEach((key) =&gt; {\n          next[key] = true;\n        });\n        return next;\n      });\n\n      // Focus first error field\n      if (stepResult.firstErrorField) {\n        // Find the field by key to get its ID\n        const errorField = currentSection.fields.find(\n          (f) =&gt; f.key === stepResult.firstErrorField\n        );\n        if (errorField) {\n          // Field components use &#96;field-${field.id}&#96; as the ID\n          const fieldElement = document.getElementById(&#96;field-${errorField.id}&#96;);\n          if (fieldElement) {\n            fieldElement.focus();\n            fieldElement.scrollIntoView({ behavior: \"smooth\", block: \"center\" });\n          }\n        }\n      }\n    }\n\n    return stepResult.isValid;\n  }, [currentStep, formData, formConfig, currentSection]);\n\n  const handleNext = useCallback(async () =&gt; {\n    if (isSubmitting) {\n      return;\n    }\n\n    const isStepValid = validateCurrentStep();\n    if (!isStepValid) {\n      toast({\n        variant: \"destructive\",\n        title: \"Please fix validation errors\",\n        description: \"Resolve highlighted fields before continuing.\",\n      });\n      return;\n    }\n\n    setCompletedSteps((prev) =&gt; new Set(prev).add(currentStep));\n\n    if (isLastStep) {\n      if (!onComplete) {\n        return;\n      }\n      try {\n        setIsSubmitting(true);\n        await onComplete(formData);\n        toast({\n          title: \"Form submitted\",\n          description: \"Thanks! We received your information.\",\n        });\n      } catch (error) {\n        toast({\n          variant: \"destructive\",\n          title: \"Submission failed\",\n          description:\n            error instanceof Error\n              ? error.message\n              : \"Something went wrong while submitting. Please try again.\",\n        });\n      } finally {\n        setIsSubmitting(false);\n      }\n    } else {\n      const nextStep = currentStep + 1;\n      setCurrentStep(nextStep);\n      onStepChange?.(nextStep);\n    }\n  }, [\n    currentStep,\n    formData,\n    isLastStep,\n    isSubmitting,\n    onComplete,\n    onStepChange,\n    toast,\n    validateCurrentStep,\n  ]);\n\n  const handlePrevious = useCallback(() =&gt; {\n    if (!isFirstStep) {\n      const prevStep = currentStep - 1;\n      setCurrentStep(prevStep);\n      onStepChange?.(prevStep);\n    }\n  }, [currentStep, isFirstStep, onStepChange]);\n\n  const handleStepClick = useCallback(\n    (stepIndex: number) =&gt; {\n      // Validate current step before allowing navigation\n      if (stepIndex !== currentStep) {\n        if (!validateCurrentStep()) {\n          return; // Don't allow navigation if current step is invalid\n        }\n      }\n\n      // Allow navigation to completed steps or the next step\n      if (completedSteps.has(stepIndex) || stepIndex === currentStep + 1) {\n        setCurrentStep(stepIndex);\n        onStepChange?.(stepIndex);\n      }\n    },\n    [completedSteps, currentStep, onStepChange, validateCurrentStep]\n  );\n\n  const handleSaveDraft = useCallback(async () =&gt; {\n    if (!onSaveDraft || isSavingDraft) {\n      return;\n    }\n    try {\n      setIsSavingDraft(true);\n      setDraftStatus(\"saving\");\n      setDraftError(null);\n      await onSaveDraft(formData);\n      setDraftStatus(\"success\");\n      const savedAt = new Date();\n      setLastSavedAt(savedAt);\n      toast({\n        title: \"Draft saved\",\n        description: &#96;Progress saved at ${savedAt.toLocaleTimeString([], {\n          hour: \"numeric\",\n          minute: \"2-digit\",\n        })}&#96;,\n      });\n    } catch (error) {\n      setDraftStatus(\"error\");\n      const message =\n        error instanceof Error\n          ? error.message\n          : \"Unable to save your draft right now.\";\n      setDraftError(message);\n      toast({\n        variant: \"destructive\",\n        title: \"Draft not saved\",\n        description: message,\n      });\n    } finally {\n      setIsSavingDraft(false);\n    }\n  }, [formData, isSavingDraft, onSaveDraft, toast]);\n\n  // Cleanup timers on unmount\n  useEffect(() =&gt; {\n    const timers = validationTimersRef.current;\n    return () =&gt; {\n      Object.values(timers).forEach((timer) =&gt; {\n        clearTimeout(timer);\n      });\n    };\n  }, []);\n\n  const progress = totalSteps &gt; 0 ? ((currentStep + 1) / totalSteps) * 100 : 0;\n\n  useEffect(() =&gt; {\n    const sectionLabel = currentSection?.label ?? &#96;Step ${currentStep + 1}&#96;;\n    setLiveMessage(&#96;Now viewing ${sectionLabel} (${currentStep + 1} of ${totalSteps})&#96;);\n  }, [currentSection, currentStep, totalSteps]);\n\n  return (\n    &lt;div className=\"flex flex-col gap-6 pb-32 sm:pb-12\"&gt;\n      &lt;StepIndicator\n        steps={sortedSections.map((section, index) =&gt; ({\n          id: section.id,\n          label: section.label,\n          order: section.order,\n        }))}\n        currentStep={currentStep}\n        completedSteps={completedSteps}\n        onStepClick={handleStepClick}\n      /&gt;\n\n      &lt;div\n        className={cn(\n          \"min-h-[400px] space-y-6 rounded-3xl border border-border/60 bg-background/70 p-4 shadow-lg sm:p-8\",\n          !prefersReducedMotion &amp;&amp; \"transition-shadow duration-300\"\n        )}\n      &gt;\n        {/* Error summary for current step */}\n        {(() =&gt; {\n          const stepFieldKeys = getStepFieldKeys(currentStep, formConfig);\n          const stepErrors: Record&lt;string, string&gt; = {};\n          stepFieldKeys.forEach((key) =&gt; {\n            if (errors[key] &amp;&amp; touched[key]) {\n              stepErrors[key] = errors[key];\n            }\n          });\n\n          if (Object.keys(stepErrors).length &gt; 0) {\n            return (\n              &lt;FormErrorSummary\n                errors={stepErrors}\n                onErrorClick={(fieldKey) =&gt; {\n                  // Find the field by key to get its ID\n                  const errorField = currentSection.fields.find(\n                    (f) =&gt; f.key === fieldKey\n                  );\n                  if (errorField) {\n                    // Field components use &#96;field-${field.id}&#96; as the ID\n                    const fieldElement = document.getElementById(&#96;field-${errorField.id}&#96;);\n                    if (fieldElement) {\n                      fieldElement.focus();\n                      fieldElement.scrollIntoView({\n                        behavior: \"smooth\",\n                        block: \"center\",\n                      });\n                    }\n                  }\n                }}\n              /&gt;\n            );\n          }\n          return null;\n        })()}\n\n        &lt;FormStep\n          section={currentSection}\n          formData={formData}\n          errors={errors}\n          touched={touched}\n          onFieldChange={handleFieldChange}\n          onFieldBlur={handleFieldBlur}\n        /&gt;\n      &lt;/div&gt;\n\n      &lt;FormNavigation\n        isFirstStep={isFirstStep}\n        isLastStep={isLastStep}\n        onNext={handleNext}\n        onPrevious={handlePrevious}\n        onSaveDraft={handleSaveDraft}\n        progress={progress}\n        isSubmitting={isSubmitting}\n        isSavingDraft={isSavingDraft}\n        draftStatus={draftStatus}\n        draftError={draftError}\n        lastSavedAt={lastSavedAt}\n      /&gt;\n      &lt;p role=\"status\" aria-live=\"polite\" className=\"sr-only\"&gt;\n        {liveMessage}\n      &lt;/p&gt;\n    &lt;/div&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -3505,7 +3505,7 @@ Status: **completed**
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm run lint</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm run lint</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && npm run lint
@@ -3536,19 +3536,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;docs/agent-stream-7-responsive-a11y.md&quot;
+  "relativeWorkspacePath": "docs/agent-stream-7-responsive-a11y.md"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;3c4995e7-4493-49fe-a148-30804de380c8&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "3c4995e7-4493-49fe-a148-30804de380c8",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -3556,50 +3556,50 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;  \n  **Agent ID**: STREAM-7  \n- **Status**: Active  \n- **Owner**: [Assign Developer]  \n- **Start Date**: [Date]  \n- **Target Completion**: [Date + 4-5 days]\n+ **Status**: Complete  \n+ **Owner**: GPT-5.1 Codex  \n+ **Start Date**: Nov 14, 2025  \n+ **Target Completion**: Nov 18, 2025\n  \n  ## Mission&quot;,
-        &quot;oldStart&quot;: 2,
-        &quot;newStart&quot;: 2,
-        &quot;oldLines&quot;: 8,
-        &quot;newLines&quot;: 8,
-        &quot;linesRemoved&quot;: 4,
-        &quot;linesAdded&quot;: 4
+        "diffString": "  \n  **Agent ID**: STREAM-7  \n- **Status**: Active  \n- **Owner**: [Assign Developer]  \n- **Start Date**: [Date]  \n- **Target Completion**: [Date + 4-5 days]\n+ **Status**: Complete  \n+ **Owner**: GPT-5.1 Codex  \n+ **Start Date**: Nov 14, 2025  \n+ **Target Completion**: Nov 18, 2025\n  \n  ## Mission",
+        "oldStart": 2,
+        "newStart": 2,
+        "oldLines": 8,
+        "newLines": 8,
+        "linesRemoved": 4,
+        "linesAdded": 4
       },
       {
-        &quot;diffString&quot;: &quot;  \n  ### Active Task\n- - [ ] **Task 7.1**: Implement mobile-responsive layouts\n+ - [x] **Task 7.1**: Implement mobile-responsive layouts *(Completed Nov 18, 2025)*\n  \n  ### Next Tasks\n- - [ ] **Task 7.2**: Optimize for tablet viewports\n- - [ ] **Task 7.3**: Add loading states and skeletons\n- - [ ] **Task 7.4**: Implement success/error feedback (toasts)\n- - [ ] **Task 7.5**: Polish animations and transitions\n- - [ ] **Task 7.6**: Accessibility audit and fixes (WCAG 2.1 AA)\n+ - [x] **Task 7.2**: Optimize for tablet viewports *(Completed Nov 18, 2025)*\n+ - [x] **Task 7.3**: Add loading states and skeletons *(Completed Nov 18, 2025)*\n+ - [x] **Task 7.4**: Implement success/error feedback (toasts) *(Completed Nov 18, 2025)*\n+ - [x] **Task 7.5**: Polish animations and transitions *(Completed Nov 18, 2025)*\n+ - [x] **Task 7.6**: Accessibility audit and fixes (WCAG 2.1 AA) *(Completed Nov 18, 2025)*\n  \n  ## Files to Update&quot;,
-        &quot;oldStart&quot;: 14,
-        &quot;newStart&quot;: 14,
-        &quot;oldLines&quot;: 12,
-        &quot;newLines&quot;: 12,
-        &quot;linesRemoved&quot;: 6,
-        &quot;linesAdded&quot;: 6
+        "diffString": "  \n  ### Active Task\n- - [ ] **Task 7.1**: Implement mobile-responsive layouts\n+ - [x] **Task 7.1**: Implement mobile-responsive layouts *(Completed Nov 18, 2025)*\n  \n  ### Next Tasks\n- - [ ] **Task 7.2**: Optimize for tablet viewports\n- - [ ] **Task 7.3**: Add loading states and skeletons\n- - [ ] **Task 7.4**: Implement success/error feedback (toasts)\n- - [ ] **Task 7.5**: Polish animations and transitions\n- - [ ] **Task 7.6**: Accessibility audit and fixes (WCAG 2.1 AA)\n+ - [x] **Task 7.2**: Optimize for tablet viewports *(Completed Nov 18, 2025)*\n+ - [x] **Task 7.3**: Add loading states and skeletons *(Completed Nov 18, 2025)*\n+ - [x] **Task 7.4**: Implement success/error feedback (toasts) *(Completed Nov 18, 2025)*\n+ - [x] **Task 7.5**: Polish animations and transitions *(Completed Nov 18, 2025)*\n+ - [x] **Task 7.6**: Accessibility audit and fixes (WCAG 2.1 AA) *(Completed Nov 18, 2025)*\n  \n  ## Files to Update",
+        "oldStart": 14,
+        "newStart": 14,
+        "oldLines": 12,
+        "newLines": 12,
+        "linesRemoved": 6,
+        "linesAdded": 6
       },
       {
-        &quot;diffString&quot;: &quot;  ## Progress Tracking\n  \n- - [ ] Mobile-responsive layouts implemented\n- - [ ] Tablet optimizations complete\n- - [ ] Loading states and skeletons added\n- - [ ] Success/error feedback working\n- - [ ] Animations and transitions polished\n- - [ ] Accessibility audit complete\n+ - [x] Mobile-responsive layouts implemented\n+ - [x] Tablet optimizations complete\n+ - [x] Loading states and skeletons added\n+ - [x] Success/error feedback working\n+ - [x] Animations and transitions polished\n+ - [x] Accessibility audit complete\n  - [ ] WCAG 2.1 AA compliance verified\n  - [ ] All components tested on mobile/tablet/desktop&quot;,
-        &quot;oldStart&quot;: 187,
-        &quot;newStart&quot;: 187,
-        &quot;oldLines&quot;: 10,
-        &quot;newLines&quot;: 10,
-        &quot;linesRemoved&quot;: 6,
-        &quot;linesAdded&quot;: 6
+        "diffString": "  ## Progress Tracking\n  \n- - [ ] Mobile-responsive layouts implemented\n- - [ ] Tablet optimizations complete\n- - [ ] Loading states and skeletons added\n- - [ ] Success/error feedback working\n- - [ ] Animations and transitions polished\n- - [ ] Accessibility audit complete\n+ - [x] Mobile-responsive layouts implemented\n+ - [x] Tablet optimizations complete\n+ - [x] Loading states and skeletons added\n+ - [x] Success/error feedback working\n+ - [x] Animations and transitions polished\n+ - [x] Accessibility audit complete\n  - [ ] WCAG 2.1 AA compliance verified\n  - [ ] All components tested on mobile/tablet/desktop",
+        "oldStart": 187,
+        "newStart": 187,
+        "oldLines": 10,
+        "newLines": 10,
+        "linesRemoved": 6,
+        "linesAdded": 6
       },
       {
-        &quot;diffString&quot;: &quot;  ## Daily Updates\n  \n- ### [Date]\n- - Status: [In Progress/Blocked/Complete]\n- - Completed: [Tasks]\n- - Blockers: [Issues]\n- - Next: [Planned tasks]\n+ ### Nov 18, 2025\n+ - Status: Complete\n+ - Completed: Tasks 7.1-7.6 (responsive layouts, tablet optimizations, skeleton states, toast feedback, subtle transitions, WCAG-focused fixes)\n+ - Blockers: None\n+ - Next: Hand off to Stream 8 for verification &amp; device/screen-reader testing\n  \n  &quot;,
-        &quot;oldStart&quot;: 231,
-        &quot;newStart&quot;: 231,
-        &quot;oldLines&quot;: 9,
-        &quot;newLines&quot;: 9,
-        &quot;linesRemoved&quot;: 5,
-        &quot;linesAdded&quot;: 5
+        "diffString": "  ## Daily Updates\n  \n- ### [Date]\n- - Status: [In Progress/Blocked/Complete]\n- - Completed: [Tasks]\n- - Blockers: [Issues]\n- - Next: [Planned tasks]\n+ ### Nov 18, 2025\n+ - Status: Complete\n+ - Completed: Tasks 7.1-7.6 (responsive layouts, tablet optimizations, skeleton states, toast feedback, subtle transitions, WCAG-focused fixes)\n+ - Blockers: None\n+ - Next: Hand off to Stream 8 for verification &amp; device/screen-reader testing\n  \n  ",
+        "oldStart": 231,
+        "newStart": 231,
+        "oldLines": 9,
+        "newLines": 9,
+        "linesRemoved": 5,
+        "linesAdded": 5
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM docs/agent-stream-7-responsive-a11y.md&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;# Agent: Stream 7 - Responsive Design &amp; Accessibility\n\n**Agent ID**: STREAM-7  \n**Status**: Complete  \n**Owner**: GPT-5.1 Codex  \n**Start Date**: Nov 14, 2025  \n**Target Completion**: Nov 18, 2025\n\n## Mission\n\nEnsure forms work perfectly on all devices (mobile, tablet, desktop) and meet WCAG 2.1 AA accessibility standards. Polish the UI with smooth animations and professional design.\n\n## Current Tasks\n\n### Active Task\n- [x] **Task 7.1**: Implement mobile-responsive layouts *(Completed Nov 18, 2025)*\n\n### Next Tasks\n- [x] **Task 7.2**: Optimize for tablet viewports *(Completed Nov 18, 2025)*\n- [x] **Task 7.3**: Add loading states and skeletons *(Completed Nov 18, 2025)*\n- [x] **Task 7.4**: Implement success/error feedback (toasts) *(Completed Nov 18, 2025)*\n- [x] **Task 7.5**: Polish animations and transitions *(Completed Nov 18, 2025)*\n- [x] **Task 7.6**: Accessibility audit and fixes (WCAG 2.1 AA) *(Completed Nov 18, 2025)*\n\n## Files to Update\n\n&#96;&#96;&#96;\ncomponents/\n  forms/\n    dynamic-form-wizard.tsx      # Mobile layout, responsive design\n    step-indicator.tsx            # Mobile progress bar, desktop stepper\n    form-step.tsx                 # Responsive field layouts\n    form-navigation.tsx           # Mobile sticky bottom bar\n    form-field-renderer.tsx       # Responsive field components\n    field-wrapper.tsx             # Responsive spacing\n    draft-save-indicator.tsx      # Toast notifications\n\napp/\n  forms/\n    [entityCode]/\n      [geographyCode]/\n        loading.tsx               # Skeleton screens\n    [formConfigId]/\n      loading.tsx                 # Skeleton screens\n&#96;&#96;&#96;\n\n## Key Dependencies\n\n**Depends on:**\n- ✅ Stream 2 (Field Rendering) - Complete - Need field components\n- ✅ Stream 3 (Wizard UI) - Complete - Need wizard framework\n\n**Provides to:**\n- Stream 8 (Testing) - Need responsive design for testing\n\n**Can work in parallel with:**\n- Stream 5 (State Management) - No conflicts\n- Stream 6 (Conditional Fields) - No conflicts\n\n## Integration Points\n\n1. **With Stream 2**: Make all field components responsive\n2. **With Stream 3**: Make wizard responsive\n3. **With Stream 5**: Add loading states for autosave\n4. **With Stream 6**: Polish visibility transitions\n\n## Implementation Details\n\n### Task 7.1: Mobile Responsive Layout\n\n**Breakpoints:**\n- Mobile: &lt; 640px (sm)\n- Tablet: 640px - 1024px (md-lg)\n- Desktop: &gt; 1024px (xl)\n\n**Mobile Optimizations:**\n- Single column layout\n- Larger touch targets (min 44x44px)\n- Sticky navigation bar at bottom\n- Collapsible sections\n- Full-width form fields\n- Stacked navigation buttons\n\n**Update Components:**\n- &#96;DynamicFormWizard&#96;: Mobile-first layout\n- &#96;StepIndicator&#96;: Progress bar on mobile, stepper on desktop\n- &#96;FormStep&#96;: Single column on mobile\n- &#96;FormNavigation&#96;: Sticky bottom bar on mobile\n\n### Task 7.2: Tablet Optimizations\n\n**Tablet Features:**\n- Two-column layout for related fields\n- Side-by-side navigation buttons\n- Optimized step indicator\n- Balanced spacing\n\n**Update Components:**\n- &#96;FormStep&#96;: Two-column layout for related fields\n- &#96;FormNavigation&#96;: Side-by-side buttons\n- &#96;StepIndicator&#96;: Optimized for tablet\n\n### Task 7.3: Loading States &amp; Skeletons\n\n**Create Skeleton Components:**\n- &#96;FormLoadingSkeleton&#96;: Full form skeleton\n- &#96;StepLoadingSkeleton&#96;: Step skeleton\n\n**Features:**\n- Skeleton screens for form loading\n- Skeleton for step transitions\n- Spinner for async operations\n- Progress indicator for file uploads\n- Optimistic UI updates\n\n**Update:**\n- Route &#96;loading.tsx&#96; files\n- Add skeletons to wizard transitions\n\n### Task 7.4: Success/Error Feedback\n\n**Create/Update:**\n- &#96;DraftSaveIndicator&#96;: Toast for draft saved\n- Use Shadcn UI &#96;Toast&#96; component\n\n**Features:**\n- Toast notification on successful save\n- Toast notification on errors\n- \&quot;Draft saved\&quot; indicator\n- Success animation on step completion\n- Error banner at top of form\n\n**Integration:**\n- Add to &#96;DynamicFormWizard&#96;\n- Add to &#96;FormNavigation&#96; (Save Draft button)\n- Add to autosave hook\n\n### Task 7.5: Animations &amp; Transitions\n\n**Features:**\n- Smooth step transitions\n- Field show/hide animations (for Stream 6)\n- Loading state transitions\n- Success animations\n- Error state animations\n\n**Implementation:**\n- Use CSS transitions\n- Use Framer Motion (optional)\n- Keep animations subtle\n- Respect &#96;prefers-reduced-motion&#96;\n\n**Update Components:**\n- &#96;DynamicFormWizard&#96;: Step transitions\n- &#96;FormStep&#96;: Field animations\n- &#96;FormFieldRenderer&#96;: Show/hide transitions\n\n### Task 7.6: Accessibility (WCAG 2.1 AA)\n\n**Keyboard Navigation:**\n- Tab order follows visual order\n- Enter key submits form/advances step\n- Escape key cancels/closes modals\n- Arrow keys navigate radio/select options\n\n**Screen Reader Support:**\n- Proper &#96;&lt;label&gt;&#96; associations\n- &#96;aria-describedby&#96; for help text\n- &#96;aria-invalid&#96; for error states\n- &#96;aria-live&#96; regions for dynamic updates\n- &#96;role=\&quot;alert\&quot;&#96; for error messages\n\n**Visual Accessibility:**\n- Color contrast ratio ≥ 4.5:1 for text\n- Color contrast ratio ≥ 3:1 for UI components\n- Don&#39;t rely solely on color for information\n- Focus indicators visible (2px outline)\n- Text resizable up to 200% without horizontal scrolling\n\n**Update All Components:**\n- Add ARIA attributes\n- Ensure keyboard navigation\n- Fix color contrast\n- Add focus indicators\n- Test with screen readers\n\n## Progress Tracking\n\n- [x] Mobile-responsive layouts implemented\n- [x] Tablet optimizations complete\n- [x] Loading states and skeletons added\n- [x] Success/error feedback working\n- [x] Animations and transitions polished\n- [x] Accessibility audit complete\n- [ ] WCAG 2.1 AA compliance verified\n- [ ] All components tested on mobile/tablet/desktop\n- [ ] Screen reader testing complete\n\n## Testing Checklist\n\n- [ ] Test on mobile devices (&lt; 640px)\n- [ ] Test on tablets (640-1024px)\n- [ ] Test on desktop (&gt; 1024px)\n- [ ] Test touch targets are large enough\n- [ ] Test navigation on mobile\n- [ ] Test loading states\n- [ ] Test success/error feedback\n- [ ] Test animations\n- [ ] Test keyboard navigation\n- [ ] Test screen reader (NVDA/JAWS)\n- [ ] Test focus management\n- [ ] Test color contrast\n- [ ] Test text resizing\n- [ ] Test reduced motion preference\n\n## Tools for Testing\n\n- **Responsive Design**: Chrome DevTools, BrowserStack\n- **Accessibility**: axe DevTools, WAVE, Lighthouse\n- **Screen Readers**: NVDA (Windows), VoiceOver (Mac)\n- **Color Contrast**: WebAIM Contrast Checker\n\n## Notes\n\n- Mobile-first approach\n- Use Tailwind responsive utilities\n- Test on real devices when possible\n- Follow Shadcn UI accessibility patterns\n- Keep animations subtle and performant\n\n## Daily Updates\n\n### Nov 18, 2025\n- Status: Complete\n- Completed: Tasks 7.1-7.6 (responsive layouts, tablet optimizations, skeleton states, toast feedback, subtle transitions, WCAG-focused fixes)\n- Blockers: None\n- Next: Hand off to Stream 8 for verification &amp; device/screen-reader testing\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM docs/agent-stream-7-responsive-a11y.md",
+  "contentsAfterEdit": "# Agent: Stream 7 - Responsive Design &amp; Accessibility\n\n**Agent ID**: STREAM-7  \n**Status**: Complete  \n**Owner**: GPT-5.1 Codex  \n**Start Date**: Nov 14, 2025  \n**Target Completion**: Nov 18, 2025\n\n## Mission\n\nEnsure forms work perfectly on all devices (mobile, tablet, desktop) and meet WCAG 2.1 AA accessibility standards. Polish the UI with smooth animations and professional design.\n\n## Current Tasks\n\n### Active Task\n- [x] **Task 7.1**: Implement mobile-responsive layouts *(Completed Nov 18, 2025)*\n\n### Next Tasks\n- [x] **Task 7.2**: Optimize for tablet viewports *(Completed Nov 18, 2025)*\n- [x] **Task 7.3**: Add loading states and skeletons *(Completed Nov 18, 2025)*\n- [x] **Task 7.4**: Implement success/error feedback (toasts) *(Completed Nov 18, 2025)*\n- [x] **Task 7.5**: Polish animations and transitions *(Completed Nov 18, 2025)*\n- [x] **Task 7.6**: Accessibility audit and fixes (WCAG 2.1 AA) *(Completed Nov 18, 2025)*\n\n## Files to Update\n\n&#96;&#96;&#96;\ncomponents/\n  forms/\n    dynamic-form-wizard.tsx      # Mobile layout, responsive design\n    step-indicator.tsx            # Mobile progress bar, desktop stepper\n    form-step.tsx                 # Responsive field layouts\n    form-navigation.tsx           # Mobile sticky bottom bar\n    form-field-renderer.tsx       # Responsive field components\n    field-wrapper.tsx             # Responsive spacing\n    draft-save-indicator.tsx      # Toast notifications\n\napp/\n  forms/\n    [entityCode]/\n      [geographyCode]/\n        loading.tsx               # Skeleton screens\n    [formConfigId]/\n      loading.tsx                 # Skeleton screens\n&#96;&#96;&#96;\n\n## Key Dependencies\n\n**Depends on:**\n- ✅ Stream 2 (Field Rendering) - Complete - Need field components\n- ✅ Stream 3 (Wizard UI) - Complete - Need wizard framework\n\n**Provides to:**\n- Stream 8 (Testing) - Need responsive design for testing\n\n**Can work in parallel with:**\n- Stream 5 (State Management) - No conflicts\n- Stream 6 (Conditional Fields) - No conflicts\n\n## Integration Points\n\n1. **With Stream 2**: Make all field components responsive\n2. **With Stream 3**: Make wizard responsive\n3. **With Stream 5**: Add loading states for autosave\n4. **With Stream 6**: Polish visibility transitions\n\n## Implementation Details\n\n### Task 7.1: Mobile Responsive Layout\n\n**Breakpoints:**\n- Mobile: &lt; 640px (sm)\n- Tablet: 640px - 1024px (md-lg)\n- Desktop: &gt; 1024px (xl)\n\n**Mobile Optimizations:**\n- Single column layout\n- Larger touch targets (min 44x44px)\n- Sticky navigation bar at bottom\n- Collapsible sections\n- Full-width form fields\n- Stacked navigation buttons\n\n**Update Components:**\n- &#96;DynamicFormWizard&#96;: Mobile-first layout\n- &#96;StepIndicator&#96;: Progress bar on mobile, stepper on desktop\n- &#96;FormStep&#96;: Single column on mobile\n- &#96;FormNavigation&#96;: Sticky bottom bar on mobile\n\n### Task 7.2: Tablet Optimizations\n\n**Tablet Features:**\n- Two-column layout for related fields\n- Side-by-side navigation buttons\n- Optimized step indicator\n- Balanced spacing\n\n**Update Components:**\n- &#96;FormStep&#96;: Two-column layout for related fields\n- &#96;FormNavigation&#96;: Side-by-side buttons\n- &#96;StepIndicator&#96;: Optimized for tablet\n\n### Task 7.3: Loading States &amp; Skeletons\n\n**Create Skeleton Components:**\n- &#96;FormLoadingSkeleton&#96;: Full form skeleton\n- &#96;StepLoadingSkeleton&#96;: Step skeleton\n\n**Features:**\n- Skeleton screens for form loading\n- Skeleton for step transitions\n- Spinner for async operations\n- Progress indicator for file uploads\n- Optimistic UI updates\n\n**Update:**\n- Route &#96;loading.tsx&#96; files\n- Add skeletons to wizard transitions\n\n### Task 7.4: Success/Error Feedback\n\n**Create/Update:**\n- &#96;DraftSaveIndicator&#96;: Toast for draft saved\n- Use Shadcn UI &#96;Toast&#96; component\n\n**Features:**\n- Toast notification on successful save\n- Toast notification on errors\n- \"Draft saved\" indicator\n- Success animation on step completion\n- Error banner at top of form\n\n**Integration:**\n- Add to &#96;DynamicFormWizard&#96;\n- Add to &#96;FormNavigation&#96; (Save Draft button)\n- Add to autosave hook\n\n### Task 7.5: Animations &amp; Transitions\n\n**Features:**\n- Smooth step transitions\n- Field show/hide animations (for Stream 6)\n- Loading state transitions\n- Success animations\n- Error state animations\n\n**Implementation:**\n- Use CSS transitions\n- Use Framer Motion (optional)\n- Keep animations subtle\n- Respect &#96;prefers-reduced-motion&#96;\n\n**Update Components:**\n- &#96;DynamicFormWizard&#96;: Step transitions\n- &#96;FormStep&#96;: Field animations\n- &#96;FormFieldRenderer&#96;: Show/hide transitions\n\n### Task 7.6: Accessibility (WCAG 2.1 AA)\n\n**Keyboard Navigation:**\n- Tab order follows visual order\n- Enter key submits form/advances step\n- Escape key cancels/closes modals\n- Arrow keys navigate radio/select options\n\n**Screen Reader Support:**\n- Proper &#96;&lt;label&gt;&#96; associations\n- &#96;aria-describedby&#96; for help text\n- &#96;aria-invalid&#96; for error states\n- &#96;aria-live&#96; regions for dynamic updates\n- &#96;role=\"alert\"&#96; for error messages\n\n**Visual Accessibility:**\n- Color contrast ratio ≥ 4.5:1 for text\n- Color contrast ratio ≥ 3:1 for UI components\n- Don't rely solely on color for information\n- Focus indicators visible (2px outline)\n- Text resizable up to 200% without horizontal scrolling\n\n**Update All Components:**\n- Add ARIA attributes\n- Ensure keyboard navigation\n- Fix color contrast\n- Add focus indicators\n- Test with screen readers\n\n## Progress Tracking\n\n- [x] Mobile-responsive layouts implemented\n- [x] Tablet optimizations complete\n- [x] Loading states and skeletons added\n- [x] Success/error feedback working\n- [x] Animations and transitions polished\n- [x] Accessibility audit complete\n- [ ] WCAG 2.1 AA compliance verified\n- [ ] All components tested on mobile/tablet/desktop\n- [ ] Screen reader testing complete\n\n## Testing Checklist\n\n- [ ] Test on mobile devices (&lt; 640px)\n- [ ] Test on tablets (640-1024px)\n- [ ] Test on desktop (&gt; 1024px)\n- [ ] Test touch targets are large enough\n- [ ] Test navigation on mobile\n- [ ] Test loading states\n- [ ] Test success/error feedback\n- [ ] Test animations\n- [ ] Test keyboard navigation\n- [ ] Test screen reader (NVDA/JAWS)\n- [ ] Test focus management\n- [ ] Test color contrast\n- [ ] Test text resizing\n- [ ] Test reduced motion preference\n\n## Tools for Testing\n\n- **Responsive Design**: Chrome DevTools, BrowserStack\n- **Accessibility**: axe DevTools, WAVE, Lighthouse\n- **Screen Readers**: NVDA (Windows), VoiceOver (Mac)\n- **Color Contrast**: WebAIM Contrast Checker\n\n## Notes\n\n- Mobile-first approach\n- Use Tailwind responsive utilities\n- Test on real devices when possible\n- Follow Shadcn UI accessibility patterns\n- Keep animations subtle and performant\n\n## Daily Updates\n\n### Nov 18, 2025\n- Status: Complete\n- Completed: Tasks 7.1-7.6 (responsive layouts, tablet optimizations, skeleton states, toast feedback, subtle transitions, WCAG-focused fixes)\n- Blockers: None\n- Next: Hand off to Stream 8 for verification &amp; device/screen-reader testing\n\n"
 }
 ```
 User decision: **accepted**
@@ -3636,7 +3636,7 @@ Status: **completed**
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && git status -sb</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && git status -sb</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && git status -sb
@@ -3780,19 +3780,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/draft-save-indicator.tsx&quot;
+  "relativeWorkspacePath": "components/forms/draft-save-indicator.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;881ab7db-e029-49be-8626-99b59b6f7419&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "881ab7db-e029-49be-8626-99b59b6f7419",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -3800,22 +3800,22 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;- \&quot;use client\&quot;;\n- \n- import { AlertTriangle, Check, Loader2 } from \&quot;lucide-react\&quot;;\n- import type { AutosaveStatus } from \&quot;@/hooks/use-autosave\&quot;;\n- \n- export type DraftStatus = AutosaveStatus;\n- \n- interface DraftSaveIndicatorProps {\n-   status: DraftStatus;\n-   lastSavedAt?: string;\n-   errorMessage?: string;\n- }\n- \n- export function DraftSaveIndicator({\n-   status,\n-   lastSavedAt,\n-   errorMessage,\n- }: DraftSaveIndicatorProps) {\n-   if (status === \&quot;idle\&quot;) {\n-     return null;\n-   }\n- \n-   if (status === \&quot;saving\&quot;) {\n-     return (\n-       &lt;div className=\&quot;flex items-center gap-2 text-xs text-muted-foreground\&quot;&gt;\n-         &lt;Loader2 className=\&quot;size-3 animate-spin\&quot; aria-hidden=\&quot;true\&quot; /&gt;\n-         &lt;span&gt;Saving draft…&lt;/span&gt;\n-       &lt;/div&gt;\n-     );\n-   }\n- \n-   if (status === \&quot;error\&quot;) {\n-     return (\n-       &lt;div className=\&quot;flex items-center gap-2 text-xs text-red-600\&quot;&gt;\n-         &lt;AlertTriangle className=\&quot;size-3\&quot; aria-hidden=\&quot;true\&quot; /&gt;\n-         &lt;span&gt;{errorMessage ?? \&quot;Failed to save draft\&quot;}&lt;/span&gt;\n-       &lt;/div&gt;\n-     );\n-   }\n- \n-   return (\n-     &lt;div className=\&quot;flex items-center gap-2 text-xs text-emerald-600\&quot;&gt;\n-       &lt;Check className=\&quot;size-3\&quot; aria-hidden=\&quot;true\&quot; /&gt;\n-       &lt;span&gt;\n-         Draft saved{\&quot; \&quot;}\n-         {lastSavedAt\n-           ? new Date(lastSavedAt).toLocaleTimeString([], {\n-               hour: \&quot;2-digit\&quot;,\n-               minute: \&quot;2-digit\&quot;,\n-             })\n-           : \&quot;just now\&quot;}\n-       &lt;/span&gt;\n-     &lt;/div&gt;\n-   );\n- }\n  \&quot;use client\&quot;;\n  &quot;,
-        &quot;oldStart&quot;: 1,
-        &quot;newStart&quot;: 1,
-        &quot;oldLines&quot;: 57,
-        &quot;newLines&quot;: 2,
-        &quot;linesRemoved&quot;: 55
+        "diffString": "- \"use client\";\n- \n- import { AlertTriangle, Check, Loader2 } from \"lucide-react\";\n- import type { AutosaveStatus } from \"@/hooks/use-autosave\";\n- \n- export type DraftStatus = AutosaveStatus;\n- \n- interface DraftSaveIndicatorProps {\n-   status: DraftStatus;\n-   lastSavedAt?: string;\n-   errorMessage?: string;\n- }\n- \n- export function DraftSaveIndicator({\n-   status,\n-   lastSavedAt,\n-   errorMessage,\n- }: DraftSaveIndicatorProps) {\n-   if (status === \"idle\") {\n-     return null;\n-   }\n- \n-   if (status === \"saving\") {\n-     return (\n-       &lt;div className=\"flex items-center gap-2 text-xs text-muted-foreground\"&gt;\n-         &lt;Loader2 className=\"size-3 animate-spin\" aria-hidden=\"true\" /&gt;\n-         &lt;span&gt;Saving draft…&lt;/span&gt;\n-       &lt;/div&gt;\n-     );\n-   }\n- \n-   if (status === \"error\") {\n-     return (\n-       &lt;div className=\"flex items-center gap-2 text-xs text-red-600\"&gt;\n-         &lt;AlertTriangle className=\"size-3\" aria-hidden=\"true\" /&gt;\n-         &lt;span&gt;{errorMessage ?? \"Failed to save draft\"}&lt;/span&gt;\n-       &lt;/div&gt;\n-     );\n-   }\n- \n-   return (\n-     &lt;div className=\"flex items-center gap-2 text-xs text-emerald-600\"&gt;\n-       &lt;Check className=\"size-3\" aria-hidden=\"true\" /&gt;\n-       &lt;span&gt;\n-         Draft saved{\" \"}\n-         {lastSavedAt\n-           ? new Date(lastSavedAt).toLocaleTimeString([], {\n-               hour: \"2-digit\",\n-               minute: \"2-digit\",\n-             })\n-           : \"just now\"}\n-       &lt;/span&gt;\n-     &lt;/div&gt;\n-   );\n- }\n  \"use client\";\n  ",
+        "oldStart": 1,
+        "newStart": 1,
+        "oldLines": 57,
+        "newLines": 2,
+        "linesRemoved": 55
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/draft-save-indicator.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport { cn } from \&quot;@/lib/utils\&quot;;\nimport { AlertTriangle, CheckCircle2, Loader2, Save } from \&quot;lucide-react\&quot;;\n\nexport type DraftStatus = \&quot;idle\&quot; | \&quot;saving\&quot; | \&quot;success\&quot; | \&quot;error\&quot;;\n\ninterface DraftSaveIndicatorProps {\n  status: DraftStatus;\n  lastSavedAt?: Date | null;\n  errorMessage?: string;\n  className?: string;\n}\n\nexport function DraftSaveIndicator({\n  status,\n  lastSavedAt,\n  errorMessage,\n  className,\n}: DraftSaveIndicatorProps) {\n  let icon = &lt;Save className=\&quot;size-4\&quot; aria-hidden=\&quot;true\&quot; /&gt;;\n  let message = \&quot;Draft not saved yet\&quot;;\n\n  if (status === \&quot;saving\&quot;) {\n    icon = &lt;Loader2 className=\&quot;size-4 animate-spin\&quot; aria-hidden=\&quot;true\&quot; /&gt;;\n    message = \&quot;Saving draft…\&quot;;\n  } else if (status === \&quot;success\&quot; &amp;&amp; lastSavedAt) {\n    icon = &lt;CheckCircle2 className=\&quot;size-4 text-emerald-600\&quot; aria-hidden=\&quot;true\&quot; /&gt;;\n    message = &#96;Draft saved ${lastSavedAt.toLocaleTimeString([], { hour: \&quot;numeric\&quot;, minute: \&quot;2-digit\&quot; })}&#96;;\n  } else if (status === \&quot;error\&quot;) {\n    icon = &lt;AlertTriangle className=\&quot;size-4 text-destructive\&quot; aria-hidden=\&quot;true\&quot; /&gt;;\n    message = errorMessage ?? \&quot;Unable to save draft. Please try again.\&quot;;\n  }\n\n  return (\n    &lt;div\n      className={cn(\n        \&quot;flex items-center gap-2 rounded-xl bg-muted/60 px-3 py-2 text-xs text-muted-foreground\&quot;,\n        status === \&quot;error\&quot; &amp;&amp; \&quot;text-destructive\&quot;,\n        className\n      )}\n      role=\&quot;status\&quot;\n      aria-live=\&quot;polite\&quot;\n    &gt;\n      {icon}\n      &lt;span&gt;{message}&lt;/span&gt;\n    &lt;/div&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/draft-save-indicator.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport { cn } from \"@/lib/utils\";\nimport { AlertTriangle, CheckCircle2, Loader2, Save } from \"lucide-react\";\n\nexport type DraftStatus = \"idle\" | \"saving\" | \"success\" | \"error\";\n\ninterface DraftSaveIndicatorProps {\n  status: DraftStatus;\n  lastSavedAt?: Date | null;\n  errorMessage?: string;\n  className?: string;\n}\n\nexport function DraftSaveIndicator({\n  status,\n  lastSavedAt,\n  errorMessage,\n  className,\n}: DraftSaveIndicatorProps) {\n  let icon = &lt;Save className=\"size-4\" aria-hidden=\"true\" /&gt;;\n  let message = \"Draft not saved yet\";\n\n  if (status === \"saving\") {\n    icon = &lt;Loader2 className=\"size-4 animate-spin\" aria-hidden=\"true\" /&gt;;\n    message = \"Saving draft…\";\n  } else if (status === \"success\" &amp;&amp; lastSavedAt) {\n    icon = &lt;CheckCircle2 className=\"size-4 text-emerald-600\" aria-hidden=\"true\" /&gt;;\n    message = &#96;Draft saved ${lastSavedAt.toLocaleTimeString([], { hour: \"numeric\", minute: \"2-digit\" })}&#96;;\n  } else if (status === \"error\") {\n    icon = &lt;AlertTriangle className=\"size-4 text-destructive\" aria-hidden=\"true\" /&gt;;\n    message = errorMessage ?? \"Unable to save draft. Please try again.\";\n  }\n\n  return (\n    &lt;div\n      className={cn(\n        \"flex items-center gap-2 rounded-xl bg-muted/60 px-3 py-2 text-xs text-muted-foreground\",\n        status === \"error\" &amp;&amp; \"text-destructive\",\n        className\n      )}\n      role=\"status\"\n      aria-live=\"polite\"\n    &gt;\n      {icon}\n      &lt;span&gt;{message}&lt;/span&gt;\n    &lt;/div&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -3834,7 +3834,7 @@ Status: **completed**
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm run lint</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm run lint</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && npm run lint
@@ -3846,7 +3846,7 @@ cd /Users/sahilmehta/supplier-onboarding-simple && npm run lint
 
 
 /Users/sahilmehta/supplier-onboarding-simple/components/forms/dynamic-form-wizard.tsx                                                                           
-  315:41  warning  The ref value &#39;validationTimersRef.current&#39; will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy &#39;validationTimersRef.current&#39; to a variable inside the effect, and use that variable in the cleanup function  react-hooks/exhaustive-deps                                                                           
+  315:41  warning  The ref value 'validationTimersRef.current' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy 'validationTimersRef.current' to a variable inside the effect, and use that variable in the cleanup function  react-hooks/exhaustive-deps                                                                           
 
 ✖ 1 problem (0 errors, 1 warning)
 ```
@@ -3931,7 +3931,7 @@ Output mode: content
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && git diff -- components/forms/dynamic-form-wizard.tsx | head -n 40</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && git diff -- components/forms/dynamic-form-wizard.tsx | head -n 40</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && git diff -- components/forms/dynamic-form-wizard.tsx | head -n 40
@@ -3947,7 +3947,7 @@ cd /Users/sahilmehta/supplier-onboarding-simple && git diff -- components/forms/
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && sed -n '300,360p' components/forms/dynamic-form-wizard.tsx</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && sed -n '300,360p' components/forms/dynamic-form-wizard.tsx</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && sed -n '300,360p' components/forms/dynamic-form-wizard.tsx
@@ -3964,7 +3964,7 @@ cd /Users/sahilmehta/supplier-onboarding-simple && sed -n '300,360p' components/
   );
 
   const handleManualSave = useCallback(() =&gt; {
-    void triggerSave(&quot;manual&quot;);
+    void triggerSave("manual");
   }, [triggerSave]);
 
   useEffect(() =&gt; {
@@ -3986,7 +3986,7 @@ cd /Users/sahilmehta/supplier-onboarding-simple && sed -n '300,360p' components/
     totalSteps &gt; 0 ? ((state.currentStep + 1) / totalSteps) * 100 : 0;
 
   return (
-    &lt;div className=&quot;flex flex-col gap-6 pb-32 sm:pb-12&quot;&gt;
+    &lt;div className="flex flex-col gap-6 pb-32 sm:pb-12"&gt;
       &lt;StepIndicator
         steps={sortedSections.map((section) =&gt; ({
           id: section.id,
@@ -4000,8 +4000,8 @@ cd /Users/sahilmehta/supplier-onboarding-simple && sed -n '300,360p' components/
 
       &lt;div
         className={cn(
-          &quot;min-h-[400px] space-y-6 rounded-3xl border border-border/60 bg-background/70 p-4 shadow-lg sm:p-8&quot;,                                                  
-          !prefersReducedMotion &amp;&amp; &quot;transition-shadow duration-300&quot;
+          "min-h-[400px] space-y-6 rounded-3xl border border-border/60 bg-background/70 p-4 shadow-lg sm:p-8",                                                  
+          !prefersReducedMotion &amp;&amp; "transition-shadow duration-300"
         )}
       &gt;
         {(() =&gt; {
@@ -4035,19 +4035,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;components/forms/dynamic-form-wizard.tsx&quot;
+  "relativeWorkspacePath": "components/forms/dynamic-form-wizard.tsx"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;a35b9081-8eef-4bd0-9d4d-514577895dbd&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "a35b9081-8eef-4bd0-9d4d-514577895dbd",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -4055,23 +4055,23 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;  \n    useEffect(() =&gt; {\n+     const timers = validationTimersRef.current;\n      return () =&gt; {\n-       Object.values(validationTimersRef.current).forEach((timer) =&gt; {\n+       Object.values(timers).forEach((timer) =&gt; {\n          clearTimeout(timer);\n        });&quot;,
-        &quot;oldStart&quot;: 312,
-        &quot;newStart&quot;: 312,
-        &quot;oldLines&quot;: 6,
-        &quot;newLines&quot;: 7,
-        &quot;linesRemoved&quot;: 1,
-        &quot;linesAdded&quot;: 2
+        "diffString": "  \n    useEffect(() =&gt; {\n+     const timers = validationTimersRef.current;\n      return () =&gt; {\n-       Object.values(validationTimersRef.current).forEach((timer) =&gt; {\n+       Object.values(timers).forEach((timer) =&gt; {\n          clearTimeout(timer);\n        });",
+        "oldStart": 312,
+        "newStart": 312,
+        "oldLines": 6,
+        "newLines": 7,
+        "linesRemoved": 1,
+        "linesAdded": 2
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM components/forms/dynamic-form-wizard.tsx&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;\&quot;use client\&quot;;\n\nimport { useCallback, useEffect, useMemo, useRef, useState } from \&quot;react\&quot;;\nimport type { FormConfigWithFields } from \&quot;@/lib/forms/types\&quot;;\nimport { getStepFieldKeys } from \&quot;@/lib/forms/form-validator\&quot;;\nimport { buildFormSchema } from \&quot;@/lib/form-schema\&quot;;\nimport { saveFormDraft, type DraftSaveResult } from \&quot;@/app/forms/actions\&quot;;\nimport { StepIndicator } from \&quot;./step-indicator\&quot;;\nimport { FormStep } from \&quot;./form-step\&quot;;\nimport { FormNavigation } from \&quot;./form-navigation\&quot;;\nimport { FormErrorSummary } from \&quot;./form-error-summary\&quot;;\nimport { useFormState } from \&quot;@/hooks/use-form-state\&quot;;\nimport { useAutosave } from \&quot;@/hooks/use-autosave\&quot;;\nimport { useToast } from \&quot;@/components/ui/use-toast\&quot;;\nimport { usePrefersReducedMotion } from \&quot;@/hooks/use-prefers-reduced-motion\&quot;;\nimport { cn } from \&quot;@/lib/utils\&quot;;\n\ninterface DynamicFormWizardProps {\n  formConfig: FormConfigWithFields;\n  initialData?: Record&lt;string, unknown&gt;;\n  initialStep?: number;\n  applicationId: string | null;\n  organizationId: string;\n  onApplicationIdChange?: (applicationId: string) =&gt; void;\n  onDraftSaved?: (result: DraftSaveResult) =&gt; void;\n  onStepChange?: (stepIndex: number) =&gt; void;\n  onComplete?: (formData: Record&lt;string, unknown&gt;) =&gt; Promise&lt;void&gt; | void;\n}\n\nexport function DynamicFormWizard({\n  formConfig,\n  initialData = {},\n  initialStep = 0,\n  applicationId,\n  organizationId,\n  onApplicationIdChange,\n  onDraftSaved,\n  onStepChange,\n  onComplete,\n}: DynamicFormWizardProps) {\n  const sortedSections = useMemo(\n    () =&gt; [...formConfig.sections].sort((a, b) =&gt; a.order - b.order),\n    [formConfig.sections]\n  );\n\n  const {\n    state,\n    touchedMap,\n    setFieldValue,\n    markFieldTouched,\n    markFieldsTouched,\n    setFieldError,\n    setStepErrors,\n    goToStep,\n    markStepComplete,\n    setIsSubmitting,\n    markClean,\n    validateAndCommitStep,\n  } = useFormState({\n    formConfig,\n    initialData,\n    initialStep,\n  });\n\n  const [liveMessage, setLiveMessage] = useState(\&quot;\&quot;);\n  const validationTimersRef = useRef&lt;Record&lt;string, NodeJS.Timeout&gt;&gt;({});\n  const formSchemaRef = useRef(buildFormSchema(formConfig));\n  const prefersReducedMotion = usePrefersReducedMotion();\n  const { toast } = useToast();\n\n  const totalSteps = sortedSections.length;\n  const currentSection = sortedSections[state.currentStep];\n  const isFirstStep = state.currentStep === 0;\n  const isLastStep = state.currentStep === totalSteps - 1;\n\n  useEffect(() =&gt; {\n    formSchemaRef.current = buildFormSchema(formConfig);\n  }, [formConfig]);\n\n  const focusFirstError = useCallback(\n    (fieldKey?: string) =&gt; {\n      if (!fieldKey || !currentSection) {\n        return;\n      }\n      const errorField = currentSection.fields.find((field) =&gt; field.key === fieldKey);\n      const fieldElement = errorField\n        ? document.getElementById(&#96;field-${errorField.id}&#96;)\n        : null;\n      fieldElement?.focus();\n      fieldElement?.scrollIntoView({ behavior: \&quot;smooth\&quot;, block: \&quot;center\&quot; });\n    },\n    [currentSection]\n  );\n\n  const validateField = useCallback(\n    (fieldKey: string, value: unknown, immediate = false) =&gt; {\n      if (validationTimersRef.current[fieldKey]) {\n        clearTimeout(validationTimersRef.current[fieldKey]);\n      }\n\n      const performValidation = () =&gt; {\n        const fieldSchema = formSchemaRef.current.shape[fieldKey];\n        if (!fieldSchema) {\n          return;\n        }\n\n        try {\n          fieldSchema.parse(value);\n          setFieldError(fieldKey);\n        } catch (error) {\n          if (error &amp;&amp; typeof error === \&quot;object\&quot; &amp;&amp; \&quot;issues\&quot; in error) {\n            const zodError = error as { issues: Array&lt;{ message: string }&gt; };\n            const firstIssue = zodError.issues[0];\n            if (firstIssue) {\n              setFieldError(fieldKey, firstIssue.message);\n            }\n          } else if (error instanceof Error) {\n            setFieldError(fieldKey, error.message);\n          }\n        }\n      };\n\n      if (immediate) {\n        performValidation();\n      } else {\n        validationTimersRef.current[fieldKey] = setTimeout(performValidation, 300);\n      }\n    },\n    [setFieldError]\n  );\n\n  const handleFieldChange = useCallback(\n    (fieldKey: string, value: unknown) =&gt; {\n      setFieldValue(fieldKey, value);\n      if (state.touched.has(fieldKey)) {\n        validateField(fieldKey, value, false);\n      }\n    },\n    [setFieldValue, state.touched, validateField]\n  );\n\n  const handleFieldBlur = useCallback(\n    (fieldKey: string) =&gt; {\n      markFieldTouched(fieldKey);\n      validateField(fieldKey, state.formData[fieldKey], true);\n    },\n    [markFieldTouched, state.formData, validateField]\n  );\n\n  const autosaveFingerprint = useMemo(\n    () =&gt; JSON.stringify({ data: state.formData, step: state.currentStep }),\n    [state.formData, state.currentStep]\n  );\n\n  const runDraftSave = useCallback(() =&gt; {\n    return saveFormDraft({\n      formConfigId: formConfig.id,\n      organizationId,\n      entityId: formConfig.entityId,\n      geographyId: formConfig.geographyId,\n      applicationId,\n      formData: state.formData,\n      currentStep: state.currentStep,\n    });\n  }, [\n    applicationId,\n    formConfig.entityId,\n    formConfig.geographyId,\n    formConfig.id,\n    organizationId,\n    state.currentStep,\n    state.formData,\n  ]);\n\n  const {\n    status: draftStatus,\n    isSaving: isSavingDraft,\n    lastSavedAt,\n    error: draftError,\n    triggerSave,\n  } = useAutosave&lt;DraftSaveResult&gt;({\n    shouldAutosave: state.isDirty,\n    dataFingerprint: autosaveFingerprint,\n    save: runDraftSave,\n    onSuccess: (result) =&gt; {\n      markClean();\n      if (result.applicationId &amp;&amp; result.applicationId !== applicationId) {\n        onApplicationIdChange?.(result.applicationId);\n      }\n      onDraftSaved?.(result);\n    },\n    onError: (error) =&gt; {\n      toast({\n        variant: \&quot;destructive\&quot;,\n        title: \&quot;Draft save failed\&quot;,\n        description: error.message,\n      });\n    },\n  });\n\n  const handleNext = useCallback(async () =&gt; {\n    if (state.isSubmitting) {\n      return;\n    }\n\n    const validation = validateAndCommitStep(state.currentStep);\n    if (!validation.isValid) {\n      toast({\n        variant: \&quot;destructive\&quot;,\n        title: \&quot;Please fix validation errors\&quot;,\n        description: \&quot;Resolve highlighted fields before continuing.\&quot;,\n      });\n      focusFirstError(validation.firstErrorField);\n      return;\n    }\n\n    markStepComplete(state.currentStep);\n\n    if (isLastStep &amp;&amp; onComplete) {\n      try {\n        setIsSubmitting(true);\n        await onComplete(state.formData);\n        toast({\n          title: \&quot;Form submitted\&quot;,\n          description: \&quot;Thank you! We received your information.\&quot;,\n        });\n      } catch (error) {\n        toast({\n          variant: \&quot;destructive\&quot;,\n          title: \&quot;Submission failed\&quot;,\n          description:\n            error instanceof Error\n              ? error.message\n              : \&quot;Something went wrong while submitting. Please try again.\&quot;,\n        });\n      } finally {\n        setIsSubmitting(false);\n      }\n      return;\n    }\n\n    const nextStep = state.currentStep + 1;\n    goToStep(nextStep);\n    onStepChange?.(nextStep);\n    void triggerSave(\&quot;step-change\&quot;);\n  }, [\n    focusFirstError,\n    goToStep,\n    isLastStep,\n    markStepComplete,\n    onComplete,\n    onStepChange,\n    setIsSubmitting,\n    state.currentStep,\n    state.formData,\n    state.isSubmitting,\n    toast,\n    triggerSave,\n    validateAndCommitStep,\n  ]);\n\n  const handlePrevious = useCallback(() =&gt; {\n    if (isFirstStep) {\n      return;\n    }\n    const prevStep = state.currentStep - 1;\n    goToStep(prevStep);\n    onStepChange?.(prevStep);\n  }, [goToStep, isFirstStep, onStepChange, state.currentStep]);\n\n  const handleStepClick = useCallback(\n    (stepIndex: number) =&gt; {\n      if (stepIndex === state.currentStep) {\n        return;\n      }\n\n      const validation = validateAndCommitStep(state.currentStep);\n      if (!validation.isValid) {\n        toast({\n          variant: \&quot;destructive\&quot;,\n          title: \&quot;Cannot leave step yet\&quot;,\n          description: \&quot;Fix validation errors before moving on.\&quot;,\n        });\n        focusFirstError(validation.firstErrorField);\n        return;\n      }\n\n      if (\n        state.completedSteps.has(stepIndex) ||\n        stepIndex === state.currentStep + 1\n      ) {\n        goToStep(stepIndex);\n        onStepChange?.(stepIndex);\n        void triggerSave(\&quot;step-change\&quot;);\n      }\n    },\n    [\n      focusFirstError,\n      goToStep,\n      onStepChange,\n      state.completedSteps,\n      state.currentStep,\n      toast,\n      triggerSave,\n      validateAndCommitStep,\n    ]\n  );\n\n  const handleManualSave = useCallback(() =&gt; {\n    void triggerSave(\&quot;manual\&quot;);\n  }, [triggerSave]);\n\n  useEffect(() =&gt; {\n    const timers = validationTimersRef.current;\n    return () =&gt; {\n      Object.values(timers).forEach((timer) =&gt; {\n        clearTimeout(timer);\n      });\n    };\n  }, []);\n\n  useEffect(() =&gt; {\n    const sectionLabel = currentSection?.label ?? &#96;Step ${state.currentStep + 1}&#96;;\n    setLiveMessage(\n      &#96;Now viewing ${sectionLabel} (${state.currentStep + 1} of ${totalSteps})&#96;\n    );\n  }, [currentSection, state.currentStep, totalSteps]);\n\n  const progress =\n    totalSteps &gt; 0 ? ((state.currentStep + 1) / totalSteps) * 100 : 0;\n\n  return (\n    &lt;div className=\&quot;flex flex-col gap-6 pb-32 sm:pb-12\&quot;&gt;\n      &lt;StepIndicator\n        steps={sortedSections.map((section) =&gt; ({\n          id: section.id,\n          label: section.label,\n          order: section.order,\n        }))}\n        currentStep={state.currentStep}\n        completedSteps={state.completedSteps}\n        onStepClick={handleStepClick}\n      /&gt;\n\n      &lt;div\n        className={cn(\n          \&quot;min-h-[400px] space-y-6 rounded-3xl border border-border/60 bg-background/70 p-4 shadow-lg sm:p-8\&quot;,\n          !prefersReducedMotion &amp;&amp; \&quot;transition-shadow duration-300\&quot;\n        )}\n      &gt;\n        {(() =&gt; {\n          const stepFieldKeys = getStepFieldKeys(state.currentStep, formConfig);\n          const stepErrors: Record&lt;string, string&gt; = {};\n          stepFieldKeys.forEach((key) =&gt; {\n            if (state.errors[key] &amp;&amp; touchedMap[key]) {\n              stepErrors[key] = state.errors[key];\n            }\n          });\n\n          if (Object.keys(stepErrors).length &gt; 0) {\n            return (\n              &lt;FormErrorSummary\n                errors={stepErrors}\n                onErrorClick={(fieldKey) =&gt; focusFirstError(fieldKey)}\n              /&gt;\n            );\n          }\n          return null;\n        })()}\n\n        {currentSection &amp;&amp; (\n          &lt;FormStep\n            section={currentSection}\n            formData={state.formData}\n            errors={state.errors}\n            touched={touchedMap}\n            onFieldChange={handleFieldChange}\n            onFieldBlur={handleFieldBlur}\n          /&gt;\n        )}\n      &lt;/div&gt;\n\n      &lt;FormNavigation\n        isFirstStep={isFirstStep}\n        isLastStep={isLastStep}\n        onNext={handleNext}\n        onPrevious={handlePrevious}\n        onSaveDraft={handleManualSave}\n        progress={progress}\n        isSubmitting={state.isSubmitting}\n        isSavingDraft={isSavingDraft}\n        draftStatus={draftStatus}\n        draftError={draftError}\n        lastSavedAt={lastSavedAt}\n      /&gt;\n      &lt;p role=\&quot;status\&quot; aria-live=\&quot;polite\&quot; className=\&quot;sr-only\&quot;&gt;\n        {liveMessage}\n      &lt;/p&gt;\n    &lt;/div&gt;\n  );\n}\n\&quot;use client\&quot;;\n\nimport { useState, useCallback, useRef, useEffect } from \&quot;react\&quot;;\nimport type { FormConfigWithFields } from \&quot;@/lib/forms/types\&quot;;\nimport { validateStep, getStepFieldKeys } from \&quot;@/lib/forms/form-validator\&quot;;\nimport { buildFormSchema } from \&quot;@/lib/form-schema\&quot;;\nimport { StepIndicator } from \&quot;./step-indicator\&quot;;\nimport { FormStep } from \&quot;./form-step\&quot;;\nimport { FormNavigation } from \&quot;./form-navigation\&quot;;\nimport { FormErrorSummary } from \&quot;./form-error-summary\&quot;;\nimport { usePrefersReducedMotion } from \&quot;@/hooks/use-prefers-reduced-motion\&quot;;\nimport { useToast } from \&quot;@/components/ui/use-toast\&quot;;\nimport { cn } from \&quot;@/lib/utils\&quot;;\nimport type { DraftStatus } from \&quot;./draft-save-indicator\&quot;;\n\ninterface DynamicFormWizardProps {\n  formConfig: FormConfigWithFields;\n  initialData?: Record&lt;string, unknown&gt;;\n  onStepChange?: (stepIndex: number) =&gt; void;\n  onComplete?: (formData: Record&lt;string, unknown&gt;) =&gt; void;\n  onSaveDraft?: (formData: Record&lt;string, unknown&gt;) =&gt; void;\n}\n\nexport function DynamicFormWizard({\n  formConfig,\n  initialData = {},\n  onStepChange,\n  onComplete,\n  onSaveDraft,\n}: DynamicFormWizardProps) {\n  const sortedSections = [...formConfig.sections].sort(\n    (a, b) =&gt; a.order - b.order\n  );\n\n  const [currentStep, setCurrentStep] = useState(0);\n  const [formData, setFormData] = useState&lt;Record&lt;string, unknown&gt;&gt;(\n    initialData\n  );\n  const [completedSteps, setCompletedSteps] = useState&lt;Set&lt;number&gt;&gt;(\n    new Set()\n  );\n  const [errors, setErrors] = useState&lt;Record&lt;string, string&gt;&gt;({});\n  const [touched, setTouched] = useState&lt;Record&lt;string, boolean&gt;&gt;({});\n  const [isSubmitting, setIsSubmitting] = useState(false);\n  const [isSavingDraft, setIsSavingDraft] = useState(false);\n  const [draftStatus, setDraftStatus] = useState&lt;DraftStatus&gt;(\&quot;idle\&quot;);\n  const [draftError, setDraftError] = useState&lt;string | null&gt;(null);\n  const [lastSavedAt, setLastSavedAt] = useState&lt;Date | null&gt;(null);\n  const [liveMessage, setLiveMessage] = useState(\&quot;\&quot;);\n  const validationTimersRef = useRef&lt;Record&lt;string, NodeJS.Timeout&gt;&gt;({});\n  const formSchemaRef = useRef(buildFormSchema(formConfig));\n  const prefersReducedMotion = usePrefersReducedMotion();\n  const { toast } = useToast();\n\n  const totalSteps = sortedSections.length;\n  const currentSection = sortedSections[currentStep];\n  const isFirstStep = currentStep === 0;\n  const isLastStep = currentStep === totalSteps - 1;\n\n  // Rebuild schema if form config changes\n  useEffect(() =&gt; {\n    formSchemaRef.current = buildFormSchema(formConfig);\n  }, [formConfig]);\n\n  /**\n   * Validate a single field with debouncing\n   */\n  const validateField = useCallback(\n    (fieldKey: string, value: unknown, immediate = false) =&gt; {\n      // Clear existing timer for this field\n      if (validationTimersRef.current[fieldKey]) {\n        clearTimeout(validationTimersRef.current[fieldKey]);\n      }\n\n      const performValidation = () =&gt; {\n        const fieldSchema = formSchemaRef.current.shape[fieldKey];\n        if (!fieldSchema) {\n          return;\n        }\n\n        try {\n          fieldSchema.parse(value);\n          // Clear error if validation passes\n          setErrors((prev) =&gt; {\n            const next = { ...prev };\n            delete next[fieldKey];\n            return next;\n          });\n        } catch (error) {\n          if (error &amp;&amp; typeof error === \&quot;object\&quot; &amp;&amp; \&quot;issues\&quot; in error) {\n            const zodError = error as { issues: Array&lt;{ message: string }&gt; };\n            const firstIssue = zodError.issues[0];\n            if (firstIssue) {\n              setErrors((prev) =&gt; ({\n                ...prev,\n                [fieldKey]: firstIssue.message,\n              }));\n            }\n          } else if (error instanceof Error) {\n            setErrors((prev) =&gt; ({\n              ...prev,\n              [fieldKey]: error.message,\n            }));\n          }\n        }\n      };\n\n      if (immediate) {\n        performValidation();\n      } else {\n        // Debounce validation on change (300ms)\n        validationTimersRef.current[fieldKey] = setTimeout(performValidation, 300);\n      }\n    },\n    []\n  );\n\n  const handleFieldChange = useCallback(\n    (fieldKey: string, value: unknown) =&gt; {\n      setFormData((prev) =&gt; ({\n        ...prev,\n        [fieldKey]: value,\n      }));\n\n      // Validate on change with debounce (only if field has been touched)\n      if (touched[fieldKey]) {\n        validateField(fieldKey, value, false);\n      }\n    },\n    [touched, validateField]\n  );\n\n  const handleFieldBlur = useCallback(\n    (fieldKey: string) =&gt; {\n      setTouched((prev) =&gt; ({\n        ...prev,\n        [fieldKey]: true,\n      }));\n\n      // Validate immediately on blur\n      const value = formData[fieldKey];\n      validateField(fieldKey, value, true);\n    },\n    [formData, validateField]\n  );\n\n  /**\n   * Validate current step using the validation utilities\n   */\n  const validateCurrentStep = useCallback((): boolean =&gt; {\n    const stepResult = validateStep(currentStep, formData, formConfig);\n\n    if (!stepResult.isValid) {\n      // Update errors for current step fields only\n      const stepFieldKeys = getStepFieldKeys(currentStep, formConfig);\n      setErrors((prev) =&gt; {\n        const next = { ...prev };\n        // Clear errors for fields not in current step\n        stepFieldKeys.forEach((key) =&gt; {\n          if (stepResult.errors[key]) {\n            next[key] = stepResult.errors[key];\n          } else {\n            delete next[key];\n          }\n        });\n        return next;\n      });\n\n      // Mark all fields in step as touched\n      setTouched((prev) =&gt; {\n        const next = { ...prev };\n        stepFieldKeys.forEach((key) =&gt; {\n          next[key] = true;\n        });\n        return next;\n      });\n\n      // Focus first error field\n      if (stepResult.firstErrorField) {\n        // Find the field by key to get its ID\n        const errorField = currentSection.fields.find(\n          (f) =&gt; f.key === stepResult.firstErrorField\n        );\n        if (errorField) {\n          // Field components use &#96;field-${field.id}&#96; as the ID\n          const fieldElement = document.getElementById(&#96;field-${errorField.id}&#96;);\n          if (fieldElement) {\n            fieldElement.focus();\n            fieldElement.scrollIntoView({ behavior: \&quot;smooth\&quot;, block: \&quot;center\&quot; });\n          }\n        }\n      }\n    }\n\n    return stepResult.isValid;\n  }, [currentStep, formData, formConfig, currentSection]);\n\n  const handleNext = useCallback(async () =&gt; {\n    if (isSubmitting) {\n      return;\n    }\n\n    const isStepValid = validateCurrentStep();\n    if (!isStepValid) {\n      toast({\n        variant: \&quot;destructive\&quot;,\n        title: \&quot;Please fix validation errors\&quot;,\n        description: \&quot;Resolve highlighted fields before continuing.\&quot;,\n      });\n      return;\n    }\n\n    setCompletedSteps((prev) =&gt; new Set(prev).add(currentStep));\n\n    if (isLastStep) {\n      if (!onComplete) {\n        return;\n      }\n      try {\n        setIsSubmitting(true);\n        await onComplete(formData);\n        toast({\n          title: \&quot;Form submitted\&quot;,\n          description: \&quot;Thanks! We received your information.\&quot;,\n        });\n      } catch (error) {\n        toast({\n          variant: \&quot;destructive\&quot;,\n          title: \&quot;Submission failed\&quot;,\n          description:\n            error instanceof Error\n              ? error.message\n              : \&quot;Something went wrong while submitting. Please try again.\&quot;,\n        });\n      } finally {\n        setIsSubmitting(false);\n      }\n    } else {\n      const nextStep = currentStep + 1;\n      setCurrentStep(nextStep);\n      onStepChange?.(nextStep);\n    }\n  }, [\n    currentStep,\n    formData,\n    isLastStep,\n    isSubmitting,\n    onComplete,\n    onStepChange,\n    toast,\n    validateCurrentStep,\n  ]);\n\n  const handlePrevious = useCallback(() =&gt; {\n    if (!isFirstStep) {\n      const prevStep = currentStep - 1;\n      setCurrentStep(prevStep);\n      onStepChange?.(prevStep);\n    }\n  }, [currentStep, isFirstStep, onStepChange]);\n\n  const handleStepClick = useCallback(\n    (stepIndex: number) =&gt; {\n      // Validate current step before allowing navigation\n      if (stepIndex !== currentStep) {\n        if (!validateCurrentStep()) {\n          return; // Don&#39;t allow navigation if current step is invalid\n        }\n      }\n\n      // Allow navigation to completed steps or the next step\n      if (completedSteps.has(stepIndex) || stepIndex === currentStep + 1) {\n        setCurrentStep(stepIndex);\n        onStepChange?.(stepIndex);\n      }\n    },\n    [completedSteps, currentStep, onStepChange, validateCurrentStep]\n  );\n\n  const handleSaveDraft = useCallback(async () =&gt; {\n    if (!onSaveDraft || isSavingDraft) {\n      return;\n    }\n    try {\n      setIsSavingDraft(true);\n      setDraftStatus(\&quot;saving\&quot;);\n      setDraftError(null);\n      await onSaveDraft(formData);\n      setDraftStatus(\&quot;success\&quot;);\n      const savedAt = new Date();\n      setLastSavedAt(savedAt);\n      toast({\n        title: \&quot;Draft saved\&quot;,\n        description: &#96;Progress saved at ${savedAt.toLocaleTimeString([], {\n          hour: \&quot;numeric\&quot;,\n          minute: \&quot;2-digit\&quot;,\n        })}&#96;,\n      });\n    } catch (error) {\n      setDraftStatus(\&quot;error\&quot;);\n      const message =\n        error instanceof Error\n          ? error.message\n          : \&quot;Unable to save your draft right now.\&quot;;\n      setDraftError(message);\n      toast({\n        variant: \&quot;destructive\&quot;,\n        title: \&quot;Draft not saved\&quot;,\n        description: message,\n      });\n    } finally {\n      setIsSavingDraft(false);\n    }\n  }, [formData, isSavingDraft, onSaveDraft, toast]);\n\n  // Cleanup timers on unmount\n  useEffect(() =&gt; {\n    const timers = validationTimersRef.current;\n    return () =&gt; {\n      Object.values(timers).forEach((timer) =&gt; {\n        clearTimeout(timer);\n      });\n    };\n  }, []);\n\n  const progress = totalSteps &gt; 0 ? ((currentStep + 1) / totalSteps) * 100 : 0;\n\n  useEffect(() =&gt; {\n    const sectionLabel = currentSection?.label ?? &#96;Step ${currentStep + 1}&#96;;\n    setLiveMessage(&#96;Now viewing ${sectionLabel} (${currentStep + 1} of ${totalSteps})&#96;);\n  }, [currentSection, currentStep, totalSteps]);\n\n  return (\n    &lt;div className=\&quot;flex flex-col gap-6 pb-32 sm:pb-12\&quot;&gt;\n      &lt;StepIndicator\n        steps={sortedSections.map((section, index) =&gt; ({\n          id: section.id,\n          label: section.label,\n          order: section.order,\n        }))}\n        currentStep={currentStep}\n        completedSteps={completedSteps}\n        onStepClick={handleStepClick}\n      /&gt;\n\n      &lt;div\n        className={cn(\n          \&quot;min-h-[400px] space-y-6 rounded-3xl border border-border/60 bg-background/70 p-4 shadow-lg sm:p-8\&quot;,\n          !prefersReducedMotion &amp;&amp; \&quot;transition-shadow duration-300\&quot;\n        )}\n      &gt;\n        {/* Error summary for current step */}\n        {(() =&gt; {\n          const stepFieldKeys = getStepFieldKeys(currentStep, formConfig);\n          const stepErrors: Record&lt;string, string&gt; = {};\n          stepFieldKeys.forEach((key) =&gt; {\n            if (errors[key] &amp;&amp; touched[key]) {\n              stepErrors[key] = errors[key];\n            }\n          });\n\n          if (Object.keys(stepErrors).length &gt; 0) {\n            return (\n              &lt;FormErrorSummary\n                errors={stepErrors}\n                onErrorClick={(fieldKey) =&gt; {\n                  // Find the field by key to get its ID\n                  const errorField = currentSection.fields.find(\n                    (f) =&gt; f.key === fieldKey\n                  );\n                  if (errorField) {\n                    // Field components use &#96;field-${field.id}&#96; as the ID\n                    const fieldElement = document.getElementById(&#96;field-${errorField.id}&#96;);\n                    if (fieldElement) {\n                      fieldElement.focus();\n                      fieldElement.scrollIntoView({\n                        behavior: \&quot;smooth\&quot;,\n                        block: \&quot;center\&quot;,\n                      });\n                    }\n                  }\n                }}\n              /&gt;\n            );\n          }\n          return null;\n        })()}\n\n        &lt;FormStep\n          section={currentSection}\n          formData={formData}\n          errors={errors}\n          touched={touched}\n          onFieldChange={handleFieldChange}\n          onFieldBlur={handleFieldBlur}\n        /&gt;\n      &lt;/div&gt;\n\n      &lt;FormNavigation\n        isFirstStep={isFirstStep}\n        isLastStep={isLastStep}\n        onNext={handleNext}\n        onPrevious={handlePrevious}\n        onSaveDraft={handleSaveDraft}\n        progress={progress}\n        isSubmitting={isSubmitting}\n        isSavingDraft={isSavingDraft}\n        draftStatus={draftStatus}\n        draftError={draftError}\n        lastSavedAt={lastSavedAt}\n      /&gt;\n      &lt;p role=\&quot;status\&quot; aria-live=\&quot;polite\&quot; className=\&quot;sr-only\&quot;&gt;\n        {liveMessage}\n      &lt;/p&gt;\n    &lt;/div&gt;\n  );\n}\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM components/forms/dynamic-form-wizard.tsx",
+  "contentsAfterEdit": "\"use client\";\n\nimport { useCallback, useEffect, useMemo, useRef, useState } from \"react\";\nimport type { FormConfigWithFields } from \"@/lib/forms/types\";\nimport { getStepFieldKeys } from \"@/lib/forms/form-validator\";\nimport { buildFormSchema } from \"@/lib/form-schema\";\nimport { saveFormDraft, type DraftSaveResult } from \"@/app/forms/actions\";\nimport { StepIndicator } from \"./step-indicator\";\nimport { FormStep } from \"./form-step\";\nimport { FormNavigation } from \"./form-navigation\";\nimport { FormErrorSummary } from \"./form-error-summary\";\nimport { useFormState } from \"@/hooks/use-form-state\";\nimport { useAutosave } from \"@/hooks/use-autosave\";\nimport { useToast } from \"@/components/ui/use-toast\";\nimport { usePrefersReducedMotion } from \"@/hooks/use-prefers-reduced-motion\";\nimport { cn } from \"@/lib/utils\";\n\ninterface DynamicFormWizardProps {\n  formConfig: FormConfigWithFields;\n  initialData?: Record&lt;string, unknown&gt;;\n  initialStep?: number;\n  applicationId: string | null;\n  organizationId: string;\n  onApplicationIdChange?: (applicationId: string) =&gt; void;\n  onDraftSaved?: (result: DraftSaveResult) =&gt; void;\n  onStepChange?: (stepIndex: number) =&gt; void;\n  onComplete?: (formData: Record&lt;string, unknown&gt;) =&gt; Promise&lt;void&gt; | void;\n}\n\nexport function DynamicFormWizard({\n  formConfig,\n  initialData = {},\n  initialStep = 0,\n  applicationId,\n  organizationId,\n  onApplicationIdChange,\n  onDraftSaved,\n  onStepChange,\n  onComplete,\n}: DynamicFormWizardProps) {\n  const sortedSections = useMemo(\n    () =&gt; [...formConfig.sections].sort((a, b) =&gt; a.order - b.order),\n    [formConfig.sections]\n  );\n\n  const {\n    state,\n    touchedMap,\n    setFieldValue,\n    markFieldTouched,\n    markFieldsTouched,\n    setFieldError,\n    setStepErrors,\n    goToStep,\n    markStepComplete,\n    setIsSubmitting,\n    markClean,\n    validateAndCommitStep,\n  } = useFormState({\n    formConfig,\n    initialData,\n    initialStep,\n  });\n\n  const [liveMessage, setLiveMessage] = useState(\"\");\n  const validationTimersRef = useRef&lt;Record&lt;string, NodeJS.Timeout&gt;&gt;({});\n  const formSchemaRef = useRef(buildFormSchema(formConfig));\n  const prefersReducedMotion = usePrefersReducedMotion();\n  const { toast } = useToast();\n\n  const totalSteps = sortedSections.length;\n  const currentSection = sortedSections[state.currentStep];\n  const isFirstStep = state.currentStep === 0;\n  const isLastStep = state.currentStep === totalSteps - 1;\n\n  useEffect(() =&gt; {\n    formSchemaRef.current = buildFormSchema(formConfig);\n  }, [formConfig]);\n\n  const focusFirstError = useCallback(\n    (fieldKey?: string) =&gt; {\n      if (!fieldKey || !currentSection) {\n        return;\n      }\n      const errorField = currentSection.fields.find((field) =&gt; field.key === fieldKey);\n      const fieldElement = errorField\n        ? document.getElementById(&#96;field-${errorField.id}&#96;)\n        : null;\n      fieldElement?.focus();\n      fieldElement?.scrollIntoView({ behavior: \"smooth\", block: \"center\" });\n    },\n    [currentSection]\n  );\n\n  const validateField = useCallback(\n    (fieldKey: string, value: unknown, immediate = false) =&gt; {\n      if (validationTimersRef.current[fieldKey]) {\n        clearTimeout(validationTimersRef.current[fieldKey]);\n      }\n\n      const performValidation = () =&gt; {\n        const fieldSchema = formSchemaRef.current.shape[fieldKey];\n        if (!fieldSchema) {\n          return;\n        }\n\n        try {\n          fieldSchema.parse(value);\n          setFieldError(fieldKey);\n        } catch (error) {\n          if (error &amp;&amp; typeof error === \"object\" &amp;&amp; \"issues\" in error) {\n            const zodError = error as { issues: Array&lt;{ message: string }&gt; };\n            const firstIssue = zodError.issues[0];\n            if (firstIssue) {\n              setFieldError(fieldKey, firstIssue.message);\n            }\n          } else if (error instanceof Error) {\n            setFieldError(fieldKey, error.message);\n          }\n        }\n      };\n\n      if (immediate) {\n        performValidation();\n      } else {\n        validationTimersRef.current[fieldKey] = setTimeout(performValidation, 300);\n      }\n    },\n    [setFieldError]\n  );\n\n  const handleFieldChange = useCallback(\n    (fieldKey: string, value: unknown) =&gt; {\n      setFieldValue(fieldKey, value);\n      if (state.touched.has(fieldKey)) {\n        validateField(fieldKey, value, false);\n      }\n    },\n    [setFieldValue, state.touched, validateField]\n  );\n\n  const handleFieldBlur = useCallback(\n    (fieldKey: string) =&gt; {\n      markFieldTouched(fieldKey);\n      validateField(fieldKey, state.formData[fieldKey], true);\n    },\n    [markFieldTouched, state.formData, validateField]\n  );\n\n  const autosaveFingerprint = useMemo(\n    () =&gt; JSON.stringify({ data: state.formData, step: state.currentStep }),\n    [state.formData, state.currentStep]\n  );\n\n  const runDraftSave = useCallback(() =&gt; {\n    return saveFormDraft({\n      formConfigId: formConfig.id,\n      organizationId,\n      entityId: formConfig.entityId,\n      geographyId: formConfig.geographyId,\n      applicationId,\n      formData: state.formData,\n      currentStep: state.currentStep,\n    });\n  }, [\n    applicationId,\n    formConfig.entityId,\n    formConfig.geographyId,\n    formConfig.id,\n    organizationId,\n    state.currentStep,\n    state.formData,\n  ]);\n\n  const {\n    status: draftStatus,\n    isSaving: isSavingDraft,\n    lastSavedAt,\n    error: draftError,\n    triggerSave,\n  } = useAutosave&lt;DraftSaveResult&gt;({\n    shouldAutosave: state.isDirty,\n    dataFingerprint: autosaveFingerprint,\n    save: runDraftSave,\n    onSuccess: (result) =&gt; {\n      markClean();\n      if (result.applicationId &amp;&amp; result.applicationId !== applicationId) {\n        onApplicationIdChange?.(result.applicationId);\n      }\n      onDraftSaved?.(result);\n    },\n    onError: (error) =&gt; {\n      toast({\n        variant: \"destructive\",\n        title: \"Draft save failed\",\n        description: error.message,\n      });\n    },\n  });\n\n  const handleNext = useCallback(async () =&gt; {\n    if (state.isSubmitting) {\n      return;\n    }\n\n    const validation = validateAndCommitStep(state.currentStep);\n    if (!validation.isValid) {\n      toast({\n        variant: \"destructive\",\n        title: \"Please fix validation errors\",\n        description: \"Resolve highlighted fields before continuing.\",\n      });\n      focusFirstError(validation.firstErrorField);\n      return;\n    }\n\n    markStepComplete(state.currentStep);\n\n    if (isLastStep &amp;&amp; onComplete) {\n      try {\n        setIsSubmitting(true);\n        await onComplete(state.formData);\n        toast({\n          title: \"Form submitted\",\n          description: \"Thank you! We received your information.\",\n        });\n      } catch (error) {\n        toast({\n          variant: \"destructive\",\n          title: \"Submission failed\",\n          description:\n            error instanceof Error\n              ? error.message\n              : \"Something went wrong while submitting. Please try again.\",\n        });\n      } finally {\n        setIsSubmitting(false);\n      }\n      return;\n    }\n\n    const nextStep = state.currentStep + 1;\n    goToStep(nextStep);\n    onStepChange?.(nextStep);\n    void triggerSave(\"step-change\");\n  }, [\n    focusFirstError,\n    goToStep,\n    isLastStep,\n    markStepComplete,\n    onComplete,\n    onStepChange,\n    setIsSubmitting,\n    state.currentStep,\n    state.formData,\n    state.isSubmitting,\n    toast,\n    triggerSave,\n    validateAndCommitStep,\n  ]);\n\n  const handlePrevious = useCallback(() =&gt; {\n    if (isFirstStep) {\n      return;\n    }\n    const prevStep = state.currentStep - 1;\n    goToStep(prevStep);\n    onStepChange?.(prevStep);\n  }, [goToStep, isFirstStep, onStepChange, state.currentStep]);\n\n  const handleStepClick = useCallback(\n    (stepIndex: number) =&gt; {\n      if (stepIndex === state.currentStep) {\n        return;\n      }\n\n      const validation = validateAndCommitStep(state.currentStep);\n      if (!validation.isValid) {\n        toast({\n          variant: \"destructive\",\n          title: \"Cannot leave step yet\",\n          description: \"Fix validation errors before moving on.\",\n        });\n        focusFirstError(validation.firstErrorField);\n        return;\n      }\n\n      if (\n        state.completedSteps.has(stepIndex) ||\n        stepIndex === state.currentStep + 1\n      ) {\n        goToStep(stepIndex);\n        onStepChange?.(stepIndex);\n        void triggerSave(\"step-change\");\n      }\n    },\n    [\n      focusFirstError,\n      goToStep,\n      onStepChange,\n      state.completedSteps,\n      state.currentStep,\n      toast,\n      triggerSave,\n      validateAndCommitStep,\n    ]\n  );\n\n  const handleManualSave = useCallback(() =&gt; {\n    void triggerSave(\"manual\");\n  }, [triggerSave]);\n\n  useEffect(() =&gt; {\n    const timers = validationTimersRef.current;\n    return () =&gt; {\n      Object.values(timers).forEach((timer) =&gt; {\n        clearTimeout(timer);\n      });\n    };\n  }, []);\n\n  useEffect(() =&gt; {\n    const sectionLabel = currentSection?.label ?? &#96;Step ${state.currentStep + 1}&#96;;\n    setLiveMessage(\n      &#96;Now viewing ${sectionLabel} (${state.currentStep + 1} of ${totalSteps})&#96;\n    );\n  }, [currentSection, state.currentStep, totalSteps]);\n\n  const progress =\n    totalSteps &gt; 0 ? ((state.currentStep + 1) / totalSteps) * 100 : 0;\n\n  return (\n    &lt;div className=\"flex flex-col gap-6 pb-32 sm:pb-12\"&gt;\n      &lt;StepIndicator\n        steps={sortedSections.map((section) =&gt; ({\n          id: section.id,\n          label: section.label,\n          order: section.order,\n        }))}\n        currentStep={state.currentStep}\n        completedSteps={state.completedSteps}\n        onStepClick={handleStepClick}\n      /&gt;\n\n      &lt;div\n        className={cn(\n          \"min-h-[400px] space-y-6 rounded-3xl border border-border/60 bg-background/70 p-4 shadow-lg sm:p-8\",\n          !prefersReducedMotion &amp;&amp; \"transition-shadow duration-300\"\n        )}\n      &gt;\n        {(() =&gt; {\n          const stepFieldKeys = getStepFieldKeys(state.currentStep, formConfig);\n          const stepErrors: Record&lt;string, string&gt; = {};\n          stepFieldKeys.forEach((key) =&gt; {\n            if (state.errors[key] &amp;&amp; touchedMap[key]) {\n              stepErrors[key] = state.errors[key];\n            }\n          });\n\n          if (Object.keys(stepErrors).length &gt; 0) {\n            return (\n              &lt;FormErrorSummary\n                errors={stepErrors}\n                onErrorClick={(fieldKey) =&gt; focusFirstError(fieldKey)}\n              /&gt;\n            );\n          }\n          return null;\n        })()}\n\n        {currentSection &amp;&amp; (\n          &lt;FormStep\n            section={currentSection}\n            formData={state.formData}\n            errors={state.errors}\n            touched={touchedMap}\n            onFieldChange={handleFieldChange}\n            onFieldBlur={handleFieldBlur}\n          /&gt;\n        )}\n      &lt;/div&gt;\n\n      &lt;FormNavigation\n        isFirstStep={isFirstStep}\n        isLastStep={isLastStep}\n        onNext={handleNext}\n        onPrevious={handlePrevious}\n        onSaveDraft={handleManualSave}\n        progress={progress}\n        isSubmitting={state.isSubmitting}\n        isSavingDraft={isSavingDraft}\n        draftStatus={draftStatus}\n        draftError={draftError}\n        lastSavedAt={lastSavedAt}\n      /&gt;\n      &lt;p role=\"status\" aria-live=\"polite\" className=\"sr-only\"&gt;\n        {liveMessage}\n      &lt;/p&gt;\n    &lt;/div&gt;\n  );\n}\n\"use client\";\n\nimport { useState, useCallback, useRef, useEffect } from \"react\";\nimport type { FormConfigWithFields } from \"@/lib/forms/types\";\nimport { validateStep, getStepFieldKeys } from \"@/lib/forms/form-validator\";\nimport { buildFormSchema } from \"@/lib/form-schema\";\nimport { StepIndicator } from \"./step-indicator\";\nimport { FormStep } from \"./form-step\";\nimport { FormNavigation } from \"./form-navigation\";\nimport { FormErrorSummary } from \"./form-error-summary\";\nimport { usePrefersReducedMotion } from \"@/hooks/use-prefers-reduced-motion\";\nimport { useToast } from \"@/components/ui/use-toast\";\nimport { cn } from \"@/lib/utils\";\nimport type { DraftStatus } from \"./draft-save-indicator\";\n\ninterface DynamicFormWizardProps {\n  formConfig: FormConfigWithFields;\n  initialData?: Record&lt;string, unknown&gt;;\n  onStepChange?: (stepIndex: number) =&gt; void;\n  onComplete?: (formData: Record&lt;string, unknown&gt;) =&gt; void;\n  onSaveDraft?: (formData: Record&lt;string, unknown&gt;) =&gt; void;\n}\n\nexport function DynamicFormWizard({\n  formConfig,\n  initialData = {},\n  onStepChange,\n  onComplete,\n  onSaveDraft,\n}: DynamicFormWizardProps) {\n  const sortedSections = [...formConfig.sections].sort(\n    (a, b) =&gt; a.order - b.order\n  );\n\n  const [currentStep, setCurrentStep] = useState(0);\n  const [formData, setFormData] = useState&lt;Record&lt;string, unknown&gt;&gt;(\n    initialData\n  );\n  const [completedSteps, setCompletedSteps] = useState&lt;Set&lt;number&gt;&gt;(\n    new Set()\n  );\n  const [errors, setErrors] = useState&lt;Record&lt;string, string&gt;&gt;({});\n  const [touched, setTouched] = useState&lt;Record&lt;string, boolean&gt;&gt;({});\n  const [isSubmitting, setIsSubmitting] = useState(false);\n  const [isSavingDraft, setIsSavingDraft] = useState(false);\n  const [draftStatus, setDraftStatus] = useState&lt;DraftStatus&gt;(\"idle\");\n  const [draftError, setDraftError] = useState&lt;string | null&gt;(null);\n  const [lastSavedAt, setLastSavedAt] = useState&lt;Date | null&gt;(null);\n  const [liveMessage, setLiveMessage] = useState(\"\");\n  const validationTimersRef = useRef&lt;Record&lt;string, NodeJS.Timeout&gt;&gt;({});\n  const formSchemaRef = useRef(buildFormSchema(formConfig));\n  const prefersReducedMotion = usePrefersReducedMotion();\n  const { toast } = useToast();\n\n  const totalSteps = sortedSections.length;\n  const currentSection = sortedSections[currentStep];\n  const isFirstStep = currentStep === 0;\n  const isLastStep = currentStep === totalSteps - 1;\n\n  // Rebuild schema if form config changes\n  useEffect(() =&gt; {\n    formSchemaRef.current = buildFormSchema(formConfig);\n  }, [formConfig]);\n\n  /**\n   * Validate a single field with debouncing\n   */\n  const validateField = useCallback(\n    (fieldKey: string, value: unknown, immediate = false) =&gt; {\n      // Clear existing timer for this field\n      if (validationTimersRef.current[fieldKey]) {\n        clearTimeout(validationTimersRef.current[fieldKey]);\n      }\n\n      const performValidation = () =&gt; {\n        const fieldSchema = formSchemaRef.current.shape[fieldKey];\n        if (!fieldSchema) {\n          return;\n        }\n\n        try {\n          fieldSchema.parse(value);\n          // Clear error if validation passes\n          setErrors((prev) =&gt; {\n            const next = { ...prev };\n            delete next[fieldKey];\n            return next;\n          });\n        } catch (error) {\n          if (error &amp;&amp; typeof error === \"object\" &amp;&amp; \"issues\" in error) {\n            const zodError = error as { issues: Array&lt;{ message: string }&gt; };\n            const firstIssue = zodError.issues[0];\n            if (firstIssue) {\n              setErrors((prev) =&gt; ({\n                ...prev,\n                [fieldKey]: firstIssue.message,\n              }));\n            }\n          } else if (error instanceof Error) {\n            setErrors((prev) =&gt; ({\n              ...prev,\n              [fieldKey]: error.message,\n            }));\n          }\n        }\n      };\n\n      if (immediate) {\n        performValidation();\n      } else {\n        // Debounce validation on change (300ms)\n        validationTimersRef.current[fieldKey] = setTimeout(performValidation, 300);\n      }\n    },\n    []\n  );\n\n  const handleFieldChange = useCallback(\n    (fieldKey: string, value: unknown) =&gt; {\n      setFormData((prev) =&gt; ({\n        ...prev,\n        [fieldKey]: value,\n      }));\n\n      // Validate on change with debounce (only if field has been touched)\n      if (touched[fieldKey]) {\n        validateField(fieldKey, value, false);\n      }\n    },\n    [touched, validateField]\n  );\n\n  const handleFieldBlur = useCallback(\n    (fieldKey: string) =&gt; {\n      setTouched((prev) =&gt; ({\n        ...prev,\n        [fieldKey]: true,\n      }));\n\n      // Validate immediately on blur\n      const value = formData[fieldKey];\n      validateField(fieldKey, value, true);\n    },\n    [formData, validateField]\n  );\n\n  /**\n   * Validate current step using the validation utilities\n   */\n  const validateCurrentStep = useCallback((): boolean =&gt; {\n    const stepResult = validateStep(currentStep, formData, formConfig);\n\n    if (!stepResult.isValid) {\n      // Update errors for current step fields only\n      const stepFieldKeys = getStepFieldKeys(currentStep, formConfig);\n      setErrors((prev) =&gt; {\n        const next = { ...prev };\n        // Clear errors for fields not in current step\n        stepFieldKeys.forEach((key) =&gt; {\n          if (stepResult.errors[key]) {\n            next[key] = stepResult.errors[key];\n          } else {\n            delete next[key];\n          }\n        });\n        return next;\n      });\n\n      // Mark all fields in step as touched\n      setTouched((prev) =&gt; {\n        const next = { ...prev };\n        stepFieldKeys.forEach((key) =&gt; {\n          next[key] = true;\n        });\n        return next;\n      });\n\n      // Focus first error field\n      if (stepResult.firstErrorField) {\n        // Find the field by key to get its ID\n        const errorField = currentSection.fields.find(\n          (f) =&gt; f.key === stepResult.firstErrorField\n        );\n        if (errorField) {\n          // Field components use &#96;field-${field.id}&#96; as the ID\n          const fieldElement = document.getElementById(&#96;field-${errorField.id}&#96;);\n          if (fieldElement) {\n            fieldElement.focus();\n            fieldElement.scrollIntoView({ behavior: \"smooth\", block: \"center\" });\n          }\n        }\n      }\n    }\n\n    return stepResult.isValid;\n  }, [currentStep, formData, formConfig, currentSection]);\n\n  const handleNext = useCallback(async () =&gt; {\n    if (isSubmitting) {\n      return;\n    }\n\n    const isStepValid = validateCurrentStep();\n    if (!isStepValid) {\n      toast({\n        variant: \"destructive\",\n        title: \"Please fix validation errors\",\n        description: \"Resolve highlighted fields before continuing.\",\n      });\n      return;\n    }\n\n    setCompletedSteps((prev) =&gt; new Set(prev).add(currentStep));\n\n    if (isLastStep) {\n      if (!onComplete) {\n        return;\n      }\n      try {\n        setIsSubmitting(true);\n        await onComplete(formData);\n        toast({\n          title: \"Form submitted\",\n          description: \"Thanks! We received your information.\",\n        });\n      } catch (error) {\n        toast({\n          variant: \"destructive\",\n          title: \"Submission failed\",\n          description:\n            error instanceof Error\n              ? error.message\n              : \"Something went wrong while submitting. Please try again.\",\n        });\n      } finally {\n        setIsSubmitting(false);\n      }\n    } else {\n      const nextStep = currentStep + 1;\n      setCurrentStep(nextStep);\n      onStepChange?.(nextStep);\n    }\n  }, [\n    currentStep,\n    formData,\n    isLastStep,\n    isSubmitting,\n    onComplete,\n    onStepChange,\n    toast,\n    validateCurrentStep,\n  ]);\n\n  const handlePrevious = useCallback(() =&gt; {\n    if (!isFirstStep) {\n      const prevStep = currentStep - 1;\n      setCurrentStep(prevStep);\n      onStepChange?.(prevStep);\n    }\n  }, [currentStep, isFirstStep, onStepChange]);\n\n  const handleStepClick = useCallback(\n    (stepIndex: number) =&gt; {\n      // Validate current step before allowing navigation\n      if (stepIndex !== currentStep) {\n        if (!validateCurrentStep()) {\n          return; // Don't allow navigation if current step is invalid\n        }\n      }\n\n      // Allow navigation to completed steps or the next step\n      if (completedSteps.has(stepIndex) || stepIndex === currentStep + 1) {\n        setCurrentStep(stepIndex);\n        onStepChange?.(stepIndex);\n      }\n    },\n    [completedSteps, currentStep, onStepChange, validateCurrentStep]\n  );\n\n  const handleSaveDraft = useCallback(async () =&gt; {\n    if (!onSaveDraft || isSavingDraft) {\n      return;\n    }\n    try {\n      setIsSavingDraft(true);\n      setDraftStatus(\"saving\");\n      setDraftError(null);\n      await onSaveDraft(formData);\n      setDraftStatus(\"success\");\n      const savedAt = new Date();\n      setLastSavedAt(savedAt);\n      toast({\n        title: \"Draft saved\",\n        description: &#96;Progress saved at ${savedAt.toLocaleTimeString([], {\n          hour: \"numeric\",\n          minute: \"2-digit\",\n        })}&#96;,\n      });\n    } catch (error) {\n      setDraftStatus(\"error\");\n      const message =\n        error instanceof Error\n          ? error.message\n          : \"Unable to save your draft right now.\";\n      setDraftError(message);\n      toast({\n        variant: \"destructive\",\n        title: \"Draft not saved\",\n        description: message,\n      });\n    } finally {\n      setIsSavingDraft(false);\n    }\n  }, [formData, isSavingDraft, onSaveDraft, toast]);\n\n  // Cleanup timers on unmount\n  useEffect(() =&gt; {\n    const timers = validationTimersRef.current;\n    return () =&gt; {\n      Object.values(timers).forEach((timer) =&gt; {\n        clearTimeout(timer);\n      });\n    };\n  }, []);\n\n  const progress = totalSteps &gt; 0 ? ((currentStep + 1) / totalSteps) * 100 : 0;\n\n  useEffect(() =&gt; {\n    const sectionLabel = currentSection?.label ?? &#96;Step ${currentStep + 1}&#96;;\n    setLiveMessage(&#96;Now viewing ${sectionLabel} (${currentStep + 1} of ${totalSteps})&#96;);\n  }, [currentSection, currentStep, totalSteps]);\n\n  return (\n    &lt;div className=\"flex flex-col gap-6 pb-32 sm:pb-12\"&gt;\n      &lt;StepIndicator\n        steps={sortedSections.map((section, index) =&gt; ({\n          id: section.id,\n          label: section.label,\n          order: section.order,\n        }))}\n        currentStep={currentStep}\n        completedSteps={completedSteps}\n        onStepClick={handleStepClick}\n      /&gt;\n\n      &lt;div\n        className={cn(\n          \"min-h-[400px] space-y-6 rounded-3xl border border-border/60 bg-background/70 p-4 shadow-lg sm:p-8\",\n          !prefersReducedMotion &amp;&amp; \"transition-shadow duration-300\"\n        )}\n      &gt;\n        {/* Error summary for current step */}\n        {(() =&gt; {\n          const stepFieldKeys = getStepFieldKeys(currentStep, formConfig);\n          const stepErrors: Record&lt;string, string&gt; = {};\n          stepFieldKeys.forEach((key) =&gt; {\n            if (errors[key] &amp;&amp; touched[key]) {\n              stepErrors[key] = errors[key];\n            }\n          });\n\n          if (Object.keys(stepErrors).length &gt; 0) {\n            return (\n              &lt;FormErrorSummary\n                errors={stepErrors}\n                onErrorClick={(fieldKey) =&gt; {\n                  // Find the field by key to get its ID\n                  const errorField = currentSection.fields.find(\n                    (f) =&gt; f.key === fieldKey\n                  );\n                  if (errorField) {\n                    // Field components use &#96;field-${field.id}&#96; as the ID\n                    const fieldElement = document.getElementById(&#96;field-${errorField.id}&#96;);\n                    if (fieldElement) {\n                      fieldElement.focus();\n                      fieldElement.scrollIntoView({\n                        behavior: \"smooth\",\n                        block: \"center\",\n                      });\n                    }\n                  }\n                }}\n              /&gt;\n            );\n          }\n          return null;\n        })()}\n\n        &lt;FormStep\n          section={currentSection}\n          formData={formData}\n          errors={errors}\n          touched={touched}\n          onFieldChange={handleFieldChange}\n          onFieldBlur={handleFieldBlur}\n        /&gt;\n      &lt;/div&gt;\n\n      &lt;FormNavigation\n        isFirstStep={isFirstStep}\n        isLastStep={isLastStep}\n        onNext={handleNext}\n        onPrevious={handlePrevious}\n        onSaveDraft={handleSaveDraft}\n        progress={progress}\n        isSubmitting={isSubmitting}\n        isSavingDraft={isSavingDraft}\n        draftStatus={draftStatus}\n        draftError={draftError}\n        lastSavedAt={lastSavedAt}\n      /&gt;\n      &lt;p role=\"status\" aria-live=\"polite\" className=\"sr-only\"&gt;\n        {liveMessage}\n      &lt;/p&gt;\n    &lt;/div&gt;\n  );\n}\n\n"
 }
 ```
 User decision: **accepted**
@@ -4090,7 +4090,7 @@ Status: **completed**
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm run lint</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm run lint</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && npm run lint
@@ -4254,7 +4254,7 @@ Output mode: content
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && sed -n '825,930p' components/forms/dynamic-form-wizard.tsx</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && sed -n '825,930p' components/forms/dynamic-form-wizard.tsx</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && sed -n '825,930p' components/forms/dynamic-form-wizard.tsx
@@ -4274,7 +4274,7 @@ sed: components/forms/dynamic-form-wizard.tsx: No such file or directory
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && ls components/forms | grep dynamic</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && ls components/forms | grep dynamic</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && ls components/forms | grep dynamic
@@ -4290,7 +4290,7 @@ cd /Users/sahilmehta/supplier-onboarding-simple && ls components/forms | grep dy
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && ls components/forms</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && ls components/forms</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && ls components/forms
@@ -4341,7 +4341,7 @@ Directory: **/Users/sahilmehta/supplier-onboarding-simple** (1 file)
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && ls -1 components/forms</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && ls -1 components/forms</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && ls -1 components/forms
@@ -4384,7 +4384,7 @@ step-loading-skeleton.tsx
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && sed -n '430,520p' components/forms/dynamic-form-wizard.tsx</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && sed -n '430,520p' components/forms/dynamic-form-wizard.tsx</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && sed -n '430,520p' components/forms/dynamic-form-wizard.tsx
@@ -4426,7 +4426,7 @@ export function DynamicFormWizard({
     initialStep,
   });
 
-  const [liveMessage, setLiveMessage] = useState(&quot;&quot;);
+  const [liveMessage, setLiveMessage] = useState("");
   const validationTimersRef = useRef&lt;Record&lt;string, NodeJS.Timeout&gt;&gt;({});
   const formSchemaRef = useRef(buildFormSchema(formConfig));
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -4451,7 +4451,7 @@ export function DynamicFormWizard({
         ? document.getElementById(&#96;field-${errorField.id}&#96;)
         : null;
       fieldElement?.focus();
-      fieldElement?.scrollIntoView({ behavior: &quot;smooth&quot;, block: &quot;center&quot; });
+      fieldElement?.scrollIntoView({ behavior: "smooth", block: "center" });
     },
     [currentSection]
   );
@@ -4472,7 +4472,7 @@ export function DynamicFormWizard({
           fieldSchema.parse(value);
           setFieldError(fieldKey);
         } catch (error) {
-          if (error &amp;&amp; typeof error === &quot;object&quot; &amp;&amp; &quot;issues&quot; in error) {
+          if (error &amp;&amp; typeof error === "object" &amp;&amp; "issues" in error) {
             const zodError = error as { issues: Array&lt;{ message: string }&gt; };
             const firstIssue = zodError.issues[0];
             if (firstIssue) {
@@ -4507,7 +4507,7 @@ export function DynamicFormWizard({
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && git status -sb components/forms/dynamic-form-wizard.tsx</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && git status -sb components/forms/dynamic-form-wizard.tsx</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && git status -sb components/forms/dynamic-form-wizard.tsx

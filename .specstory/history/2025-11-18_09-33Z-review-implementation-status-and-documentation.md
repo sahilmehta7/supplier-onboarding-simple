@@ -326,7 +326,7 @@ Directory: **/Users/sahilmehta/supplier-onboarding-simple** (0 file)
 
 <tool-use data-tool-type="generic" data-tool-name="list_dir">
 <details>
-            <summary>Tool use: **list_directory** • Listed directory undefined • **0** results</summary>
+            <summary>Tool use: **list_dir** • Listed directory undefined • **0** results</summary>
         
 No results found
 </details>
@@ -336,7 +336,7 @@ No results found
 
 <tool-use data-tool-type="generic" data-tool-name="list_dir">
 <details>
-            <summary>Tool use: **list_directory** • Listed directory undefined • **0** results</summary>
+            <summary>Tool use: **list_dir** • Listed directory undefined • **0** results</summary>
         
 No results found
 </details>
@@ -510,7 +510,7 @@ Directory: **/Users/sahilmehta/supplier-onboarding-simple** (0 file)
 
 <tool-use data-tool-type="generic" data-tool-name="list_dir">
 <details>
-            <summary>Tool use: **list_directory** • Listed directory undefined • **0** results</summary>
+            <summary>Tool use: **list_dir** • Listed directory undefined • **0** results</summary>
         
 No results found
 </details>
@@ -530,7 +530,7 @@ Creating the summary document and consolidating completed phases. Starting with 
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/implementation-status.md</summary>
+<details><summary>Tool use: **write** • Edit file: docs/implementation-status.md</summary>
 
 **Chunk 1**
 Lines added: 208, lines removed: 1
@@ -778,7 +778,7 @@ Replacing completed phase documents with feature descriptions:
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/foundation-architecture.md</summary>
+<details><summary>Tool use: **write** • Edit file: docs/foundation-architecture.md</summary>
 
 **Chunk 1**
 Lines added: 67, lines removed: 36
@@ -899,7 +899,7 @@ Lines added: 67, lines removed: 36
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/core-data-authentication.md</summary>
+<details><summary>Tool use: **write** • Edit file: docs/core-data-authentication.md</summary>
 
 **Chunk 1**
 Lines added: 86, lines removed: 1
@@ -975,7 +975,7 @@ Lines added: 86, lines removed: 1
 + 
 + - **Migrations:** Managed via Prisma (&#96;npm run db:migrate&#96;)
 + - **Seeds:** &#96;prisma/seed.ts&#96; creates:
-+   - Demo organization (&quot;Acme Inc&quot;)
++   - Demo organization ("Acme Inc")
 +   - Demo user (owner@example.com)
 +   - Sample entities (Zetwerk) and geographies (US)
 +   - Sample form configurations
@@ -1003,7 +1003,7 @@ Lines added: 86, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/supplier-experience.md</summary>
+<details><summary>Tool use: **write** • Edit file: docs/supplier-experience.md</summary>
 
 **Chunk 1**
 Lines added: 107, lines removed: 1
@@ -1128,7 +1128,7 @@ Lines added: 107, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/procurement-workflow.md</summary>
+<details><summary>Tool use: **write** • Edit file: docs/procurement-workflow.md</summary>
 
 **Chunk 1**
 Lines added: 111, lines removed: 1
@@ -1257,7 +1257,7 @@ Lines added: 111, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/admin-console.md</summary>
+<details><summary>Tool use: **write** • Edit file: docs/admin-console.md</summary>
 
 **Chunk 1**
 Lines added: 142, lines removed: 1
@@ -1455,7 +1455,7 @@ Updating the remaining phase documents and deleting the old ones:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/phase-5-mdm-integrations.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/phase-5-mdm-integrations.md</summary>
 
 **Chunk 1**
 Lines added: 32, lines removed: undefined
@@ -1546,7 +1546,7 @@ Lines added: 5, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/phase-6-reporting-hardening.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/phase-6-reporting-hardening.md</summary>
 
 **Chunk 1**
 Lines added: 40, lines removed: undefined
@@ -1752,7 +1752,7 @@ Explanation: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/implementation-status.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/implementation-status.md</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: 1
@@ -1863,7 +1863,7 @@ Creating an implementation plans folder, moving the phase documents there, and c
 
 <tool-use data-tool-type="generic" data-tool-name="list_dir">
 <details>
-            <summary>Tool use: **list_directory** • Listed directory undefined • **0** results</summary>
+            <summary>Tool use: **list_dir** • Listed directory undefined • **0** results</summary>
         
 No results found
 </details>
@@ -1916,7 +1916,7 @@ No results found
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: mkdir -p docs/implementation-plans</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: mkdir -p docs/implementation-plans</summary>
 
 ```bash
 mkdir -p docs/implementation-plans
@@ -1933,7 +1933,7 @@ mkdir -p docs/implementation-plans
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd docs && mv phase-5-mdm-integrations.md implementation-plans/ && mv phase-6-reporting-hardening.md implementation-plans/</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd docs && mv phase-5-mdm-integrations.md implementation-plans/ && mv phase-6-reporting-hardening.md implementation-plans/</summary>
 
 ```bash
 cd docs && mv phase-5-mdm-integrations.md implementation-plans/ && mv phase-6-reporting-hardening.md implementation-plans/
@@ -1945,7 +1945,7 @@ cd docs && mv phase-5-mdm-integrations.md implementation-plans/ && mv phase-6-re
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/features.md</summary>
+<details><summary>Tool use: **write** • Edit file: docs/features.md</summary>
 
 **Chunk 1**
 Lines added: 540, lines removed: 1
@@ -2106,7 +2106,7 @@ Lines added: 540, lines removed: 1
 + 
 + - **Migrations:** Managed via Prisma (&#96;npm run db:migrate&#96;)
 + - **Seeds:** &#96;prisma/seed.ts&#96; creates:
-+   - Demo organization (&quot;Acme Inc&quot;)
++   - Demo organization ("Acme Inc")
 +   - Demo user (owner@example.com)
 +   - Sample entities (Zetwerk) and geographies (US)
 +   - Sample form configurations
@@ -2562,7 +2562,7 @@ Explanation: undefined
 
 <tool-use data-tool-type="generic" data-tool-name="list_dir">
 <details>
-            <summary>Tool use: **list_directory** • Listed directory undefined • **0** results</summary>
+            <summary>Tool use: **list_dir** • Listed directory undefined • **0** results</summary>
         
 No results found
 </details>
@@ -2578,7 +2578,7 @@ No results found
 
 <tool-use data-tool-type="generic" data-tool-name="list_dir">
 <details>
-            <summary>Tool use: **list_directory** • Listed directory undefined • **0** results</summary>
+            <summary>Tool use: **list_dir** • Listed directory undefined • **0** results</summary>
         
 No results found
 </details>

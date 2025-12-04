@@ -589,7 +589,7 @@ Setting up local file system storage for testing. Creating a storage directory a
 
 <tool-use data-tool-type="generic" data-tool-name="list_dir">
 <details>
-            <summary>Tool use: **list_directory** • Listed directory undefined • **0** results</summary>
+            <summary>Tool use: **list_dir** • Listed directory undefined • **0** results</summary>
         
 No results found
 </details>
@@ -609,7 +609,7 @@ Implementing local file storage: creating a storage utility and updating the upl
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: lib/storage.ts</summary>
+<details><summary>Tool use: **write** • Edit file: lib/storage.ts</summary>
 
 **Chunk 1**
 Lines added: 83, lines removed: 1
@@ -617,16 +617,16 @@ Lines added: 83, lines removed: 1
 ```diff
 @@ -1,1 +1,83 @@
 - 
-+ import { mkdir, writeFile, readFile, stat } from &quot;fs/promises&quot;;
-+ import { join } from &quot;path&quot;;
-+ import { existsSync } from &quot;fs&quot;;
++ import { mkdir, writeFile, readFile, stat } from "fs/promises";
++ import { join } from "path";
++ import { existsSync } from "fs";
 + 
 + /**
 +  * Local file storage for development/testing.
 +  * Files are stored in ./storage/uploads directory.
 +  */
 + 
-+ const STORAGE_DIR = join(process.cwd(), &quot;storage&quot;, &quot;uploads&quot;);
++ const STORAGE_DIR = join(process.cwd(), "storage", "uploads");
 + 
 + /**
 +  * Ensures the storage directory exists
@@ -683,11 +683,11 @@ Lines added: 83, lines removed: 1
 + export function generateFileId(fileName: string): string {
 +   const timestamp = Date.now();
 +   const random = Math.random().toString(36).substring(2, 9);
-+   const extension = fileName.includes(&quot;.&quot;) ? fileName.split(&quot;.&quot;).pop() : &quot;&quot;;
-+   const baseName = fileName.includes(&quot;.&quot;)
-+     ? fileName.substring(0, fileName.lastIndexOf(&quot;.&quot;))
++   const extension = fileName.includes(".") ? fileName.split(".").pop() : "";
++   const baseName = fileName.includes(".")
++     ? fileName.substring(0, fileName.lastIndexOf("."))
 +     : fileName;
-+   const sanitizedBase = baseName.replace(/[^a-zA-Z0-9-_]/g, &quot;_&quot;).substring(0, 50);
++   const sanitizedBase = baseName.replace(/[^a-zA-Z0-9-_]/g, "_").substring(0, 50);
 +   return extension
 +     ? &#96;${sanitizedBase}_${timestamp}_${random}.${extension}&#96;
 +     : &#96;${sanitizedBase}_${timestamp}_${random}&#96;;
@@ -710,16 +710,16 @@ Lines added: 83, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/api/documents/sign/route.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: app/api/documents/sign/route.ts</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: undefined
 
 ```diff
 @@ -2,4 +2,5 @@
-  import { auth } from &quot;@/lib/auth&quot;;
-  import { prisma } from &quot;@/lib/prisma&quot;;
-+ import { generateFileId, getFileUrl } from &quot;@/lib/storage&quot;;
+  import { auth } from "@/lib/auth";
+  import { prisma } from "@/lib/prisma";
++ import { generateFileId, getFileUrl } from "@/lib/storage";
   
   export async function POST(request: NextRequest) {
 ```
@@ -750,7 +750,7 @@ Lines added: 3, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/api/documents/upload/[fileId]/route.ts</summary>
+<details><summary>Tool use: **write** • Edit file: app/api/documents/upload/[fileId]/route.ts</summary>
 
 **Chunk 1**
 Lines added: 37, lines removed: 1
@@ -758,9 +758,9 @@ Lines added: 37, lines removed: 1
 ```diff
 @@ -1,1 +1,37 @@
 - 
-+ import { NextRequest, NextResponse } from &quot;next/server&quot;;
-+ import { auth } from &quot;@/lib/auth&quot;;
-+ import { saveFile } from &quot;@/lib/storage&quot;;
++ import { NextRequest, NextResponse } from "next/server";
++ import { auth } from "@/lib/auth";
++ import { saveFile } from "@/lib/storage";
 + 
 + export async function POST(
 +   request: NextRequest,
@@ -768,13 +768,13 @@ Lines added: 37, lines removed: 1
 + ) {
 +   const session = await auth();
 +   if (!session?.user?.id) {
-+     return NextResponse.json({ error: &quot;Unauthorized&quot; }, { status: 401 });
++     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 +   }
 + 
 +   const { fileId } = await params;
 + 
 +   if (!fileId) {
-+     return NextResponse.json({ error: &quot;Missing file ID&quot; }, { status: 400 });
++     return NextResponse.json({ error: "Missing file ID" }, { status: 400 });
 +   }
 + 
 +   try {
@@ -787,9 +787,9 @@ Lines added: 37, lines removed: 1
 + 
 +     return NextResponse.json({ success: true, fileId });
 +   } catch (error) {
-+     console.error(&quot;File upload error:&quot;, error);
++     console.error("File upload error:", error);
 +     return NextResponse.json(
-+       { error: &quot;Failed to save file&quot; },
++       { error: "Failed to save file" },
 +       { status: 500 }
 +     );
 +   }
@@ -805,7 +805,7 @@ Lines added: 37, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/api/documents/file/[fileId]/route.ts</summary>
+<details><summary>Tool use: **write** • Edit file: app/api/documents/file/[fileId]/route.ts</summary>
 
 **Chunk 1**
 Lines added: 72, lines removed: 1
@@ -813,10 +813,10 @@ Lines added: 72, lines removed: 1
 ```diff
 @@ -1,1 +1,72 @@
 - 
-+ import { NextRequest, NextResponse } from &quot;next/server&quot;;
-+ import { auth } from &quot;@/lib/auth&quot;;
-+ import { prisma } from &quot;@/lib/prisma&quot;;
-+ import { readFileFromStorage, fileExists } from &quot;@/lib/storage&quot;;
++ import { NextRequest, NextResponse } from "next/server";
++ import { auth } from "@/lib/auth";
++ import { prisma } from "@/lib/prisma";
++ import { readFileFromStorage, fileExists } from "@/lib/storage";
 + 
 + export async function GET(
 +   request: NextRequest,
@@ -824,13 +824,13 @@ Lines added: 72, lines removed: 1
 + ) {
 +   const session = await auth();
 +   if (!session?.user?.id) {
-+     return NextResponse.json({ error: &quot;Unauthorized&quot; }, { status: 401 });
++     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 +   }
 + 
 +   const { fileId } = await params;
 + 
 +   if (!fileId) {
-+     return NextResponse.json({ error: &quot;Missing file ID&quot; }, { status: 400 });
++     return NextResponse.json({ error: "Missing file ID" }, { status: 400 });
 +   }
 + 
 +   try {
@@ -856,30 +856,30 @@ Lines added: 72, lines removed: 1
 +     });
 + 
 +     if (!document) {
-+       return NextResponse.json({ error: &quot;Document not found&quot; }, { status: 404 });
++       return NextResponse.json({ error: "Document not found" }, { status: 404 });
 +     }
 + 
 +     // Check if file exists in storage
 +     const exists = await fileExists(fileId);
 +     if (!exists) {
-+       return NextResponse.json({ error: &quot;File not found in storage&quot; }, { status: 404 });
++       return NextResponse.json({ error: "File not found in storage" }, { status: 404 });
 +     }
 + 
 +     // Read and return the file
 +     const fileBuffer = await readFileFromStorage(fileId);
-+     const mimeType = document.mimeType || &quot;application/octet-stream&quot;;
++     const mimeType = document.mimeType || "application/octet-stream";
 + 
 +     return new NextResponse(fileBuffer, {
 +       headers: {
-+         &quot;Content-Type&quot;: mimeType,
-+         &quot;Content-Disposition&quot;: &#96;inline; filename=&quot;${document.fileName}&quot;&#96;,
-+         &quot;Cache-Control&quot;: &quot;private, max-age=3600&quot;,
++         "Content-Type": mimeType,
++         "Content-Disposition": &#96;inline; filename="${document.fileName}"&#96;,
++         "Cache-Control": "private, max-age=3600",
 +       },
 +     });
 +   } catch (error) {
-+     console.error(&quot;File retrieval error:&quot;, error);
++     console.error("File retrieval error:", error);
 +     return NextResponse.json(
-+       { error: &quot;Failed to retrieve file&quot; },
++       { error: "Failed to retrieve file" },
 +       { status: 500 }
 +     );
 +   }
@@ -895,7 +895,7 @@ Lines added: 72, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/api/documents/route.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: app/api/documents/route.ts</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: 1
@@ -918,30 +918,30 @@ Lines added: 1, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/forms/field-document-upload.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: components/forms/field-document-upload.tsx</summary>
 
 **Chunk 1**
 Lines added: 7, lines removed: 3
 
 ```diff
 @@ -162,13 +162,17 @@
-          setStatusMessage(&quot;Uploading file…&quot;);
+          setStatusMessage("Uploading file…");
           try {
 -           await fetch(uploadUrl, {
--             method: &quot;PUT&quot;,
+-             method: "PUT",
 +           const uploadResponse = await fetch(uploadUrl, {
-+             method: &quot;POST&quot;,
++             method: "POST",
               body: file,
               headers: {
-                &quot;Content-Type&quot;: file.type || &quot;application/octet-stream&quot;,
+                "Content-Type": file.type || "application/octet-stream",
               },
             });
 +           if (!uploadResponse.ok) {
 +             throw new Error(await parseError(uploadResponse));
 +           }
           } catch (storageError) {
--           console.warn(&quot;Upload to external storage failed in preview environment:&quot;, storageError);
-+           console.error(&quot;Upload to storage failed:&quot;, storageError);
+-           console.warn("Upload to external storage failed in preview environment:", storageError);
++           console.error("Upload to storage failed:", storageError);
 +           throw storageError;
           }
         }
@@ -955,7 +955,7 @@ Lines added: 7, lines removed: 3
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: lib/documents.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: lib/documents.ts</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: undefined
@@ -964,7 +964,7 @@ Lines added: 2, lines removed: undefined
 @@ -5,4 +5,6 @@
    */
   
-+ import { getFileUrl } from &quot;./storage&quot;;
++ import { getFileUrl } from "./storage";
 + 
   export interface SignedUrlOptions {
     expiresInSeconds?: number;
@@ -1008,7 +1008,7 @@ Lines added: 3, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: .gitignore</summary>
+<details><summary>Tool use: **search_replace** • Edit file: .gitignore</summary>
 
 **Chunk 1**
 Lines added: 3, lines removed: undefined
@@ -1144,17 +1144,17 @@ Removing an unused import:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/api/documents/sign/route.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: app/api/documents/sign/route.ts</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: 1
 
 ```diff
 @@ -2,5 +2,5 @@
-  import { auth } from &quot;@/lib/auth&quot;;
-  import { prisma } from &quot;@/lib/prisma&quot;;
-- import { generateFileId, getFileUrl } from &quot;@/lib/storage&quot;;
-+ import { generateFileId } from &quot;@/lib/storage&quot;;
+  import { auth } from "@/lib/auth";
+  import { prisma } from "@/lib/prisma";
+- import { generateFileId, getFileUrl } from "@/lib/storage";
++ import { generateFileId } from "@/lib/storage";
   
   export async function POST(request: NextRequest) {
 ```
@@ -1419,7 +1419,7 @@ Adding document validation helpers and integrating them with form validation:
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: lib/forms/document-validator.ts</summary>
+<details><summary>Tool use: **write** • Edit file: lib/forms/document-validator.ts</summary>
 
 **Chunk 1**
 Lines added: 139, lines removed: 1
@@ -1432,9 +1432,9 @@ Lines added: 139, lines removed: 1
 +  * Ensures documents are properly uploaded and exist in storage
 +  */
 + 
-+ import type { FormField } from &quot;@prisma/client&quot;;
-+ import { fileExists } from &quot;@/lib/storage&quot;;
-+ import type { DocumentFieldValue } from &quot;@/components/forms/field-document-upload&quot;;
++ import type { FormField } from "@prisma/client";
++ import { fileExists } from "@/lib/storage";
++ import type { DocumentFieldValue } from "@/components/forms/field-document-upload";
 + 
 + /**
 +  * Validates that a document field value represents a valid uploaded document
@@ -1443,12 +1443,12 @@ Lines added: 139, lines removed: 1
 +   field: FormField,
 +   value: unknown
 + ): Promise&lt;{ isValid: boolean; error?: string }&gt; {
-+   // If field is not required and value is empty/null, it&#39;s valid
++   // If field is not required and value is empty/null, it's valid
 +   if (!field.required &amp;&amp; (!value || value === null)) {
 +     return { isValid: true };
 +   }
 + 
-+   // If field is required but value is empty, it&#39;s invalid
++   // If field is required but value is empty, it's invalid
 +   if (field.required &amp;&amp; (!value || value === null)) {
 +     return {
 +       isValid: false,
@@ -1459,28 +1459,28 @@ Lines added: 139, lines removed: 1
 +   // Validate document value structure
 +   let documentValue: DocumentFieldValue | null = null;
 + 
-+   if (typeof value === &quot;object&quot; &amp;&amp; value !== null) {
++   if (typeof value === "object" &amp;&amp; value !== null) {
 +     const candidate = value as Record&lt;string, unknown&gt;;
 +     if (
-+       typeof candidate.fileId === &quot;string&quot; &amp;&amp;
-+       typeof candidate.fileName === &quot;string&quot;
++       typeof candidate.fileId === "string" &amp;&amp;
++       typeof candidate.fileName === "string"
 +     ) {
 +       documentValue = {
 +         fileId: candidate.fileId,
 +         fileName: candidate.fileName,
-+         mimeType: typeof candidate.mimeType === &quot;string&quot; ? candidate.mimeType : undefined,
++         mimeType: typeof candidate.mimeType === "string" ? candidate.mimeType : undefined,
 +         fileSize:
-+           typeof candidate.fileSize === &quot;number&quot;
++           typeof candidate.fileSize === "number"
 +             ? candidate.fileSize
-+             : typeof candidate.fileSize === &quot;string&quot;
++             : typeof candidate.fileSize === "string"
 +             ? Number(candidate.fileSize)
 +             : undefined,
 +         documentTypeKey:
-+           typeof candidate.documentTypeKey === &quot;string&quot;
++           typeof candidate.documentTypeKey === "string"
 +             ? candidate.documentTypeKey
 +             : undefined,
 +         uploadedAt:
-+           typeof candidate.uploadedAt === &quot;string&quot;
++           typeof candidate.uploadedAt === "string"
 +             ? candidate.uploadedAt
 +             : undefined,
 +       };
@@ -1512,7 +1512,7 @@ Lines added: 139, lines removed: 1
 +       };
 +     }
 +   } catch (error) {
-+     console.error(&quot;Error checking file existence:&quot;, error);
++     console.error("Error checking file existence:", error);
 +     return {
 +       isValid: false,
 +       error: &#96;${field.label} could not be verified. Please try re-uploading.&#96;,
@@ -1530,7 +1530,7 @@ Lines added: 139, lines removed: 1
 +   fields: FormField[]
 + ): Promise&lt;{ isValid: boolean; errors: Record&lt;string, string&gt; }&gt; {
 +   const errors: Record&lt;string, string&gt; = {};
-+   const documentFields = fields.filter((field) =&gt; field.type === &quot;document&quot;);
++   const documentFields = fields.filter((field) =&gt; field.type === "document");
 + 
 +   // Validate all document fields in parallel
 +   const validationResults = await Promise.all(
@@ -1553,15 +1553,15 @@ Lines added: 139, lines removed: 1
 +  * Checks if a document field has a valid uploaded document
 +  */
 + export function hasValidDocument(value: unknown): boolean {
-+   if (!value || typeof value !== &quot;object&quot;) {
++   if (!value || typeof value !== "object") {
 +     return false;
 +   }
 + 
 +   const doc = value as Record&lt;string, unknown&gt;;
 +   return (
-+     typeof doc.fileId === &quot;string&quot; &amp;&amp;
++     typeof doc.fileId === "string" &amp;&amp;
 +     doc.fileId.length &gt; 0 &amp;&amp;
-+     typeof doc.fileName === &quot;string&quot; &amp;&amp;
++     typeof doc.fileName === "string" &amp;&amp;
 +     doc.fileName.length &gt; 0
 +   );
 + }
@@ -1576,7 +1576,7 @@ Lines added: 139, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: lib/form-schema.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: lib/form-schema.ts</summary>
 
 **Chunk 1**
 Lines added: 17, lines removed: 1
@@ -1584,16 +1584,16 @@ Lines added: 17, lines removed: 1
 ```diff
 @@ -144,5 +144,21 @@
         break;
-      case &quot;document&quot;:
+      case "document":
 -       schema = DOCUMENT_VALUE_SCHEMA;
 +       schema = DOCUMENT_VALUE_SCHEMA.refine(
 +         (value) =&gt; {
 +           if (!value) return !field.required;
 +           return (
-+             typeof value === &quot;object&quot; &amp;&amp;
-+             typeof value.fileId === &quot;string&quot; &amp;&amp;
++             typeof value === "object" &amp;&amp;
++             typeof value.fileId === "string" &amp;&amp;
 +             value.fileId.length &gt; 0 &amp;&amp;
-+             typeof value.fileName === &quot;string&quot; &amp;&amp;
++             typeof value.fileName === "string" &amp;&amp;
 +             value.fileName.length &gt; 0
 +           );
 +         },
@@ -1604,7 +1604,7 @@ Lines added: 17, lines removed: 1
 +         }
 +       );
         break;
-      case &quot;email&quot;:
+      case "email":
 ```
 
 </details>
@@ -1615,7 +1615,7 @@ Lines added: 17, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/forms/actions.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: app/forms/actions.ts</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: undefined
@@ -1623,9 +1623,9 @@ Lines added: 2, lines removed: undefined
 ```diff
 @@ -13,4 +13,6 @@
     type DraftSummary,
-  } from &quot;@/lib/forms/draft-manager&quot;;
-+ import { validateDocumentFields } from &quot;@/lib/forms/document-validator&quot;;
-+ import type { FormConfigWithFields } from &quot;@/lib/form-schema&quot;;
+  } from "@/lib/forms/draft-manager";
++ import { validateDocumentFields } from "@/lib/forms/document-validator";
++ import type { FormConfigWithFields } from "@/lib/form-schema";
   
   interface SaveFormDraftInput {
 ```
@@ -1656,7 +1656,7 @@ Adding document validation to form submission:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/forms/actions.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: app/forms/actions.ts</summary>
 
 **Chunk 1**
 Lines added: 27, lines removed: undefined
@@ -1672,13 +1672,13 @@ Lines added: 27, lines removed: undefined
 +     include: {
 +       sections: {
 +         include: { fields: true },
-+         orderBy: { order: &quot;asc&quot; },
++         orderBy: { order: "asc" },
 +       },
 +     },
 +   });
 + 
 +   if (!formConfig) {
-+     throw new Error(&quot;Form configuration not found&quot;);
++     throw new Error("Form configuration not found");
 +   }
 + 
 +   // Validate document fields exist in storage
@@ -1689,7 +1689,7 @@ Lines added: 27, lines removed: undefined
 +   );
 + 
 +   if (!documentValidation.isValid) {
-+     const errorMessages = Object.values(documentValidation.errors).join(&quot;, &quot;);
++     const errorMessages = Object.values(documentValidation.errors).join(", ");
 +     throw new Error(&#96;Document validation failed: ${errorMessages}&#96;);
 +   }
   
@@ -1749,16 +1749,16 @@ Removing the unused import and improving error handling:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/forms/actions.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: app/forms/actions.ts</summary>
 
 **Chunk 1**
 Lines added: undefined, lines removed: 1
 
 ```diff
 @@ -14,5 +14,4 @@
-  } from &quot;@/lib/forms/draft-manager&quot;;
-  import { validateDocumentFields } from &quot;@/lib/forms/document-validator&quot;;
-- import type { FormConfigWithFields } from &quot;@/lib/form-schema&quot;;
+  } from "@/lib/forms/draft-manager";
+  import { validateDocumentFields } from "@/lib/forms/document-validator";
+- import type { FormConfigWithFields } from "@/lib/form-schema";
   
   interface SaveFormDraftInput {
 ```
@@ -1808,7 +1808,7 @@ Adding a client-side validation helper and improving error handling:
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: lib/forms/document-validation-client.ts</summary>
+<details><summary>Tool use: **write** • Edit file: lib/forms/document-validation-client.ts</summary>
 
 **Chunk 1**
 Lines added: 83, lines removed: 1
@@ -1821,60 +1821,60 @@ Lines added: 83, lines removed: 1
 +  * Provides immediate feedback before form submission
 +  */
 + 
-+ import type { DocumentFieldValue } from &quot;@/components/forms/field-document-upload&quot;;
++ import type { DocumentFieldValue } from "@/components/forms/field-document-upload";
 + 
 + /**
 +  * Validates document field value structure (client-side only)
-+  * Does not check file existence in storage (that&#39;s server-side)
++  * Does not check file existence in storage (that's server-side)
 +  */
 + export function validateDocumentValue(
 +   value: unknown,
 +   required: boolean
 + ): { isValid: boolean; error?: string } {
-+   // If not required and empty, it&#39;s valid
++   // If not required and empty, it's valid
 +   if (!required &amp;&amp; (!value || value === null)) {
 +     return { isValid: true };
 +   }
 + 
-+   // If required but empty, it&#39;s invalid
++   // If required but empty, it's invalid
 +   if (required &amp;&amp; (!value || value === null)) {
 +     return {
 +       isValid: false,
-+       error: &quot;This document is required&quot;,
++       error: "This document is required",
 +     };
 +   }
 + 
 +   // Validate structure
-+   if (typeof value !== &quot;object&quot; || value === null) {
++   if (typeof value !== "object" || value === null) {
 +     return {
 +       isValid: false,
-+       error: &quot;Invalid document format&quot;,
++       error: "Invalid document format",
 +     };
 +   }
 + 
 +   const doc = value as Record&lt;string, unknown&gt;;
 + 
-+   if (typeof doc.fileId !== &quot;string&quot; || doc.fileId.length === 0) {
++   if (typeof doc.fileId !== "string" || doc.fileId.length === 0) {
 +     return {
 +       isValid: false,
-+       error: &quot;Document is missing file identifier&quot;,
++       error: "Document is missing file identifier",
 +     };
 +   }
 + 
-+   if (typeof doc.fileName !== &quot;string&quot; || doc.fileName.length === 0) {
++   if (typeof doc.fileName !== "string" || doc.fileName.length === 0) {
 +     return {
 +       isValid: false,
-+       error: &quot;Document is missing file name&quot;,
++       error: "Document is missing file name",
 +     };
 +   }
 + 
 +   // Check if uploadedAt is valid if present
-+   if (doc.uploadedAt &amp;&amp; typeof doc.uploadedAt === &quot;string&quot;) {
++   if (doc.uploadedAt &amp;&amp; typeof doc.uploadedAt === "string") {
 +     const uploadDate = new Date(doc.uploadedAt);
 +     if (isNaN(uploadDate.getTime())) {
 +       return {
 +         isValid: false,
-+         error: &quot;Invalid upload timestamp&quot;,
++         error: "Invalid upload timestamp",
 +       };
 +     }
 +   }
@@ -1886,15 +1886,15 @@ Lines added: 83, lines removed: 1
 +  * Checks if a document value represents a successfully uploaded document
 +  */
 + export function isDocumentUploaded(value: unknown): boolean {
-+   if (!value || typeof value !== &quot;object&quot;) {
++   if (!value || typeof value !== "object") {
 +     return false;
 +   }
 + 
 +   const doc = value as DocumentFieldValue;
 +   return (
-+     typeof doc.fileId === &quot;string&quot; &amp;&amp;
++     typeof doc.fileId === "string" &amp;&amp;
 +     doc.fileId.length &gt; 0 &amp;&amp;
-+     typeof doc.fileName === &quot;string&quot; &amp;&amp;
++     typeof doc.fileName === "string" &amp;&amp;
 +     doc.fileName.length &gt; 0
 +   );
 + }
@@ -1909,20 +1909,20 @@ Lines added: 83, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/forms/field-document-upload.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: components/forms/field-document-upload.tsx</summary>
 
 **Chunk 1**
 Lines added: 3, lines removed: undefined
 
 ```diff
 @@ -208,4 +208,7 @@
-        setStatus(&quot;idle&quot;);
-        setStatusMessage(&quot;Upload complete&quot;);
+        setStatus("idle");
+        setStatusMessage("Upload complete");
 +       
 +       // Clear any previous errors since upload succeeded
 +       setUploadError(null);
       } catch (err) {
-        setStatus(&quot;error&quot;);
+        setStatus("error");
 ```
 
 </details>
@@ -1964,16 +1964,16 @@ Adding file existence validation to the document metadata save endpoint:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/api/documents/route.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: app/api/documents/route.ts</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: undefined
 
 ```diff
 @@ -2,4 +2,5 @@
-  import { auth } from &quot;@/lib/auth&quot;;
-  import { prisma } from &quot;@/lib/prisma&quot;;
-+ import { fileExists } from &quot;@/lib/storage&quot;;
+  import { auth } from "@/lib/auth";
+  import { prisma } from "@/lib/prisma";
++ import { fileExists } from "@/lib/storage";
   
   export async function POST(request: NextRequest) {
 ```
@@ -1986,21 +1986,21 @@ Lines added: 1, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/api/documents/route.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: app/api/documents/route.ts</summary>
 
 **Chunk 1**
 Lines added: 9, lines removed: undefined
 
 ```diff
 @@ -37,4 +37,13 @@
-      return NextResponse.json({ error: &quot;Unknown document type&quot; }, { status: 400 });
+      return NextResponse.json({ error: "Unknown document type" }, { status: 400 });
     }
 + 
 +   // Verify file exists in storage before saving metadata
 +   const fileExistsInStorage = await fileExists(fileId);
 +   if (!fileExistsInStorage) {
 +     return NextResponse.json(
-+       { error: &quot;File not found in storage. Please re-upload the document.&quot; },
++       { error: "File not found in storage. Please re-upload the document." },
 +       { status: 400 }
 +     );
 +   }

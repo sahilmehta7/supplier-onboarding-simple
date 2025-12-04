@@ -189,32 +189,32 @@ Checking the exact lines referenced in the warnings:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm view next versions --json | tail -20</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm view next versions --json | tail -20</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && npm view next versions --json | tail -20
 ```
 
 ```
-  &quot;16.0.2-canary.5&quot;,
-  &quot;16.0.2-canary.6&quot;,
-  &quot;16.0.2-canary.7&quot;,
-  &quot;16.0.2-canary.8&quot;,
-  &quot;16.0.2-canary.9&quot;,
-  &quot;16.0.2-canary.10&quot;,
-  &quot;16.0.2-canary.11&quot;,
-  &quot;16.0.2-canary.12&quot;,
-  &quot;16.0.2-canary.13&quot;,
-  &quot;16.0.2-canary.14&quot;,
-  &quot;16.0.2-canary.15&quot;,
-  &quot;16.0.2-canary.16&quot;,
-  &quot;16.0.2-canary.17&quot;,
-  &quot;16.0.2-canary.18&quot;,
-  &quot;16.0.2-canary.19&quot;,
-  &quot;16.0.2-canary.20&quot;,
-  &quot;16.0.2-canary.21&quot;,
-  &quot;16.0.2&quot;,
-  &quot;16.0.3&quot;
+  "16.0.2-canary.5",
+  "16.0.2-canary.6",
+  "16.0.2-canary.7",
+  "16.0.2-canary.8",
+  "16.0.2-canary.9",
+  "16.0.2-canary.10",
+  "16.0.2-canary.11",
+  "16.0.2-canary.12",
+  "16.0.2-canary.13",
+  "16.0.2-canary.14",
+  "16.0.2-canary.15",
+  "16.0.2-canary.16",
+  "16.0.2-canary.17",
+  "16.0.2-canary.18",
+  "16.0.2-canary.19",
+  "16.0.2-canary.20",
+  "16.0.2-canary.21",
+  "16.0.2",
+  "16.0.3"
 ]
 ```
 </details>
@@ -233,54 +233,54 @@ Checking the latest 15.x version and verifying the installed Next.js version:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: npm view next@15 version</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: npm view next@15 version</summary>
 
 ```bash
 npm view next@15 version
 ```
 
 ```
-next@15.0.0 &#39;15.0.0&#39;
-next@15.0.1 &#39;15.0.1&#39;
-next@15.0.2 &#39;15.0.2&#39;
-next@15.0.3 &#39;15.0.3&#39;
-next@15.0.4 &#39;15.0.4&#39;
-next@15.1.0 &#39;15.1.0&#39;
-next@15.1.1 &#39;15.1.1&#39;
-next@15.1.2 &#39;15.1.2&#39;
-next@15.1.3 &#39;15.1.3&#39;
-next@15.1.4 &#39;15.1.4&#39;
-next@15.1.5 &#39;15.1.5&#39;
-next@15.1.6 &#39;15.1.6&#39;
-next@15.1.7 &#39;15.1.7&#39;
-next@15.2.0 &#39;15.2.0&#39;
-next@15.2.1 &#39;15.2.1&#39;
-next@15.2.2 &#39;15.2.2&#39;
-next@15.2.3 &#39;15.2.3&#39;
-next@15.2.4 &#39;15.2.4&#39;
-next@15.2.5 &#39;15.2.5&#39;
-next@15.3.0 &#39;15.3.0&#39;
-next@15.3.1 &#39;15.3.1&#39;
-next@15.3.2 &#39;15.3.2&#39;
-next@15.1.8 &#39;15.1.8&#39;
-next@15.3.3 &#39;15.3.3&#39;
-next@15.4.0 &#39;15.4.0&#39;
-next@15.3.4 &#39;15.3.4&#39;
-next@15.3.5 &#39;15.3.5&#39;
-next@15.4.1 &#39;15.4.1&#39;
-next@15.4.2 &#39;15.4.2&#39;
-next@15.4.3 &#39;15.4.3&#39;
-next@15.4.4 &#39;15.4.4&#39;
-next@15.4.5 &#39;15.4.5&#39;
-next@15.4.6 &#39;15.4.6&#39;
-next@15.4.7 &#39;15.4.7&#39;
-next@15.5.0 &#39;15.5.0&#39;
-next@15.5.1 &#39;15.5.1&#39;
-next@15.5.2 &#39;15.5.2&#39;
-next@15.5.3 &#39;15.5.3&#39;
-next@15.5.4 &#39;15.5.4&#39;
-next@15.5.5 &#39;15.5.5&#39;
-next@15.5.6 &#39;15.5.6&#39;
+next@15.0.0 '15.0.0'
+next@15.0.1 '15.0.1'
+next@15.0.2 '15.0.2'
+next@15.0.3 '15.0.3'
+next@15.0.4 '15.0.4'
+next@15.1.0 '15.1.0'
+next@15.1.1 '15.1.1'
+next@15.1.2 '15.1.2'
+next@15.1.3 '15.1.3'
+next@15.1.4 '15.1.4'
+next@15.1.5 '15.1.5'
+next@15.1.6 '15.1.6'
+next@15.1.7 '15.1.7'
+next@15.2.0 '15.2.0'
+next@15.2.1 '15.2.1'
+next@15.2.2 '15.2.2'
+next@15.2.3 '15.2.3'
+next@15.2.4 '15.2.4'
+next@15.2.5 '15.2.5'
+next@15.3.0 '15.3.0'
+next@15.3.1 '15.3.1'
+next@15.3.2 '15.3.2'
+next@15.1.8 '15.1.8'
+next@15.3.3 '15.3.3'
+next@15.4.0 '15.4.0'
+next@15.3.4 '15.3.4'
+next@15.3.5 '15.3.5'
+next@15.4.1 '15.4.1'
+next@15.4.2 '15.4.2'
+next@15.4.3 '15.4.3'
+next@15.4.4 '15.4.4'
+next@15.4.5 '15.4.5'
+next@15.4.6 '15.4.6'
+next@15.4.7 '15.4.7'
+next@15.5.0 '15.5.0'
+next@15.5.1 '15.5.1'
+next@15.5.2 '15.5.2'
+next@15.5.3 '15.5.3'
+next@15.5.4 '15.5.4'
+next@15.5.5 '15.5.5'
+next@15.5.6 '15.5.6'
 ```
 </details>
 </tool-use>
@@ -288,7 +288,7 @@ next@15.5.6 &#39;15.5.6&#39;
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: npm list next</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: npm list next</summary>
 
 ```bash
 npm list next
@@ -331,7 +331,7 @@ Installed version is 15.5.6 (latest 15.x). The linter may be using stale data. C
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: npm audit --package=next</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: npm audit --package=next</summary>
 
 ```bash
 npm audit --package=next
@@ -356,7 +356,7 @@ found 0 vulnerabilities
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: npm outdated next</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: npm outdated next</summary>
 
 ```bash
 npm outdated next
@@ -374,7 +374,7 @@ next      15.5.6  15.5.6  16.0.3  node_modules/next  supplier-onboarding-simple
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: npm update next eslint-config-next</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: npm update next eslint-config-next</summary>
 
 ```bash
 npm update next eslint-config-next

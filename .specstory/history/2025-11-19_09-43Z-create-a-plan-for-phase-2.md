@@ -201,7 +201,7 @@ Creating the Phase 2 implementation plan:
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/phase-2-implementation-plan.md</summary>
+<details><summary>Tool use: **write** • Edit file: docs/phase-2-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 1542, lines removed: 1
@@ -260,12 +260,12 @@ Lines added: 1542, lines removed: 1
 +   createdAt       DateTime @default(now())
 +   updatedAt       DateTime @updatedAt
 +   
-+   organization    Organization @relation(&quot;SupplierOrganizations&quot;, fields: [organizationId], references: [id], onDelete: Cascade)
-+   entity          Entity   @relation(&quot;SupplierEntities&quot;, fields: [entityId], references: [id], onDelete: Cascade)
-+   geography       Geography @relation(&quot;SupplierGeographies&quot;, fields: [geographyId], references: [id], onDelete: Cascade)
-+   application     Application @relation(&quot;SupplierApplication&quot;, fields: [applicationId], references: [id], onDelete: Cascade)
++   organization    Organization @relation("SupplierOrganizations", fields: [organizationId], references: [id], onDelete: Cascade)
++   entity          Entity   @relation("SupplierEntities", fields: [entityId], references: [id], onDelete: Cascade)
++   geography       Geography @relation("SupplierGeographies", fields: [geographyId], references: [id], onDelete: Cascade)
++   application     Application @relation("SupplierApplication", fields: [applicationId], references: [id], onDelete: Cascade)
 +   documents       SupplierDocument[]
-+   updateApplications Application[] @relation(&quot;SupplierUpdateApplications&quot;)
++   updateApplications Application[] @relation("SupplierUpdateApplications")
 +   
 +   @@index([organizationId])
 +   @@index([entityId])
@@ -283,7 +283,7 @@ Lines added: 1542, lines removed: 1
 +   fileSize        Int?
 +   uploadedAt      DateTime @default(now())
 +   supplier        Supplier @relation(fields: [supplierId], references: [id], onDelete: Cascade)
-+   documentType    DocumentType @relation(&quot;SupplierDocuments&quot;, fields: [documentTypeId], references: [id], onDelete: Cascade)
++   documentType    DocumentType @relation("SupplierDocuments", fields: [documentTypeId], references: [id], onDelete: Cascade)
 +   
 +   @@index([supplierId])
 + }
@@ -301,7 +301,7 @@ Lines added: 1542, lines removed: 1
 +   supplierId String?     // Link to Supplier if this is an update/re-approval request
 +   
 +   // ... existing relations ...
-+   supplier Supplier? @relation(&quot;SupplierUpdateApplications&quot;, fields: [supplierId], references: [id])
++   supplier Supplier? @relation("SupplierUpdateApplications", fields: [supplierId], references: [id])
 + }
 + &#96;&#96;&#96;
 + 
@@ -314,22 +314,22 @@ Lines added: 1542, lines removed: 1
 + &#96;&#96;&#96;prisma
 + model Organization {
 +   // ... existing fields ...
-+   suppliers Supplier[] @relation(&quot;SupplierOrganizations&quot;)
++   suppliers Supplier[] @relation("SupplierOrganizations")
 + }
 + 
 + model Entity {
 +   // ... existing fields ...
-+   suppliers Supplier[] @relation(&quot;SupplierEntities&quot;)
++   suppliers Supplier[] @relation("SupplierEntities")
 + }
 + 
 + model Geography {
 +   // ... existing fields ...
-+   suppliers Supplier[] @relation(&quot;SupplierGeographies&quot;)
++   suppliers Supplier[] @relation("SupplierGeographies")
 + }
 + 
 + model DocumentType {
 +   // ... existing fields ...
-+   supplierDocuments SupplierDocument[] @relation(&quot;SupplierDocuments&quot;)
++   supplierDocuments SupplierDocument[] @relation("SupplierDocuments")
 + }
 + &#96;&#96;&#96;
 + 
@@ -357,8 +357,8 @@ Lines added: 1542, lines removed: 1
 + Create a service module for Supplier operations:
 + 
 + &#96;&#96;&#96;typescript
-+ import { prisma } from &quot;@/lib/prisma&quot;;
-+ import { SupplierWizardData } from &quot;@/lib/supplierWizardSchema&quot;;
++ import { prisma } from "@/lib/prisma";
++ import { SupplierWizardData } from "@/lib/supplierWizardSchema";
 + 
 + /**
 +  * Creates a Supplier record when an Application is approved
@@ -375,11 +375,11 @@ Lines added: 1542, lines removed: 1
 +   });
 + 
 +   if (!application) {
-+     throw new Error(&quot;Application not found&quot;);
++     throw new Error("Application not found");
 +   }
 + 
-+   if (application.status !== &quot;APPROVED&quot;) {
-+     throw new Error(&quot;Application must be APPROVED to create Supplier&quot;);
++   if (application.status !== "APPROVED") {
++     throw new Error("Application must be APPROVED to create Supplier");
 +   }
 + 
 +   // Check if Supplier already exists for this Application
@@ -431,15 +431,15 @@ Lines added: 1542, lines removed: 1
 +   });
 + 
 +   if (!application) {
-+     throw new Error(&quot;Application not found&quot;);
++     throw new Error("Application not found");
 +   }
 + 
 +   if (!application.supplierId) {
-+     throw new Error(&quot;Application must be linked to a Supplier for updates&quot;);
++     throw new Error("Application must be linked to a Supplier for updates");
 +   }
 + 
-+   if (application.status !== &quot;APPROVED&quot;) {
-+     throw new Error(&quot;Application must be APPROVED to update Supplier&quot;);
++   if (application.status !== "APPROVED") {
++     throw new Error("Application must be APPROVED to update Supplier");
 +   }
 + 
 +   // Update Supplier data
@@ -498,7 +498,7 @@ Lines added: 1542, lines removed: 1
 +         include: {
 +           documentType: true,
 +         },
-+         orderBy: { uploadedAt: &quot;desc&quot; },
++         orderBy: { uploadedAt: "desc" },
 +       },
 +     },
 +   });
@@ -522,7 +522,7 @@ Lines added: 1542, lines removed: 1
 +   });
 + 
 +   if (!membership) {
-+     throw new Error(&quot;User is not a member of this organization&quot;);
++     throw new Error("User is not a member of this organization");
 +   }
 + 
 +   return prisma.supplier.findMany({
@@ -540,7 +540,7 @@ Lines added: 1542, lines removed: 1
 +         },
 +       },
 +     },
-+     orderBy: { updatedAt: &quot;desc&quot; },
++     orderBy: { updatedAt: "desc" },
 +   });
 + }
 + 
@@ -569,15 +569,15 @@ Lines added: 1542, lines removed: 1
 +   });
 + 
 +   if (!supplier) {
-+     throw new Error(&quot;Supplier not found&quot;);
++     throw new Error("Supplier not found");
 +   }
 + 
 +   if (!supplier.organization.members.length) {
-+     throw new Error(&quot;User is not a member of this organization&quot;);
++     throw new Error("User is not a member of this organization");
 +   }
 + 
 +   if (!supplier.application.formConfigId) {
-+     throw new Error(&quot;Original application must have a formConfig&quot;);
++     throw new Error("Original application must have a formConfig");
 +   }
 + 
 +   // Merge current supplier data with updated fields
@@ -610,7 +610,7 @@ Lines added: 1542, lines removed: 1
 +       entityId: supplier.entityId,
 +       geographyId: supplier.geographyId,
 +       formConfigId: supplier.application.formConfigId,
-+       status: &quot;DRAFT&quot;,
++       status: "DRAFT",
 +       data: mergedData,
 +       createdById: userId,
 +       supplierId: supplier.id,
@@ -638,16 +638,16 @@ Lines added: 1542, lines removed: 1
 + Update &#96;transitionApplicationAction&#96; to create/update Supplier when status changes to &#96;APPROVED&#96;:
 + 
 + &#96;&#96;&#96;typescript
-+ import { createSupplierFromApplication, updateSupplierFromApplication } from &quot;@/lib/suppliers&quot;;
++ import { createSupplierFromApplication, updateSupplierFromApplication } from "@/lib/suppliers";
 + 
 + export async function transitionApplicationAction(input: TransitionInput) {
 +   const { applicationId, targetStatus, note } = input;
 +   const session = await auth();
 +   if (!session?.user?.id) {
-+     throw new Error(&quot;Unauthorized&quot;);
++     throw new Error("Unauthorized");
 +   }
 + 
-+   await requireRole([&quot;ADMIN&quot;, &quot;PROCUREMENT&quot;]);
++   await requireRole(["ADMIN", "PROCUREMENT"]);
 + 
 +   const application = await prisma.application.findUnique({
 +     where: { id: applicationId },
@@ -658,11 +658,11 @@ Lines added: 1542, lines removed: 1
 +   });
 + 
 +   if (!application) {
-+     throw new Error(&quot;Application not found&quot;);
++     throw new Error("Application not found");
 +   }
 + 
 +   if (!canTransition(application.status, targetStatus)) {
-+     throw new Error(&quot;Invalid state transition&quot;);
++     throw new Error("Invalid state transition");
 +   }
 + 
 +   // Update application status
@@ -671,14 +671,14 @@ Lines added: 1542, lines removed: 1
 +     data: {
 +       status: targetStatus,
 +       updatedById: session.user.id,
-+       approvedAt: targetStatus === &quot;APPROVED&quot; ? new Date() : undefined,
++       approvedAt: targetStatus === "APPROVED" ? new Date() : undefined,
 +       auditLogs: {
 +         create: {
 +           actorId: session.user.id,
-+           actorRole: &quot;PROCUREMENT&quot;,
++           actorRole: "PROCUREMENT",
 +           action: &#96;STATUS_${targetStatus}&#96;,
 +           details: {
-+             note: note ?? &quot;&quot;,
++             note: note ?? "",
 +           },
 +         },
 +       },
@@ -686,7 +686,7 @@ Lines added: 1542, lines removed: 1
 +   });
 + 
 +   // Create or update Supplier when approved
-+   if (targetStatus === &quot;APPROVED&quot;) {
++   if (targetStatus === "APPROVED") {
 +     try {
 +       if (application.supplierId) {
 +         // Update existing Supplier
@@ -696,8 +696,8 @@ Lines added: 1542, lines removed: 1
 +         await createSupplierFromApplication(applicationId);
 +       }
 +     } catch (error) {
-+       console.error(&quot;Error creating/updating Supplier:&quot;, error);
-+       // Log error but don&#39;t fail the transition
++       console.error("Error creating/updating Supplier:", error);
++       // Log error but don't fail the transition
 +       // Supplier creation can be retried later if needed
 +     }
 +   }
@@ -726,10 +726,10 @@ Lines added: 1542, lines removed: 1
 + **File:** &#96;app/supplier/profile/[supplierId]/page.tsx&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ import { notFound, redirect } from &quot;next/navigation&quot;;
-+ import { auth } from &quot;@/lib/auth&quot;;
-+ import { getSupplierForUser } from &quot;@/lib/suppliers&quot;;
-+ import { CompanyProfile } from &quot;@/components/supplier/company-profile&quot;;
++ import { notFound, redirect } from "next/navigation";
++ import { auth } from "@/lib/auth";
++ import { getSupplierForUser } from "@/lib/suppliers";
++ import { CompanyProfile } from "@/components/supplier/company-profile";
 + 
 + interface Params {
 +   supplierId: string;
@@ -744,7 +744,7 @@ Lines added: 1542, lines removed: 1
 +   const session = await auth();
 + 
 +   if (!session?.user?.id) {
-+     redirect(&quot;/signin&quot;);
++     redirect("/signin");
 +   }
 + 
 +   const supplier = await getSupplierForUser(supplierId, session.user.id);
@@ -764,26 +764,26 @@ Lines added: 1542, lines removed: 1
 + For organizations with a single supplier, provide a direct route:
 + 
 + &#96;&#96;&#96;typescript
-+ import { redirect } from &quot;next/navigation&quot;;
-+ import { auth } from &quot;@/lib/auth&quot;;
-+ import { getSuppliersForOrganization } from &quot;@/lib/suppliers&quot;;
-+ import { prisma } from &quot;@/lib/prisma&quot;;
++ import { redirect } from "next/navigation";
++ import { auth } from "@/lib/auth";
++ import { getSuppliersForOrganization } from "@/lib/suppliers";
++ import { prisma } from "@/lib/prisma";
 + 
 + export default async function SupplierProfilePage() {
 +   const session = await auth();
 + 
 +   if (!session?.user?.id) {
-+     redirect(&quot;/signin&quot;);
++     redirect("/signin");
 +   }
 + 
-+   // Get user&#39;s organization
++   // Get user's organization
 +   const membership = await prisma.membership.findFirst({
 +     where: { userId: session.user.id },
 +     include: { organization: true },
 +   });
 + 
 +   if (!membership) {
-+     redirect(&quot;/supplier&quot;);
++     redirect("/supplier");
 +   }
 + 
 +   const suppliers = await getSuppliersForOrganization(
@@ -792,7 +792,7 @@ Lines added: 1542, lines removed: 1
 +   );
 + 
 +   if (suppliers.length === 0) {
-+     redirect(&quot;/supplier&quot;);
++     redirect("/supplier");
 +   }
 + 
 +   if (suppliers.length === 1) {
@@ -801,26 +801,26 @@ Lines added: 1542, lines removed: 1
 + 
 +   // Multiple suppliers - show selection page
 +   return (
-+     &lt;div className=&quot;space-y-8&quot;&gt;
-+       &lt;div className=&quot;space-y-2&quot;&gt;
-+         &lt;h1 className=&quot;text-3xl font-semibold text-slate-900&quot;&gt;
++     &lt;div className="space-y-8"&gt;
++       &lt;div className="space-y-2"&gt;
++         &lt;h1 className="text-3xl font-semibold text-slate-900"&gt;
 +           Select Company Profile
 +         &lt;/h1&gt;
-+         &lt;p className=&quot;text-sm text-slate-500&quot;&gt;
++         &lt;p className="text-sm text-slate-500"&gt;
 +           You have multiple approved suppliers. Select one to view its profile.
 +         &lt;/p&gt;
 +       &lt;/div&gt;
-+       &lt;div className=&quot;grid gap-4 md:grid-cols-2&quot;&gt;
++       &lt;div className="grid gap-4 md:grid-cols-2"&gt;
 +         {suppliers.map((supplier) =&gt; (
 +           &lt;a
 +             key={supplier.id}
 +             href={&#96;/supplier/profile/${supplier.id}&#96;}
-+             className=&quot;rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-300 transition&quot;
++             className="rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-300 transition"
 +           &gt;
-+             &lt;h3 className=&quot;font-semibold text-slate-900&quot;&gt;
++             &lt;h3 className="font-semibold text-slate-900"&gt;
 +               {supplier.entity.name} - {supplier.geography.name}
 +             &lt;/h3&gt;
-+             &lt;p className=&quot;text-sm text-slate-500 mt-1&quot;&gt;
++             &lt;p className="text-sm text-slate-500 mt-1"&gt;
 +               Approved {supplier.application.approvedAt?.toLocaleDateString()}
 +             &lt;/p&gt;
 +           &lt;/a&gt;
@@ -847,14 +847,14 @@ Lines added: 1542, lines removed: 1
 + **File:** &#96;components/supplier/company-profile.tsx&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { Supplier } from &quot;@prisma/client&quot;;
-+ import { CompanyProfileHeader } from &quot;./company-profile-header&quot;;
-+ import { CompanyProfileSection } from &quot;./company-profile-section&quot;;
-+ import { DocumentList } from &quot;./document-list&quot;;
-+ import { ApprovalMetadata } from &quot;./approval-metadata&quot;;
-+ import { SupplierWizardData } from &quot;@/lib/supplierWizardSchema&quot;;
++ import { Supplier } from "@prisma/client";
++ import { CompanyProfileHeader } from "./company-profile-header";
++ import { CompanyProfileSection } from "./company-profile-section";
++ import { DocumentList } from "./document-list";
++ import { ApprovalMetadata } from "./approval-metadata";
++ import { SupplierWizardData } from "@/lib/supplierWizardSchema";
 + 
 + interface CompanyProfileProps {
 +   supplier: Supplier &amp; {
@@ -882,45 +882,45 @@ Lines added: 1542, lines removed: 1
 +   const data = supplier.data as SupplierWizardData;
 + 
 +   return (
-+     &lt;div className=&quot;space-y-8&quot;&gt;
++     &lt;div className="space-y-8"&gt;
 +       &lt;CompanyProfileHeader
-+         supplierName={data.supplierInformation?.supplierName ?? &quot;Unknown&quot;}
++         supplierName={data.supplierInformation?.supplierName ?? "Unknown"}
 +         entity={supplier.entity}
 +         geography={supplier.geography}
 +         approvedAt={supplier.application.approvedAt}
 +       /&gt;
 + 
-+       &lt;div className=&quot;grid gap-6&quot;&gt;
++       &lt;div className="grid gap-6"&gt;
 +         &lt;CompanyProfileSection
-+           title=&quot;Company Information&quot;
++           title="Company Information"
 +           supplierId={supplier.id}
 +           data={data.supplierInformation}
 +           fields={[
-+             { key: &quot;supplierName&quot;, label: &quot;Supplier Name&quot; },
-+             { key: &quot;paymentTerms&quot;, label: &quot;Payment Terms&quot; },
-+             { key: &quot;salesContactName&quot;, label: &quot;Sales Contact Name&quot; },
-+             { key: &quot;salesContactEmail&quot;, label: &quot;Sales Contact Email&quot; },
++             { key: "supplierName", label: "Supplier Name" },
++             { key: "paymentTerms", label: "Payment Terms" },
++             { key: "salesContactName", label: "Sales Contact Name" },
++             { key: "salesContactEmail", label: "Sales Contact Email" },
 +           ]}
 +         /&gt;
 + 
 +         &lt;CompanyProfileSection
-+           title=&quot;Addresses&quot;
++           title="Addresses"
 +           supplierId={supplier.id}
 +           data={data.addresses}
 +           fields={[
-+             { key: &quot;remitToAddress&quot;, label: &quot;Remit-To Address&quot;, type: &quot;address&quot; },
-+             { key: &quot;orderingAddress&quot;, label: &quot;Ordering Address&quot;, type: &quot;address&quot; },
++             { key: "remitToAddress", label: "Remit-To Address", type: "address" },
++             { key: "orderingAddress", label: "Ordering Address", type: "address" },
 +           ]}
 +         /&gt;
 + 
 +         &lt;CompanyProfileSection
-+           title=&quot;Banking Information&quot;
++           title="Banking Information"
 +           supplierId={supplier.id}
 +           data={data.bankInformation}
 +           fields={[
-+             { key: &quot;bankName&quot;, label: &quot;Bank Name&quot; },
-+             { key: &quot;routingNumber&quot;, label: &quot;Routing Number&quot;, sensitive: true },
-+             { key: &quot;accountNumber&quot;, label: &quot;Account Number&quot;, sensitive: true },
++             { key: "bankName", label: "Bank Name" },
++             { key: "routingNumber", label: "Routing Number", sensitive: true },
++             { key: "accountNumber", label: "Account Number", sensitive: true },
 +           ]}
 +         /&gt;
 + 
@@ -944,8 +944,8 @@ Lines added: 1542, lines removed: 1
 + **File:** &#96;components/supplier/company-profile-header.tsx&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ import { Badge } from &quot;@/components/ui/badge&quot;;
-+ import { Entity, Geography } from &quot;@prisma/client&quot;;
++ import { Badge } from "@/components/ui/badge";
++ import { Entity, Geography } from "@prisma/client";
 + 
 + interface CompanyProfileHeaderProps {
 +   supplierName: string;
@@ -961,22 +961,22 @@ Lines added: 1542, lines removed: 1
 +   approvedAt,
 + }: CompanyProfileHeaderProps) {
 +   return (
-+     &lt;div className=&quot;space-y-4&quot;&gt;
-+       &lt;div className=&quot;flex items-start justify-between&quot;&gt;
++     &lt;div className="space-y-4"&gt;
++       &lt;div className="flex items-start justify-between"&gt;
 +         &lt;div&gt;
-+           &lt;h1 className=&quot;text-3xl font-semibold text-slate-900&quot;&gt;
++           &lt;h1 className="text-3xl font-semibold text-slate-900"&gt;
 +             {supplierName}
 +           &lt;/h1&gt;
-+           &lt;p className=&quot;text-sm text-slate-500 mt-1&quot;&gt;
++           &lt;p className="text-sm text-slate-500 mt-1"&gt;
 +             {entity.name} • {geography.name}
 +           &lt;/p&gt;
 +         &lt;/div&gt;
-+         &lt;Badge variant=&quot;default&quot; className=&quot;bg-green-100 text-green-800&quot;&gt;
++         &lt;Badge variant="default" className="bg-green-100 text-green-800"&gt;
 +           Approved
 +         &lt;/Badge&gt;
 +       &lt;/div&gt;
 +       {approvedAt &amp;&amp; (
-+         &lt;p className=&quot;text-sm text-slate-500&quot;&gt;
++         &lt;p className="text-sm text-slate-500"&gt;
 +           Approved on {approvedAt.toLocaleDateString()}
 +         &lt;/p&gt;
 +       )}
@@ -990,20 +990,20 @@ Lines added: 1542, lines removed: 1
 + **File:** &#96;components/supplier/company-profile-section.tsx&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { useState } from &quot;react&quot;;
-+ import { Card, CardContent, CardHeader, CardTitle } from &quot;@/components/ui/card&quot;;
-+ import { Button } from &quot;@/components/ui/button&quot;;
-+ import { EditableField } from &quot;./editable-field&quot;;
-+ import { createUpdateApplication } from &quot;@/lib/suppliers&quot;;
-+ import { useRouter } from &quot;next/navigation&quot;;
-+ import { toast } from &quot;@/components/ui/use-toast&quot;;
++ import { useState } from "react";
++ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
++ import { Button } from "@/components/ui/button";
++ import { EditableField } from "./editable-field";
++ import { createUpdateApplication } from "@/lib/suppliers";
++ import { useRouter } from "next/navigation";
++ import { toast } from "@/components/ui/use-toast";
 + 
 + interface FieldConfig {
 +   key: string;
 +   label: string;
-+   type?: &quot;address&quot; | &quot;text&quot;;
++   type?: "address" | "text";
 +   sensitive?: boolean;
 + }
 + 
@@ -1037,29 +1037,29 @@ Lines added: 1542, lines removed: 1
 + 
 +       // This will be implemented in the server action
 +       const response = await fetch(&#96;/api/suppliers/${supplierId}/update&#96;, {
-+         method: &quot;POST&quot;,
-+         headers: { &quot;Content-Type&quot;: &quot;application/json&quot; },
++         method: "POST",
++         headers: { "Content-Type": "application/json" },
 +         body: JSON.stringify({ data: updatedData }),
 +       });
 + 
 +       if (!response.ok) {
-+         throw new Error(&quot;Failed to create update request&quot;);
++         throw new Error("Failed to create update request");
 +       }
 + 
 +       const { applicationId } = await response.json();
 + 
 +       toast({
-+         title: &quot;Update Request Created&quot;,
++         title: "Update Request Created",
 +         description:
-+           &quot;Your changes have been submitted for re-approval. You&#39;ll be notified once approved.&quot;,
++           "Your changes have been submitted for re-approval. You'll be notified once approved.",
 +       });
 + 
 +       router.push(&#96;/supplier/onboarding/${applicationId}&#96;);
 +     } catch (error) {
 +       toast({
-+         title: &quot;Error&quot;,
-+         description: &quot;Failed to create update request. Please try again.&quot;,
-+         variant: &quot;destructive&quot;,
++         title: "Error",
++         description: "Failed to create update request. Please try again.",
++         variant: "destructive",
 +       });
 +     } finally {
 +       setIsSubmitting(false);
@@ -1072,7 +1072,7 @@ Lines added: 1542, lines removed: 1
 +       &lt;CardHeader&gt;
 +         &lt;CardTitle&gt;{title}&lt;/CardTitle&gt;
 +       &lt;/CardHeader&gt;
-+       &lt;CardContent className=&quot;space-y-4&quot;&gt;
++       &lt;CardContent className="space-y-4"&gt;
 +         {fields.map((field) =&gt; (
 +           &lt;EditableField
 +             key={field.key}
@@ -1099,19 +1099,19 @@ Lines added: 1542, lines removed: 1
 + **File:** &#96;components/supplier/editable-field.tsx&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { useState } from &quot;react&quot;;
-+ import { Button } from &quot;@/components/ui/button&quot;;
-+ import { Input } from &quot;@/components/ui/input&quot;;
-+ import { Label } from &quot;@/components/ui/label&quot;;
-+ import { Pencil, X, Check } from &quot;lucide-react&quot;;
++ import { useState } from "react";
++ import { Button } from "@/components/ui/button";
++ import { Input } from "@/components/ui/input";
++ import { Label } from "@/components/ui/label";
++ import { Pencil, X, Check } from "lucide-react";
 + 
 + interface EditableFieldProps {
 +   fieldKey: string;
 +   label: string;
 +   value: unknown;
-+   type?: &quot;address&quot; | &quot;text&quot;;
++   type?: "address" | "text";
 +   sensitive?: boolean;
 +   isEditing: boolean;
 +   onEdit: () =&gt; void;
@@ -1124,7 +1124,7 @@ Lines added: 1542, lines removed: 1
 +   fieldKey,
 +   label,
 +   value,
-+   type = &quot;text&quot;,
++   type = "text",
 +   sensitive = false,
 +   isEditing,
 +   onEdit,
@@ -1135,40 +1135,40 @@ Lines added: 1542, lines removed: 1
 +   const [editValue, setEditValue] = useState(value);
 + 
 +   const displayValue = sensitive
-+     ? maskSensitiveValue(String(value ?? &quot;&quot;))
-+     : String(value ?? &quot;&quot;);
++     ? maskSensitiveValue(String(value ?? ""))
++     : String(value ?? "");
 + 
 +   if (isEditing) {
 +     return (
-+       &lt;div className=&quot;space-y-2&quot;&gt;
++       &lt;div className="space-y-2"&gt;
 +         &lt;Label&gt;{label}&lt;/Label&gt;
-+         {type === &quot;address&quot; ? (
++         {type === "address" ? (
 +           &lt;AddressInput
 +             value={editValue as Record&lt;string, string&gt;}
 +             onChange={setEditValue}
 +           /&gt;
 +         ) : (
 +           &lt;Input
-+             value={String(editValue ?? &quot;&quot;)}
++             value={String(editValue ?? "")}
 +             onChange={(e) =&gt; setEditValue(e.target.value)}
 +             disabled={disabled}
 +           /&gt;
 +         )}
-+         &lt;div className=&quot;flex gap-2&quot;&gt;
++         &lt;div className="flex gap-2"&gt;
 +           &lt;Button
-+             size=&quot;sm&quot;
++             size="sm"
 +             onClick={() =&gt; onSubmit(editValue)}
 +             disabled={disabled}
 +           &gt;
-+             &lt;Check className=&quot;h-4 w-4 mr-1&quot; /&gt;
++             &lt;Check className="h-4 w-4 mr-1" /&gt;
 +             Submit for Re-approval
 +           &lt;/Button&gt;
-+           &lt;Button size=&quot;sm&quot; variant=&quot;outline&quot; onClick={onCancel}&gt;
-+             &lt;X className=&quot;h-4 w-4 mr-1&quot; /&gt;
++           &lt;Button size="sm" variant="outline" onClick={onCancel}&gt;
++             &lt;X className="h-4 w-4 mr-1" /&gt;
 +             Cancel
 +           &lt;/Button&gt;
 +         &lt;/div&gt;
-+         &lt;p className=&quot;text-xs text-slate-500&quot;&gt;
++         &lt;p className="text-xs text-slate-500"&gt;
 +           This change will require re-approval from procurement.
 +         &lt;/p&gt;
 +       &lt;/div&gt;
@@ -1176,28 +1176,28 @@ Lines added: 1542, lines removed: 1
 +   }
 + 
 +   return (
-+     &lt;div className=&quot;flex items-start justify-between py-2&quot;&gt;
-+       &lt;div className=&quot;flex-1&quot;&gt;
-+         &lt;Label className=&quot;text-sm font-medium text-slate-700&quot;&gt;{label}&lt;/Label&gt;
-+         &lt;p className=&quot;text-sm text-slate-900 mt-1&quot;&gt;
-+           {type === &quot;address&quot; ? formatAddress(value as Record&lt;string, string&gt;) : displayValue}
++     &lt;div className="flex items-start justify-between py-2"&gt;
++       &lt;div className="flex-1"&gt;
++         &lt;Label className="text-sm font-medium text-slate-700"&gt;{label}&lt;/Label&gt;
++         &lt;p className="text-sm text-slate-900 mt-1"&gt;
++           {type === "address" ? formatAddress(value as Record&lt;string, string&gt;) : displayValue}
 +         &lt;/p&gt;
 +       &lt;/div&gt;
 +       &lt;Button
-+         size=&quot;sm&quot;
-+         variant=&quot;ghost&quot;
++         size="sm"
++         variant="ghost"
 +         onClick={onEdit}
-+         className=&quot;ml-4&quot;
++         className="ml-4"
 +       &gt;
-+         &lt;Pencil className=&quot;h-4 w-4&quot; /&gt;
++         &lt;Pencil className="h-4 w-4" /&gt;
 +       &lt;/Button&gt;
 +     &lt;/div&gt;
 +   );
 + }
 + 
 + function maskSensitiveValue(value: string): string {
-+   if (value.length &lt;= 4) return &quot;****&quot;;
-+   return &quot;****&quot; + value.slice(-4);
++   if (value.length &lt;= 4) return "****";
++   return "****" + value.slice(-4);
 + }
 + 
 + function formatAddress(address: Record&lt;string, string&gt;): string {
@@ -1209,7 +1209,7 @@ Lines added: 1542, lines removed: 1
 +     address.postalCode,
 +     address.country,
 +   ].filter(Boolean);
-+   return parts.join(&quot;, &quot;);
++   return parts.join(", ");
 + }
 + 
 + function AddressInput({
@@ -1220,38 +1220,38 @@ Lines added: 1542, lines removed: 1
 +   onChange: (value: Record&lt;string, string&gt;) =&gt; void;
 + }) {
 +   return (
-+     &lt;div className=&quot;space-y-2&quot;&gt;
++     &lt;div className="space-y-2"&gt;
 +       &lt;Input
-+         placeholder=&quot;Line 1&quot;
-+         value={value.line1 ?? &quot;&quot;}
++         placeholder="Line 1"
++         value={value.line1 ?? ""}
 +         onChange={(e) =&gt; onChange({ ...value, line1: e.target.value })}
 +       /&gt;
 +       &lt;Input
-+         placeholder=&quot;Line 2 (optional)&quot;
-+         value={value.line2 ?? &quot;&quot;}
++         placeholder="Line 2 (optional)"
++         value={value.line2 ?? ""}
 +         onChange={(e) =&gt; onChange({ ...value, line2: e.target.value })}
 +       /&gt;
-+       &lt;div className=&quot;grid grid-cols-2 gap-2&quot;&gt;
++       &lt;div className="grid grid-cols-2 gap-2"&gt;
 +         &lt;Input
-+           placeholder=&quot;City&quot;
-+           value={value.city ?? &quot;&quot;}
++           placeholder="City"
++           value={value.city ?? ""}
 +           onChange={(e) =&gt; onChange({ ...value, city: e.target.value })}
 +         /&gt;
 +         &lt;Input
-+           placeholder=&quot;State&quot;
-+           value={value.state ?? &quot;&quot;}
++           placeholder="State"
++           value={value.state ?? ""}
 +           onChange={(e) =&gt; onChange({ ...value, state: e.target.value })}
 +         /&gt;
 +       &lt;/div&gt;
-+       &lt;div className=&quot;grid grid-cols-2 gap-2&quot;&gt;
++       &lt;div className="grid grid-cols-2 gap-2"&gt;
 +         &lt;Input
-+           placeholder=&quot;Postal Code&quot;
-+           value={value.postalCode ?? &quot;&quot;}
++           placeholder="Postal Code"
++           value={value.postalCode ?? ""}
 +           onChange={(e) =&gt; onChange({ ...value, postalCode: e.target.value })}
 +         /&gt;
 +         &lt;Input
-+           placeholder=&quot;Country&quot;
-+           value={value.country ?? &quot;&quot;}
++           placeholder="Country"
++           value={value.country ?? ""}
 +           onChange={(e) =&gt; onChange({ ...value, country: e.target.value })}
 +         /&gt;
 +       &lt;/div&gt;
@@ -1265,10 +1265,10 @@ Lines added: 1542, lines removed: 1
 + **File:** &#96;components/supplier/document-list.tsx&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ import { Card, CardContent, CardHeader, CardTitle } from &quot;@/components/ui/card&quot;;
-+ import { Button } from &quot;@/components/ui/button&quot;;
-+ import { Download } from &quot;lucide-react&quot;;
-+ import Link from &quot;next/link&quot;;
++ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
++ import { Button } from "@/components/ui/button";
++ import { Download } from "lucide-react";
++ import Link from "next/link";
 + 
 + interface Document {
 +   id: string;
@@ -1293,7 +1293,7 @@ Lines added: 1542, lines removed: 1
 +           &lt;CardTitle&gt;Documents&lt;/CardTitle&gt;
 +         &lt;/CardHeader&gt;
 +         &lt;CardContent&gt;
-+           &lt;p className=&quot;text-sm text-slate-500&quot;&gt;No documents uploaded.&lt;/p&gt;
++           &lt;p className="text-sm text-slate-500"&gt;No documents uploaded.&lt;/p&gt;
 +         &lt;/CardContent&gt;
 +       &lt;/Card&gt;
 +     );
@@ -1305,30 +1305,30 @@ Lines added: 1542, lines removed: 1
 +         &lt;CardTitle&gt;Documents&lt;/CardTitle&gt;
 +       &lt;/CardHeader&gt;
 +       &lt;CardContent&gt;
-+         &lt;div className=&quot;space-y-3&quot;&gt;
++         &lt;div className="space-y-3"&gt;
 +           {documents.map((doc) =&gt; (
 +             &lt;div
 +               key={doc.id}
-+               className=&quot;flex items-center justify-between rounded-lg border border-slate-200 p-3&quot;
++               className="flex items-center justify-between rounded-lg border border-slate-200 p-3"
 +             &gt;
-+               &lt;div className=&quot;flex-1&quot;&gt;
-+                 &lt;p className=&quot;text-sm font-medium text-slate-900&quot;&gt;
++               &lt;div className="flex-1"&gt;
++                 &lt;p className="text-sm font-medium text-slate-900"&gt;
 +                   {doc.documentType.label}
 +                 &lt;/p&gt;
-+                 &lt;p className=&quot;text-xs text-slate-500&quot;&gt;
-+                   {doc.fileName} •{&quot; &quot;}
++                 &lt;p className="text-xs text-slate-500"&gt;
++                   {doc.fileName} •{" "}
 +                   {doc.fileSize
 +                     ? &#96;${(doc.fileSize / 1024).toFixed(1)} KB&#96;
-+                     : &quot;Unknown size&quot;}
++                     : "Unknown size"}
 +                 &lt;/p&gt;
 +               &lt;/div&gt;
 +               &lt;Button
-+                 size=&quot;sm&quot;
-+                 variant=&quot;outline&quot;
++                 size="sm"
++                 variant="outline"
 +                 asChild
 +               &gt;
-+                 &lt;a href={doc.fileUrl} download={doc.fileName} target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;
-+                   &lt;Download className=&quot;h-4 w-4 mr-1&quot; /&gt;
++                 &lt;a href={doc.fileUrl} download={doc.fileName} target="_blank" rel="noopener noreferrer"&gt;
++                   &lt;Download className="h-4 w-4 mr-1" /&gt;
 +                   Download
 +                 &lt;/a&gt;
 +               &lt;/Button&gt;
@@ -1346,7 +1346,7 @@ Lines added: 1542, lines removed: 1
 + **File:** &#96;components/supplier/approval-metadata.tsx&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ import { Card, CardContent } from &quot;@/components/ui/card&quot;;
++ import { Card, CardContent } from "@/components/ui/card";
 + 
 + interface ApprovalMetadataProps {
 +   approvedAt: Date | null;
@@ -1359,21 +1359,21 @@ Lines added: 1542, lines removed: 1
 + }: ApprovalMetadataProps) {
 +   return (
 +     &lt;Card&gt;
-+       &lt;CardContent className=&quot;pt-6&quot;&gt;
-+         &lt;div className=&quot;space-y-2 text-sm&quot;&gt;
++       &lt;CardContent className="pt-6"&gt;
++         &lt;div className="space-y-2 text-sm"&gt;
 +           {approvedAt &amp;&amp; (
 +             &lt;div&gt;
-+               &lt;span className=&quot;font-medium text-slate-700&quot;&gt;Approved on:&lt;/span&gt;{&quot; &quot;}
-+               &lt;span className=&quot;text-slate-900&quot;&gt;
-+                 {approvedAt.toLocaleDateString()} at{&quot; &quot;}
++               &lt;span className="font-medium text-slate-700"&gt;Approved on:&lt;/span&gt;{" "}
++               &lt;span className="text-slate-900"&gt;
++                 {approvedAt.toLocaleDateString()} at{" "}
 +                 {approvedAt.toLocaleTimeString()}
 +               &lt;/span&gt;
 +             &lt;/div&gt;
 +           )}
 +           {approvedBy.name &amp;&amp; (
 +             &lt;div&gt;
-+               &lt;span className=&quot;font-medium text-slate-700&quot;&gt;Approved by:&lt;/span&gt;{&quot; &quot;}
-+               &lt;span className=&quot;text-slate-900&quot;&gt;
++               &lt;span className="font-medium text-slate-700"&gt;Approved by:&lt;/span&gt;{" "}
++               &lt;span className="text-slate-900"&gt;
 +                 {approvedBy.name}
 +                 {approvedBy.email &amp;&amp; &#96; (${approvedBy.email})&#96;}
 +               &lt;/span&gt;
@@ -1403,10 +1403,10 @@ Lines added: 1542, lines removed: 1
 + **File:** &#96;app/api/suppliers/[supplierId]/update/route.ts&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ import { NextRequest, NextResponse } from &quot;next/server&quot;;
-+ import { auth } from &quot;@/lib/auth&quot;;
-+ import { createUpdateApplication } from &quot;@/lib/suppliers&quot;;
-+ import { SupplierWizardData } from &quot;@/lib/supplierWizardSchema&quot;;
++ import { NextRequest, NextResponse } from "next/server";
++ import { auth } from "@/lib/auth";
++ import { createUpdateApplication } from "@/lib/suppliers";
++ import { SupplierWizardData } from "@/lib/supplierWizardSchema";
 + 
 + export async function POST(
 +   request: NextRequest,
@@ -1416,16 +1416,16 @@ Lines added: 1542, lines removed: 1
 +   const session = await auth();
 + 
 +   if (!session?.user?.id) {
-+     return NextResponse.json({ error: &quot;Unauthorized&quot; }, { status: 401 });
++     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 +   }
 + 
 +   try {
 +     const body = await request.json();
 +     const { data } = body;
 + 
-+     if (!data || typeof data !== &quot;object&quot;) {
++     if (!data || typeof data !== "object") {
 +       return NextResponse.json(
-+         { error: &quot;Invalid data provided&quot; },
++         { error: "Invalid data provided" },
 +         { status: 400 }
 +       );
 +     }
@@ -1438,12 +1438,12 @@ Lines added: 1542, lines removed: 1
 + 
 +     return NextResponse.json({
 +       applicationId: application.id,
-+       message: &quot;Update request created successfully&quot;,
++       message: "Update request created successfully",
 +     });
 +   } catch (error) {
-+     console.error(&quot;Error creating update application:&quot;, error);
++     console.error("Error creating update application:", error);
 +     return NextResponse.json(
-+       { error: error instanceof Error ? error.message : &quot;Internal server error&quot; },
++       { error: error instanceof Error ? error.message : "Internal server error" },
 +       { status: 500 }
 +     );
 +   }
@@ -1468,7 +1468,7 @@ Lines added: 1542, lines removed: 1
 + Add redirect logic when application is approved:
 + 
 + &#96;&#96;&#96;typescript
-+ import { redirect } from &quot;next/navigation&quot;;
++ import { redirect } from "next/navigation";
 + // ... existing imports ...
 + 
 + export default async function OnboardingWizardPage({
@@ -1479,7 +1479,7 @@ Lines added: 1542, lines removed: 1
 +   // ... existing code ...
 + 
 +   // Redirect to Company Profile if approved
-+   if (application.status === &quot;APPROVED&quot;) {
++   if (application.status === "APPROVED") {
 +     const supplier = await prisma.supplier.findUnique({
 +       where: { applicationId: application.id },
 +       select: { id: true },
@@ -1496,7 +1496,7 @@ Lines added: 1542, lines removed: 1
 + 
 + **Implementation Checklist:**
 + - [ ] Add redirect logic for approved applications
-+ - [ ] Handle case where Supplier doesn&#39;t exist yet
++ - [ ] Handle case where Supplier doesn't exist yet
 + - [ ] Add fallback behavior
 + 
 + ---
@@ -1510,10 +1510,10 @@ Lines added: 1542, lines removed: 1
 + Update to show Suppliers for approved applications and link to Company Profile:
 + 
 + &#96;&#96;&#96;typescript
-+ import Link from &quot;next/link&quot;;
-+ import { auth } from &quot;@/lib/auth&quot;;
-+ import { prisma } from &quot;@/lib/prisma&quot;;
-+ import { getSuppliersForOrganization } from &quot;@/lib/suppliers&quot;;
++ import Link from "next/link";
++ import { auth } from "@/lib/auth";
++ import { prisma } from "@/lib/prisma";
++ import { getSuppliersForOrganization } from "@/lib/suppliers";
 + 
 + export default async function SupplierDashboard() {
 +   const session = await auth();
@@ -1522,7 +1522,7 @@ Lines added: 1542, lines removed: 1
 +     return null;
 +   }
 + 
-+   // Get user&#39;s organization
++   // Get user's organization
 +   const membership = await prisma.membership.findFirst({
 +     where: { userId: session.user.id },
 +     include: { organization: true },
@@ -1542,46 +1542,46 @@ Lines added: 1542, lines removed: 1
 +   const applications = await prisma.application.findMany({
 +     where: {
 +       organizationId: membership.organizationId,
-+       status: { not: &quot;APPROVED&quot; }, // Approved apps are shown via Suppliers
++       status: { not: "APPROVED" }, // Approved apps are shown via Suppliers
 +     },
-+     orderBy: { updatedAt: &quot;desc&quot; },
++     orderBy: { updatedAt: "desc" },
 +   });
 + 
 +   // ... rest of existing code, but add Suppliers section ...
 + 
 +   return (
-+     &lt;div className=&quot;space-y-8&quot;&gt;
++     &lt;div className="space-y-8"&gt;
 +       {/* ... existing header and buttons ... */}
 + 
 +       {/* Add Suppliers section */}
 +       {suppliers.length &gt; 0 &amp;&amp; (
-+         &lt;section className=&quot;space-y-4&quot;&gt;
++         &lt;section className="space-y-4"&gt;
 +           &lt;div&gt;
-+             &lt;h2 className=&quot;text-lg font-semibold text-slate-900&quot;&gt;
++             &lt;h2 className="text-lg font-semibold text-slate-900"&gt;
 +               Company Profiles
 +             &lt;/h2&gt;
-+             &lt;p className=&quot;text-sm text-slate-500&quot;&gt;
++             &lt;p className="text-sm text-slate-500"&gt;
 +               View and manage your approved supplier information.
 +             &lt;/p&gt;
 +           &lt;/div&gt;
-+           &lt;div className=&quot;grid gap-4 md:grid-cols-2&quot;&gt;
++           &lt;div className="grid gap-4 md:grid-cols-2"&gt;
 +             {suppliers.map((supplier) =&gt; (
 +               &lt;Link
 +                 key={supplier.id}
 +                 href={&#96;/supplier/profile/${supplier.id}&#96;}
-+                 className=&quot;rounded-2xl border border-slate-200 bg-white p-4 hover:border-slate-300 transition&quot;
++                 className="rounded-2xl border border-slate-200 bg-white p-4 hover:border-slate-300 transition"
 +               &gt;
-+                 &lt;div className=&quot;flex items-center justify-between&quot;&gt;
++                 &lt;div className="flex items-center justify-between"&gt;
 +                   &lt;div&gt;
-+                     &lt;p className=&quot;text-sm font-semibold text-slate-900&quot;&gt;
++                     &lt;p className="text-sm font-semibold text-slate-900"&gt;
 +                       {supplier.entity.name} - {supplier.geography.name}
 +                     &lt;/p&gt;
-+                     &lt;p className=&quot;text-xs text-slate-500&quot;&gt;
-+                       Approved{&quot; &quot;}
++                     &lt;p className="text-xs text-slate-500"&gt;
++                       Approved{" "}
 +                       {supplier.application.approvedAt?.toLocaleDateString()}
 +                     &lt;/p&gt;
 +                   &lt;/div&gt;
-+                   &lt;span className=&quot;text-xs font-medium text-slate-900 underline&quot;&gt;
++                   &lt;span className="text-xs font-medium text-slate-900 underline"&gt;
 +                     View Profile
 +                   &lt;/span&gt;
 +                 &lt;/div&gt;
@@ -1612,17 +1612,17 @@ Lines added: 1542, lines removed: 1
 + **File:** &#96;lib/suppliers.test.ts&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ import { describe, it, expect, beforeEach, vi } from &quot;vitest&quot;;
++ import { describe, it, expect, beforeEach, vi } from "vitest";
 + import {
 +   createSupplierFromApplication,
 +   updateSupplierFromApplication,
 +   getSupplierForUser,
 +   createUpdateApplication,
-+ } from &quot;./suppliers&quot;;
-+ import { prisma } from &quot;./prisma&quot;;
++ } from "./suppliers";
++ import { prisma } from "./prisma";
 + 
 + // Mock Prisma
-+ vi.mock(&quot;./prisma&quot;, () =&gt; ({
++ vi.mock("./prisma", () =&gt; ({
 +   prisma: {
 +     application: {
 +       findUnique: vi.fn(),
@@ -1636,21 +1636,21 @@ Lines added: 1542, lines removed: 1
 +   },
 + }));
 + 
-+ describe(&quot;Supplier Service&quot;, () =&gt; {
++ describe("Supplier Service", () =&gt; {
 +   beforeEach(() =&gt; {
 +     vi.clearAllMocks();
 +   });
 + 
-+   describe(&quot;createSupplierFromApplication&quot;, () =&gt; {
-+     it(&quot;should create a Supplier when Application is approved&quot;, async () =&gt; {
++   describe("createSupplierFromApplication", () =&gt; {
++     it("should create a Supplier when Application is approved", async () =&gt; {
 +       // Test implementation
 +     });
 + 
-+     it(&quot;should return existing Supplier if already created&quot;, async () =&gt; {
++     it("should return existing Supplier if already created", async () =&gt; {
 +       // Test implementation
 +     });
 + 
-+     it(&quot;should throw error if Application is not approved&quot;, async () =&gt; {
++     it("should throw error if Application is not approved", async () =&gt; {
 +       // Test implementation
 +     });
 +   });
@@ -1890,16 +1890,16 @@ Updating the Prisma schema to add Supplier and SupplierDocument models:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: prisma/schema.prisma</summary>
+<details><summary>Tool use: **search_replace** • Edit file: prisma/schema.prisma</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: undefined
 
 ```diff
 @@ -89,4 +89,5 @@
-    applications    Application[] @relation(&quot;OrganizationApplications&quot;)
-    auditLogs       AuditLog[]    @relation(&quot;OrganizationAuditLogs&quot;)
-+   suppliers       Supplier[]    @relation(&quot;SupplierOrganizations&quot;)
+    applications    Application[] @relation("OrganizationApplications")
+    auditLogs       AuditLog[]    @relation("OrganizationAuditLogs")
++   suppliers       Supplier[]    @relation("SupplierOrganizations")
   }
   
 ```
@@ -1912,7 +1912,7 @@ Lines added: 1, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: prisma/schema.prisma</summary>
+<details><summary>Tool use: **search_replace** • Edit file: prisma/schema.prisma</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: undefined
@@ -1921,7 +1921,7 @@ Lines added: 1, lines removed: undefined
 @@ -116,4 +116,5 @@
     applications Application[]
     geographies  EntityGeography[]
-+   suppliers    Supplier[]        @relation(&quot;SupplierEntities&quot;)
++   suppliers    Supplier[]        @relation("SupplierEntities")
   }
   
 ```
@@ -1934,7 +1934,7 @@ Lines added: 1, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: prisma/schema.prisma</summary>
+<details><summary>Tool use: **search_replace** • Edit file: prisma/schema.prisma</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: undefined
@@ -1943,7 +1943,7 @@ Lines added: 1, lines removed: undefined
 @@ -128,4 +128,5 @@
     applications Application[]
     entities     EntityGeography[]
-+   suppliers    Supplier[]        @relation(&quot;SupplierGeographies&quot;)
++   suppliers    Supplier[]        @relation("SupplierGeographies")
   }
   
 ```
@@ -1956,7 +1956,7 @@ Lines added: 1, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: prisma/schema.prisma</summary>
+<details><summary>Tool use: **search_replace** • Edit file: prisma/schema.prisma</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: undefined
@@ -1965,7 +1965,7 @@ Lines added: 1, lines removed: undefined
 @@ -206,4 +206,5 @@
     requirements         FormDocumentRequirement[]
     applicationDocuments ApplicationDocument[]
-+   supplierDocuments    SupplierDocument[]        @relation(&quot;SupplierDocuments&quot;)
++   supplierDocuments    SupplierDocument[]        @relation("SupplierDocuments")
   }
   
 ```
@@ -1978,7 +1978,7 @@ Lines added: 1, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: prisma/schema.prisma</summary>
+<details><summary>Tool use: **search_replace** • Edit file: prisma/schema.prisma</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: undefined
@@ -1986,7 +1986,7 @@ Lines added: 1, lines removed: undefined
 ```diff
 @@ -234,4 +234,5 @@
     submittedById   String?
-    submissionType  String? // &#39;SUPPLIER&#39; or &#39;INTERNAL&#39;
+    submissionType  String? // 'SUPPLIER' or 'INTERNAL'
 +   supplierId      String? // Link to Supplier if this is an update/re-approval request
     approvedAt      DateTime?
     rejectedAt      DateTime?
@@ -1997,9 +1997,9 @@ Lines added: 1, lines removed: undefined
 
 ```diff
 @@ -249,4 +250,5 @@
-    updatedBy       User?                 @relation(&quot;ApplicationUpdatedBy&quot;, fields: [updatedById], references: [id])
-    submittedBy     User?                 @relation(&quot;ApplicationSubmittedBy&quot;, fields: [submittedById], references: [id])
-+   supplier        Supplier?              @relation(&quot;SupplierUpdateApplications&quot;, fields: [supplierId], references: [id])
+    updatedBy       User?                 @relation("ApplicationUpdatedBy", fields: [updatedById], references: [id])
+    submittedBy     User?                 @relation("ApplicationSubmittedBy", fields: [submittedById], references: [id])
++   supplier        Supplier?              @relation("SupplierUpdateApplications", fields: [supplierId], references: [id])
     comments        ApplicationComment[]
     documents       ApplicationDocument[]
 ```
@@ -2012,7 +2012,7 @@ Lines added: 1, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: prisma/schema.prisma</summary>
+<details><summary>Tool use: **search_replace** • Edit file: prisma/schema.prisma</summary>
 
 **Chunk 1**
 Lines added: 39, lines removed: undefined
@@ -2033,12 +2033,12 @@ Lines added: 39, lines removed: undefined
 +   createdAt       DateTime @default(now())
 +   updatedAt       DateTime @updatedAt
 +   
-+   organization    Organization @relation(&quot;SupplierOrganizations&quot;, fields: [organizationId], references: [id], onDelete: Cascade)
-+   entity          Entity   @relation(&quot;SupplierEntities&quot;, fields: [entityId], references: [id], onDelete: Cascade)
-+   geography       Geography @relation(&quot;SupplierGeographies&quot;, fields: [geographyId], references: [id], onDelete: Cascade)
-+   application     Application @relation(&quot;SupplierApplication&quot;, fields: [applicationId], references: [id], onDelete: Cascade)
++   organization    Organization @relation("SupplierOrganizations", fields: [organizationId], references: [id], onDelete: Cascade)
++   entity          Entity   @relation("SupplierEntities", fields: [entityId], references: [id], onDelete: Cascade)
++   geography       Geography @relation("SupplierGeographies", fields: [geographyId], references: [id], onDelete: Cascade)
++   application     Application @relation("SupplierApplication", fields: [applicationId], references: [id], onDelete: Cascade)
 +   documents       SupplierDocument[]
-+   updateApplications Application[] @relation(&quot;SupplierUpdateApplications&quot;)
++   updateApplications Application[] @relation("SupplierUpdateApplications")
 +   
 +   @@index([organizationId])
 +   @@index([entityId])
@@ -2056,7 +2056,7 @@ Lines added: 39, lines removed: undefined
 +   fileSize        Int?
 +   uploadedAt      DateTime @default(now())
 +   supplier        Supplier @relation(fields: [supplierId], references: [id], onDelete: Cascade)
-+   documentType    DocumentType @relation(&quot;SupplierDocuments&quot;, fields: [documentTypeId], references: [id], onDelete: Cascade)
++   documentType    DocumentType @relation("SupplierDocuments", fields: [documentTypeId], references: [id], onDelete: Cascade)
 +   
 +   @@index([supplierId])
 + }
@@ -2098,7 +2098,7 @@ Lint results
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm run db:migrate -- --name add_supplier_model</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm run db:migrate -- --name add_supplier_model</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && npm run db:migrate -- --name add_supplier_model
@@ -2112,7 +2112,7 @@ Loaded Prisma config from prisma.config.ts.
 
 Prisma config detected, skipping environment variable loading.
 Prisma schema loaded from prisma/schema.prisma
-Datasource &quot;db&quot;: PostgreSQL database &quot;supplier_onboarding&quot;, schema &quot;public&quot; at &quot;localhost:5432&quot;                                                                 
+Datasource "db": PostgreSQL database "supplier_onboarding", schema "public" at "localhost:5432"                                                                 
 
 
 Error: Prisma schema validation - (validate wasm)
@@ -2120,8 +2120,8 @@ Error code: P1012
 error: Error validating field &#96;application&#96; in model &#96;Supplier&#96;: The relation field &#96;application&#96; on model &#96;Supplier&#96; is missing an opposite relation field on the model &#96;Application&#96;. Either run &#96;prisma format&#96; or add it manually.          
   --&gt;  prisma/schema.prisma:333
    | 
-332 |   geography       Geography @relation(&quot;SupplierGeographies&quot;, fields: [geographyId], references: [id], onDelete: Cascade)                                  
-333 |   application     Application @relation(&quot;SupplierApplication&quot;, fields: [applicationId], references: [id], onDelete: Cascade)                              
+332 |   geography       Geography @relation("SupplierGeographies", fields: [geographyId], references: [id], onDelete: Cascade)                                  
+333 |   application     Application @relation("SupplierApplication", fields: [applicationId], references: [id], onDelete: Cascade)                              
 334 |   documents       SupplierDocument[]
    | 
 
@@ -2165,16 +2165,16 @@ Adding the missing relation field to Application:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: prisma/schema.prisma</summary>
+<details><summary>Tool use: **search_replace** • Edit file: prisma/schema.prisma</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: undefined
 
 ```diff
 @@ -251,4 +251,5 @@
-    submittedBy     User?                 @relation(&quot;ApplicationSubmittedBy&quot;, fields: [submittedById], references: [id])
-    supplier        Supplier?              @relation(&quot;SupplierUpdateApplications&quot;, fields: [supplierId], references: [id])
-+   supplierCreated Supplier?              @relation(&quot;SupplierApplication&quot;)
+    submittedBy     User?                 @relation("ApplicationSubmittedBy", fields: [submittedById], references: [id])
+    supplier        Supplier?              @relation("SupplierUpdateApplications", fields: [supplierId], references: [id])
++   supplierCreated Supplier?              @relation("SupplierApplication")
     comments        ApplicationComment[]
     documents       ApplicationDocument[]
 ```
@@ -2186,7 +2186,7 @@ Lines added: 1, lines removed: undefined
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: npm run db:migrate -- --name add_supplier_model</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: npm run db:migrate -- --name add_supplier_model</summary>
 
 ```bash
 npm run db:migrate -- --name add_supplier_model
@@ -2200,7 +2200,7 @@ Loaded Prisma config from prisma.config.ts.
 
 Prisma config detected, skipping environment variable loading.
 Prisma schema loaded from prisma/schema.prisma
-Datasource &quot;db&quot;: PostgreSQL database &quot;supplier_onboarding&quot;, schema &quot;public&quot; at &quot;localhost:5432&quot;                                                                 
+Datasource "db": PostgreSQL database "supplier_onboarding", schema "public" at "localhost:5432"                                                                 
 
 Applying migration &#96;20251119094736_add_supplier_model&#96;
 
@@ -2269,7 +2269,7 @@ Creating the supplier service functions:
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: lib/suppliers.ts</summary>
+<details><summary>Tool use: **write** • Edit file: lib/suppliers.ts</summary>
 
 **Chunk 1**
 Lines added: 266, lines removed: 1
@@ -2277,8 +2277,8 @@ Lines added: 266, lines removed: 1
 ```diff
 @@ -1,1 +1,266 @@
 - 
-+ import { prisma } from &quot;@/lib/prisma&quot;;
-+ import { SupplierWizardData } from &quot;@/lib/supplierWizardSchema&quot;;
++ import { prisma } from "@/lib/prisma";
++ import { SupplierWizardData } from "@/lib/supplierWizardSchema";
 + 
 + /**
 +  * Creates a Supplier record when an Application is approved
@@ -2295,11 +2295,11 @@ Lines added: 266, lines removed: 1
 +   });
 + 
 +   if (!application) {
-+     throw new Error(&quot;Application not found&quot;);
++     throw new Error("Application not found");
 +   }
 + 
-+   if (application.status !== &quot;APPROVED&quot;) {
-+     throw new Error(&quot;Application must be APPROVED to create Supplier&quot;);
++   if (application.status !== "APPROVED") {
++     throw new Error("Application must be APPROVED to create Supplier");
 +   }
 + 
 +   // Check if Supplier already exists for this Application
@@ -2351,15 +2351,15 @@ Lines added: 266, lines removed: 1
 +   });
 + 
 +   if (!application) {
-+     throw new Error(&quot;Application not found&quot;);
++     throw new Error("Application not found");
 +   }
 + 
 +   if (!application.supplierId) {
-+     throw new Error(&quot;Application must be linked to a Supplier for updates&quot;);
++     throw new Error("Application must be linked to a Supplier for updates");
 +   }
 + 
-+   if (application.status !== &quot;APPROVED&quot;) {
-+     throw new Error(&quot;Application must be APPROVED to update Supplier&quot;);
++   if (application.status !== "APPROVED") {
++     throw new Error("Application must be APPROVED to update Supplier");
 +   }
 + 
 +   // Delete existing documents first
@@ -2421,7 +2421,7 @@ Lines added: 266, lines removed: 1
 +         include: {
 +           documentType: true,
 +         },
-+         orderBy: { uploadedAt: &quot;desc&quot; },
++         orderBy: { uploadedAt: "desc" },
 +       },
 +     },
 +   });
@@ -2445,7 +2445,7 @@ Lines added: 266, lines removed: 1
 +   });
 + 
 +   if (!membership) {
-+     throw new Error(&quot;User is not a member of this organization&quot;);
++     throw new Error("User is not a member of this organization");
 +   }
 + 
 +   return prisma.supplier.findMany({
@@ -2463,7 +2463,7 @@ Lines added: 266, lines removed: 1
 +         },
 +       },
 +     },
-+     orderBy: { updatedAt: &quot;desc&quot; },
++     orderBy: { updatedAt: "desc" },
 +   });
 + }
 + 
@@ -2492,15 +2492,15 @@ Lines added: 266, lines removed: 1
 +   });
 + 
 +   if (!supplier) {
-+     throw new Error(&quot;Supplier not found&quot;);
++     throw new Error("Supplier not found");
 +   }
 + 
 +   if (!supplier.organization.members.length) {
-+     throw new Error(&quot;User is not a member of this organization&quot;);
++     throw new Error("User is not a member of this organization");
 +   }
 + 
 +   if (!supplier.application.formConfigId) {
-+     throw new Error(&quot;Original application must have a formConfig&quot;);
++     throw new Error("Original application must have a formConfig");
 +   }
 + 
 +   // Merge current supplier data with updated fields
@@ -2533,7 +2533,7 @@ Lines added: 266, lines removed: 1
 +       entityId: supplier.entityId,
 +       geographyId: supplier.geographyId,
 +       formConfigId: supplier.application.formConfigId,
-+       status: &quot;DRAFT&quot;,
++       status: "DRAFT",
 +       data: mergedData,
 +       createdById: userId,
 +       supplierId: supplier.id,
@@ -2581,19 +2581,19 @@ Updating procurement actions to create suppliers on approval:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/dashboard/procurement/[id]/actions.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: app/dashboard/procurement/[id]/actions.ts</summary>
 
 **Chunk 1**
 Lines added: 4, lines removed: undefined
 
 ```diff
 @@ -6,4 +6,8 @@
-  import { requireRole } from &quot;@/lib/permissions&quot;;
-  import { canTransition } from &quot;@/lib/application-state&quot;;
+  import { requireRole } from "@/lib/permissions";
+  import { canTransition } from "@/lib/application-state";
 + import {
 +   createSupplierFromApplication,
 +   updateSupplierFromApplication,
-+ } from &quot;@/lib/suppliers&quot;;
++ } from "@/lib/suppliers";
   
   interface CommentInput {
 ```
@@ -2606,7 +2606,7 @@ Lines added: 4, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/dashboard/procurement/[id]/actions.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: app/dashboard/procurement/[id]/actions.ts</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: 1
@@ -2628,7 +2628,7 @@ Lines added: 1, lines removed: undefined
 @@ -102,4 +102,5 @@
         status: targetStatus,
         updatedById: session.user.id,
-+       approvedAt: targetStatus === &quot;APPROVED&quot; ? new Date() : undefined,
++       approvedAt: targetStatus === "APPROVED" ? new Date() : undefined,
         auditLogs: {
           create: {
 ```
@@ -2642,7 +2642,7 @@ Lines added: 18, lines removed: undefined
     });
 + 
 +   // Create or update Supplier when approved
-+   if (targetStatus === &quot;APPROVED&quot;) {
++   if (targetStatus === "APPROVED") {
 +     try {
 +       if (application.supplierId) {
 +         // Update existing Supplier
@@ -2652,8 +2652,8 @@ Lines added: 18, lines removed: undefined
 +         await createSupplierFromApplication(applicationId);
 +       }
 +     } catch (error) {
-+       console.error(&quot;Error creating/updating Supplier:&quot;, error);
-+       // Log error but don&#39;t fail the transition
++       console.error("Error creating/updating Supplier:", error);
++       // Log error but don't fail the transition
 +       // Supplier creation can be retried later if needed
 +     }
 +   }
@@ -2702,7 +2702,7 @@ Creating supplier profile routes and pages:
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/supplier/profile/[supplierId]/page.tsx</summary>
+<details><summary>Tool use: **write** • Edit file: app/supplier/profile/[supplierId]/page.tsx</summary>
 
 **Chunk 1**
 Lines added: 30, lines removed: 1
@@ -2710,10 +2710,10 @@ Lines added: 30, lines removed: 1
 ```diff
 @@ -1,1 +1,30 @@
 - 
-+ import { notFound, redirect } from &quot;next/navigation&quot;;
-+ import { auth } from &quot;@/lib/auth&quot;;
-+ import { getSupplierForUser } from &quot;@/lib/suppliers&quot;;
-+ import { CompanyProfile } from &quot;@/components/supplier/company-profile&quot;;
++ import { notFound, redirect } from "next/navigation";
++ import { auth } from "@/lib/auth";
++ import { getSupplierForUser } from "@/lib/suppliers";
++ import { CompanyProfile } from "@/components/supplier/company-profile";
 + 
 + interface Params {
 +   supplierId: string;
@@ -2728,7 +2728,7 @@ Lines added: 30, lines removed: 1
 +   const session = await auth();
 + 
 +   if (!session?.user?.id) {
-+     redirect(&quot;/signin&quot;);
++     redirect("/signin");
 +   }
 + 
 +   const supplier = await getSupplierForUser(supplierId, session.user.id);
@@ -2750,7 +2750,7 @@ Lines added: 30, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/supplier/profile/page.tsx</summary>
+<details><summary>Tool use: **write** • Edit file: app/supplier/profile/page.tsx</summary>
 
 **Chunk 1**
 Lines added: 70, lines removed: 1
@@ -2758,27 +2758,27 @@ Lines added: 70, lines removed: 1
 ```diff
 @@ -1,1 +1,70 @@
 - 
-+ import { redirect } from &quot;next/navigation&quot;;
-+ import { auth } from &quot;@/lib/auth&quot;;
-+ import { getSuppliersForOrganization } from &quot;@/lib/suppliers&quot;;
-+ import { prisma } from &quot;@/lib/prisma&quot;;
-+ import Link from &quot;next/link&quot;;
++ import { redirect } from "next/navigation";
++ import { auth } from "@/lib/auth";
++ import { getSuppliersForOrganization } from "@/lib/suppliers";
++ import { prisma } from "@/lib/prisma";
++ import Link from "next/link";
 + 
 + export default async function SupplierProfilePage() {
 +   const session = await auth();
 + 
 +   if (!session?.user?.id) {
-+     redirect(&quot;/signin&quot;);
++     redirect("/signin");
 +   }
 + 
-+   // Get user&#39;s organization
++   // Get user's organization
 +   const membership = await prisma.membership.findFirst({
 +     where: { userId: session.user.id },
 +     include: { organization: true },
 +   });
 + 
 +   if (!membership) {
-+     redirect(&quot;/supplier&quot;);
++     redirect("/supplier");
 +   }
 + 
 +   const suppliers = await getSuppliersForOrganization(
@@ -2787,7 +2787,7 @@ Lines added: 70, lines removed: 1
 +   );
 + 
 +   if (suppliers.length === 0) {
-+     redirect(&quot;/supplier&quot;);
++     redirect("/supplier");
 +   }
 + 
 +   if (suppliers.length === 1) {
@@ -2796,30 +2796,30 @@ Lines added: 70, lines removed: 1
 + 
 +   // Multiple suppliers - show selection page
 +   return (
-+     &lt;div className=&quot;space-y-8&quot;&gt;
-+       &lt;div className=&quot;space-y-2&quot;&gt;
-+         &lt;h1 className=&quot;text-3xl font-semibold text-slate-900&quot;&gt;
++     &lt;div className="space-y-8"&gt;
++       &lt;div className="space-y-2"&gt;
++         &lt;h1 className="text-3xl font-semibold text-slate-900"&gt;
 +           Select Company Profile
 +         &lt;/h1&gt;
-+         &lt;p className=&quot;text-sm text-slate-500&quot;&gt;
++         &lt;p className="text-sm text-slate-500"&gt;
 +           You have multiple approved suppliers. Select one to view its profile.
 +         &lt;/p&gt;
 +       &lt;/div&gt;
-+       &lt;div className=&quot;grid gap-4 md:grid-cols-2&quot;&gt;
++       &lt;div className="grid gap-4 md:grid-cols-2"&gt;
 +         {suppliers.map((supplier) =&gt; (
 +           &lt;Link
 +             key={supplier.id}
 +             href={&#96;/supplier/profile/${supplier.id}&#96;}
-+             className=&quot;rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-300 transition&quot;
++             className="rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-300 transition"
 +           &gt;
-+             &lt;h3 className=&quot;font-semibold text-slate-900&quot;&gt;
++             &lt;h3 className="font-semibold text-slate-900"&gt;
 +               {supplier.entity.name} - {supplier.geography.name}
 +             &lt;/h3&gt;
-+             &lt;p className=&quot;text-sm text-slate-500 mt-1&quot;&gt;
-+               Approved{&quot; &quot;}
++             &lt;p className="text-sm text-slate-500 mt-1"&gt;
++               Approved{" "}
 +               {supplier.application.approvedAt
 +                 ? new Date(supplier.application.approvedAt).toLocaleDateString()
-+                 : &quot;Unknown&quot;}
++                 : "Unknown"}
 +             &lt;/p&gt;
 +           &lt;/Link&gt;
 +         ))}
@@ -2848,7 +2848,7 @@ Creating company profile components, starting with the main component:
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/supplier/company-profile.tsx</summary>
+<details><summary>Tool use: **write** • Edit file: components/supplier/company-profile.tsx</summary>
 
 **Chunk 1**
 Lines added: 96, lines removed: 1
@@ -2856,14 +2856,14 @@ Lines added: 96, lines removed: 1
 ```diff
 @@ -1,1 +1,96 @@
 - 
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { Supplier } from &quot;@prisma/client&quot;;
-+ import { CompanyProfileHeader } from &quot;./company-profile-header&quot;;
-+ import { CompanyProfileSection } from &quot;./company-profile-section&quot;;
-+ import { DocumentList } from &quot;./document-list&quot;;
-+ import { ApprovalMetadata } from &quot;./approval-metadata&quot;;
-+ import { SupplierWizardData } from &quot;@/lib/supplierWizardSchema&quot;;
++ import { Supplier } from "@prisma/client";
++ import { CompanyProfileHeader } from "./company-profile-header";
++ import { CompanyProfileSection } from "./company-profile-section";
++ import { DocumentList } from "./document-list";
++ import { ApprovalMetadata } from "./approval-metadata";
++ import { SupplierWizardData } from "@/lib/supplierWizardSchema";
 + 
 + interface CompanyProfileProps {
 +   supplier: Supplier &amp; {
@@ -2891,53 +2891,53 @@ Lines added: 96, lines removed: 1
 +   const data = supplier.data as SupplierWizardData;
 + 
 +   return (
-+     &lt;div className=&quot;space-y-8&quot;&gt;
++     &lt;div className="space-y-8"&gt;
 +       &lt;CompanyProfileHeader
-+         supplierName={data.supplierInformation?.supplierName ?? &quot;Unknown&quot;}
++         supplierName={data.supplierInformation?.supplierName ?? "Unknown"}
 +         entity={supplier.entity}
 +         geography={supplier.geography}
 +         approvedAt={supplier.application.approvedAt}
 +       /&gt;
 + 
-+       &lt;div className=&quot;grid gap-6&quot;&gt;
++       &lt;div className="grid gap-6"&gt;
 +         &lt;CompanyProfileSection
-+           title=&quot;Company Information&quot;
++           title="Company Information"
 +           supplierId={supplier.id}
 +           data={data.supplierInformation ?? {}}
 +           fields={[
-+             { key: &quot;supplierName&quot;, label: &quot;Supplier Name&quot; },
-+             { key: &quot;paymentTerms&quot;, label: &quot;Payment Terms&quot; },
-+             { key: &quot;salesContactName&quot;, label: &quot;Sales Contact Name&quot; },
-+             { key: &quot;salesContactEmail&quot;, label: &quot;Sales Contact Email&quot; },
++             { key: "supplierName", label: "Supplier Name" },
++             { key: "paymentTerms", label: "Payment Terms" },
++             { key: "salesContactName", label: "Sales Contact Name" },
++             { key: "salesContactEmail", label: "Sales Contact Email" },
 +           ]}
 +         /&gt;
 + 
 +         &lt;CompanyProfileSection
-+           title=&quot;Addresses&quot;
++           title="Addresses"
 +           supplierId={supplier.id}
 +           data={data.addresses ?? {}}
 +           fields={[
 +             {
-+               key: &quot;remitToAddress&quot;,
-+               label: &quot;Remit-To Address&quot;,
-+               type: &quot;address&quot;,
++               key: "remitToAddress",
++               label: "Remit-To Address",
++               type: "address",
 +             },
 +             {
-+               key: &quot;orderingAddress&quot;,
-+               label: &quot;Ordering Address&quot;,
-+               type: &quot;address&quot;,
++               key: "orderingAddress",
++               label: "Ordering Address",
++               type: "address",
 +             },
 +           ]}
 +         /&gt;
 + 
 +         &lt;CompanyProfileSection
-+           title=&quot;Banking Information&quot;
++           title="Banking Information"
 +           supplierId={supplier.id}
 +           data={data.bankInformation ?? {}}
 +           fields={[
-+             { key: &quot;bankName&quot;, label: &quot;Bank Name&quot; },
-+             { key: &quot;routingNumber&quot;, label: &quot;Routing Number&quot;, sensitive: true },
-+             { key: &quot;accountNumber&quot;, label: &quot;Account Number&quot;, sensitive: true },
++             { key: "bankName", label: "Bank Name" },
++             { key: "routingNumber", label: "Routing Number", sensitive: true },
++             { key: "accountNumber", label: "Account Number", sensitive: true },
 +           ]}
 +         /&gt;
 + 
@@ -2962,7 +2962,7 @@ Lines added: 96, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/supplier/company-profile-header.tsx</summary>
+<details><summary>Tool use: **write** • Edit file: components/supplier/company-profile-header.tsx</summary>
 
 **Chunk 1**
 Lines added: 40, lines removed: 1
@@ -2970,8 +2970,8 @@ Lines added: 40, lines removed: 1
 ```diff
 @@ -1,1 +1,40 @@
 - 
-+ import { Badge } from &quot;@/components/ui/badge&quot;;
-+ import { Entity, Geography } from &quot;@prisma/client&quot;;
++ import { Badge } from "@/components/ui/badge";
++ import { Entity, Geography } from "@prisma/client";
 + 
 + interface CompanyProfileHeaderProps {
 +   supplierName: string;
@@ -2987,22 +2987,22 @@ Lines added: 40, lines removed: 1
 +   approvedAt,
 + }: CompanyProfileHeaderProps) {
 +   return (
-+     &lt;div className=&quot;space-y-4&quot;&gt;
-+       &lt;div className=&quot;flex items-start justify-between&quot;&gt;
++     &lt;div className="space-y-4"&gt;
++       &lt;div className="flex items-start justify-between"&gt;
 +         &lt;div&gt;
-+           &lt;h1 className=&quot;text-3xl font-semibold text-slate-900&quot;&gt;
++           &lt;h1 className="text-3xl font-semibold text-slate-900"&gt;
 +             {supplierName}
 +           &lt;/h1&gt;
-+           &lt;p className=&quot;text-sm text-slate-500 mt-1&quot;&gt;
++           &lt;p className="text-sm text-slate-500 mt-1"&gt;
 +             {entity.name} • {geography.name}
 +           &lt;/p&gt;
 +         &lt;/div&gt;
-+         &lt;Badge variant=&quot;default&quot; className=&quot;bg-green-100 text-green-800&quot;&gt;
++         &lt;Badge variant="default" className="bg-green-100 text-green-800"&gt;
 +           Approved
 +         &lt;/Badge&gt;
 +       &lt;/div&gt;
 +       {approvedAt &amp;&amp; (
-+         &lt;p className=&quot;text-sm text-slate-500&quot;&gt;
++         &lt;p className="text-sm text-slate-500"&gt;
 +           Approved on {new Date(approvedAt).toLocaleDateString()}
 +         &lt;/p&gt;
 +       )}
@@ -3020,7 +3020,7 @@ Lines added: 40, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/supplier/document-list.tsx</summary>
+<details><summary>Tool use: **write** • Edit file: components/supplier/document-list.tsx</summary>
 
 **Chunk 1**
 Lines added: 75, lines removed: 1
@@ -3028,9 +3028,9 @@ Lines added: 75, lines removed: 1
 ```diff
 @@ -1,1 +1,75 @@
 - 
-+ import { Card, CardContent, CardHeader, CardTitle } from &quot;@/components/ui/card&quot;;
-+ import { Button } from &quot;@/components/ui/button&quot;;
-+ import { Download } from &quot;lucide-react&quot;;
++ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
++ import { Button } from "@/components/ui/button";
++ import { Download } from "lucide-react";
 + 
 + interface Document {
 +   id: string;
@@ -3055,7 +3055,7 @@ Lines added: 75, lines removed: 1
 +           &lt;CardTitle&gt;Documents&lt;/CardTitle&gt;
 +         &lt;/CardHeader&gt;
 +         &lt;CardContent&gt;
-+           &lt;p className=&quot;text-sm text-slate-500&quot;&gt;No documents uploaded.&lt;/p&gt;
++           &lt;p className="text-sm text-slate-500"&gt;No documents uploaded.&lt;/p&gt;
 +         &lt;/CardContent&gt;
 +       &lt;/Card&gt;
 +     );
@@ -3067,31 +3067,31 @@ Lines added: 75, lines removed: 1
 +         &lt;CardTitle&gt;Documents&lt;/CardTitle&gt;
 +       &lt;/CardHeader&gt;
 +       &lt;CardContent&gt;
-+         &lt;div className=&quot;space-y-3&quot;&gt;
++         &lt;div className="space-y-3"&gt;
 +           {documents.map((doc) =&gt; (
 +             &lt;div
 +               key={doc.id}
-+               className=&quot;flex items-center justify-between rounded-lg border border-slate-200 p-3&quot;
++               className="flex items-center justify-between rounded-lg border border-slate-200 p-3"
 +             &gt;
-+               &lt;div className=&quot;flex-1&quot;&gt;
-+                 &lt;p className=&quot;text-sm font-medium text-slate-900&quot;&gt;
++               &lt;div className="flex-1"&gt;
++                 &lt;p className="text-sm font-medium text-slate-900"&gt;
 +                   {doc.documentType.label}
 +                 &lt;/p&gt;
-+                 &lt;p className=&quot;text-xs text-slate-500&quot;&gt;
-+                   {doc.fileName} •{&quot; &quot;}
++                 &lt;p className="text-xs text-slate-500"&gt;
++                   {doc.fileName} •{" "}
 +                   {doc.fileSize
 +                     ? &#96;${(doc.fileSize / 1024).toFixed(1)} KB&#96;
-+                     : &quot;Unknown size&quot;}
++                     : "Unknown size"}
 +                 &lt;/p&gt;
 +               &lt;/div&gt;
-+               &lt;Button size=&quot;sm&quot; variant=&quot;outline&quot; asChild&gt;
++               &lt;Button size="sm" variant="outline" asChild&gt;
 +                 &lt;a
 +                   href={doc.fileUrl}
 +                   download={doc.fileName}
-+                   target=&quot;_blank&quot;
-+                   rel=&quot;noopener noreferrer&quot;
++                   target="_blank"
++                   rel="noopener noreferrer"
 +                 &gt;
-+                   &lt;Download className=&quot;h-4 w-4 mr-1&quot; /&gt;
++                   &lt;Download className="h-4 w-4 mr-1" /&gt;
 +                   Download
 +                 &lt;/a&gt;
 +               &lt;/Button&gt;
@@ -3113,7 +3113,7 @@ Lines added: 75, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/supplier/approval-metadata.tsx</summary>
+<details><summary>Tool use: **write** • Edit file: components/supplier/approval-metadata.tsx</summary>
 
 **Chunk 1**
 Lines added: 39, lines removed: 1
@@ -3121,7 +3121,7 @@ Lines added: 39, lines removed: 1
 ```diff
 @@ -1,1 +1,39 @@
 - 
-+ import { Card, CardContent } from &quot;@/components/ui/card&quot;;
++ import { Card, CardContent } from "@/components/ui/card";
 + 
 + interface ApprovalMetadataProps {
 +   approvedAt: Date | null;
@@ -3134,21 +3134,21 @@ Lines added: 39, lines removed: 1
 + }: ApprovalMetadataProps) {
 +   return (
 +     &lt;Card&gt;
-+       &lt;CardContent className=&quot;pt-6&quot;&gt;
-+         &lt;div className=&quot;space-y-2 text-sm&quot;&gt;
++       &lt;CardContent className="pt-6"&gt;
++         &lt;div className="space-y-2 text-sm"&gt;
 +           {approvedAt &amp;&amp; (
 +             &lt;div&gt;
-+               &lt;span className=&quot;font-medium text-slate-700&quot;&gt;Approved on:&lt;/span&gt;{&quot; &quot;}
-+               &lt;span className=&quot;text-slate-900&quot;&gt;
-+                 {new Date(approvedAt).toLocaleDateString()} at{&quot; &quot;}
++               &lt;span className="font-medium text-slate-700"&gt;Approved on:&lt;/span&gt;{" "}
++               &lt;span className="text-slate-900"&gt;
++                 {new Date(approvedAt).toLocaleDateString()} at{" "}
 +                 {new Date(approvedAt).toLocaleTimeString()}
 +               &lt;/span&gt;
 +             &lt;/div&gt;
 +           )}
 +           {approvedBy.name &amp;&amp; (
 +             &lt;div&gt;
-+               &lt;span className=&quot;font-medium text-slate-700&quot;&gt;Approved by:&lt;/span&gt;{&quot; &quot;}
-+               &lt;span className=&quot;text-slate-900&quot;&gt;
++               &lt;span className="font-medium text-slate-700"&gt;Approved by:&lt;/span&gt;{" "}
++               &lt;span className="text-slate-900"&gt;
 +                 {approvedBy.name}
 +                 {approvedBy.email &amp;&amp; &#96; (${approvedBy.email})&#96;}
 +               &lt;/span&gt;
@@ -3180,7 +3180,7 @@ Creating the CompanyProfileSection and EditableField components:
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/supplier/editable-field.tsx</summary>
+<details><summary>Tool use: **write** • Edit file: components/supplier/editable-field.tsx</summary>
 
 **Chunk 1**
 Lines added: 159, lines removed: 1
@@ -3188,19 +3188,19 @@ Lines added: 159, lines removed: 1
 ```diff
 @@ -1,1 +1,159 @@
 - 
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { useState } from &quot;react&quot;;
-+ import { Button } from &quot;@/components/ui/button&quot;;
-+ import { Input } from &quot;@/components/ui/input&quot;;
-+ import { Label } from &quot;@/components/ui/label&quot;;
-+ import { Pencil, X, Check } from &quot;lucide-react&quot;;
++ import { useState } from "react";
++ import { Button } from "@/components/ui/button";
++ import { Input } from "@/components/ui/input";
++ import { Label } from "@/components/ui/label";
++ import { Pencil, X, Check } from "lucide-react";
 + 
 + interface EditableFieldProps {
 +   fieldKey: string;
 +   label: string;
 +   value: unknown;
-+   type?: &quot;address&quot; | &quot;text&quot;;
++   type?: "address" | "text";
 +   sensitive?: boolean;
 +   isEditing: boolean;
 +   onEdit: () =&gt; void;
@@ -3210,12 +3210,12 @@ Lines added: 159, lines removed: 1
 + }
 + 
 + function maskSensitiveValue(value: string): string {
-+   if (value.length &lt;= 4) return &quot;****&quot;;
-+   return &quot;****&quot; + value.slice(-4);
++   if (value.length &lt;= 4) return "****";
++   return "****" + value.slice(-4);
 + }
 + 
 + function formatAddress(address: Record&lt;string, string&gt; | undefined): string {
-+   if (!address || typeof address !== &quot;object&quot;) return &quot;&quot;;
++   if (!address || typeof address !== "object") return "";
 +   const parts = [
 +     address.line1,
 +     address.line2,
@@ -3224,7 +3224,7 @@ Lines added: 159, lines removed: 1
 +     address.postalCode,
 +     address.country,
 +   ].filter(Boolean);
-+   return parts.join(&quot;, &quot;);
++   return parts.join(", ");
 + }
 + 
 + function AddressInput({
@@ -3236,38 +3236,38 @@ Lines added: 159, lines removed: 1
 + }) {
 +   const address = value || {};
 +   return (
-+     &lt;div className=&quot;space-y-2&quot;&gt;
++     &lt;div className="space-y-2"&gt;
 +       &lt;Input
-+         placeholder=&quot;Line 1&quot;
-+         value={address.line1 ?? &quot;&quot;}
++         placeholder="Line 1"
++         value={address.line1 ?? ""}
 +         onChange={(e) =&gt; onChange({ ...address, line1: e.target.value })}
 +       /&gt;
 +       &lt;Input
-+         placeholder=&quot;Line 2 (optional)&quot;
-+         value={address.line2 ?? &quot;&quot;}
++         placeholder="Line 2 (optional)"
++         value={address.line2 ?? ""}
 +         onChange={(e) =&gt; onChange({ ...address, line2: e.target.value })}
 +       /&gt;
-+       &lt;div className=&quot;grid grid-cols-2 gap-2&quot;&gt;
++       &lt;div className="grid grid-cols-2 gap-2"&gt;
 +         &lt;Input
-+           placeholder=&quot;City&quot;
-+           value={address.city ?? &quot;&quot;}
++           placeholder="City"
++           value={address.city ?? ""}
 +           onChange={(e) =&gt; onChange({ ...address, city: e.target.value })}
 +         /&gt;
 +         &lt;Input
-+           placeholder=&quot;State&quot;
-+           value={address.state ?? &quot;&quot;}
++           placeholder="State"
++           value={address.state ?? ""}
 +           onChange={(e) =&gt; onChange({ ...address, state: e.target.value })}
 +         /&gt;
 +       &lt;/div&gt;
-+       &lt;div className=&quot;grid grid-cols-2 gap-2&quot;&gt;
++       &lt;div className="grid grid-cols-2 gap-2"&gt;
 +         &lt;Input
-+           placeholder=&quot;Postal Code&quot;
-+           value={address.postalCode ?? &quot;&quot;}
++           placeholder="Postal Code"
++           value={address.postalCode ?? ""}
 +           onChange={(e) =&gt; onChange({ ...address, postalCode: e.target.value })}
 +         /&gt;
 +         &lt;Input
-+           placeholder=&quot;Country&quot;
-+           value={address.country ?? &quot;&quot;}
++           placeholder="Country"
++           value={address.country ?? ""}
 +           onChange={(e) =&gt; onChange({ ...address, country: e.target.value })}
 +         /&gt;
 +       &lt;/div&gt;
@@ -3279,7 +3279,7 @@ Lines added: 159, lines removed: 1
 +   fieldKey,
 +   label,
 +   value,
-+   type = &quot;text&quot;,
++   type = "text",
 +   sensitive = false,
 +   isEditing,
 +   onEdit,
@@ -3290,40 +3290,40 @@ Lines added: 159, lines removed: 1
 +   const [editValue, setEditValue] = useState(value);
 + 
 +   const displayValue = sensitive
-+     ? maskSensitiveValue(String(value ?? &quot;&quot;))
-+     : String(value ?? &quot;&quot;);
++     ? maskSensitiveValue(String(value ?? ""))
++     : String(value ?? "");
 + 
 +   if (isEditing) {
 +     return (
-+       &lt;div className=&quot;space-y-2&quot;&gt;
++       &lt;div className="space-y-2"&gt;
 +         &lt;Label&gt;{label}&lt;/Label&gt;
-+         {type === &quot;address&quot; ? (
++         {type === "address" ? (
 +           &lt;AddressInput
 +             value={editValue as Record&lt;string, string&gt; | undefined}
 +             onChange={setEditValue}
 +           /&gt;
 +         ) : (
 +           &lt;Input
-+             value={String(editValue ?? &quot;&quot;)}
++             value={String(editValue ?? "")}
 +             onChange={(e) =&gt; setEditValue(e.target.value)}
 +             disabled={disabled}
 +           /&gt;
 +         )}
-+         &lt;div className=&quot;flex gap-2&quot;&gt;
++         &lt;div className="flex gap-2"&gt;
 +           &lt;Button
-+             size=&quot;sm&quot;
++             size="sm"
 +             onClick={() =&gt; onSubmit(editValue)}
 +             disabled={disabled}
 +           &gt;
-+             &lt;Check className=&quot;h-4 w-4 mr-1&quot; /&gt;
++             &lt;Check className="h-4 w-4 mr-1" /&gt;
 +             Submit for Re-approval
 +           &lt;/Button&gt;
-+           &lt;Button size=&quot;sm&quot; variant=&quot;outline&quot; onClick={onCancel}&gt;
-+             &lt;X className=&quot;h-4 w-4 mr-1&quot; /&gt;
++           &lt;Button size="sm" variant="outline" onClick={onCancel}&gt;
++             &lt;X className="h-4 w-4 mr-1" /&gt;
 +             Cancel
 +           &lt;/Button&gt;
 +         &lt;/div&gt;
-+         &lt;p className=&quot;text-xs text-slate-500&quot;&gt;
++         &lt;p className="text-xs text-slate-500"&gt;
 +           This change will require re-approval from procurement.
 +         &lt;/p&gt;
 +       &lt;/div&gt;
@@ -3331,17 +3331,17 @@ Lines added: 159, lines removed: 1
 +   }
 + 
 +   return (
-+     &lt;div className=&quot;flex items-start justify-between py-2&quot;&gt;
-+       &lt;div className=&quot;flex-1&quot;&gt;
-+         &lt;Label className=&quot;text-sm font-medium text-slate-700&quot;&gt;{label}&lt;/Label&gt;
-+         &lt;p className=&quot;text-sm text-slate-900 mt-1&quot;&gt;
-+           {type === &quot;address&quot;
++     &lt;div className="flex items-start justify-between py-2"&gt;
++       &lt;div className="flex-1"&gt;
++         &lt;Label className="text-sm font-medium text-slate-700"&gt;{label}&lt;/Label&gt;
++         &lt;p className="text-sm text-slate-900 mt-1"&gt;
++           {type === "address"
 +             ? formatAddress(value as Record&lt;string, string&gt; | undefined)
 +             : displayValue}
 +         &lt;/p&gt;
 +       &lt;/div&gt;
-+       &lt;Button size=&quot;sm&quot; variant=&quot;ghost&quot; onClick={onEdit} className=&quot;ml-4&quot;&gt;
-+         &lt;Pencil className=&quot;h-4 w-4&quot; /&gt;
++       &lt;Button size="sm" variant="ghost" onClick={onEdit} className="ml-4"&gt;
++         &lt;Pencil className="h-4 w-4" /&gt;
 +       &lt;/Button&gt;
 +     &lt;/div&gt;
 +   );
@@ -3357,7 +3357,7 @@ Lines added: 159, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/supplier/company-profile-section.tsx</summary>
+<details><summary>Tool use: **write** • Edit file: components/supplier/company-profile-section.tsx</summary>
 
 **Chunk 1**
 Lines added: 101, lines removed: 1
@@ -3365,18 +3365,18 @@ Lines added: 101, lines removed: 1
 ```diff
 @@ -1,1 +1,101 @@
 - 
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { useState } from &quot;react&quot;;
-+ import { Card, CardContent, CardHeader, CardTitle } from &quot;@/components/ui/card&quot;;
-+ import { EditableField } from &quot;./editable-field&quot;;
-+ import { useRouter } from &quot;next/navigation&quot;;
-+ import { toast } from &quot;@/components/ui/use-toast&quot;;
++ import { useState } from "react";
++ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
++ import { EditableField } from "./editable-field";
++ import { useRouter } from "next/navigation";
++ import { toast } from "@/components/ui/use-toast";
 + 
 + interface FieldConfig {
 +   key: string;
 +   label: string;
-+   type?: &quot;address&quot; | &quot;text&quot;;
++   type?: "address" | "text";
 +   sensitive?: boolean;
 + }
 + 
@@ -3406,33 +3406,33 @@ Lines added: 101, lines removed: 1
 +       };
 + 
 +       const response = await fetch(&#96;/api/suppliers/${supplierId}/update&#96;, {
-+         method: &quot;POST&quot;,
-+         headers: { &quot;Content-Type&quot;: &quot;application/json&quot; },
++         method: "POST",
++         headers: { "Content-Type": "application/json" },
 +         body: JSON.stringify({ data: updatedData }),
 +       });
 + 
 +       if (!response.ok) {
 +         const error = await response.json();
-+         throw new Error(error.error || &quot;Failed to create update request&quot;);
++         throw new Error(error.error || "Failed to create update request");
 +       }
 + 
 +       const { applicationId } = await response.json();
 + 
 +       toast({
-+         title: &quot;Update Request Created&quot;,
++         title: "Update Request Created",
 +         description:
-+           &quot;Your changes have been submitted for re-approval. You&#39;ll be notified once approved.&quot;,
++           "Your changes have been submitted for re-approval. You'll be notified once approved.",
 +       });
 + 
 +       router.push(&#96;/supplier/onboarding/${applicationId}&#96;);
 +     } catch (error) {
 +       toast({
-+         title: &quot;Error&quot;,
++         title: "Error",
 +         description:
 +           error instanceof Error
 +             ? error.message
-+             : &quot;Failed to create update request. Please try again.&quot;,
-+         variant: &quot;destructive&quot;,
++             : "Failed to create update request. Please try again.",
++         variant: "destructive",
 +       });
 +     } finally {
 +       setIsSubmitting(false);
@@ -3445,7 +3445,7 @@ Lines added: 101, lines removed: 1
 +       &lt;CardHeader&gt;
 +         &lt;CardTitle&gt;{title}&lt;/CardTitle&gt;
 +       &lt;/CardHeader&gt;
-+       &lt;CardContent className=&quot;space-y-4&quot;&gt;
++       &lt;CardContent className="space-y-4"&gt;
 +         {fields.map((field) =&gt; (
 +           &lt;EditableField
 +             key={field.key}
@@ -3506,7 +3506,7 @@ Creating the API route for supplier updates:
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/api/suppliers/[supplierId]/update/route.ts</summary>
+<details><summary>Tool use: **write** • Edit file: app/api/suppliers/[supplierId]/update/route.ts</summary>
 
 **Chunk 1**
 Lines added: 49, lines removed: 1
@@ -3514,10 +3514,10 @@ Lines added: 49, lines removed: 1
 ```diff
 @@ -1,1 +1,49 @@
 - 
-+ import { NextRequest, NextResponse } from &quot;next/server&quot;;
-+ import { auth } from &quot;@/lib/auth&quot;;
-+ import { createUpdateApplication } from &quot;@/lib/suppliers&quot;;
-+ import { SupplierWizardData } from &quot;@/lib/supplierWizardSchema&quot;;
++ import { NextRequest, NextResponse } from "next/server";
++ import { auth } from "@/lib/auth";
++ import { createUpdateApplication } from "@/lib/suppliers";
++ import { SupplierWizardData } from "@/lib/supplierWizardSchema";
 + 
 + export async function POST(
 +   request: NextRequest,
@@ -3527,16 +3527,16 @@ Lines added: 49, lines removed: 1
 +   const session = await auth();
 + 
 +   if (!session?.user?.id) {
-+     return NextResponse.json({ error: &quot;Unauthorized&quot; }, { status: 401 });
++     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 +   }
 + 
 +   try {
 +     const body = await request.json();
 +     const { data } = body;
 + 
-+     if (!data || typeof data !== &quot;object&quot;) {
++     if (!data || typeof data !== "object") {
 +       return NextResponse.json(
-+         { error: &quot;Invalid data provided&quot; },
++         { error: "Invalid data provided" },
 +         { status: 400 }
 +       );
 +     }
@@ -3549,14 +3549,14 @@ Lines added: 49, lines removed: 1
 + 
 +     return NextResponse.json({
 +       applicationId: application.id,
-+       message: &quot;Update request created successfully&quot;,
++       message: "Update request created successfully",
 +     });
 +   } catch (error) {
-+     console.error(&quot;Error creating update application:&quot;, error);
++     console.error("Error creating update application:", error);
 +     return NextResponse.json(
 +       {
 +         error:
-+           error instanceof Error ? error.message : &quot;Internal server error&quot;,
++           error instanceof Error ? error.message : "Internal server error",
 +       },
 +       { status: 500 }
 +     );
@@ -3621,18 +3621,18 @@ Updating the onboarding page to redirect when approved:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/supplier/onboarding/[id]/page.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: app/supplier/onboarding/[id]/page.tsx</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: 1
 
 ```diff
 @@ -1,4 +1,4 @@
-  import Link from &quot;next/link&quot;;
-- import { notFound } from &quot;next/navigation&quot;;
-+ import { notFound, redirect } from &quot;next/navigation&quot;;
-  import { prisma } from &quot;@/lib/prisma&quot;;
-  import { auth } from &quot;@/lib/auth&quot;;
+  import Link from "next/link";
+- import { notFound } from "next/navigation";
++ import { notFound, redirect } from "next/navigation";
+  import { prisma } from "@/lib/prisma";
+  import { auth } from "@/lib/auth";
 ```
 
 </details>
@@ -3643,7 +3643,7 @@ Lines added: 1, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/supplier/onboarding/[id]/page.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: app/supplier/onboarding/[id]/page.tsx</summary>
 
 **Chunk 1**
 Lines added: 12, lines removed: undefined
@@ -3654,7 +3654,7 @@ Lines added: 12, lines removed: undefined
     }
 + 
 +   // Redirect to Company Profile if approved
-+   if (application.status === &quot;APPROVED&quot;) {
++   if (application.status === "APPROVED") {
 +     const supplier = await prisma.supplier.findUnique({
 +       where: { applicationId: application.id },
 +       select: { id: true },
@@ -3724,16 +3724,16 @@ Updating the supplier dashboard:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/supplier/page.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: app/supplier/page.tsx</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: undefined
 
 ```diff
 @@ -2,4 +2,5 @@
-  import { auth } from &quot;@/lib/auth&quot;;
-  import { prisma } from &quot;@/lib/prisma&quot;;
-+ import { getSuppliersForOrganization } from &quot;@/lib/suppliers&quot;;
+  import { auth } from "@/lib/auth";
+  import { prisma } from "@/lib/prisma";
++ import { getSuppliersForOrganization } from "@/lib/suppliers";
   
   export default async function SupplierDashboard() {
 ```
@@ -3746,7 +3746,7 @@ Lines added: 32, lines removed: 3
       return null;
     }
 + 
-+   // Get user&#39;s organization
++   // Get user's organization
 +   const membership = await prisma.membership.findFirst({
 +     where: { userId: session.user.id },
 +     include: { organization: true },
@@ -3765,7 +3765,7 @@ Lines added: 32, lines removed: 3
 +     );
 +   } catch (error) {
 +     // If error, continue without suppliers
-+     console.error(&quot;Error fetching suppliers:&quot;, error);
++     console.error("Error fetching suppliers:", error);
 +   }
 + 
 +   // Get applications (excluding approved ones that have suppliers)
@@ -3780,11 +3780,11 @@ Lines added: 32, lines removed: 3
 -       },
 +       organizationId: membership.organizationId,
 +       OR: [
-+         { status: { not: &quot;APPROVED&quot; } },
++         { status: { not: "APPROVED" } },
 +         { id: { notIn: approvedSupplierApplicationIds } },
 +       ],
       },
-      orderBy: { updatedAt: &quot;desc&quot; },
+      orderBy: { updatedAt: "desc" },
 ```
 
 </details>
@@ -3795,7 +3795,7 @@ Lines added: 32, lines removed: 3
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/supplier/page.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: app/supplier/page.tsx</summary>
 
 **Chunk 1**
 Lines added: 42, lines removed: undefined
@@ -3807,37 +3807,37 @@ Lines added: 42, lines removed: undefined
 + 
 +       {/* Company Profiles Section */}
 +       {suppliers.length &gt; 0 &amp;&amp; (
-+         &lt;section className=&quot;space-y-4&quot;&gt;
++         &lt;section className="space-y-4"&gt;
 +           &lt;div&gt;
-+             &lt;h2 className=&quot;text-lg font-semibold text-slate-900&quot;&gt;
++             &lt;h2 className="text-lg font-semibold text-slate-900"&gt;
 +               Company Profiles
 +             &lt;/h2&gt;
-+             &lt;p className=&quot;text-sm text-slate-500&quot;&gt;
++             &lt;p className="text-sm text-slate-500"&gt;
 +               View and manage your approved supplier information.
 +             &lt;/p&gt;
 +           &lt;/div&gt;
-+           &lt;div className=&quot;grid gap-4 md:grid-cols-2&quot;&gt;
++           &lt;div className="grid gap-4 md:grid-cols-2"&gt;
 +             {suppliers.map((supplier) =&gt; (
 +               &lt;Link
 +                 key={supplier.id}
 +                 href={&#96;/supplier/profile/${supplier.id}&#96;}
-+                 className=&quot;rounded-2xl border border-slate-200 bg-white p-4 hover:border-slate-300 transition&quot;
++                 className="rounded-2xl border border-slate-200 bg-white p-4 hover:border-slate-300 transition"
 +               &gt;
-+                 &lt;div className=&quot;flex items-center justify-between&quot;&gt;
++                 &lt;div className="flex items-center justify-between"&gt;
 +                   &lt;div&gt;
-+                     &lt;p className=&quot;text-sm font-semibold text-slate-900&quot;&gt;
++                     &lt;p className="text-sm font-semibold text-slate-900"&gt;
 +                       {supplier.entity.name} - {supplier.geography.name}
 +                     &lt;/p&gt;
-+                     &lt;p className=&quot;text-xs text-slate-500&quot;&gt;
-+                       Approved{&quot; &quot;}
++                     &lt;p className="text-xs text-slate-500"&gt;
++                       Approved{" "}
 +                       {supplier.application.approvedAt
 +                         ? new Date(
 +                             supplier.application.approvedAt
 +                           ).toLocaleDateString()
-+                         : &quot;Unknown&quot;}
++                         : "Unknown"}
 +                     &lt;/p&gt;
 +                   &lt;/div&gt;
-+                   &lt;span className=&quot;text-xs font-medium text-slate-900 underline&quot;&gt;
++                   &lt;span className="text-xs font-medium text-slate-900 underline"&gt;
 +                     View Profile
 +                   &lt;/span&gt;
 +                 &lt;/div&gt;
@@ -3847,7 +3847,7 @@ Lines added: 42, lines removed: undefined
 +         &lt;/section&gt;
 +       )}
   
-        &lt;section className=&quot;space-y-4&quot;&gt;
+        &lt;section className="space-y-4"&gt;
 ```
 
 </details>
@@ -3980,7 +3980,7 @@ Creating tests for the supplier service functions:
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: lib/suppliers.test.ts</summary>
+<details><summary>Tool use: **write** • Edit file: lib/suppliers.test.ts</summary>
 
 **Chunk 1**
 Lines added: 309, lines removed: 1
@@ -3988,18 +3988,18 @@ Lines added: 309, lines removed: 1
 ```diff
 @@ -1,1 +1,309 @@
 - 
-+ import { describe, it, expect, beforeEach, vi } from &quot;vitest&quot;;
++ import { describe, it, expect, beforeEach, vi } from "vitest";
 + import {
 +   createSupplierFromApplication,
 +   updateSupplierFromApplication,
 +   getSupplierForUser,
 +   getSuppliersForOrganization,
 +   createUpdateApplication,
-+ } from &quot;./suppliers&quot;;
-+ import { prisma } from &quot;./prisma&quot;;
++ } from "./suppliers";
++ import { prisma } from "./prisma";
 + 
 + // Mock prisma
-+ vi.mock(&quot;./prisma&quot;, () =&gt; ({
++ vi.mock("./prisma", () =&gt; ({
 +   prisma: {
 +     application: {
 +       findUnique: vi.fn(),
@@ -4018,33 +4018,33 @@ Lines added: 309, lines removed: 1
 +   },
 + }));
 + 
-+ describe(&quot;suppliers&quot;, () =&gt; {
++ describe("suppliers", () =&gt; {
 +   beforeEach(() =&gt; {
 +     vi.clearAllMocks();
 +   });
 + 
-+   describe(&quot;createSupplierFromApplication&quot;, () =&gt; {
-+     it(&quot;should create a Supplier when Application is approved&quot;, async () =&gt; {
++   describe("createSupplierFromApplication", () =&gt; {
++     it("should create a Supplier when Application is approved", async () =&gt; {
 +       const mockApplication = {
-+         id: &quot;app-1&quot;,
-+         status: &quot;APPROVED&quot;,
-+         organizationId: &quot;org-1&quot;,
-+         entityId: &quot;entity-1&quot;,
-+         geographyId: &quot;geo-1&quot;,
-+         data: { supplierInformation: { supplierName: &quot;Test Supplier&quot; } },
++         id: "app-1",
++         status: "APPROVED",
++         organizationId: "org-1",
++         entityId: "entity-1",
++         geographyId: "geo-1",
++         data: { supplierInformation: { supplierName: "Test Supplier" } },
 +         documents: [
 +           {
-+             documentTypeId: &quot;doc-type-1&quot;,
-+             fileName: &quot;test.pdf&quot;,
-+             fileUrl: &quot;https://example.com/test.pdf&quot;,
-+             mimeType: &quot;application/pdf&quot;,
++             documentTypeId: "doc-type-1",
++             fileName: "test.pdf",
++             fileUrl: "https://example.com/test.pdf",
++             mimeType: "application/pdf",
 +             fileSize: 1024,
 +             uploadedAt: new Date(),
 +           },
 +         ],
-+         organization: { name: &quot;Test Org&quot; },
-+         entity: { name: &quot;Test Entity&quot; },
-+         geography: { name: &quot;Test Geography&quot; },
++         organization: { name: "Test Org" },
++         entity: { name: "Test Entity" },
++         geography: { name: "Test Geography" },
 +       };
 + 
 +       vi.mocked(prisma.application.findUnique).mockResolvedValue(
@@ -4052,15 +4052,15 @@ Lines added: 309, lines removed: 1
 +       );
 +       vi.mocked(prisma.supplier.findUnique).mockResolvedValue(null);
 +       vi.mocked(prisma.supplier.create).mockResolvedValue({
-+         id: &quot;supplier-1&quot;,
++         id: "supplier-1",
 +         ...mockApplication,
 +         documents: [],
 +       } as any);
 + 
-+       const result = await createSupplierFromApplication(&quot;app-1&quot;);
++       const result = await createSupplierFromApplication("app-1");
 + 
 +       expect(prisma.application.findUnique).toHaveBeenCalledWith({
-+         where: { id: &quot;app-1&quot; },
++         where: { id: "app-1" },
 +         include: {
 +           documents: true,
 +           organization: true,
@@ -4072,64 +4072,64 @@ Lines added: 309, lines removed: 1
 +       expect(result).toBeDefined();
 +     });
 + 
-+     it(&quot;should return existing Supplier if already created&quot;, async () =&gt; {
++     it("should return existing Supplier if already created", async () =&gt; {
 +       const existingSupplier = {
-+         id: &quot;supplier-1&quot;,
-+         applicationId: &quot;app-1&quot;,
++         id: "supplier-1",
++         applicationId: "app-1",
 +       };
 + 
 +       vi.mocked(prisma.application.findUnique).mockResolvedValue({
-+         id: &quot;app-1&quot;,
-+         status: &quot;APPROVED&quot;,
++         id: "app-1",
++         status: "APPROVED",
 +       } as any);
 +       vi.mocked(prisma.supplier.findUnique).mockResolvedValue(
 +         existingSupplier as any
 +       );
 + 
-+       const result = await createSupplierFromApplication(&quot;app-1&quot;);
++       const result = await createSupplierFromApplication("app-1");
 + 
 +       expect(result).toBe(existingSupplier);
 +       expect(prisma.supplier.create).not.toHaveBeenCalled();
 +     });
 + 
-+     it(&quot;should throw error if Application is not approved&quot;, async () =&gt; {
++     it("should throw error if Application is not approved", async () =&gt; {
 +       vi.mocked(prisma.application.findUnique).mockResolvedValue({
-+         id: &quot;app-1&quot;,
-+         status: &quot;DRAFT&quot;,
++         id: "app-1",
++         status: "DRAFT",
 +       } as any);
 + 
-+       await expect(createSupplierFromApplication(&quot;app-1&quot;)).rejects.toThrow(
-+         &quot;Application must be APPROVED to create Supplier&quot;
++       await expect(createSupplierFromApplication("app-1")).rejects.toThrow(
++         "Application must be APPROVED to create Supplier"
 +       );
 +     });
 + 
-+     it(&quot;should throw error if Application not found&quot;, async () =&gt; {
++     it("should throw error if Application not found", async () =&gt; {
 +       vi.mocked(prisma.application.findUnique).mockResolvedValue(null);
 + 
-+       await expect(createSupplierFromApplication(&quot;app-1&quot;)).rejects.toThrow(
-+         &quot;Application not found&quot;
++       await expect(createSupplierFromApplication("app-1")).rejects.toThrow(
++         "Application not found"
 +       );
 +     });
 +   });
 + 
-+   describe(&quot;updateSupplierFromApplication&quot;, () =&gt; {
-+     it(&quot;should update Supplier when update Application is approved&quot;, async () =&gt; {
++   describe("updateSupplierFromApplication", () =&gt; {
++     it("should update Supplier when update Application is approved", async () =&gt; {
 +       const mockApplication = {
-+         id: &quot;app-2&quot;,
-+         status: &quot;APPROVED&quot;,
-+         supplierId: &quot;supplier-1&quot;,
-+         data: { supplierInformation: { supplierName: &quot;Updated Supplier&quot; } },
++         id: "app-2",
++         status: "APPROVED",
++         supplierId: "supplier-1",
++         data: { supplierInformation: { supplierName: "Updated Supplier" } },
 +         documents: [
 +           {
-+             documentTypeId: &quot;doc-type-1&quot;,
-+             fileName: &quot;updated.pdf&quot;,
-+             fileUrl: &quot;https://example.com/updated.pdf&quot;,
-+             mimeType: &quot;application/pdf&quot;,
++             documentTypeId: "doc-type-1",
++             fileName: "updated.pdf",
++             fileUrl: "https://example.com/updated.pdf",
++             mimeType: "application/pdf",
 +             fileSize: 2048,
 +             uploadedAt: new Date(),
 +           },
 +         ],
-+         supplier: { id: &quot;supplier-1&quot; },
++         supplier: { id: "supplier-1" },
 +       };
 + 
 +       vi.mocked(prisma.application.findUnique).mockResolvedValue(
@@ -4139,51 +4139,51 @@ Lines added: 309, lines removed: 1
 +         count: 1,
 +       });
 +       vi.mocked(prisma.supplier.update).mockResolvedValue({
-+         id: &quot;supplier-1&quot;,
++         id: "supplier-1",
 +         data: mockApplication.data,
 +         documents: [],
 +       } as any);
 + 
-+       const result = await updateSupplierFromApplication(&quot;app-2&quot;);
++       const result = await updateSupplierFromApplication("app-2");
 + 
 +       expect(prisma.supplierDocument.deleteMany).toHaveBeenCalledWith({
-+         where: { supplierId: &quot;supplier-1&quot; },
++         where: { supplierId: "supplier-1" },
 +       });
 +       expect(prisma.supplier.update).toHaveBeenCalled();
 +       expect(result).toBeDefined();
 +     });
 + 
-+     it(&quot;should throw error if Application not linked to Supplier&quot;, async () =&gt; {
++     it("should throw error if Application not linked to Supplier", async () =&gt; {
 +       vi.mocked(prisma.application.findUnique).mockResolvedValue({
-+         id: &quot;app-2&quot;,
-+         status: &quot;APPROVED&quot;,
++         id: "app-2",
++         status: "APPROVED",
 +         supplierId: null,
 +       } as any);
 + 
-+       await expect(updateSupplierFromApplication(&quot;app-2&quot;)).rejects.toThrow(
-+         &quot;Application must be linked to a Supplier for updates&quot;
++       await expect(updateSupplierFromApplication("app-2")).rejects.toThrow(
++         "Application must be linked to a Supplier for updates"
 +       );
 +     });
 +   });
 + 
-+   describe(&quot;getSupplierForUser&quot;, () =&gt; {
-+     it(&quot;should return Supplier if user is member of organization&quot;, async () =&gt; {
++   describe("getSupplierForUser", () =&gt; {
++     it("should return Supplier if user is member of organization", async () =&gt; {
 +       const mockSupplier = {
-+         id: &quot;supplier-1&quot;,
-+         organization: { members: [{ userId: &quot;user-1&quot; }] },
++         id: "supplier-1",
++         organization: { members: [{ userId: "user-1" }] },
 +       };
 + 
 +       vi.mocked(prisma.supplier.findFirst).mockResolvedValue(
 +         mockSupplier as any
 +       );
 + 
-+       const result = await getSupplierForUser(&quot;supplier-1&quot;, &quot;user-1&quot;);
++       const result = await getSupplierForUser("supplier-1", "user-1");
 + 
 +       expect(prisma.supplier.findFirst).toHaveBeenCalledWith({
 +         where: {
-+           id: &quot;supplier-1&quot;,
++           id: "supplier-1",
 +           organization: {
-+             members: { some: { userId: &quot;user-1&quot; } },
++             members: { some: { userId: "user-1" } },
 +           },
 +         },
 +         include: expect.any(Object),
@@ -4192,19 +4192,19 @@ Lines added: 309, lines removed: 1
 +     });
 +   });
 + 
-+   describe(&quot;getSuppliersForOrganization&quot;, () =&gt; {
-+     it(&quot;should return suppliers for organization if user is member&quot;, async () =&gt; {
++   describe("getSuppliersForOrganization", () =&gt; {
++     it("should return suppliers for organization if user is member", async () =&gt; {
 +       const mockMembership = {
-+         userId: &quot;user-1&quot;,
-+         organizationId: &quot;org-1&quot;,
++         userId: "user-1",
++         organizationId: "org-1",
 +       };
 +       const mockSuppliers = [
 +         {
-+           id: &quot;supplier-1&quot;,
-+           organizationId: &quot;org-1&quot;,
-+           entity: { name: &quot;Entity 1&quot; },
-+           geography: { name: &quot;Geography 1&quot; },
-+           application: { id: &quot;app-1&quot;, status: &quot;APPROVED&quot;, approvedAt: new Date() },
++           id: "supplier-1",
++           organizationId: "org-1",
++           entity: { name: "Entity 1" },
++           geography: { name: "Geography 1" },
++           application: { id: "app-1", status: "APPROVED", approvedAt: new Date() },
 +         },
 +       ];
 + 
@@ -4215,40 +4215,40 @@ Lines added: 309, lines removed: 1
 +         mockSuppliers as any
 +       );
 + 
-+       const result = await getSuppliersForOrganization(&quot;org-1&quot;, &quot;user-1&quot;);
++       const result = await getSuppliersForOrganization("org-1", "user-1");
 + 
 +       expect(prisma.membership.findUnique).toHaveBeenCalled();
 +       expect(prisma.supplier.findMany).toHaveBeenCalled();
 +       expect(result).toEqual(mockSuppliers);
 +     });
 + 
-+     it(&quot;should throw error if user is not member of organization&quot;, async () =&gt; {
++     it("should throw error if user is not member of organization", async () =&gt; {
 +       vi.mocked(prisma.membership.findUnique).mockResolvedValue(null);
 + 
 +       await expect(
-+         getSuppliersForOrganization(&quot;org-1&quot;, &quot;user-1&quot;)
-+       ).rejects.toThrow(&quot;User is not a member of this organization&quot;);
++         getSuppliersForOrganization("org-1", "user-1")
++       ).rejects.toThrow("User is not a member of this organization");
 +     });
 +   });
 + 
-+   describe(&quot;createUpdateApplication&quot;, () =&gt; {
-+     it(&quot;should create update Application for Supplier&quot;, async () =&gt; {
++   describe("createUpdateApplication", () =&gt; {
++     it("should create update Application for Supplier", async () =&gt; {
 +       const mockSupplier = {
-+         id: &quot;supplier-1&quot;,
-+         organizationId: &quot;org-1&quot;,
-+         entityId: &quot;entity-1&quot;,
-+         geographyId: &quot;geo-1&quot;,
++         id: "supplier-1",
++         organizationId: "org-1",
++         entityId: "entity-1",
++         geographyId: "geo-1",
 +         data: {
-+           supplierInformation: { supplierName: &quot;Original Name&quot; },
-+           addresses: { remitToAddress: { line1: &quot;123 Main St&quot; } },
-+           bankInformation: { bankName: &quot;Bank&quot; },
++           supplierInformation: { supplierName: "Original Name" },
++           addresses: { remitToAddress: { line1: "123 Main St" } },
++           bankInformation: { bankName: "Bank" },
 +         },
 +         organization: {
-+           members: [{ userId: &quot;user-1&quot; }],
++           members: [{ userId: "user-1" }],
 +         },
 +         application: {
-+           formConfigId: &quot;config-1&quot;,
-+           formConfig: { id: &quot;config-1&quot; },
++           formConfigId: "config-1",
++           formConfig: { id: "config-1" },
 +         },
 +       };
 + 
@@ -4256,43 +4256,43 @@ Lines added: 309, lines removed: 1
 +         mockSupplier as any
 +       );
 +       vi.mocked(prisma.application.create).mockResolvedValue({
-+         id: &quot;app-update-1&quot;,
-+         status: &quot;DRAFT&quot;,
-+         supplierId: &quot;supplier-1&quot;,
++         id: "app-update-1",
++         status: "DRAFT",
++         supplierId: "supplier-1",
 +       } as any);
 + 
 +       const updatedData = {
-+         supplierInformation: { supplierName: &quot;Updated Name&quot; },
++         supplierInformation: { supplierName: "Updated Name" },
 +       };
 + 
 +       const result = await createUpdateApplication(
-+         &quot;supplier-1&quot;,
-+         &quot;user-1&quot;,
++         "supplier-1",
++         "user-1",
 +         updatedData
 +       );
 + 
 +       expect(prisma.application.create).toHaveBeenCalled();
-+       expect(result.id).toBe(&quot;app-update-1&quot;);
-+       expect(result.supplierId).toBe(&quot;supplier-1&quot;);
++       expect(result.id).toBe("app-update-1");
++       expect(result.supplierId).toBe("supplier-1");
 +     });
 + 
-+     it(&quot;should throw error if Supplier not found&quot;, async () =&gt; {
++     it("should throw error if Supplier not found", async () =&gt; {
 +       vi.mocked(prisma.supplier.findUnique).mockResolvedValue(null);
 + 
 +       await expect(
-+         createUpdateApplication(&quot;supplier-1&quot;, &quot;user-1&quot;, {})
-+       ).rejects.toThrow(&quot;Supplier not found&quot;);
++         createUpdateApplication("supplier-1", "user-1", {})
++       ).rejects.toThrow("Supplier not found");
 +     });
 + 
-+     it(&quot;should throw error if user is not member of organization&quot;, async () =&gt; {
++     it("should throw error if user is not member of organization", async () =&gt; {
 +       vi.mocked(prisma.supplier.findUnique).mockResolvedValue({
-+         id: &quot;supplier-1&quot;,
++         id: "supplier-1",
 +         organization: { members: [] },
 +       } as any);
 + 
 +       await expect(
-+         createUpdateApplication(&quot;supplier-1&quot;, &quot;user-1&quot;, {})
-+       ).rejects.toThrow(&quot;User is not a member of this organization&quot;);
++         createUpdateApplication("supplier-1", "user-1", {})
++       ).rejects.toThrow("User is not a member of this organization");
 +     });
 +   });
 + });
@@ -4306,7 +4306,7 @@ Lines added: 309, lines removed: 1
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: npm test -- lib/suppliers.test.ts</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: npm test -- lib/suppliers.test.ts</summary>
 
 ```bash
 npm test -- lib/suppliers.test.ts
@@ -4349,7 +4349,7 @@ Moving the test file to the tests directory:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: mv lib/suppliers.test.ts tests/suppliers.test.ts</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: mv lib/suppliers.test.ts tests/suppliers.test.ts</summary>
 
 ```bash
 mv lib/suppliers.test.ts tests/suppliers.test.ts
@@ -4360,7 +4360,7 @@ mv lib/suppliers.test.ts tests/suppliers.test.ts
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: npm test -- tests/suppliers.test.ts</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: npm test -- tests/suppliers.test.ts</summary>
 
 ```bash
 npm test -- tests/suppliers.test.ts
@@ -4377,15 +4377,15 @@ npm test -- tests/suppliers.test.ts
 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
 
  FAIL  tests/suppliers.test.ts [ tests/suppliers.test.ts ]
-Error: Failed to resolve import &quot;./suppliers&quot; from &quot;tests/suppliers.test.ts&quot;. Does the file exist?                                                              
+Error: Failed to resolve import "./suppliers" from "tests/suppliers.test.ts". Does the file exist?                                                              
   Plugin: vite:import-analysis
   File: /Users/sahilmehta/supplier-onboarding-simple/tests/suppliers.test.ts:2:0
   17 |    }
   18 |  }));
-  19 |  const __vi_import_0__ = await import(&quot;./suppliers&quot;);
+  19 |  const __vi_import_0__ = await import("./suppliers");
      |                                       ^
-  20 |  const __vi_import_1__ = await import(&quot;./prisma&quot;);
-  21 |  import { describe, it, expect, beforeEach, vi } from &quot;vitest&quot;;
+  20 |  const __vi_import_1__ = await import("./prisma");
+  21 |  import { describe, it, expect, beforeEach, vi } from "vitest";
  ❯ TransformPluginContext._formatLog node_modules/vite/dist/node/chunks/config.js:29618:43                                                                      
  ❯ TransformPluginContext.error node_modules/vite/dist/node/chunks/config.js:29615:14                                                                           
  ❯ normalizeUrl node_modules/vite/dist/node/chunks/config.js:27738:18
@@ -4419,7 +4419,7 @@ Fixing the import path in the test file:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: tests/suppliers.test.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: tests/suppliers.test.ts</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: 2
@@ -4428,10 +4428,10 @@ Lines added: 2, lines removed: 2
 @@ -6,6 +6,6 @@
     getSuppliersForOrganization,
     createUpdateApplication,
-- } from &quot;./suppliers&quot;;
-- import { prisma } from &quot;./prisma&quot;;
-+ } from &quot;@/lib/suppliers&quot;;
-+ import { prisma } from &quot;@/lib/prisma&quot;;
+- } from "./suppliers";
+- import { prisma } from "./prisma";
++ } from "@/lib/suppliers";
++ import { prisma } from "@/lib/prisma";
   
   // Mock prisma
 ```
@@ -4444,7 +4444,7 @@ Lines added: 2, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: tests/suppliers.test.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: tests/suppliers.test.ts</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: 1
@@ -4453,8 +4453,8 @@ Lines added: 1, lines removed: 1
 @@ -10,5 +10,5 @@
   
   // Mock prisma
-- vi.mock(&quot;./prisma&quot;, () =&gt; ({
-+ vi.mock(&quot;@/lib/prisma&quot;, () =&gt; ({
+- vi.mock("./prisma", () =&gt; ({
++ vi.mock("@/lib/prisma", () =&gt; ({
     prisma: {
       application: {
 ```
@@ -4466,7 +4466,7 @@ Lines added: 1, lines removed: 1
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: npm test -- tests/suppliers.test.ts</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: npm test -- tests/suppliers.test.ts</summary>
 
 ```bash
 npm test -- tests/suppliers.test.ts
@@ -4502,7 +4502,7 @@ npm test -- tests/suppliers.test.ts
 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
 
  FAIL  tests/suppliers.test.ts &gt; suppliers &gt; updateSupplierFromApplication &gt; should update Supplier when update Application is approved                         
-TypeError: Cannot read properties of undefined (reading &#39;deleteMany&#39;)
+TypeError: Cannot read properties of undefined (reading 'deleteMany')
  ❯ tests/suppliers.test.ts:148:41
     146|         mockApplication as any
     147|       );
@@ -4514,14 +4514,14 @@ TypeError: Cannot read properties of undefined (reading &#39;deleteMany&#39;)
 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
 
  FAIL  tests/suppliers.test.ts &gt; suppliers &gt; createUpdateApplication &gt; should create update Application for Supplier                                            
-TypeError: Cannot read properties of undefined (reading &#39;mockResolvedValue&#39;)
+TypeError: Cannot read properties of undefined (reading 'mockResolvedValue')
  ❯ tests/suppliers.test.ts:268:42
     266|         mockSupplier as any
     267|       );
     268|       vi.mocked(prisma.application.create).mockResolvedValue({
        |                                          ^
-    269|         id: &quot;app-update-1&quot;,
-    270|         status: &quot;DRAFT&quot;,
+    269|         id: "app-update-1",
+    270|         status: "DRAFT",
 
 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
 
@@ -4548,7 +4548,7 @@ Fixing the mocks by adding the missing prisma methods:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: tests/suppliers.test.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: tests/suppliers.test.ts</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: undefined
@@ -4583,7 +4583,7 @@ Lines added: 3, lines removed: undefined
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: npm test -- tests/suppliers.test.ts</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: npm test -- tests/suppliers.test.ts</summary>
 
 ```bash
 npm test -- tests/suppliers.test.ts
@@ -4637,7 +4637,7 @@ All supplier tests passed. Running the full test suite to check for regressions:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: npm test</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: npm test</summary>
 
 ```bash
 npm test
@@ -4695,7 +4695,7 @@ All tests passed. Updating the implementation plan status:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/phase-2-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/phase-2-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: 1
@@ -4750,7 +4750,7 @@ Updating the main PRD to reflect Phase 2 completion:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 3, lines removed: 2
@@ -4778,7 +4778,7 @@ Lines added: 3, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 13, lines removed: 13
@@ -4825,7 +4825,7 @@ Lines added: 13, lines removed: 13
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: 1
@@ -5052,7 +5052,7 @@ Updating both documents with Phase 2 completion details:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 23, lines removed: undefined
@@ -5096,7 +5096,7 @@ Lines added: 23, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: 1
@@ -5122,7 +5122,7 @@ Lines added: 2, lines removed: 1
 + - [x] Company Profile access control ✅ **COMPLETED** (via unit tests in &#96;tests/suppliers.test.ts&#96;)
 + - [x] Supplier creation and update workflow ✅ **COMPLETED** (via unit tests)
   - [ ] Internal team submission flow (Phase 3)
-  - [ ] Procurement dashboard &quot;Approved&quot; filter (Phase 3)
+  - [ ] Procurement dashboard "Approved" filter (Phase 3)
 ```
 
 </details>
@@ -5133,7 +5133,7 @@ Lines added: 2, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: 1
@@ -5156,7 +5156,7 @@ Lines added: 1, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: undefined
@@ -5188,7 +5188,7 @@ Updating the master implementation plan:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 3, lines removed: 1
@@ -5214,7 +5214,7 @@ Lines added: 3, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 3, lines removed: 2
@@ -5295,7 +5295,7 @@ Adding the Phase 2 implementation summary before Phase 3:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 30, lines removed: 6
@@ -5354,7 +5354,7 @@ Lines added: 30, lines removed: 6
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 6, lines removed: 5

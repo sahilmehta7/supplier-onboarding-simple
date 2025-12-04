@@ -223,7 +223,7 @@ Fixing the error handling and updating the UI to only show valid transitions:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/lib/application-state.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/lib/application-state.ts</summary>
 
 **Chunk 1**
 Lines added: 20, lines removed: undefined
@@ -238,19 +238,19 @@ Lines added: 20, lines removed: undefined
 + }
 + 
 + export function canApprove(from: string): boolean {
-+   return canTransition(from, &quot;APPROVED&quot;);
++   return canTransition(from, "APPROVED");
 + }
 + 
 + export function canReject(from: string): boolean {
-+   return canTransition(from, &quot;REJECTED&quot;);
++   return canTransition(from, "REJECTED");
 + }
 + 
 + export function canRequestInfo(from: string): boolean {
-+   return canTransition(from, &quot;PENDING_SUPPLIER&quot;);
++   return canTransition(from, "PENDING_SUPPLIER");
 + }
 + 
 + export function canStartReview(from: string): boolean {
-+   return canTransition(from, &quot;IN_REVIEW&quot;);
++   return canTransition(from, "IN_REVIEW");
 + }
   
   export const nextActions = [
@@ -264,17 +264,17 @@ Lines added: 20, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/app/dashboard/procurement/[id]/actions.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/app/dashboard/procurement/[id]/actions.ts</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: 1
 
 ```diff
 @@ -5,5 +5,5 @@
-  import { prisma } from &quot;@/lib/prisma&quot;;
-  import { requireRole } from &quot;@/lib/permissions&quot;;
-- import { canTransition } from &quot;@/lib/application-state&quot;;
-+ import { canTransition, getValidTransitions } from &quot;@/lib/application-state&quot;;
+  import { prisma } from "@/lib/prisma";
+  import { requireRole } from "@/lib/permissions";
+- import { canTransition } from "@/lib/application-state";
++ import { canTransition, getValidTransitions } from "@/lib/application-state";
   import {
     createSupplierFromApplication,
 ```
@@ -287,7 +287,7 @@ Lines added: 1, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/app/dashboard/procurement/[id]/actions.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/app/dashboard/procurement/[id]/actions.ts</summary>
 
 **Chunk 1**
 Lines added: 5, lines removed: 1
@@ -296,11 +296,11 @@ Lines added: 5, lines removed: 1
 @@ -94,5 +94,9 @@
   
     if (!canTransition(application.status, targetStatus)) {
--     throw new Error(&quot;Invalid state transition&quot;);
+-     throw new Error("Invalid state transition");
 +     const validTransitions = getValidTransitions(application.status);
 +     throw new Error(
 +       &#96;Invalid state transition: Cannot transition from ${application.status} to ${targetStatus}. &#96; +
-+         &#96;Valid transitions from ${application.status} are: ${validTransitions.length &gt; 0 ? validTransitions.join(&quot;, &quot;) : &quot;none&quot;}.&#96;
++         &#96;Valid transitions from ${application.status} are: ${validTransitions.length &gt; 0 ? validTransitions.join(", ") : "none"}.&#96;
 +     );
     }
   
@@ -314,7 +314,7 @@ Lines added: 5, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/procurement/sticky-action-bar.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/procurement/sticky-action-bar.tsx</summary>
 
 **Chunk 1**
 Lines added: 6, lines removed: undefined
@@ -322,15 +322,15 @@ Lines added: 6, lines removed: undefined
 ```diff
 @@ -17,4 +17,10 @@
     DialogTitle,
-  } from &quot;@/components/ui/dialog&quot;;
+  } from "@/components/ui/dialog";
 + import {
 +   canApprove,
 +   canReject,
 +   canRequestInfo,
 +   canStartReview,
-+ } from &quot;@/lib/application-state&quot;;
++ } from "@/lib/application-state";
   
-  type ActionType = &quot;approve&quot; | &quot;reject&quot; | &quot;request&quot;;
+  type ActionType = "approve" | "reject" | "request";
 ```
 
 </details>
@@ -341,14 +341,14 @@ Lines added: 6, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/procurement/sticky-action-bar.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/procurement/sticky-action-bar.tsx</summary>
 
 **Chunk 1**
 Lines added: 5, lines removed: undefined
 
 ```diff
 @@ -100,4 +100,9 @@
-        : &quot;Describe the clarification you need. The supplier will receive this note.&quot;;
+        : "Describe the clarification you need. The supplier will receive this note.";
   
 +   const showRequestInfo = canRequestInfo(currentStatus);
 +   const showReject = canReject(currentStatus);
@@ -364,77 +364,77 @@ Lines added: 49, lines removed: 24
 
 ```diff
 @@ -117,28 +122,53 @@
-                {assigning ? &quot;Assigning...&quot; : &quot;Assign to me&quot;}
+                {assigning ? "Assigning..." : "Assign to me"}
               &lt;/Button&gt;
 -             &lt;Button
--               type=&quot;button&quot;
--               variant=&quot;secondary&quot;
--               size=&quot;sm&quot;
--               onClick={() =&gt; openDialog(&quot;request&quot;)}
+-               type="button"
+-               variant="secondary"
+-               size="sm"
+-               onClick={() =&gt; openDialog("request")}
 -             &gt;
 -               Request info
 -             &lt;/Button&gt;
 -             &lt;Button
--               type=&quot;button&quot;
--               variant=&quot;outline&quot;
--               size=&quot;sm&quot;
--               onClick={() =&gt; openDialog(&quot;reject&quot;)}
+-               type="button"
+-               variant="outline"
+-               size="sm"
+-               onClick={() =&gt; openDialog("reject")}
 -             &gt;
 -               Reject
 -             &lt;/Button&gt;
 -             &lt;Button
--               type=&quot;button&quot;
--               size=&quot;sm&quot;
--               className=&quot;bg-emerald-600 hover:bg-emerald-700&quot;
--               onClick={() =&gt; openDialog(&quot;approve&quot;)}
+-               type="button"
+-               size="sm"
+-               className="bg-emerald-600 hover:bg-emerald-700"
+-               onClick={() =&gt; openDialog("approve")}
 -             &gt;
 -               Approve
 -             &lt;/Button&gt;
 +             {showStartReview &amp;&amp; (
 +               &lt;Button
-+                 type=&quot;button&quot;
-+                 variant=&quot;default&quot;
-+                 size=&quot;sm&quot;
++                 type="button"
++                 variant="default"
++                 size="sm"
 +                 onClick={() =&gt; {
 +                   startTransition(async () =&gt; {
 +                     await transitionApplicationAction({
 +                       applicationId,
-+                       targetStatus: &quot;IN_REVIEW&quot;,
++                       targetStatus: "IN_REVIEW",
 +                     });
 +                     router.refresh();
 +                   });
 +                 }}
 +                 disabled={isPending}
 +               &gt;
-+                 {isPending ? &quot;Starting...&quot; : &quot;Start review&quot;}
++                 {isPending ? "Starting..." : "Start review"}
 +               &lt;/Button&gt;
 +             )}
 +             {showRequestInfo &amp;&amp; (
 +               &lt;Button
-+                 type=&quot;button&quot;
-+                 variant=&quot;secondary&quot;
-+                 size=&quot;sm&quot;
-+                 onClick={() =&gt; openDialog(&quot;request&quot;)}
++                 type="button"
++                 variant="secondary"
++                 size="sm"
++                 onClick={() =&gt; openDialog("request")}
 +               &gt;
 +                 Request info
 +               &lt;/Button&gt;
 +             )}
 +             {showReject &amp;&amp; (
 +               &lt;Button
-+                 type=&quot;button&quot;
-+                 variant=&quot;outline&quot;
-+                 size=&quot;sm&quot;
-+                 onClick={() =&gt; openDialog(&quot;reject&quot;)}
++                 type="button"
++                 variant="outline"
++                 size="sm"
++                 onClick={() =&gt; openDialog("reject")}
 +               &gt;
 +                 Reject
 +               &lt;/Button&gt;
 +             )}
 +             {showApprove &amp;&amp; (
 +               &lt;Button
-+                 type=&quot;button&quot;
-+                 size=&quot;sm&quot;
-+                 className=&quot;bg-emerald-600 hover:bg-emerald-700&quot;
-+                 onClick={() =&gt; openDialog(&quot;approve&quot;)}
++                 type="button"
++                 size="sm"
++                 className="bg-emerald-600 hover:bg-emerald-700"
++                 onClick={() =&gt; openDialog("approve")}
 +               &gt;
 +                 Approve
 +               &lt;/Button&gt;
@@ -552,14 +552,14 @@ Updating the component to always show all buttons and disable them based on the 
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/procurement/sticky-action-bar.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/procurement/sticky-action-bar.tsx</summary>
 
 **Chunk 1**
 Lines added: 4, lines removed: 4
 
 ```diff
 @@ -100,8 +100,8 @@
-        : &quot;Describe the clarification you need. The supplier will receive this note.&quot;;
+        : "Describe the clarification you need. The supplier will receive this note.";
   
 -   const showRequestInfo = canRequestInfo(currentStatus);
 -   const showReject = canReject(currentStatus);
@@ -578,97 +578,97 @@ Lines added: 44, lines removed: 49
 
 ```diff
 @@ -122,53 +122,48 @@
-                {assigning ? &quot;Assigning...&quot; : &quot;Assign to me&quot;}
+                {assigning ? "Assigning..." : "Assign to me"}
               &lt;/Button&gt;
 -             {showStartReview &amp;&amp; (
 -               &lt;Button
--                 type=&quot;button&quot;
--                 variant=&quot;default&quot;
--                 size=&quot;sm&quot;
+-                 type="button"
+-                 variant="default"
+-                 size="sm"
 -                 onClick={() =&gt; {
 -                   startTransition(async () =&gt; {
 -                     await transitionApplicationAction({
 -                       applicationId,
--                       targetStatus: &quot;IN_REVIEW&quot;,
+-                       targetStatus: "IN_REVIEW",
 -                     });
 -                     router.refresh();
 -                   });
 -                 }}
 -                 disabled={isPending}
 -               &gt;
--                 {isPending ? &quot;Starting...&quot; : &quot;Start review&quot;}
+-                 {isPending ? "Starting..." : "Start review"}
 -               &lt;/Button&gt;
 -             )}
 -             {showRequestInfo &amp;&amp; (
 -               &lt;Button
--                 type=&quot;button&quot;
--                 variant=&quot;secondary&quot;
--                 size=&quot;sm&quot;
--                 onClick={() =&gt; openDialog(&quot;request&quot;)}
+-                 type="button"
+-                 variant="secondary"
+-                 size="sm"
+-                 onClick={() =&gt; openDialog("request")}
 -               &gt;
 -                 Request info
 -               &lt;/Button&gt;
 -             )}
 -             {showReject &amp;&amp; (
 -               &lt;Button
--                 type=&quot;button&quot;
--                 variant=&quot;outline&quot;
--                 size=&quot;sm&quot;
--                 onClick={() =&gt; openDialog(&quot;reject&quot;)}
+-                 type="button"
+-                 variant="outline"
+-                 size="sm"
+-                 onClick={() =&gt; openDialog("reject")}
 -               &gt;
 -                 Reject
 -               &lt;/Button&gt;
 -             )}
 -             {showApprove &amp;&amp; (
 -               &lt;Button
--                 type=&quot;button&quot;
--                 size=&quot;sm&quot;
--                 className=&quot;bg-emerald-600 hover:bg-emerald-700&quot;
--                 onClick={() =&gt; openDialog(&quot;approve&quot;)}
+-                 type="button"
+-                 size="sm"
+-                 className="bg-emerald-600 hover:bg-emerald-700"
+-                 onClick={() =&gt; openDialog("approve")}
 -               &gt;
 -                 Approve
 -               &lt;/Button&gt;
 -             )}
 +             &lt;Button
-+               type=&quot;button&quot;
-+               variant=&quot;default&quot;
-+               size=&quot;sm&quot;
++               type="button"
++               variant="default"
++               size="sm"
 +               onClick={() =&gt; {
 +                 startTransition(async () =&gt; {
 +                   await transitionApplicationAction({
 +                     applicationId,
-+                     targetStatus: &quot;IN_REVIEW&quot;,
++                     targetStatus: "IN_REVIEW",
 +                   });
 +                   router.refresh();
 +                 });
 +               }}
 +               disabled={isPending || !canStartReviewNow}
 +             &gt;
-+               {isPending ? &quot;Starting...&quot; : &quot;Start review&quot;}
++               {isPending ? "Starting..." : "Start review"}
 +             &lt;/Button&gt;
 +             &lt;Button
-+               type=&quot;button&quot;
-+               variant=&quot;secondary&quot;
-+               size=&quot;sm&quot;
-+               onClick={() =&gt; openDialog(&quot;request&quot;)}
++               type="button"
++               variant="secondary"
++               size="sm"
++               onClick={() =&gt; openDialog("request")}
 +               disabled={!canRequestInfoNow}
 +             &gt;
 +               Request info
 +             &lt;/Button&gt;
 +             &lt;Button
-+               type=&quot;button&quot;
-+               variant=&quot;outline&quot;
-+               size=&quot;sm&quot;
-+               onClick={() =&gt; openDialog(&quot;reject&quot;)}
++               type="button"
++               variant="outline"
++               size="sm"
++               onClick={() =&gt; openDialog("reject")}
 +               disabled={!canRejectNow}
 +             &gt;
 +               Reject
 +             &lt;/Button&gt;
 +             &lt;Button
-+               type=&quot;button&quot;
-+               size=&quot;sm&quot;
-+               className=&quot;bg-emerald-600 hover:bg-emerald-700&quot;
-+               onClick={() =&gt; openDialog(&quot;approve&quot;)}
++               type="button"
++               size="sm"
++               className="bg-emerald-600 hover:bg-emerald-700"
++               onClick={() =&gt; openDialog("approve")}
 +               disabled={!canApproveNow}
 +             &gt;
 +               Approve

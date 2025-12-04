@@ -3,6 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { requireRole } from "@/lib/permissions";
 
+// Cache document type configuration for 1 hour (document types rarely change)
+export const revalidate = 3600;
+
 function badRequest(message: string) {
   return NextResponse.json({ error: message }, { status: 400 });
 }

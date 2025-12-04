@@ -242,7 +242,7 @@ Could not find file 'app/supplier/onboarding/page.tsx' in the workspace.
 
 <tool-use data-tool-type="generic" data-tool-name="list_dir">
 <details>
-            <summary>Tool use: **list_directory** • Listed directory undefined • **0** results</summary>
+            <summary>Tool use: **list_dir** • Listed directory undefined • **0** results</summary>
         
 No results found
 </details>
@@ -343,7 +343,7 @@ Drafting the PRD with reasonable assumptions, and you can refine as needed.
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **write** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 459, lines removed: 1
@@ -366,7 +366,7 @@ Lines added: 459, lines removed: 1
 + 1. **Enforce single submission per application** - Suppliers can only submit a form response once per application. After submission, editing is locked until procurement requests more information.
 + 2. **Company Profile view** - Suppliers see a clean, organized view of their approved company information after procurement approval.
 + 3. **Internal team submission capability** - Admins and internal team members can submit multiple applications on behalf of suppliers without seeing company-specific profiles.
-+ 4. **Unified procurement access** - Procurement team can access all approved applications via the Procurement tab&#39;s &quot;Approved&quot; filter, regardless of who submitted them.
++ 4. **Unified procurement access** - Procurement team can access all approved applications via the Procurement tab's "Approved" filter, regardless of who submitted them.
 + 
 + ## 3. User Stories
 + 
@@ -397,21 +397,21 @@ Lines added: 459, lines removed: 1
 + - [ ] Profile displays all uploaded documents with download links
 + - [ ] Profile is read-only (no edit capabilities)
 + - [ ] Profile shows approval date and other relevant metadata
-+ - [ ] Navigation clearly indicates this is the &quot;Company Profile&quot; view
++ - [ ] Navigation clearly indicates this is the "Company Profile" view
 + - [ ] Profile is accessible from supplier dashboard for approved applications
 + 
 + ### 3.3 Internal Team Submission Capability
 + 
 + **As an internal team member (Admin or Procurement),**
 + - I want to be able to submit multiple requests on behalf of suppliers if needed.
-+ - I will not see any specific company&#39;s profile view.
-+ - Instead, I will be able to access any company via the Procurement tab&#39;s &quot;Approved&quot; filter.
++ - I will not see any specific company's profile view.
++ - Instead, I will be able to access any company via the Procurement tab's "Approved" filter.
 + 
 + **Acceptance Criteria:**
 + - [ ] Admins and Procurement users can create new applications on behalf of supplier organizations
 + - [ ] Admins and Procurement users can submit applications (change status from &#96;DRAFT&#96; to &#96;SUBMITTED&#96;) on behalf of suppliers
 + - [ ] Internal team members do not see the Company Profile view (supplier-specific view)
-+ - [ ] All approved applications (whether submitted by supplier or internal team) appear in Procurement tab&#39;s &quot;Approved&quot; filter
++ - [ ] All approved applications (whether submitted by supplier or internal team) appear in Procurement tab's "Approved" filter
 + - [ ] Internal team can access full application details via procurement detail view
 + - [ ] Audit logs clearly indicate when an application was submitted by an internal team member vs. the supplier
 + 
@@ -449,10 +449,10 @@ Lines added: 459, lines removed: 1
 + - Show appropriate messaging based on current status
 + 
 + **Status Messages:**
-+ - &#96;SUBMITTED&#96; / &#96;IN_REVIEW&#96;: &quot;This application has been submitted and is under review. You cannot make changes at this time.&quot;
-+ - &#96;APPROVED&#96;: &quot;This application has been approved. View your Company Profile to see all details.&quot;
-+ - &#96;REJECTED&#96;: &quot;This application has been rejected. Contact procurement for more information.&quot;
-+ - &#96;PENDING_SUPPLIER&#96;: &quot;Procurement has requested more information. Please update your application and resubmit.&quot;
++ - &#96;SUBMITTED&#96; / &#96;IN_REVIEW&#96;: "This application has been submitted and is under review. You cannot make changes at this time."
++ - &#96;APPROVED&#96;: "This application has been approved. View your Company Profile to see all details."
++ - &#96;REJECTED&#96;: "This application has been rejected. Contact procurement for more information."
++ - &#96;PENDING_SUPPLIER&#96;: "Procurement has requested more information. Please update your application and resubmit."
 + 
 + ### 4.2 Company Profile Screen
 + 
@@ -525,7 +525,7 @@ Lines added: 459, lines removed: 1
 + - This allows distinguishing between supplier and internal submissions
 + 
 + **Procurement Dashboard:**
-+ - &quot;Approved&quot; filter shows all applications with status &#96;APPROVED&#96;
++ - "Approved" filter shows all applications with status &#96;APPROVED&#96;
 + - No distinction needed between supplier-submitted vs internally-submitted
 + - All approved applications accessible via detail view
 + 
@@ -538,7 +538,7 @@ Lines added: 459, lines removed: 1
 + model Application {
 +   // ... existing fields ...
 +   submittedById String?  // Track who actually submitted (supplier or internal)
-+   submissionType String? // &#39;SUPPLIER&#39; or &#39;INTERNAL&#39;
++   submissionType String? // 'SUPPLIER' or 'INTERNAL'
 + }
 + &#96;&#96;&#96;
 + 
@@ -559,7 +559,7 @@ Lines added: 459, lines removed: 1
 + 
 + **File: &#96;app/supplier/onboarding/[id]/page.tsx&#96;**
 + - Check user role is &#96;SUPPLIER&#96;
-+ - Check user is member of application&#39;s organization
++ - Check user is member of application's organization
 + - Check application status to determine if editing is allowed
 + - Redirect to Company Profile if status is &#96;APPROVED&#96;
 + 
@@ -579,10 +579,10 @@ Lines added: 459, lines removed: 1
 + 3. **Supplier submits** → Status: &#96;SUBMITTED&#96;
 +    - Form becomes read-only
 +    - Submit button disabled
-+    - Message: &quot;Application submitted. Awaiting review.&quot;
++    - Message: "Application submitted. Awaiting review."
 + 4. **Procurement reviews** → Status: &#96;IN_REVIEW&#96;
 +    - Form remains read-only
-+    - Message: &quot;Application under review. No changes allowed.&quot;
++    - Message: "Application under review. No changes allowed."
 + 5. **Two possible paths:**
 +    - **Path A - Approval:**
 +      - Status: &#96;APPROVED&#96;
@@ -591,7 +591,7 @@ Lines added: 459, lines removed: 1
 +    - **Path B - More Info Requested:**
 +      - Status: &#96;PENDING_SUPPLIER&#96;
 +      - Form becomes editable again
-+      - Message: &quot;Please provide additional information.&quot;
++      - Message: "Please provide additional information."
 +      - Supplier can edit and resubmit
 +      - After resubmission, status returns to &#96;SUBMITTED&#96; or &#96;IN_REVIEW&#96;
 + 
@@ -617,7 +617,7 @@ Lines added: 459, lines removed: 1
 +    - Status: &#96;SUBMITTED&#96;
 +    - Audit log shows internal team member as submitter
 + 4. **After approval:**
-+    - Application appears in &quot;Approved&quot; filter
++    - Application appears in "Approved" filter
 +    - Internal team can access via procurement detail view
 +    - Supplier sees Company Profile (internal team does not)
 + 
@@ -629,33 +629,33 @@ Lines added: 459, lines removed: 1
 + - ✅ All form fields editable
 + - ✅ Save draft button enabled
 + - ✅ Submit button enabled
-+ - ✅ Clear &quot;Draft&quot; badge
++ - ✅ Clear "Draft" badge
 + 
 + #### Submitted/In Review States (&#96;SUBMITTED&#96;, &#96;IN_REVIEW&#96;)
 + - ❌ All form fields disabled/read-only
 + - ❌ Save draft button hidden
 + - ❌ Submit button hidden
-+ - ℹ️ Status message: &quot;Application submitted. Awaiting review.&quot;
-+ - ℹ️ Status badge: &quot;Submitted&quot; or &quot;In Review&quot;
++ - ℹ️ Status message: "Application submitted. Awaiting review."
++ - ℹ️ Status badge: "Submitted" or "In Review"
 + 
 + #### Pending Supplier State (&#96;PENDING_SUPPLIER&#96;)
 + - ✅ All form fields editable
 + - ✅ Save draft button enabled
-+ - ✅ Submit button enabled (labeled &quot;Resubmit&quot;)
-+ - ⚠️ Status message: &quot;Procurement has requested more information. Please update and resubmit.&quot;
-+ - ⚠️ Status badge: &quot;More Information Required&quot;
++ - ✅ Submit button enabled (labeled "Resubmit")
++ - ⚠️ Status message: "Procurement has requested more information. Please update and resubmit."
++ - ⚠️ Status badge: "More Information Required"
 + 
 + #### Approved State (&#96;APPROVED&#96;)
 + - 🔄 Redirect to Company Profile
-+ - ℹ️ Status badge: &quot;Approved&quot;
++ - ℹ️ Status badge: "Approved"
 + - ✅ View Company Profile button
 + 
 + #### Rejected State (&#96;REJECTED&#96;)
 + - ❌ All form fields disabled/read-only
 + - ❌ Save draft button hidden
 + - ❌ Submit button hidden
-+ - ⚠️ Status message: &quot;Application rejected. Contact procurement for details.&quot;
-+ - ⚠️ Status badge: &quot;Rejected&quot;
++ - ⚠️ Status message: "Application rejected. Contact procurement for details."
++ - ⚠️ Status badge: "Rejected"
 + 
 + ### 6.2 Company Profile UI
 + 
@@ -679,15 +679,15 @@ Lines added: 459, lines removed: 1
 + ### 6.3 Internal Team UI
 + 
 + **Procurement Dashboard:**
-+ - &quot;Create Application&quot; button (for admins/procurement)
++ - "Create Application" button (for admins/procurement)
 + - Applications table shows all applications
-+ - &quot;Approved&quot; filter shows approved applications
++ - "Approved" filter shows approved applications
 + - No distinction between supplier-submitted vs internally-submitted
 + 
 + **Detail View:**
 + - Same procurement detail view for all applications
 + - Shows submission metadata (who submitted, when)
-+ - No Company Profile view (that&#39;s supplier-only)
++ - No Company Profile view (that's supplier-only)
 + 
 + ## 7. Edge Cases &amp; Error Handling
 + 
@@ -700,12 +700,12 @@ Lines added: 459, lines removed: 1
 + 
 + 2. **Supplier tries to submit twice:**
 +    - Submit button disabled
-+    - Clear message: &quot;Application already submitted&quot;
++    - Clear message: "Application already submitted"
 + 
 + 3. **Status changes while supplier is editing:**
 +    - Real-time status check (or polling)
 +    - Form locks if status changes to non-editable state
-+    - Message: &quot;Application status has changed. Please refresh.&quot;
++    - Message: "Application status has changed. Please refresh."
 + 
 + 4. **Internal team submits on behalf of supplier:**
 +    - Application appears in procurement queue
@@ -739,7 +739,7 @@ Lines added: 459, lines removed: 1
 + - [ ] Supplier clarification flow (PENDING_SUPPLIER → resubmit)
 + - [ ] Company Profile access control
 + - [ ] Internal team submission flow
-+ - [ ] Procurement dashboard &quot;Approved&quot; filter
++ - [ ] Procurement dashboard "Approved" filter
 + 
 + ### 8.3 E2E Tests
 + 
@@ -923,7 +923,7 @@ Updating the PRD with your clarifications:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 5, lines removed: 4
@@ -935,12 +935,12 @@ Lines added: 5, lines removed: 4
 - 1. **Enforce single submission per application** - Suppliers can only submit a form response once per application. After submission, editing is locked until procurement requests more information.
 - 2. **Company Profile view** - Suppliers see a clean, organized view of their approved company information after procurement approval.
 - 3. **Internal team submission capability** - Admins and internal team members can submit multiple applications on behalf of suppliers without seeing company-specific profiles.
-- 4. **Unified procurement access** - Procurement team can access all approved applications via the Procurement tab&#39;s &quot;Approved&quot; filter, regardless of who submitted them.
+- 4. **Unified procurement access** - Procurement team can access all approved applications via the Procurement tab's "Approved" filter, regardless of who submitted them.
 + 1. **Enforce single submission per form** - Suppliers can only submit one application per form configuration (FormConfig). After submission, editing is locked until procurement requests more information. If rejected, suppliers can create a fresh application.
 + 2. **Selective field editing** - When procurement requests more information (&#96;PENDING_SUPPLIER&#96;), suppliers can edit only the specified fields that procurement indicated need changes.
 + 3. **Company Profile with limited edits** - Suppliers see a clean, organized view of their approved company information with limited editing capabilities. Some edits require re-approval from procurement/admin.
 + 4. **Internal team submission capability** - Admins and internal team members can both create new applications and submit existing drafts on behalf of suppliers, following the same workflow.
-+ 5. **Unified procurement access with distinction** - Procurement team can access all approved applications via the Procurement tab&#39;s &quot;Approved&quot; filter, with clear UI distinction between supplier-submitted vs internally-submitted applications.
++ 5. **Unified procurement access with distinction** - Procurement team can access all approved applications via the Procurement tab's "Approved" filter, with clear UI distinction between supplier-submitted vs internally-submitted applications.
   
   ## 3. User Stories
 ```
@@ -953,7 +953,7 @@ Lines added: 5, lines removed: 4
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 8, lines removed: 4
@@ -993,7 +993,7 @@ Lines added: 8, lines removed: 4
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 6, lines removed: 2
@@ -1014,9 +1014,9 @@ Lines added: 6, lines removed: 2
 + - [ ] Some fields are editable (to be defined per field type/section)
 + - [ ] Editable fields are clearly marked with edit icons/buttons
 + - [ ] Some edits trigger re-approval workflow (status changes to &#96;PENDING_REAPPROVAL&#96; or similar)
-+ - [ ] Edits that don&#39;t require re-approval are saved immediately
++ - [ ] Edits that don't require re-approval are saved immediately
   - [ ] Profile shows approval date and other relevant metadata
-  - [ ] Navigation clearly indicates this is the &quot;Company Profile&quot; view
+  - [ ] Navigation clearly indicates this is the "Company Profile" view
 ```
 
 </details>
@@ -1027,7 +1027,7 @@ Lines added: 6, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 6, lines removed: 2
@@ -1040,16 +1040,16 @@ Lines added: 6, lines removed: 2
 + - I want to be able to create new applications on behalf of suppliers.
 + - I want to be able to submit existing draft applications on behalf of suppliers.
 + - These submissions follow the same workflow (procurement review → approval).
-  - I will not see any specific company&#39;s profile view.
-- - Instead, I will be able to access any company via the Procurement tab&#39;s &quot;Approved&quot; filter.
-+ - Instead, I will be able to access any company via the Procurement tab&#39;s &quot;Approved&quot; filter, with clear distinction between supplier-submitted vs internally-submitted applications.
+  - I will not see any specific company's profile view.
+- - Instead, I will be able to access any company via the Procurement tab's "Approved" filter.
++ - Instead, I will be able to access any company via the Procurement tab's "Approved" filter, with clear distinction between supplier-submitted vs internally-submitted applications.
   
   **Acceptance Criteria:**
   - [ ] Admins and Procurement users can create new applications on behalf of supplier organizations
 + - [ ] Admins and Procurement users can edit existing draft applications for any supplier organization
   - [ ] Admins and Procurement users can submit applications (change status from &#96;DRAFT&#96; to &#96;SUBMITTED&#96;) on behalf of suppliers
   - [ ] Internal team members do not see the Company Profile view (supplier-specific view)
-  - [ ] All approved applications (whether submitted by supplier or internal team) appear in Procurement tab&#39;s &quot;Approved&quot; filter
+  - [ ] All approved applications (whether submitted by supplier or internal team) appear in Procurement tab's "Approved" filter
 + - [ ] UI clearly distinguishes between supplier-submitted vs internally-submitted applications (badge, icon, or column)
   - [ ] Internal team can access full application details via procurement detail view
   - [ ] Audit logs clearly indicate when an application was submitted by an internal team member vs. the supplier
@@ -1063,7 +1063,7 @@ Lines added: 6, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 10, lines removed: 3
@@ -1092,7 +1092,7 @@ Lines added: 10, lines removed: 3
 + **Submission Restrictions:**
 + - Only one active application per FormConfig (entity + geography) per supplier organization
 + - Active statuses: &#96;DRAFT&#96;, &#96;SUBMITTED&#96;, &#96;IN_REVIEW&#96;, &#96;PENDING_SUPPLIER&#96;, &#96;APPROVED&#96;
-+ - &#96;REJECTED&#96; applications don&#39;t block new submissions
++ - &#96;REJECTED&#96; applications don't block new submissions
   
   #### 4.1.2 Implementation Details
 ```
@@ -1105,24 +1105,24 @@ Lines added: 10, lines removed: 3
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 8, lines removed: 2
 
 ```diff
 @@ -119,6 +119,12 @@
-  - &#96;SUBMITTED&#96; / &#96;IN_REVIEW&#96;: &quot;This application has been submitted and is under review. You cannot make changes at this time.&quot;
-  - &#96;APPROVED&#96;: &quot;This application has been approved. View your Company Profile to see all details.&quot;
-- - &#96;REJECTED&#96;: &quot;This application has been rejected. Contact procurement for more information.&quot;
-- - &#96;PENDING_SUPPLIER&#96;: &quot;Procurement has requested more information. Please update your application and resubmit.&quot;
-+ - &#96;REJECTED&#96;: &quot;This application has been rejected. You can create a new application if needed.&quot;
-+ - &#96;PENDING_SUPPLIER&#96;: &quot;Procurement has requested changes to specific fields. Please update the highlighted fields and resubmit.&quot;
+  - &#96;SUBMITTED&#96; / &#96;IN_REVIEW&#96;: "This application has been submitted and is under review. You cannot make changes at this time."
+  - &#96;APPROVED&#96;: "This application has been approved. View your Company Profile to see all details."
+- - &#96;REJECTED&#96;: "This application has been rejected. Contact procurement for more information."
+- - &#96;PENDING_SUPPLIER&#96;: "Procurement has requested more information. Please update your application and resubmit."
++ - &#96;REJECTED&#96;: "This application has been rejected. You can create a new application if needed."
++ - &#96;PENDING_SUPPLIER&#96;: "Procurement has requested changes to specific fields. Please update the highlighted fields and resubmit."
 + 
 + **Field-Level Editing Control (PENDING_SUPPLIER):**
 + - Procurement comments can specify which fields need changes (via &#96;ApplicationComment&#96; with &#96;fieldKey&#96;)
 + - Only fields referenced in procurement comments are editable
-+ - Other fields remain read-only with explanation: &quot;This field was not requested for changes&quot;
++ - Other fields remain read-only with explanation: "This field was not requested for changes"
 + - Visual indication (highlight, border, or icon) on editable fields
   
   ### 4.2 Company Profile Screen
@@ -1136,7 +1136,7 @@ Lines added: 8, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: 1
@@ -1167,7 +1167,7 @@ Lines added: 12, lines removed: undefined
 + **Re-Approval Workflow:**
 + - When supplier edits a field requiring re-approval:
 +   - Status changes to &#96;PENDING_REAPPROVAL&#96; (new status or use &#96;PENDING_SUPPLIER&#96;)
-+   - Field shows &quot;Pending re-approval&quot; badge
++   - Field shows "Pending re-approval" badge
 +   - Procurement notified to review changes
 +   - After approval, status returns to &#96;APPROVED&#96;
 + 
@@ -1183,7 +1183,7 @@ Lines added: 12, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: 1
@@ -1208,7 +1208,7 @@ Lines added: 2, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 5, lines removed: 1
@@ -1216,11 +1216,11 @@ Lines added: 5, lines removed: 1
 ```diff
 @@ -214,6 +214,10 @@
   **Procurement Dashboard:**
-  - &quot;Approved&quot; filter shows all applications with status &#96;APPROVED&#96;
+  - "Approved" filter shows all applications with status &#96;APPROVED&#96;
 - - No distinction needed between supplier-submitted vs internally-submitted
 + - UI clearly distinguishes between supplier-submitted vs internally-submitted:
 +   - Badge or icon indicating submission source
-+   - Column showing &quot;Submitted by&quot; (Supplier / Internal Team)
++   - Column showing "Submitted by" (Supplier / Internal Team)
 +   - Visual distinction (color, icon, or badge)
   - All approved applications accessible via detail view
 + - Submission source visible in detail view header/metadata
@@ -1236,7 +1236,7 @@ Lines added: 5, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 9, lines removed: 2
@@ -1251,7 +1251,7 @@ Lines added: 9, lines removed: 2
   model Application {
     // ... existing fields ...
     submittedById String?  // Track who actually submitted (supplier or internal)
-    submissionType String? // &#39;SUPPLIER&#39; or &#39;INTERNAL&#39;
+    submissionType String? // 'SUPPLIER' or 'INTERNAL'
 +   
 +   // Prevent multiple active applications per FormConfig
 +   @@unique([organizationId, formConfigId, status]) // Only for active statuses
@@ -1263,7 +1263,7 @@ Lines added: 9, lines removed: 2
 + **Note:** The unique constraint approach may be too restrictive. Better to use application-level validation:
 + - Check for existing active applications before allowing new submission
 + - Active statuses: &#96;DRAFT&#96;, &#96;SUBMITTED&#96;, &#96;IN_REVIEW&#96;, &#96;PENDING_SUPPLIER&#96;, &#96;APPROVED&#96;
-+ - &#96;REJECTED&#96; applications don&#39;t count as &quot;active&quot; for this check
++ - &#96;REJECTED&#96; applications don't count as "active" for this check
   
   #### 4.4.2 Audit Log Enhancement
 ```
@@ -1276,7 +1276,7 @@ Lines added: 9, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: undefined
@@ -1299,14 +1299,14 @@ Lines added: 2, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: undefined
 
 ```diff
 @@ -262,5 +262,7 @@
-  - Check user is member of application&#39;s organization
+  - Check user is member of application's organization
   - Check application status to determine if editing is allowed
 + - Check which fields are editable (if status is &#96;PENDING_SUPPLIER&#96;)
   - Redirect to Company Profile if status is &#96;APPROVED&#96;
@@ -1323,7 +1323,7 @@ Lines added: 2, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 3, lines removed: 1
@@ -1336,7 +1336,7 @@ Lines added: 3, lines removed: 1
 + - Allow editing and submission of existing draft applications
   - Allow submission on behalf of any organization
 - - Log submission with internal team member as actor
-+ - Log submission with internal team member as actor and &#96;submissionType: &#39;INTERNAL&#39;&#96;
++ - Log submission with internal team member as actor and &#96;submissionType: 'INTERNAL'&#96;
   
   ## 5. User Experience Flow
 ```
@@ -1349,7 +1349,7 @@ Lines added: 3, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 8, lines removed: 3
@@ -1359,16 +1359,16 @@ Lines added: 8, lines removed: 3
      - **Path B - More Info Requested:**
        - Status: &#96;PENDING_SUPPLIER&#96;
 -      - Form becomes editable again
--      - Message: &quot;Please provide additional information.&quot;
+-      - Message: "Please provide additional information."
 -      - Supplier can edit and resubmit
 +      - Only specified fields become editable (based on procurement comments)
-+      - Message: &quot;Procurement has requested changes to specific fields.&quot;
++      - Message: "Procurement has requested changes to specific fields."
 +      - Supplier can edit only the highlighted fields and resubmit
        - After resubmission, status returns to &#96;SUBMITTED&#96; or &#96;IN_REVIEW&#96;
 +    - **Path C - Rejection:**
 +      - Status: &#96;REJECTED&#96;
 +      - Form is read-only
-+      - Message: &quot;Application rejected. You can create a new application.&quot;
++      - Message: "Application rejected. You can create a new application."
 +      - Supplier can create a fresh application for the same FormConfig
   
   ### 5.2 Company Profile Flow
@@ -1382,7 +1382,7 @@ Lines added: 8, lines removed: 3
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 8, lines removed: 1
@@ -1412,7 +1412,7 @@ Lines added: 8, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 5, lines removed: 3
@@ -1429,10 +1429,10 @@ Lines added: 5, lines removed: 3
      - Application appears in procurement dashboard
      - Status: &#96;SUBMITTED&#96;
 -    - Audit log shows internal team member as submitter
-+    - Audit log shows internal team member as submitter with &#96;submissionType: &#39;INTERNAL&#39;&#96;
-+    - UI shows &quot;Submitted by Internal Team&quot; badge/indicator
++    - Audit log shows internal team member as submitter with &#96;submissionType: 'INTERNAL'&#96;
++    - UI shows "Submitted by Internal Team" badge/indicator
   4. **After approval:**
-     - Application appears in &quot;Approved&quot; filter
+     - Application appears in "Approved" filter
 +    - UI clearly shows submission source (Supplier vs Internal Team)
      - Internal team can access via procurement detail view
      - Supplier sees Company Profile (internal team does not)
@@ -1446,7 +1446,7 @@ Lines added: 5, lines removed: 3
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 4, lines removed: 2
@@ -1459,10 +1459,10 @@ Lines added: 4, lines removed: 2
 + - ✅ Only specified fields editable (based on procurement comments)
 + - ❌ Other fields remain read-only with explanation
   - ✅ Save draft button enabled
-  - ✅ Submit button enabled (labeled &quot;Resubmit&quot;)
-- - ⚠️ Status message: &quot;Procurement has requested more information. Please update and resubmit.&quot;
-+ - ⚠️ Status message: &quot;Procurement has requested changes to specific fields. Please update the highlighted fields.&quot;
-  - ⚠️ Status badge: &quot;More Information Required&quot;
+  - ✅ Submit button enabled (labeled "Resubmit")
+- - ⚠️ Status message: "Procurement has requested more information. Please update and resubmit."
++ - ⚠️ Status message: "Procurement has requested changes to specific fields. Please update the highlighted fields."
+  - ⚠️ Status badge: "More Information Required"
 + - 🔍 Visual indication (highlight, border, or icon) on editable fields
   
   #### Approved State (&#96;APPROVED&#96;)
@@ -1476,14 +1476,14 @@ Lines added: 4, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: undefined
 
 ```diff
 @@ -370,4 +370,6 @@
-  - ℹ️ Status badge: &quot;Approved&quot;
+  - ℹ️ Status badge: "Approved"
   - ✅ View Company Profile button
 + - ✏️ Limited editing available in Company Profile
 + - ⚠️ Some edits trigger re-approval workflow
@@ -1499,7 +1499,7 @@ Lines added: 2, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: 1
@@ -1508,10 +1508,10 @@ Lines added: 2, lines removed: 1
 @@ -377,5 +377,6 @@
   - ❌ Save draft button hidden
   - ❌ Submit button hidden
-- - ⚠️ Status message: &quot;Application rejected. Contact procurement for details.&quot;
-+ - ✅ &quot;Create New Application&quot; button enabled
-+ - ⚠️ Status message: &quot;Application rejected. You can create a new application if needed.&quot;
-  - ⚠️ Status badge: &quot;Rejected&quot;
+- - ⚠️ Status message: "Application rejected. Contact procurement for details."
++ - ✅ "Create New Application" button enabled
++ - ⚠️ Status message: "Application rejected. You can create a new application if needed."
+  - ⚠️ Status badge: "Rejected"
   
 ```
 
@@ -1523,7 +1523,7 @@ Lines added: 2, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 9, lines removed: 7
@@ -1551,7 +1551,7 @@ Lines added: 9, lines removed: 7
 - - &#96;CompanyProfileSection&#96; - Reusable section card component
 + - &#96;CompanyProfileSection&#96; - Reusable section card component with edit capabilities
 + - &#96;EditableField&#96; - Field component with edit mode and save functionality
-+ - &#96;ReapprovalBadge&#96; - Badge showing &quot;Pending Re-approval&quot; for edited fields
++ - &#96;ReapprovalBadge&#96; - Badge showing "Pending Re-approval" for edited fields
   - &#96;DocumentList&#96; - List of uploaded documents with download links
   - &#96;ApprovalMetadata&#96; - Approval date, approved by, etc.
 ```
@@ -1564,7 +1564,7 @@ Lines added: 9, lines removed: 7
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 9, lines removed: 2
@@ -1572,22 +1572,22 @@ Lines added: 9, lines removed: 2
 ```diff
 @@ -408,9 +408,16 @@
   - Applications table shows all applications
-  - &quot;Approved&quot; filter shows approved applications
+  - "Approved" filter shows approved applications
 - - No distinction between supplier-submitted vs internally-submitted
 + - **Clear distinction between supplier-submitted vs internally-submitted:**
-+   - Badge/icon: &quot;Supplier Submitted&quot; vs &quot;Internal Submitted&quot;
-+   - Column: &quot;Submitted By&quot; showing source
++   - Badge/icon: "Supplier Submitted" vs "Internal Submitted"
++   - Column: "Submitted By" showing source
 +   - Visual distinction (color coding or icon)
-+ - &quot;Edit Draft&quot; button for draft applications (internal team only)
++ - "Edit Draft" button for draft applications (internal team only)
   
   **Detail View:**
   - Same procurement detail view for all applications
 - - Shows submission metadata (who submitted, when)
 + - Shows submission metadata prominently:
-+   - &quot;Submitted by: [Supplier Name] / Internal Team&quot;
++   - "Submitted by: [Supplier Name] / Internal Team"
 +   - Submission date and time
 +   - Submission type badge
-  - No Company Profile view (that&#39;s supplier-only)
+  - No Company Profile view (that's supplier-only)
   
 ```
 
@@ -1599,7 +1599,7 @@ Lines added: 9, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 15, lines removed: undefined
@@ -1611,7 +1611,7 @@ Lines added: 15, lines removed: undefined
 +    - Only one active application per FormConfig (entity + geography)
      - Each application has independent submission status
      - Company Profile is per-application (not global)
-+    - Rejected applications don&#39;t block new submissions
++    - Rejected applications don't block new submissions
 + 
 + 6. **Field-level editing in PENDING_SUPPLIER:**
 +    - Procurement comments specify which fields need changes
@@ -1637,7 +1637,7 @@ Lines added: 15, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 7, lines removed: 3
@@ -1657,7 +1657,7 @@ Lines added: 7, lines removed: 3
 + - [ ] Parse procurement comments to determine which fields are editable
 + - [ ] Update &#96;SubmissionBar&#96; to show/hide submit button based on status
   - [ ] Add status-based messaging
-+ - [ ] Add &quot;Create New Application&quot; button for rejected applications
++ - [ ] Add "Create New Application" button for rejected applications
   - [ ] Tests
   
 ```
@@ -1670,7 +1670,7 @@ Lines added: 7, lines removed: 3
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 4, lines removed: undefined
@@ -1695,7 +1695,7 @@ Lines added: 4, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 8, lines removed: 3
@@ -1713,7 +1713,7 @@ Lines added: 8, lines removed: 3
 + - [ ] Update permission checks for internal team
 + - [ ] Enhance audit logging with &#96;submissionType&#96; field
 + - [ ] Update procurement dashboard UI to show submission source
-+ - [ ] Add &quot;Submitted By&quot; column/badge to applications table
++ - [ ] Add "Submitted By" column/badge to applications table
 + - [ ] Add visual distinction (badge/icon) for supplier vs internal submissions
 + - [ ] Update detail view to show submission metadata prominently
   - [ ] Tests
@@ -1728,7 +1728,7 @@ Lines added: 8, lines removed: 3
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 29, lines removed: 5
@@ -1745,7 +1745,7 @@ Lines added: 29, lines removed: 5
 + 1. **Field editing in PENDING_SUPPLIER:** How exactly should procurement specify which fields need changes?
 +    - **Option A:** Via comments with &#96;fieldKey&#96; reference
 +    - **Option B:** Via a field selection UI in procurement detail view
-+    - **Option C:** Via a structured &quot;Request Changes&quot; form with checkboxes
++    - **Option C:** Via a structured "Request Changes" form with checkboxes
 +    - **Recommendation:** Start with Option A (comments with fieldKey), add UI later if needed
 + 
 + 2. **Company Profile editable fields:** Which specific fields should be editable without re-approval vs requiring re-approval?
@@ -1900,7 +1900,7 @@ Updating the PRD with your answers:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 3, lines removed: 3
@@ -1927,7 +1927,7 @@ Lines added: 3, lines removed: 3
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: 2
@@ -1940,7 +1940,7 @@ Lines added: 2, lines removed: 2
 -   - Status changes to &#96;PENDING_REAPPROVAL&#96; (new status or use &#96;PENDING_SUPPLIER&#96;)
 + - When supplier edits any field in Company Profile:
 +   - Status changes to &#96;PENDING_SUPPLIER&#96; (reusing existing status)
-    - Field shows &quot;Pending re-approval&quot; badge
+    - Field shows "Pending re-approval" badge
     - Procurement notified to review changes
 ```
 
@@ -1952,7 +1952,7 @@ Lines added: 2, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: 2
@@ -1962,11 +1962,11 @@ Lines added: 2, lines removed: 2
   - [ ] Some fields are editable (to be defined per field type/section)
   - [ ] Editable fields are clearly marked with edit icons/buttons
 - - [ ] Some edits trigger re-approval workflow (status changes to &#96;PENDING_REAPPROVAL&#96; or similar)
-- - [ ] Edits that don&#39;t require re-approval are saved immediately
+- - [ ] Edits that don't require re-approval are saved immediately
 + - [ ] All edits trigger re-approval workflow (status changes to &#96;PENDING_SUPPLIER&#96;)
 + - [ ] No immediate edits - all changes require procurement review
   - [ ] Profile shows approval date and other relevant metadata
-  - [ ] Navigation clearly indicates this is the &quot;Company Profile&quot; view
+  - [ ] Navigation clearly indicates this is the "Company Profile" view
 ```
 
 </details>
@@ -1977,7 +1977,7 @@ Lines added: 2, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: 1
@@ -2000,7 +2000,7 @@ Lines added: 1, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: 1
@@ -2023,7 +2023,7 @@ Lines added: 1, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 4, lines removed: 3
@@ -2037,7 +2037,7 @@ Lines added: 4, lines removed: 3
 -    - **If field requires re-approval:** Status changes to &#96;PENDING_REAPPROVAL&#96;, procurement notified
 + 4. **Supplier edits any field:**
 +    - Status changes to &#96;PENDING_SUPPLIER&#96; (re-approval required)
-+    - Field shows &quot;Pending re-approval&quot; indicator
++    - Field shows "Pending re-approval" indicator
 +    - Procurement notified to review changes
   5. **Re-approval process:**
      - Procurement reviews changes
@@ -2051,7 +2051,7 @@ Lines added: 4, lines removed: 3
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: 1
@@ -2074,7 +2074,7 @@ Lines added: 1, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 5, lines removed: 4
@@ -2107,7 +2107,7 @@ Lines added: 5, lines removed: 4
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 3, lines removed: 2
@@ -2136,7 +2136,7 @@ Lines added: 3, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: 2
@@ -2161,7 +2161,7 @@ Lines added: 2, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 22, lines removed: 23
@@ -2173,7 +2173,7 @@ Lines added: 22, lines removed: 23
 - 1. **Field editing in PENDING_SUPPLIER:** How exactly should procurement specify which fields need changes?
 -    - **Option A:** Via comments with &#96;fieldKey&#96; reference
 -    - **Option B:** Via a field selection UI in procurement detail view
--    - **Option C:** Via a structured &quot;Request Changes&quot; form with checkboxes
+-    - **Option C:** Via a structured "Request Changes" form with checkboxes
 -    - **Recommendation:** Start with Option A (comments with fieldKey), add UI later if needed
 + ## 11. Resolved Questions
 + 
@@ -2233,7 +2233,7 @@ Lines added: 22, lines removed: 23
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 3, lines removed: 1
@@ -2245,7 +2245,7 @@ Lines added: 3, lines removed: 1
 - - Procurement comments can specify which fields need changes (via &#96;ApplicationComment&#96; with &#96;fieldKey&#96;)
 + - Procurement comments specify which fields need changes (via &#96;ApplicationComment&#96; with &#96;fieldKey&#96;)
   - Only fields referenced in procurement comments are editable
-  - Other fields remain read-only with explanation: &quot;This field was not requested for changes&quot;
+  - Other fields remain read-only with explanation: "This field was not requested for changes"
   - Visual indication (highlight, border, or icon) on editable fields
 + - **Implementation:** Parse &#96;ApplicationComment&#96; records with &#96;fieldKey&#96; to determine editable fields
 + - **Validation:** Validate entire form on resubmission (not just changed fields)
@@ -2271,7 +2271,7 @@ Fixing a duplicate section header:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: undefined, lines removed: 2
@@ -2413,7 +2413,7 @@ Reviewing the PRD, then drafting a phase-by-phase implementation plan covering f
 
 <tool-use data-tool-type="generic" data-tool-name="list_dir">
 <details>
-            <summary>Tool use: **list_directory** • Listed directory undefined • **0** results</summary>
+            <summary>Tool use: **list_dir** • Listed directory undefined • **0** results</summary>
         
 No results found
 </details>
@@ -2510,7 +2510,7 @@ Creating a phase-by-phase implementation plan:
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
+<details><summary>Tool use: **write** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 2002, lines removed: 1
@@ -2563,7 +2563,7 @@ Lines added: 2002, lines removed: 1
 + model Application {
 +   // ... existing fields ...
 +   submittedById String?  // Track who actually submitted
-+   submissionType String? // &#39;SUPPLIER&#39; or &#39;INTERNAL&#39;
++   submissionType String? // 'SUPPLIER' or 'INTERNAL'
 +   
 +   // Add index for efficient querying
 +   @@index([organizationId, formConfigId, status])
@@ -2580,15 +2580,15 @@ Lines added: 2002, lines removed: 1
 + #### File: &#96;lib/application-validation.ts&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ import { prisma } from &quot;@/lib/prisma&quot;;
-+ import { ApplicationStatus } from &quot;@prisma/client&quot;;
++ import { prisma } from "@/lib/prisma";
++ import { ApplicationStatus } from "@prisma/client";
 + 
 + const ACTIVE_STATUSES: ApplicationStatus[] = [
-+   &quot;DRAFT&quot;,
-+   &quot;SUBMITTED&quot;,
-+   &quot;IN_REVIEW&quot;,
-+   &quot;PENDING_SUPPLIER&quot;,
-+   &quot;APPROVED&quot;,
++   "DRAFT",
++   "SUBMITTED",
++   "IN_REVIEW",
++   "PENDING_SUPPLIER",
++   "APPROVED",
 + ];
 + 
 + export async function hasActiveApplication(
@@ -2606,11 +2606,11 @@ Lines added: 2002, lines removed: 1
 + }
 + 
 + export function canEditApplication(status: ApplicationStatus): boolean {
-+   return status === &quot;DRAFT&quot; || status === &quot;PENDING_SUPPLIER&quot;;
++   return status === "DRAFT" || status === "PENDING_SUPPLIER";
 + }
 + 
 + export function canSubmitApplication(status: ApplicationStatus): boolean {
-+   return status === &quot;DRAFT&quot; || status === &quot;PENDING_SUPPLIER&quot;;
++   return status === "DRAFT" || status === "PENDING_SUPPLIER";
 + }
 + 
 + export async function getEditableFields(
@@ -2620,7 +2620,7 @@ Lines added: 2002, lines removed: 1
 +   const comments = await prisma.applicationComment.findMany({
 +     where: {
 +       applicationId,
-+       visibility: &quot;supplier_visible&quot;,
++       visibility: "supplier_visible",
 +       fieldKey: { not: null },
 +     },
 +     select: { fieldKey: true },
@@ -2640,16 +2640,16 @@ Lines added: 2002, lines removed: 1
 + 3. Add validation for multiple active applications
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use server&quot;;
++ "use server";
 + 
-+ import { auth } from &quot;@/lib/auth&quot;;
-+ import { prisma } from &quot;@/lib/prisma&quot;;
++ import { auth } from "@/lib/auth";
++ import { prisma } from "@/lib/prisma";
 + import {
 +   SupplierWizardData,
 +   supplierWizardSchema,
-+ } from &quot;@/lib/supplierWizardSchema&quot;;
-+ import { canEditApplication, hasActiveApplication, getEditableFields } from &quot;@/lib/application-validation&quot;;
-+ import { revalidatePath } from &quot;next/cache&quot;;
++ } from "@/lib/supplierWizardSchema";
++ import { canEditApplication, hasActiveApplication, getEditableFields } from "@/lib/application-validation";
++ import { revalidatePath } from "next/cache";
 + 
 + async function getApplicationForUser(applicationId: string, userId: string) {
 +   return prisma.application.findFirst({
@@ -2672,7 +2672,7 @@ Lines added: 2002, lines removed: 1
 + ) {
 +   const session = await auth();
 +   if (!session?.user?.id) {
-+     throw new Error(&quot;Unauthorized&quot;);
++     throw new Error("Unauthorized");
 +   }
 + 
 +   const application = await getApplicationForUser(
@@ -2681,7 +2681,7 @@ Lines added: 2002, lines removed: 1
 +   );
 + 
 +   if (!application) {
-+     throw new Error(&quot;Application not found&quot;);
++     throw new Error("Application not found");
 +   }
 + 
 +   // Check if editing is allowed
@@ -2692,21 +2692,21 @@ Lines added: 2002, lines removed: 1
 +   }
 + 
 +   // If PENDING_SUPPLIER, validate only specified fields are edited
-+   if (application.status === &quot;PENDING_SUPPLIER&quot; &amp;&amp; editedFields) {
++   if (application.status === "PENDING_SUPPLIER" &amp;&amp; editedFields) {
 +     const allowedFields = await getEditableFields(applicationId);
 +     const invalidFields = editedFields.filter(
 +       (field) =&gt; !allowedFields.includes(field)
 +     );
 +     if (invalidFields.length &gt; 0) {
 +       throw new Error(
-+         &#96;Cannot edit fields: ${invalidFields.join(&quot;, &quot;)}. Only specified fields can be edited.&#96;
++         &#96;Cannot edit fields: ${invalidFields.join(", ")}. Only specified fields can be edited.&#96;
 +       );
 +     }
 +   }
 + 
 +   const parsed = supplierWizardSchema.safeParse(formData);
 +   if (!parsed.success) {
-+     throw new Error(&quot;Validation failed&quot;);
++     throw new Error("Validation failed");
 +   }
 + 
 +   await prisma.application.update({
@@ -2724,7 +2724,7 @@ Lines added: 2002, lines removed: 1
 + export async function submitApplicationAction(applicationId: string) {
 +   const session = await auth();
 +   if (!session?.user?.id) {
-+     throw new Error(&quot;Unauthorized&quot;);
++     throw new Error("Unauthorized");
 +   }
 + 
 +   const application = await getApplicationForUser(
@@ -2733,7 +2733,7 @@ Lines added: 2002, lines removed: 1
 +   );
 + 
 +   if (!application) {
-+     throw new Error(&quot;Application not found&quot;);
++     throw new Error("Application not found");
 +   }
 + 
 +   // Check if submission is allowed
@@ -2749,9 +2749,9 @@ Lines added: 2002, lines removed: 1
 +       application.organizationId,
 +       application.formConfigId
 +     );
-+     if (hasActive &amp;&amp; application.status === &quot;DRAFT&quot;) {
++     if (hasActive &amp;&amp; application.status === "DRAFT") {
 +       throw new Error(
-+         &quot;An active application already exists for this form configuration. Please complete or cancel the existing application first.&quot;
++         "An active application already exists for this form configuration. Please complete or cancel the existing application first."
 +       );
 +     }
 +   }
@@ -2759,20 +2759,20 @@ Lines added: 2002, lines removed: 1
 +   await prisma.application.update({
 +     where: { id: application.id },
 +     data: {
-+       status: &quot;SUBMITTED&quot;,
++       status: "SUBMITTED",
 +       submittedAt: new Date(),
 +       submittedById: session.user.id,
-+       submissionType: &quot;SUPPLIER&quot;,
++       submissionType: "SUPPLIER",
 +       updatedById: session.user.id,
 +       auditLogs: {
 +         create: {
 +           actorId: session.user.id,
-+           actorRole: &quot;SUPPLIER&quot;,
++           actorRole: "SUPPLIER",
 +           organizationId: application.organizationId,
-+           action: &quot;APPLICATION_SUBMITTED&quot;,
++           action: "APPLICATION_SUBMITTED",
 +           details: {
-+             submissionType: &quot;SUPPLIER&quot;,
-+             note: &quot;Submitted from supplier portal&quot;,
++             submissionType: "SUPPLIER",
++             note: "Submitted from supplier portal",
 +           },
 +         },
 +       },
@@ -2780,7 +2780,7 @@ Lines added: 2002, lines removed: 1
 +   });
 + 
 +   revalidatePath(&#96;/supplier/onboarding/${applicationId}&#96;);
-+   revalidatePath(&quot;/supplier&quot;);
++   revalidatePath("/supplier");
 +   
 +   console.info(
 +     &#96;[Application] ${application.id} submitted by user ${session.user.id}&#96;
@@ -2803,11 +2803,11 @@ Lines added: 2002, lines removed: 1
 + #### File: &#96;components/supplier/status-message.tsx&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { ApplicationStatus } from &quot;@prisma/client&quot;;
-+ import { Alert, AlertDescription } from &quot;@/components/ui/alert&quot;;
-+ import { Info, AlertCircle, CheckCircle2, XCircle } from &quot;lucide-react&quot;;
++ import { ApplicationStatus } from "@prisma/client";
++ import { Alert, AlertDescription } from "@/components/ui/alert";
++ import { Info, AlertCircle, CheckCircle2, XCircle } from "lucide-react";
 + 
 + interface StatusMessageProps {
 +   status: ApplicationStatus;
@@ -2816,28 +2816,28 @@ Lines added: 2002, lines removed: 1
 + const statusConfig = {
 +   SUBMITTED: {
 +     icon: Info,
-+     message: &quot;This application has been submitted and is under review. You cannot make changes at this time.&quot;,
-+     variant: &quot;default&quot; as const,
++     message: "This application has been submitted and is under review. You cannot make changes at this time.",
++     variant: "default" as const,
 +   },
 +   IN_REVIEW: {
 +     icon: Info,
-+     message: &quot;Application under review. No changes allowed.&quot;,
-+     variant: &quot;default&quot; as const,
++     message: "Application under review. No changes allowed.",
++     variant: "default" as const,
 +   },
 +   APPROVED: {
 +     icon: CheckCircle2,
-+     message: &quot;This application has been approved. View your Company Profile to see all details.&quot;,
-+     variant: &quot;default&quot; as const,
++     message: "This application has been approved. View your Company Profile to see all details.",
++     variant: "default" as const,
 +   },
 +   REJECTED: {
 +     icon: XCircle,
-+     message: &quot;This application has been rejected. You can create a new application if needed.&quot;,
-+     variant: &quot;destructive&quot; as const,
++     message: "This application has been rejected. You can create a new application if needed.",
++     variant: "destructive" as const,
 +   },
 +   PENDING_SUPPLIER: {
 +     icon: AlertCircle,
-+     message: &quot;Procurement has requested changes to specific fields. Please update the highlighted fields and resubmit.&quot;,
-+     variant: &quot;default&quot; as const,
++     message: "Procurement has requested changes to specific fields. Please update the highlighted fields and resubmit.",
++     variant: "default" as const,
 +   },
 + };
 + 
@@ -2849,7 +2849,7 @@ Lines added: 2002, lines removed: 1
 + 
 +   return (
 +     &lt;Alert variant={config.variant}&gt;
-+       &lt;Icon className=&quot;h-4 w-4&quot; /&gt;
++       &lt;Icon className="h-4 w-4" /&gt;
 +       &lt;AlertDescription&gt;{config.message}&lt;/AlertDescription&gt;
 +     &lt;/Alert&gt;
 +   );
@@ -2859,15 +2859,15 @@ Lines added: 2002, lines removed: 1
 + #### File: &#96;components/supplier/submission-bar.tsx&#96; (UPDATE)
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { useTransition } from &quot;react&quot;;
-+ import { useRouter } from &quot;next/navigation&quot;;
-+ import { ApplicationStatus } from &quot;@prisma/client&quot;;
-+ import { submitApplicationAction } from &quot;@/app/supplier/onboarding/actions&quot;;
-+ import { Button } from &quot;@/components/ui/button&quot;;
-+ import { StatusMessage } from &quot;./status-message&quot;;
-+ import { canSubmitApplication } from &quot;@/lib/application-validation&quot;;
++ import { useTransition } from "react";
++ import { useRouter } from "next/navigation";
++ import { ApplicationStatus } from "@prisma/client";
++ import { submitApplicationAction } from "@/app/supplier/onboarding/actions";
++ import { Button } from "@/components/ui/button";
++ import { StatusMessage } from "./status-message";
++ import { canSubmitApplication } from "@/lib/application-validation";
 + 
 + interface SubmissionBarProps {
 +   applicationId: string;
@@ -2891,17 +2891,17 @@ Lines added: 2002, lines removed: 1
 +     });
 +   };
 + 
-+   if (!canSubmit &amp;&amp; status !== &quot;REJECTED&quot;) {
++   if (!canSubmit &amp;&amp; status !== "REJECTED") {
 +     return &lt;StatusMessage status={status} /&gt;;
 +   }
 + 
-+   if (status === &quot;REJECTED&quot;) {
++   if (status === "REJECTED") {
 +     return (
-+       &lt;div className=&quot;space-y-3&quot;&gt;
++       &lt;div className="space-y-3"&gt;
 +         &lt;StatusMessage status={status} /&gt;
 +         &lt;Button
-+           onClick={() =&gt; router.push(&quot;/supplier/onboarding/new&quot;)}
-+           variant=&quot;default&quot;
++           onClick={() =&gt; router.push("/supplier/onboarding/new")}
++           variant="default"
 +         &gt;
 +           Create New Application
 +         &lt;/Button&gt;
@@ -2910,23 +2910,23 @@ Lines added: 2002, lines removed: 1
 +   }
 + 
 +   return (
-+     &lt;div className=&quot;flex flex-wrap items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4&quot;&gt;
++     &lt;div className="flex flex-wrap items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4"&gt;
 +       &lt;Button
-+         type=&quot;button&quot;
++         type="button"
 +         onClick={handleSubmit}
 +         disabled={isSubmitting}
-+         size=&quot;lg&quot;
++         size="lg"
 +       &gt;
 +         {isSubmitting
-+           ? &quot;Submitting...&quot;
-+           : status === &quot;PENDING_SUPPLIER&quot;
-+           ? &quot;Resubmit for Review&quot;
-+           : &quot;Submit for Review&quot;}
++           ? "Submitting..."
++           : status === "PENDING_SUPPLIER"
++           ? "Resubmit for Review"
++           : "Submit for Review"}
 +       &lt;/Button&gt;
-+       &lt;p className=&quot;text-xs text-slate-500&quot;&gt;
-+         {status === &quot;PENDING_SUPPLIER&quot;
-+           ? &quot;Resubmitting will send your changes to procurement for review.&quot;
-+           : &quot;Submitting locks edits until procurement requests changes.&quot;}
++       &lt;p className="text-xs text-slate-500"&gt;
++         {status === "PENDING_SUPPLIER"
++           ? "Resubmitting will send your changes to procurement for review."
++           : "Submitting locks edits until procurement requests changes."}
 +       &lt;/p&gt;
 +     &lt;/div&gt;
 +   );
@@ -2936,12 +2936,12 @@ Lines added: 2002, lines removed: 1
 + #### File: &#96;components/supplier/field-wrapper.tsx&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { cn } from &quot;@/lib/utils&quot;;
-+ import { Label } from &quot;@/components/ui/label&quot;;
-+ import { Info } from &quot;lucide-react&quot;;
-+ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from &quot;@/components/ui/tooltip&quot;;
++ import { cn } from "@/lib/utils";
++ import { Label } from "@/components/ui/label";
++ import { Info } from "lucide-react";
++ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 + 
 + interface FieldWrapperProps {
 +   label: string;
@@ -2963,17 +2963,17 @@ Lines added: 2002, lines removed: 1
 +   className,
 + }: FieldWrapperProps) {
 +   return (
-+     &lt;div className={cn(&quot;space-y-2&quot;, className)}&gt;
-+       &lt;div className=&quot;flex items-center gap-2&quot;&gt;
-+         &lt;Label htmlFor={fieldKey} className={cn(!editable &amp;&amp; &quot;text-muted-foreground&quot;)}&gt;
++     &lt;div className={cn("space-y-2", className)}&gt;
++       &lt;div className="flex items-center gap-2"&gt;
++         &lt;Label htmlFor={fieldKey} className={cn(!editable &amp;&amp; "text-muted-foreground")}&gt;
 +           {label}
-+           {required &amp;&amp; &lt;span className=&quot;text-destructive ml-1&quot;&gt;*&lt;/span&gt;}
++           {required &amp;&amp; &lt;span className="text-destructive ml-1"&gt;*&lt;/span&gt;}
 +         &lt;/Label&gt;
 +         {!editable &amp;&amp; (
 +           &lt;TooltipProvider&gt;
 +             &lt;Tooltip&gt;
 +               &lt;TooltipTrigger&gt;
-+                 &lt;Info className=&quot;h-3 w-3 text-muted-foreground&quot; /&gt;
++                 &lt;Info className="h-3 w-3 text-muted-foreground" /&gt;
 +               &lt;/TooltipTrigger&gt;
 +               &lt;TooltipContent&gt;
 +                 &lt;p&gt;This field was not requested for changes.&lt;/p&gt;
@@ -2984,15 +2984,15 @@ Lines added: 2002, lines removed: 1
 +       &lt;/div&gt;
 +       &lt;div
 +         className={cn(
-+           &quot;relative&quot;,
-+           editable &amp;&amp; &quot;ring-2 ring-primary/20 rounded-md p-1&quot;,
-+           !editable &amp;&amp; &quot;opacity-60&quot;
++           "relative",
++           editable &amp;&amp; "ring-2 ring-primary/20 rounded-md p-1",
++           !editable &amp;&amp; "opacity-60"
 +         )}
 +       &gt;
 +         {children}
 +       &lt;/div&gt;
 +       {helpText &amp;&amp; (
-+         &lt;p className=&quot;text-xs text-muted-foreground&quot;&gt;{helpText}&lt;/p&gt;
++         &lt;p className="text-xs text-muted-foreground"&gt;{helpText}&lt;/p&gt;
 +       )}
 +     &lt;/div&gt;
 +   );
@@ -3008,20 +3008,20 @@ Lines added: 2002, lines removed: 1
 + 4. Track edited fields
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { useState, useTransition, useEffect } from &quot;react&quot;;
-+ import { ApplicationStatus } from &quot;@prisma/client&quot;;
++ import { useState, useTransition, useEffect } from "react";
++ import { ApplicationStatus } from "@prisma/client";
 + import {
 +   SupplierWizardData,
 +   supplierWizardSchema,
-+ } from &quot;@/lib/supplierWizardSchema&quot;;
-+ import { saveDraftAction } from &quot;@/app/supplier/onboarding/actions&quot;;
-+ import { Input } from &quot;@/components/ui/input&quot;;
-+ import { FieldWrapper } from &quot;./field-wrapper&quot;;
-+ import { StatusMessage } from &quot;./status-message&quot;;
-+ import { canEditApplication } from &quot;@/lib/application-validation&quot;;
-+ import { useToast } from &quot;@/hooks/use-toast&quot;;
++ } from "@/lib/supplierWizardSchema";
++ import { saveDraftAction } from "@/app/supplier/onboarding/actions";
++ import { Input } from "@/components/ui/input";
++ import { FieldWrapper } from "./field-wrapper";
++ import { StatusMessage } from "./status-message";
++ import { canEditApplication } from "@/lib/application-validation";
++ import { useToast } from "@/hooks/use-toast";
 + 
 + interface WizardFormProps {
 +   applicationId: string;
@@ -3044,7 +3044,7 @@ Lines added: 2002, lines removed: 1
 +   const { toast } = useToast();
 + 
 +   const canEdit = canEditApplication(status);
-+   const isPendingSupplier = status === &quot;PENDING_SUPPLIER&quot;;
++   const isPendingSupplier = status === "PENDING_SUPPLIER";
 + 
 +   // Determine if a field is editable
 +   const isFieldEditable = (fieldKey: string): boolean =&gt; {
@@ -3091,7 +3091,7 @@ Lines added: 2002, lines removed: 1
 +     if (!parse.success) {
 +       const newErrors: Record&lt;string, string&gt; = {};
 +       parse.error.issues.forEach((issue) =&gt; {
-+         newErrors[issue.path.join(&quot;.&quot;)] = issue.message;
++         newErrors[issue.path.join(".")] = issue.message;
 +       });
 +       setErrors(newErrors);
 +       return false;
@@ -3102,7 +3102,7 @@ Lines added: 2002, lines removed: 1
 + 
 +   const handleSave = () =&gt; {
 +     if (!runValidation()) {
-+       setStatusMessage(&quot;Fix validation errors before saving.&quot;);
++       setStatusMessage("Fix validation errors before saving.");
 +       return;
 +     }
 + 
@@ -3113,54 +3113,54 @@ Lines added: 2002, lines removed: 1
 +           formData,
 +           Array.from(editedFields)
 +         );
-+         setStatusMessage(&quot;Draft saved.&quot;);
++         setStatusMessage("Draft saved.");
 +         setEditedFields(new Set());
 +         toast({
-+           title: &quot;Draft saved&quot;,
-+           description: &quot;Your changes have been saved successfully.&quot;,
++           title: "Draft saved",
++           description: "Your changes have been saved successfully.",
 +         });
 +       } catch (error) {
 +         const message =
-+           error instanceof Error ? error.message : &quot;Failed to save draft.&quot;;
++           error instanceof Error ? error.message : "Failed to save draft.";
 +         setStatusMessage(message);
 +         toast({
-+           title: &quot;Error&quot;,
++           title: "Error",
 +           description: message,
-+           variant: &quot;destructive&quot;,
++           variant: "destructive",
 +         });
 +       }
 +     });
 +   };
 + 
-+   if (!canEdit &amp;&amp; status !== &quot;DRAFT&quot; &amp;&amp; status !== &quot;PENDING_SUPPLIER&quot;) {
++   if (!canEdit &amp;&amp; status !== "DRAFT" &amp;&amp; status !== "PENDING_SUPPLIER") {
 +     return &lt;StatusMessage status={status} /&gt;;
 +   }
 + 
 +   return (
-+     &lt;div className=&quot;space-y-6 text-sm text-slate-600&quot;&gt;
++     &lt;div className="space-y-6 text-sm text-slate-600"&gt;
 +       {isPendingSupplier &amp;&amp; (
 +         &lt;StatusMessage status={status} /&gt;
 +       )}
 + 
-+       &lt;div className=&quot;space-y-4 rounded-2xl border border-slate-200 bg-white p-4&quot;&gt;
++       &lt;div className="space-y-4 rounded-2xl border border-slate-200 bg-white p-4"&gt;
 +         &lt;FieldWrapper
-+           label=&quot;Supplier name&quot;
-+           fieldKey=&quot;supplierInformation.supplierName&quot;
-+           editable={isFieldEditable(&quot;supplierInformation.supplierName&quot;)}
++           label="Supplier name"
++           fieldKey="supplierInformation.supplierName"
++           editable={isFieldEditable("supplierInformation.supplierName")}
 +           required
 +         &gt;
 +           &lt;Input
 +             value={formData.supplierInformation.supplierName}
 +             onChange={(e) =&gt;
-+               handleSupplierChange(&quot;supplierName&quot;, e.target.value)
++               handleSupplierChange("supplierName", e.target.value)
 +             }
-+             disabled={!isFieldEditable(&quot;supplierInformation.supplierName&quot;)}
-+             className=&quot;mt-1&quot;
++             disabled={!isFieldEditable("supplierInformation.supplierName")}
++             className="mt-1"
 +           /&gt;
 +         &lt;/FieldWrapper&gt;
-+         {errors[&quot;supplierInformation.supplierName&quot;] &amp;&amp; (
-+           &lt;p className=&quot;text-xs text-red-500&quot;&gt;
-+             {errors[&quot;supplierInformation.supplierName&quot;]}
++         {errors["supplierInformation.supplierName"] &amp;&amp; (
++           &lt;p className="text-xs text-red-500"&gt;
++             {errors["supplierInformation.supplierName"]}
 +           &lt;/p&gt;
 +         )}
 + 
@@ -3168,16 +3168,16 @@ Lines added: 2002, lines removed: 1
 +       &lt;/div&gt;
 + 
 +       {canEdit &amp;&amp; (
-+         &lt;div className=&quot;flex items-center gap-3&quot;&gt;
++         &lt;div className="flex items-center gap-3"&gt;
 +           &lt;Button
-+             type=&quot;button&quot;
++             type="button"
 +             onClick={handleSave}
 +             disabled={isSaving}
 +           &gt;
-+             {isSaving ? &quot;Saving...&quot; : &quot;Save draft&quot;}
++             {isSaving ? "Saving..." : "Save draft"}
 +           &lt;/Button&gt;
 +           {statusMessage &amp;&amp; (
-+             &lt;p className=&quot;text-xs text-slate-500&quot;&gt;{statusMessage}&lt;/p&gt;
++             &lt;p className="text-xs text-slate-500"&gt;{statusMessage}&lt;/p&gt;
 +           )}
 +         &lt;/div&gt;
 +       )}
@@ -3195,16 +3195,16 @@ Lines added: 2002, lines removed: 1
 + 4. Pass status and editableFields to components
 + 
 + &#96;&#96;&#96;typescript
-+ import Link from &quot;next/link&quot;;
-+ import { notFound, redirect } from &quot;next/navigation&quot;;
-+ import { prisma } from &quot;@/lib/prisma&quot;;
-+ import { auth } from &quot;@/lib/auth&quot;;
-+ import { OnboardingHeader } from &quot;@/components/supplier/onboarding-header&quot;;
-+ import { SupplierWizardForm } from &quot;@/components/supplier/wizard-form&quot;;
-+ import { DocumentUploader } from &quot;@/components/supplier/document-uploader&quot;;
-+ import { SubmissionBar } from &quot;@/components/supplier/submission-bar&quot;;
-+ import { SupplierWizardData } from &quot;@/lib/supplierWizardSchema&quot;;
-+ import { getEditableFields } from &quot;@/lib/application-validation&quot;;
++ import Link from "next/link";
++ import { notFound, redirect } from "next/navigation";
++ import { prisma } from "@/lib/prisma";
++ import { auth } from "@/lib/auth";
++ import { OnboardingHeader } from "@/components/supplier/onboarding-header";
++ import { SupplierWizardForm } from "@/components/supplier/wizard-form";
++ import { DocumentUploader } from "@/components/supplier/document-uploader";
++ import { SubmissionBar } from "@/components/supplier/submission-bar";
++ import { SupplierWizardData } from "@/lib/supplierWizardSchema";
++ import { getEditableFields } from "@/lib/application-validation";
 + 
 + interface Params {
 +   id: string;
@@ -3243,13 +3243,13 @@ Lines added: 2002, lines removed: 1
 +   }
 + 
 +   // Redirect to Company Profile if approved
-+   if (application.status === &quot;APPROVED&quot;) {
++   if (application.status === "APPROVED") {
 +     redirect(&#96;/supplier/profile/${application.id}&#96;);
 +   }
 + 
 +   // Get editable fields if PENDING_SUPPLIER
 +   const editableFields =
-+     application.status === &quot;PENDING_SUPPLIER&quot;
++     application.status === "PENDING_SUPPLIER"
 +       ? await getEditableFields(application.id)
 +       : [];
 + 
@@ -3257,7 +3257,7 @@ Lines added: 2002, lines removed: 1
 +   const initialData: SupplierWizardData = /* ... */;
 + 
 +   return (
-+     &lt;div className=&quot;space-y-8&quot;&gt;
++     &lt;div className="space-y-8"&gt;
 +       &lt;OnboardingHeader
 +         applicationId={application.id}
 +         status={application.status}
@@ -3265,7 +3265,7 @@ Lines added: 2002, lines removed: 1
 +         progressValue={progressValue}
 +       /&gt;
 + 
-+       &lt;div className=&quot;grid gap-6 lg:grid-cols-[2fr_1fr]&quot;&gt;
++       &lt;div className="grid gap-6 lg:grid-cols-[2fr_1fr]"&gt;
 +         &lt;SupplierWizardForm
 +           applicationId={application.id}
 +           initialData={initialData}
@@ -3281,8 +3281,8 @@ Lines added: 2002, lines removed: 1
 +       /&gt;
 + 
 +       &lt;Link
-+         href=&quot;/supplier&quot;
-+         className=&quot;text-sm font-medium text-slate-900 underline underline-offset-4&quot;
++         href="/supplier"
++         className="text-sm font-medium text-slate-900 underline underline-offset-4"
 +       &gt;
 +         Back to dashboard
 +       &lt;/Link&gt;
@@ -3314,10 +3314,10 @@ Lines added: 2002, lines removed: 1
 + #### File: &#96;app/api/supplier/profile/[applicationId]/route.ts&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ import { NextRequest, NextResponse } from &quot;next/server&quot;;
-+ import { auth } from &quot;@/lib/auth&quot;;
-+ import { prisma } from &quot;@/lib/prisma&quot;;
-+ import { requireRole } from &quot;@/lib/permissions&quot;;
++ import { NextRequest, NextResponse } from "next/server";
++ import { auth } from "@/lib/auth";
++ import { prisma } from "@/lib/prisma";
++ import { requireRole } from "@/lib/permissions";
 + 
 + export async function GET(
 +   request: NextRequest,
@@ -3327,19 +3327,19 @@ Lines added: 2002, lines removed: 1
 +   const session = await auth();
 + 
 +   if (!session?.user?.id) {
-+     return NextResponse.json({ error: &quot;Unauthorized&quot; }, { status: 401 });
++     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 +   }
 + 
 +   // Check user is supplier and member of organization
 +   const application = await prisma.application.findFirst({
 +     where: {
 +       id: applicationId,
-+       status: &quot;APPROVED&quot;,
++       status: "APPROVED",
 +       organization: {
 +         members: {
 +           some: {
 +             userId: session.user.id,
-+             role: &quot;SUPPLIER&quot;,
++             role: "SUPPLIER",
 +           },
 +         },
 +       },
@@ -3360,7 +3360,7 @@ Lines added: 2002, lines removed: 1
 +             include: {
 +               fields: true,
 +             },
-+             orderBy: { order: &quot;asc&quot; },
++             orderBy: { order: "asc" },
 +           },
 +         },
 +       },
@@ -3369,7 +3369,7 @@ Lines added: 2002, lines removed: 1
 +   });
 + 
 +   if (!application) {
-+     return NextResponse.json({ error: &quot;Not found&quot; }, { status: 404 });
++     return NextResponse.json({ error: "Not found" }, { status: 404 });
 +   }
 + 
 +   return NextResponse.json({
@@ -3391,12 +3391,12 @@ Lines added: 2002, lines removed: 1
 + #### File: &#96;app/supplier/profile/[applicationId]/actions.ts&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use server&quot;;
++ "use server";
 + 
-+ import { auth } from &quot;@/lib/auth&quot;;
-+ import { prisma } from &quot;@/lib/prisma&quot;;
-+ import { revalidatePath } from &quot;next/cache&quot;;
-+ import { SupplierWizardData, supplierWizardSchema } from &quot;@/lib/supplierWizardSchema&quot;;
++ import { auth } from "@/lib/auth";
++ import { prisma } from "@/lib/prisma";
++ import { revalidatePath } from "next/cache";
++ import { SupplierWizardData, supplierWizardSchema } from "@/lib/supplierWizardSchema";
 + 
 + export async function updateCompanyProfileAction(
 +   applicationId: string,
@@ -3404,7 +3404,7 @@ Lines added: 2002, lines removed: 1
 + ) {
 +   const session = await auth();
 +   if (!session?.user?.id) {
-+     throw new Error(&quot;Unauthorized&quot;);
++     throw new Error("Unauthorized");
 +   }
 + 
 +   const application = await prisma.application.findFirst({
@@ -3414,7 +3414,7 @@ Lines added: 2002, lines removed: 1
 +         members: {
 +           some: {
 +             userId: session.user.id,
-+             role: &quot;SUPPLIER&quot;,
++             role: "SUPPLIER",
 +           },
 +         },
 +       },
@@ -3422,17 +3422,17 @@ Lines added: 2002, lines removed: 1
 +   });
 + 
 +   if (!application) {
-+     throw new Error(&quot;Application not found&quot;);
++     throw new Error("Application not found");
 +   }
 + 
-+   if (application.status !== &quot;APPROVED&quot;) {
-+     throw new Error(&quot;Can only edit approved applications&quot;);
++   if (application.status !== "APPROVED") {
++     throw new Error("Can only edit approved applications");
 +   }
 + 
 +   // Validate form data
 +   const parsed = supplierWizardSchema.safeParse(formData);
 +   if (!parsed.success) {
-+     throw new Error(&quot;Validation failed&quot;);
++     throw new Error("Validation failed");
 +   }
 + 
 +   // Update application and change status to PENDING_SUPPLIER
@@ -3440,16 +3440,16 @@ Lines added: 2002, lines removed: 1
 +     where: { id: application.id },
 +     data: {
 +       data: parsed.data,
-+       status: &quot;PENDING_SUPPLIER&quot;,
++       status: "PENDING_SUPPLIER",
 +       updatedById: session.user.id,
 +       auditLogs: {
 +         create: {
 +           actorId: session.user.id,
-+           actorRole: &quot;SUPPLIER&quot;,
++           actorRole: "SUPPLIER",
 +           organizationId: application.organizationId,
-+           action: &quot;PROFILE_EDITED&quot;,
++           action: "PROFILE_EDITED",
 +           details: {
-+             note: &quot;Company profile edited, requires re-approval&quot;,
++             note: "Company profile edited, requires re-approval",
 +           },
 +         },
 +       },
@@ -3457,7 +3457,7 @@ Lines added: 2002, lines removed: 1
 +   });
 + 
 +   revalidatePath(&#96;/supplier/profile/${applicationId}&#96;);
-+   revalidatePath(&quot;/supplier&quot;);
++   revalidatePath("/supplier");
 + 
 +   return { ok: true };
 + }
@@ -3468,12 +3468,12 @@ Lines added: 2002, lines removed: 1
 + #### File: &#96;components/supplier/company-profile-header.tsx&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { Badge } from &quot;@/components/ui/badge&quot;;
-+ import { Card, CardHeader, CardTitle } from &quot;@/components/ui/card&quot;;
-+ import { CheckCircle2 } from &quot;lucide-react&quot;;
-+ import { format } from &quot;date-fns&quot;;
++ import { Badge } from "@/components/ui/badge";
++ import { Card, CardHeader, CardTitle } from "@/components/ui/card";
++ import { CheckCircle2 } from "lucide-react";
++ import { format } from "date-fns";
 + 
 + interface CompanyProfileHeaderProps {
 +   companyName: string;
@@ -3491,21 +3491,21 @@ Lines added: 2002, lines removed: 1
 +   return (
 +     &lt;Card&gt;
 +       &lt;CardHeader&gt;
-+         &lt;div className=&quot;flex items-start justify-between&quot;&gt;
++         &lt;div className="flex items-start justify-between"&gt;
 +           &lt;div&gt;
-+             &lt;CardTitle className=&quot;text-2xl&quot;&gt;{companyName}&lt;/CardTitle&gt;
-+             &lt;p className=&quot;text-sm text-muted-foreground mt-1&quot;&gt;
++             &lt;CardTitle className="text-2xl"&gt;{companyName}&lt;/CardTitle&gt;
++             &lt;p className="text-sm text-muted-foreground mt-1"&gt;
 +               {entityName} • {geographyCode}
 +             &lt;/p&gt;
 +           &lt;/div&gt;
-+           &lt;div className=&quot;flex flex-col items-end gap-2&quot;&gt;
-+             &lt;Badge variant=&quot;default&quot; className=&quot;bg-green-500&quot;&gt;
-+               &lt;CheckCircle2 className=&quot;h-3 w-3 mr-1&quot; /&gt;
++           &lt;div className="flex flex-col items-end gap-2"&gt;
++             &lt;Badge variant="default" className="bg-green-500"&gt;
++               &lt;CheckCircle2 className="h-3 w-3 mr-1" /&gt;
 +               Approved
 +             &lt;/Badge&gt;
 +             {approvedAt &amp;&amp; (
-+               &lt;p className=&quot;text-xs text-muted-foreground&quot;&gt;
-+                 Approved {format(approvedAt, &quot;MMM d, yyyy&quot;)}
++               &lt;p className="text-xs text-muted-foreground"&gt;
++                 Approved {format(approvedAt, "MMM d, yyyy")}
 +               &lt;/p&gt;
 +             )}
 +           &lt;/div&gt;
@@ -3519,20 +3519,20 @@ Lines added: 2002, lines removed: 1
 + #### File: &#96;components/supplier/editable-field.tsx&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { useState, useTransition } from &quot;react&quot;;
-+ import { Input } from &quot;@/components/ui/input&quot;;
-+ import { Button } from &quot;@/components/ui/button&quot;;
-+ import { Label } from &quot;@/components/ui/label&quot;;
-+ import { Edit2, Check, X } from &quot;lucide-react&quot;;
-+ import { cn } from &quot;@/lib/utils&quot;;
++ import { useState, useTransition } from "react";
++ import { Input } from "@/components/ui/input";
++ import { Button } from "@/components/ui/button";
++ import { Label } from "@/components/ui/label";
++ import { Edit2, Check, X } from "lucide-react";
++ import { cn } from "@/lib/utils";
 + 
 + interface EditableFieldProps {
 +   label: string;
 +   value: string | number | null | undefined;
 +   fieldKey: string;
-+   type?: &quot;text&quot; | &quot;email&quot; | &quot;tel&quot; | &quot;number&quot;;
++   type?: "text" | "email" | "tel" | "number";
 +   onSave: (value: string) =&gt; Promise&lt;void&gt;;
 +   disabled?: boolean;
 +   className?: string;
@@ -3542,13 +3542,13 @@ Lines added: 2002, lines removed: 1
 +   label,
 +   value,
 +   fieldKey,
-+   type = &quot;text&quot;,
++   type = "text",
 +   onSave,
 +   disabled = false,
 +   className,
 + }: EditableFieldProps) {
 +   const [isEditing, setIsEditing] = useState(false);
-+   const [editValue, setEditValue] = useState(String(value || &quot;&quot;));
++   const [editValue, setEditValue] = useState(String(value || ""));
 +   const [isSaving, startSaving] = useTransition();
 + 
 +   const handleSave = () =&gt; {
@@ -3559,58 +3559,58 @@ Lines added: 2002, lines removed: 1
 +   };
 + 
 +   const handleCancel = () =&gt; {
-+     setEditValue(String(value || &quot;&quot;));
++     setEditValue(String(value || ""));
 +     setIsEditing(false);
 +   };
 + 
 +   if (disabled) {
 +     return (
-+       &lt;div className={cn(&quot;space-y-2&quot;, className)}&gt;
-+         &lt;Label className=&quot;text-muted-foreground&quot;&gt;{label}&lt;/Label&gt;
-+         &lt;p className=&quot;text-sm font-medium&quot;&gt;{value || &quot;—&quot;}&lt;/p&gt;
++       &lt;div className={cn("space-y-2", className)}&gt;
++         &lt;Label className="text-muted-foreground"&gt;{label}&lt;/Label&gt;
++         &lt;p className="text-sm font-medium"&gt;{value || "—"}&lt;/p&gt;
 +       &lt;/div&gt;
 +     );
 +   }
 + 
 +   return (
-+     &lt;div className={cn(&quot;space-y-2&quot;, className)}&gt;
++     &lt;div className={cn("space-y-2", className)}&gt;
 +       &lt;Label&gt;{label}&lt;/Label&gt;
 +       {isEditing ? (
-+         &lt;div className=&quot;flex items-center gap-2&quot;&gt;
++         &lt;div className="flex items-center gap-2"&gt;
 +           &lt;Input
 +             type={type}
 +             value={editValue}
 +             onChange={(e) =&gt; setEditValue(e.target.value)}
-+             className=&quot;flex-1&quot;
++             className="flex-1"
 +             disabled={isSaving}
 +           /&gt;
 +           &lt;Button
-+             size=&quot;icon&quot;
-+             variant=&quot;ghost&quot;
++             size="icon"
++             variant="ghost"
 +             onClick={handleSave}
 +             disabled={isSaving}
 +           &gt;
-+             &lt;Check className=&quot;h-4 w-4&quot; /&gt;
++             &lt;Check className="h-4 w-4" /&gt;
 +           &lt;/Button&gt;
 +           &lt;Button
-+             size=&quot;icon&quot;
-+             variant=&quot;ghost&quot;
++             size="icon"
++             variant="ghost"
 +             onClick={handleCancel}
 +             disabled={isSaving}
 +           &gt;
-+             &lt;X className=&quot;h-4 w-4&quot; /&gt;
++             &lt;X className="h-4 w-4" /&gt;
 +           &lt;/Button&gt;
 +         &lt;/div&gt;
 +       ) : (
-+         &lt;div className=&quot;flex items-center gap-2&quot;&gt;
-+           &lt;p className=&quot;text-sm font-medium flex-1&quot;&gt;{value || &quot;—&quot;}&lt;/p&gt;
++         &lt;div className="flex items-center gap-2"&gt;
++           &lt;p className="text-sm font-medium flex-1"&gt;{value || "—"}&lt;/p&gt;
 +           &lt;Button
-+             size=&quot;icon&quot;
-+             variant=&quot;ghost&quot;
++             size="icon"
++             variant="ghost"
 +             onClick={() =&gt; setIsEditing(true)}
-+             className=&quot;h-8 w-8&quot;
++             className="h-8 w-8"
 +           &gt;
-+             &lt;Edit2 className=&quot;h-4 w-4&quot; /&gt;
++             &lt;Edit2 className="h-4 w-4" /&gt;
 +           &lt;/Button&gt;
 +         &lt;/div&gt;
 +       )}
@@ -3622,18 +3622,18 @@ Lines added: 2002, lines removed: 1
 + #### File: &#96;components/supplier/company-profile-section.tsx&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { Card, CardContent, CardHeader, CardTitle } from &quot;@/components/ui/card&quot;;
-+ import { EditableField } from &quot;./editable-field&quot;;
-+ import { Alert, AlertDescription } from &quot;@/components/ui/alert&quot;;
-+ import { Info } from &quot;lucide-react&quot;;
++ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
++ import { EditableField } from "./editable-field";
++ import { Alert, AlertDescription } from "@/components/ui/alert";
++ import { Info } from "lucide-react";
 + 
 + interface Field {
 +   key: string;
 +   label: string;
 +   value: string | number | null | undefined;
-+   type?: &quot;text&quot; | &quot;email&quot; | &quot;tel&quot; | &quot;number&quot;;
++   type?: "text" | "email" | "tel" | "number";
 + }
 + 
 + interface CompanyProfileSectionProps {
@@ -3653,13 +3653,13 @@ Lines added: 2002, lines removed: 1
 +         &lt;CardTitle&gt;{title}&lt;/CardTitle&gt;
 +       &lt;/CardHeader&gt;
 +       &lt;CardContent&gt;
-+         &lt;Alert className=&quot;mb-4&quot;&gt;
-+           &lt;Info className=&quot;h-4 w-4&quot; /&gt;
++         &lt;Alert className="mb-4"&gt;
++           &lt;Info className="h-4 w-4" /&gt;
 +           &lt;AlertDescription&gt;
 +             All changes require re-approval from procurement.
 +           &lt;/AlertDescription&gt;
 +         &lt;/Alert&gt;
-+         &lt;div className=&quot;grid gap-4 md:grid-cols-2&quot;&gt;
++         &lt;div className="grid gap-4 md:grid-cols-2"&gt;
 +           {fields.map((field) =&gt; (
 +             &lt;EditableField
 +               key={field.key}
@@ -3680,19 +3680,19 @@ Lines added: 2002, lines removed: 1
 + #### File: &#96;components/supplier/company-profile.tsx&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { useState, useTransition } from &quot;react&quot;;
-+ import { useRouter } from &quot;next/navigation&quot;;
-+ import { CompanyProfileHeader } from &quot;./company-profile-header&quot;;
-+ import { CompanyProfileSection } from &quot;./company-profile-section&quot;;
-+ import { updateCompanyProfileAction } from &quot;@/app/supplier/profile/[applicationId]/actions&quot;;
-+ import { SupplierWizardData } from &quot;@/lib/supplierWizardSchema&quot;;
-+ import { useToast } from &quot;@/hooks/use-toast&quot;;
-+ import { Card, CardContent, CardHeader, CardTitle } from &quot;@/components/ui/card&quot;;
-+ import { Button } from &quot;@/components/ui/button&quot;;
-+ import { Download, FileText } from &quot;lucide-react&quot;;
-+ import { format } from &quot;date-fns&quot;;
++ import { useState, useTransition } from "react";
++ import { useRouter } from "next/navigation";
++ import { CompanyProfileHeader } from "./company-profile-header";
++ import { CompanyProfileSection } from "./company-profile-section";
++ import { updateCompanyProfileAction } from "@/app/supplier/profile/[applicationId]/actions";
++ import { SupplierWizardData } from "@/lib/supplierWizardSchema";
++ import { useToast } from "@/hooks/use-toast";
++ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
++ import { Button } from "@/components/ui/button";
++ import { Download, FileText } from "lucide-react";
++ import { format } from "date-fns";
 + 
 + interface CompanyProfileProps {
 +   applicationId: string;
@@ -3726,7 +3726,7 @@ Lines added: 2002, lines removed: 1
 + 
 +   const handleFieldUpdate = async (fieldKey: string, value: string) =&gt; {
 +     // Update local state
-+     const keys = fieldKey.split(&quot;.&quot;);
++     const keys = fieldKey.split(".");
 +     const newData = { ...formData };
 +     let current: any = newData;
 + 
@@ -3742,17 +3742,17 @@ Lines added: 2002, lines removed: 1
 +       try {
 +         await updateCompanyProfileAction(applicationId, newData);
 +         toast({
-+           title: &quot;Changes saved&quot;,
++           title: "Changes saved",
 +           description:
-+             &quot;Your changes have been submitted for re-approval. Procurement will review and approve.&quot;,
++             "Your changes have been submitted for re-approval. Procurement will review and approve.",
 +         });
 +         router.refresh();
 +       } catch (error) {
 +         toast({
-+           title: &quot;Error&quot;,
++           title: "Error",
 +           description:
-+             error instanceof Error ? error.message : &quot;Failed to save changes&quot;,
-+           variant: &quot;destructive&quot;,
++             error instanceof Error ? error.message : "Failed to save changes",
++           variant: "destructive",
 +         });
 +       }
 +     });
@@ -3761,73 +3761,73 @@ Lines added: 2002, lines removed: 1
 +   // Organize fields into sections
 +   const companyInfoFields = [
 +     {
-+       key: &quot;supplierInformation.supplierName&quot;,
-+       label: &quot;Supplier Name&quot;,
++       key: "supplierInformation.supplierName",
++       label: "Supplier Name",
 +       value: formData.supplierInformation?.supplierName,
-+       type: &quot;text&quot; as const,
++       type: "text" as const,
 +     },
 +     {
-+       key: &quot;supplierInformation.salesContactName&quot;,
-+       label: &quot;Sales Contact Name&quot;,
++       key: "supplierInformation.salesContactName",
++       label: "Sales Contact Name",
 +       value: formData.supplierInformation?.salesContactName,
-+       type: &quot;text&quot; as const,
++       type: "text" as const,
 +     },
 +     {
-+       key: &quot;supplierInformation.salesContactEmail&quot;,
-+       label: &quot;Sales Contact Email&quot;,
++       key: "supplierInformation.salesContactEmail",
++       label: "Sales Contact Email",
 +       value: formData.supplierInformation?.salesContactEmail,
-+       type: &quot;email&quot; as const,
++       type: "email" as const,
 +     },
 +   ];
 + 
 +   const addressFields = [
 +     {
-+       key: &quot;addresses.remitToAddress.line1&quot;,
-+       label: &quot;Remit-to Address Line 1&quot;,
++       key: "addresses.remitToAddress.line1",
++       label: "Remit-to Address Line 1",
 +       value: formData.addresses?.remitToAddress?.line1,
-+       type: &quot;text&quot; as const,
++       type: "text" as const,
 +     },
 +     {
-+       key: &quot;addresses.remitToAddress.city&quot;,
-+       label: &quot;City&quot;,
++       key: "addresses.remitToAddress.city",
++       label: "City",
 +       value: formData.addresses?.remitToAddress?.city,
-+       type: &quot;text&quot; as const,
++       type: "text" as const,
 +     },
 +     {
-+       key: &quot;addresses.remitToAddress.country&quot;,
-+       label: &quot;Country&quot;,
++       key: "addresses.remitToAddress.country",
++       label: "Country",
 +       value: formData.addresses?.remitToAddress?.country,
-+       type: &quot;text&quot; as const,
++       type: "text" as const,
 +     },
 +   ];
 + 
 +   const bankingFields = [
 +     {
-+       key: &quot;bankInformation.bankName&quot;,
-+       label: &quot;Bank Name&quot;,
++       key: "bankInformation.bankName",
++       label: "Bank Name",
 +       value: formData.bankInformation?.bankName,
-+       type: &quot;text&quot; as const,
++       type: "text" as const,
 +     },
 +     {
-+       key: &quot;bankInformation.routingNumber&quot;,
-+       label: &quot;Routing Number&quot;,
++       key: "bankInformation.routingNumber",
++       label: "Routing Number",
 +       value: formData.bankInformation?.routingNumber
-+         ? &quot;••••••&quot;
++         ? "••••••"
 +         : null,
-+       type: &quot;text&quot; as const,
++       type: "text" as const,
 +     },
 +     {
-+       key: &quot;bankInformation.accountNumber&quot;,
-+       label: &quot;Account Number&quot;,
++       key: "bankInformation.accountNumber",
++       label: "Account Number",
 +       value: formData.bankInformation?.accountNumber
-+         ? &quot;••••••&quot;
++         ? "••••••"
 +         : null,
-+       type: &quot;text&quot; as const,
++       type: "text" as const,
 +     },
 +   ];
 + 
 +   return (
-+     &lt;div className=&quot;space-y-6&quot;&gt;
++     &lt;div className="space-y-6"&gt;
 +       &lt;CompanyProfileHeader
 +         companyName={companyName}
 +         approvedAt={approvedAt}
@@ -3836,19 +3836,19 @@ Lines added: 2002, lines removed: 1
 +       /&gt;
 + 
 +       &lt;CompanyProfileSection
-+         title=&quot;Company Information&quot;
++         title="Company Information"
 +         fields={companyInfoFields}
 +         onFieldUpdate={handleFieldUpdate}
 +       /&gt;
 + 
 +       &lt;CompanyProfileSection
-+         title=&quot;Addresses&quot;
++         title="Addresses"
 +         fields={addressFields}
 +         onFieldUpdate={handleFieldUpdate}
 +       /&gt;
 + 
 +       &lt;CompanyProfileSection
-+         title=&quot;Banking Information&quot;
++         title="Banking Information"
 +         fields={bankingFields}
 +         onFieldUpdate={handleFieldUpdate}
 +       /&gt;
@@ -3859,30 +3859,30 @@ Lines added: 2002, lines removed: 1
 +         &lt;/CardHeader&gt;
 +         &lt;CardContent&gt;
 +           {documents.length === 0 ? (
-+             &lt;p className=&quot;text-sm text-muted-foreground&quot;&gt;No documents uploaded.&lt;/p&gt;
++             &lt;p className="text-sm text-muted-foreground"&gt;No documents uploaded.&lt;/p&gt;
 +           ) : (
-+             &lt;div className=&quot;space-y-2&quot;&gt;
++             &lt;div className="space-y-2"&gt;
 +               {documents.map((doc) =&gt; (
 +                 &lt;div
 +                   key={doc.id}
-+                   className=&quot;flex items-center justify-between p-3 border rounded-lg&quot;
++                   className="flex items-center justify-between p-3 border rounded-lg"
 +                 &gt;
-+                   &lt;div className=&quot;flex items-center gap-3&quot;&gt;
-+                     &lt;FileText className=&quot;h-5 w-5 text-muted-foreground&quot; /&gt;
++                   &lt;div className="flex items-center gap-3"&gt;
++                     &lt;FileText className="h-5 w-5 text-muted-foreground" /&gt;
 +                     &lt;div&gt;
-+                       &lt;p className=&quot;text-sm font-medium&quot;&gt;{doc.documentType.label}&lt;/p&gt;
-+                       &lt;p className=&quot;text-xs text-muted-foreground&quot;&gt;
-+                         {doc.fileName} • Uploaded {format(doc.uploadedAt, &quot;MMM d, yyyy&quot;)}
++                       &lt;p className="text-sm font-medium"&gt;{doc.documentType.label}&lt;/p&gt;
++                       &lt;p className="text-xs text-muted-foreground"&gt;
++                         {doc.fileName} • Uploaded {format(doc.uploadedAt, "MMM d, yyyy")}
 +                       &lt;/p&gt;
 +                     &lt;/div&gt;
 +                   &lt;/div&gt;
 +                   &lt;Button
-+                     variant=&quot;outline&quot;
-+                     size=&quot;sm&quot;
++                     variant="outline"
++                     size="sm"
 +                     asChild
 +                   &gt;
-+                     &lt;a href={doc.fileUrl} target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;
-+                       &lt;Download className=&quot;h-4 w-4 mr-2&quot; /&gt;
++                     &lt;a href={doc.fileUrl} target="_blank" rel="noopener noreferrer"&gt;
++                       &lt;Download className="h-4 w-4 mr-2" /&gt;
 +                       Download
 +                     &lt;/a&gt;
 +                   &lt;/Button&gt;
@@ -3900,12 +3900,12 @@ Lines added: 2002, lines removed: 1
 + #### File: &#96;app/supplier/profile/[applicationId]/page.tsx&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ import { notFound, redirect } from &quot;next/navigation&quot;;
-+ import { prisma } from &quot;@/lib/prisma&quot;;
-+ import { auth } from &quot;@/lib/auth&quot;;
-+ import { CompanyProfile } from &quot;@/components/supplier/company-profile&quot;;
-+ import { SupplierWizardData } from &quot;@/lib/supplierWizardSchema&quot;;
-+ import { requireRole } from &quot;@/lib/permissions&quot;;
++ import { notFound, redirect } from "next/navigation";
++ import { prisma } from "@/lib/prisma";
++ import { auth } from "@/lib/auth";
++ import { CompanyProfile } from "@/components/supplier/company-profile";
++ import { SupplierWizardData } from "@/lib/supplierWizardSchema";
++ import { requireRole } from "@/lib/permissions";
 + 
 + interface Params {
 +   applicationId: string;
@@ -3920,11 +3920,11 @@ Lines added: 2002, lines removed: 1
 +   const session = await auth();
 + 
 +   if (!session?.user?.id) {
-+     redirect(&quot;/signin&quot;);
++     redirect("/signin");
 +   }
 + 
 +   // Check user is supplier
-+   await requireRole([&quot;SUPPLIER&quot;]);
++   await requireRole(["SUPPLIER"]);
 + 
 +   const application = await prisma.application.findFirst({
 +     where: {
@@ -3945,7 +3945,7 @@ Lines added: 2002, lines removed: 1
 +         include: {
 +           documentType: true,
 +         },
-+         orderBy: { uploadedAt: &quot;desc&quot; },
++         orderBy: { uploadedAt: "desc" },
 +       },
 +     },
 +   });
@@ -3955,7 +3955,7 @@ Lines added: 2002, lines removed: 1
 +   }
 + 
 +   // Redirect if not approved
-+   if (application.status !== &quot;APPROVED&quot;) {
++   if (application.status !== "APPROVED") {
 +     redirect(&#96;/supplier/onboarding/${applicationId}&#96;);
 +   }
 + 
@@ -3963,10 +3963,10 @@ Lines added: 2002, lines removed: 1
 +     (application.data as SupplierWizardData | null) ?? ({} as SupplierWizardData);
 + 
 +   return (
-+     &lt;div className=&quot;container mx-auto py-8 space-y-6&quot;&gt;
-+       &lt;div className=&quot;space-y-2&quot;&gt;
-+         &lt;h1 className=&quot;text-3xl font-semibold&quot;&gt;Company Profile&lt;/h1&gt;
-+         &lt;p className=&quot;text-muted-foreground&quot;&gt;
++     &lt;div className="container mx-auto py-8 space-y-6"&gt;
++       &lt;div className="space-y-2"&gt;
++         &lt;h1 className="text-3xl font-semibold"&gt;Company Profile&lt;/h1&gt;
++         &lt;p className="text-muted-foreground"&gt;
 +           View and manage your approved company information
 +         &lt;/p&gt;
 +       &lt;/div&gt;
@@ -3999,7 +3999,7 @@ Lines added: 2002, lines removed: 1
 + 
 + &#96;&#96;&#96;typescript
 + // In the applications list, add:
-+ {application.status === &quot;APPROVED&quot; &amp;&amp; (
++ {application.status === "APPROVED" &amp;&amp; (
 +   &lt;Link href={&#96;/supplier/profile/${application.id}&#96;}&gt;
 +     View Company Profile
 +   &lt;/Link&gt;
@@ -4032,14 +4032,14 @@ Lines added: 2002, lines removed: 1
 + Add new actions:
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use server&quot;;
++ "use server";
 + 
-+ import { revalidatePath } from &quot;next/cache&quot;;
-+ import { auth } from &quot;@/lib/auth&quot;;
-+ import { prisma } from &quot;@/lib/prisma&quot;;
-+ import { requireRole } from &quot;@/lib/permissions&quot;;
-+ import { canTransition } from &quot;@/lib/application-state&quot;;
-+ import { SupplierWizardData, supplierWizardSchema } from &quot;@/lib/supplierWizardSchema&quot;;
++ import { revalidatePath } from "next/cache";
++ import { auth } from "@/lib/auth";
++ import { prisma } from "@/lib/prisma";
++ import { requireRole } from "@/lib/permissions";
++ import { canTransition } from "@/lib/application-state";
++ import { SupplierWizardData, supplierWizardSchema } from "@/lib/supplierWizardSchema";
 + 
 + // ... existing actions ...
 + 
@@ -4051,10 +4051,10 @@ Lines added: 2002, lines removed: 1
 + }) {
 +   const session = await auth();
 +   if (!session?.user?.id) {
-+     throw new Error(&quot;Unauthorized&quot;);
++     throw new Error("Unauthorized");
 +   }
 + 
-+   await requireRole([&quot;ADMIN&quot;, &quot;PROCUREMENT&quot;, &quot;MEMBER&quot;]);
++   await requireRole(["ADMIN", "PROCUREMENT", "MEMBER"]);
 + 
 +   const application = await prisma.application.create({
 +     data: {
@@ -4062,53 +4062,53 @@ Lines added: 2002, lines removed: 1
 +       entityId: input.entityId,
 +       geographyId: input.geographyId,
 +       formConfigId: input.formConfigId,
-+       status: &quot;DRAFT&quot;,
++       status: "DRAFT",
 +       createdById: session.user.id,
 +       updatedById: session.user.id,
 +     },
 +   });
 + 
-+   revalidatePath(&quot;/dashboard/procurement&quot;);
++   revalidatePath("/dashboard/procurement");
 +   return { ok: true, applicationId: application.id };
 + }
 + 
 + export async function submitOnBehalfAction(applicationId: string) {
 +   const session = await auth();
 +   if (!session?.user?.id) {
-+     throw new Error(&quot;Unauthorized&quot;);
++     throw new Error("Unauthorized");
 +   }
 + 
-+   await requireRole([&quot;ADMIN&quot;, &quot;PROCUREMENT&quot;, &quot;MEMBER&quot;]);
++   await requireRole(["ADMIN", "PROCUREMENT", "MEMBER"]);
 + 
 +   const application = await prisma.application.findUnique({
 +     where: { id: applicationId },
 +   });
 + 
 +   if (!application) {
-+     throw new Error(&quot;Application not found&quot;);
++     throw new Error("Application not found");
 +   }
 + 
-+   if (application.status !== &quot;DRAFT&quot; &amp;&amp; application.status !== &quot;PENDING_SUPPLIER&quot;) {
-+     throw new Error(&quot;Can only submit DRAFT or PENDING_SUPPLIER applications&quot;);
++   if (application.status !== "DRAFT" &amp;&amp; application.status !== "PENDING_SUPPLIER") {
++     throw new Error("Can only submit DRAFT or PENDING_SUPPLIER applications");
 +   }
 + 
 +   await prisma.application.update({
 +     where: { id: application.id },
 +     data: {
-+       status: &quot;SUBMITTED&quot;,
++       status: "SUBMITTED",
 +       submittedAt: new Date(),
 +       submittedById: session.user.id,
-+       submissionType: &quot;INTERNAL&quot;,
++       submissionType: "INTERNAL",
 +       updatedById: session.user.id,
 +       auditLogs: {
 +         create: {
 +           actorId: session.user.id,
-+           actorRole: &quot;PROCUREMENT&quot;, // or get actual role
++           actorRole: "PROCUREMENT", // or get actual role
 +           organizationId: application.organizationId,
-+           action: &quot;APPLICATION_SUBMITTED&quot;,
++           action: "APPLICATION_SUBMITTED",
 +           details: {
-+             submissionType: &quot;INTERNAL&quot;,
-+             note: &quot;Submitted by internal team member&quot;,
++             submissionType: "INTERNAL",
++             note: "Submitted by internal team member",
 +           },
 +         },
 +       },
@@ -4116,7 +4116,7 @@ Lines added: 2002, lines removed: 1
 +   });
 + 
 +   revalidatePath(&#96;/dashboard/procurement/${applicationId}&#96;);
-+   revalidatePath(&quot;/dashboard/procurement&quot;);
++   revalidatePath("/dashboard/procurement");
 +   
 +   return { ok: true };
 + }
@@ -4127,26 +4127,26 @@ Lines added: 2002, lines removed: 1
 + ) {
 +   const session = await auth();
 +   if (!session?.user?.id) {
-+     throw new Error(&quot;Unauthorized&quot;);
++     throw new Error("Unauthorized");
 +   }
 + 
-+   await requireRole([&quot;ADMIN&quot;, &quot;PROCUREMENT&quot;, &quot;MEMBER&quot;]);
++   await requireRole(["ADMIN", "PROCUREMENT", "MEMBER"]);
 + 
 +   const application = await prisma.application.findUnique({
 +     where: { id: applicationId },
 +   });
 + 
 +   if (!application) {
-+     throw new Error(&quot;Application not found&quot;);
++     throw new Error("Application not found");
 +   }
 + 
-+   if (application.status !== &quot;DRAFT&quot;) {
-+     throw new Error(&quot;Can only edit DRAFT applications&quot;);
++   if (application.status !== "DRAFT") {
++     throw new Error("Can only edit DRAFT applications");
 +   }
 + 
 +   const parsed = supplierWizardSchema.safeParse(formData);
 +   if (!parsed.success) {
-+     throw new Error(&quot;Validation failed&quot;);
++     throw new Error("Validation failed");
 +   }
 + 
 +   await prisma.application.update({
@@ -4166,7 +4166,7 @@ Lines added: 2002, lines removed: 1
 + 
 + #### File: &#96;components/procurement/submissions-table.tsx&#96; (UPDATE)
 + 
-+ Add &quot;Submitted By&quot; column:
++ Add "Submitted By" column:
 + 
 + &#96;&#96;&#96;typescript
 + // Add column header
@@ -4174,10 +4174,10 @@ Lines added: 2002, lines removed: 1
 + 
 + // Add cell
 + &lt;TableCell&gt;
-+   {row.submissionType === &quot;INTERNAL&quot; ? (
-+     &lt;Badge variant=&quot;secondary&quot;&gt;Internal Team&lt;/Badge&gt;
++   {row.submissionType === "INTERNAL" ? (
++     &lt;Badge variant="secondary"&gt;Internal Team&lt;/Badge&gt;
 +   ) : (
-+     &lt;Badge variant=&quot;outline&quot;&gt;Supplier&lt;/Badge&gt;
++     &lt;Badge variant="outline"&gt;Supplier&lt;/Badge&gt;
 +   )}
 + &lt;/TableCell&gt;
 + &#96;&#96;&#96;
@@ -4185,30 +4185,30 @@ Lines added: 2002, lines removed: 1
 + #### File: &#96;components/procurement/submission-source-badge.tsx&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { Badge } from &quot;@/components/ui/badge&quot;;
-+ import { User, Users } from &quot;lucide-react&quot;;
++ import { Badge } from "@/components/ui/badge";
++ import { User, Users } from "lucide-react";
 + 
 + interface SubmissionSourceBadgeProps {
-+   submissionType: &quot;SUPPLIER&quot; | &quot;INTERNAL&quot; | null;
++   submissionType: "SUPPLIER" | "INTERNAL" | null;
 + }
 + 
 + export function SubmissionSourceBadge({
 +   submissionType,
 + }: SubmissionSourceBadgeProps) {
-+   if (submissionType === &quot;INTERNAL&quot;) {
++   if (submissionType === "INTERNAL") {
 +     return (
-+       &lt;Badge variant=&quot;secondary&quot; className=&quot;gap-1&quot;&gt;
-+         &lt;Users className=&quot;h-3 w-3&quot; /&gt;
++       &lt;Badge variant="secondary" className="gap-1"&gt;
++         &lt;Users className="h-3 w-3" /&gt;
 +         Internal Team
 +       &lt;/Badge&gt;
 +     );
 +   }
 + 
 +   return (
-+     &lt;Badge variant=&quot;outline&quot; className=&quot;gap-1&quot;&gt;
-+       &lt;User className=&quot;h-3 w-3&quot; /&gt;
++     &lt;Badge variant="outline" className="gap-1"&gt;
++       &lt;User className="h-3 w-3" /&gt;
 +       Supplier
 +     &lt;/Badge&gt;
 +   );
@@ -4231,10 +4231,10 @@ Lines added: 2002, lines removed: 1
 + #### File: &#96;components/procurement/create-application-dialog.tsx&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { useState, useTransition } from &quot;react&quot;;
-+ import { useRouter } from &quot;next/navigation&quot;;
++ import { useState, useTransition } from "react";
++ import { useRouter } from "next/navigation";
 + import {
 +   Dialog,
 +   DialogContent,
@@ -4242,18 +4242,18 @@ Lines added: 2002, lines removed: 1
 +   DialogHeader,
 +   DialogTitle,
 +   DialogTrigger,
-+ } from &quot;@/components/ui/dialog&quot;;
-+ import { Button } from &quot;@/components/ui/button&quot;;
-+ import { Label } from &quot;@/components/ui/label&quot;;
++ } from "@/components/ui/dialog";
++ import { Button } from "@/components/ui/button";
++ import { Label } from "@/components/ui/label";
 + import {
 +   Select,
 +   SelectContent,
 +   SelectItem,
 +   SelectTrigger,
 +   SelectValue,
-+ } from &quot;@/components/ui/select&quot;;
-+ import { createApplicationOnBehalfAction } from &quot;@/app/dashboard/procurement/[id]/actions&quot;;
-+ import { useToast } from &quot;@/hooks/use-toast&quot;;
++ } from "@/components/ui/select";
++ import { createApplicationOnBehalfAction } from "@/app/dashboard/procurement/[id]/actions";
++ import { useToast } from "@/hooks/use-toast";
 + 
 + interface CreateApplicationDialogProps {
 +   organizations: Array&lt;{ id: string; name: string }&gt;;
@@ -4269,10 +4269,10 @@ Lines added: 2002, lines removed: 1
 +   formConfigs,
 + }: CreateApplicationDialogProps) {
 +   const [open, setOpen] = useState(false);
-+   const [organizationId, setOrganizationId] = useState(&quot;&quot;);
-+   const [entityId, setEntityId] = useState(&quot;&quot;);
-+   const [geographyId, setGeographyId] = useState(&quot;&quot;);
-+   const [formConfigId, setFormConfigId] = useState(&quot;&quot;);
++   const [organizationId, setOrganizationId] = useState("");
++   const [entityId, setEntityId] = useState("");
++   const [geographyId, setGeographyId] = useState("");
++   const [formConfigId, setFormConfigId] = useState("");
 +   const [isCreating, startCreating] = useTransition();
 +   const router = useRouter();
 +   const { toast } = useToast();
@@ -4284,9 +4284,9 @@ Lines added: 2002, lines removed: 1
 +   const handleCreate = () =&gt; {
 +     if (!organizationId || !entityId || !geographyId || !formConfigId) {
 +       toast({
-+         title: &quot;Error&quot;,
-+         description: &quot;Please fill all fields&quot;,
-+         variant: &quot;destructive&quot;,
++         title: "Error",
++         description: "Please fill all fields",
++         variant: "destructive",
 +       });
 +       return;
 +     }
@@ -4300,16 +4300,16 @@ Lines added: 2002, lines removed: 1
 +           formConfigId,
 +         });
 +         toast({
-+           title: &quot;Application created&quot;,
-+           description: &quot;You can now edit and submit this application.&quot;,
++           title: "Application created",
++           description: "You can now edit and submit this application.",
 +         });
 +         setOpen(false);
 +         router.push(&#96;/dashboard/procurement/${result.applicationId}&#96;);
 +       } catch (error) {
 +         toast({
-+           title: &quot;Error&quot;,
-+           description: error instanceof Error ? error.message : &quot;Failed to create application&quot;,
-+           variant: &quot;destructive&quot;,
++           title: "Error",
++           description: error instanceof Error ? error.message : "Failed to create application",
++           variant: "destructive",
 +         });
 +       }
 +     });
@@ -4327,12 +4327,12 @@ Lines added: 2002, lines removed: 1
 +             Create a new application for a supplier organization.
 +           &lt;/DialogDescription&gt;
 +         &lt;/DialogHeader&gt;
-+         &lt;div className=&quot;space-y-4&quot;&gt;
-+           &lt;div className=&quot;space-y-2&quot;&gt;
++         &lt;div className="space-y-4"&gt;
++           &lt;div className="space-y-2"&gt;
 +             &lt;Label&gt;Organization&lt;/Label&gt;
 +             &lt;Select value={organizationId} onValueChange={setOrganizationId}&gt;
 +               &lt;SelectTrigger&gt;
-+                 &lt;SelectValue placeholder=&quot;Select organization&quot; /&gt;
++                 &lt;SelectValue placeholder="Select organization" /&gt;
 +               &lt;/SelectTrigger&gt;
 +               &lt;SelectContent&gt;
 +                 {organizations.map((org) =&gt; (
@@ -4344,11 +4344,11 @@ Lines added: 2002, lines removed: 1
 +             &lt;/Select&gt;
 +           &lt;/div&gt;
 + 
-+           &lt;div className=&quot;space-y-2&quot;&gt;
++           &lt;div className="space-y-2"&gt;
 +             &lt;Label&gt;Entity&lt;/Label&gt;
 +             &lt;Select value={entityId} onValueChange={setEntityId}&gt;
 +               &lt;SelectTrigger&gt;
-+                 &lt;SelectValue placeholder=&quot;Select entity&quot; /&gt;
++                 &lt;SelectValue placeholder="Select entity" /&gt;
 +               &lt;/SelectTrigger&gt;
 +               &lt;SelectContent&gt;
 +                 {entities.map((entity) =&gt; (
@@ -4360,11 +4360,11 @@ Lines added: 2002, lines removed: 1
 +             &lt;/Select&gt;
 +           &lt;/div&gt;
 + 
-+           &lt;div className=&quot;space-y-2&quot;&gt;
++           &lt;div className="space-y-2"&gt;
 +             &lt;Label&gt;Geography&lt;/Label&gt;
 +             &lt;Select value={geographyId} onValueChange={setGeographyId}&gt;
 +               &lt;SelectTrigger&gt;
-+                 &lt;SelectValue placeholder=&quot;Select geography&quot; /&gt;
++                 &lt;SelectValue placeholder="Select geography" /&gt;
 +               &lt;/SelectTrigger&gt;
 +               &lt;SelectContent&gt;
 +                 {geographies.map((geo) =&gt; (
@@ -4376,7 +4376,7 @@ Lines added: 2002, lines removed: 1
 +             &lt;/Select&gt;
 +           &lt;/div&gt;
 + 
-+           &lt;div className=&quot;space-y-2&quot;&gt;
++           &lt;div className="space-y-2"&gt;
 +             &lt;Label&gt;Form Configuration&lt;/Label&gt;
 +             &lt;Select
 +               value={formConfigId}
@@ -4384,7 +4384,7 @@ Lines added: 2002, lines removed: 1
 +               disabled={!entityId || !geographyId}
 +             &gt;
 +               &lt;SelectTrigger&gt;
-+                 &lt;SelectValue placeholder=&quot;Select form config&quot; /&gt;
++                 &lt;SelectValue placeholder="Select form config" /&gt;
 +               &lt;/SelectTrigger&gt;
 +               &lt;SelectContent&gt;
 +                 {availableFormConfigs.map((config) =&gt; (
@@ -4399,9 +4399,9 @@ Lines added: 2002, lines removed: 1
 +           &lt;Button
 +             onClick={handleCreate}
 +             disabled={isCreating || !formConfigId}
-+             className=&quot;w-full&quot;
++             className="w-full"
 +           &gt;
-+             {isCreating ? &quot;Creating...&quot; : &quot;Create Application&quot;}
++             {isCreating ? "Creating..." : "Create Application"}
 +           &lt;/Button&gt;
 +         &lt;/div&gt;
 +       &lt;/DialogContent&gt;
@@ -4581,18 +4581,18 @@ Fixing the missing import in the implementation plan:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: undefined
 
 ```diff
 @@ -499,4 +499,5 @@
-  import { saveDraftAction } from &quot;@/app/supplier/onboarding/actions&quot;;
-  import { Input } from &quot;@/components/ui/input&quot;;
-+ import { Button } from &quot;@/components/ui/button&quot;;
-  import { FieldWrapper } from &quot;./field-wrapper&quot;;
-  import { StatusMessage } from &quot;./status-message&quot;;
+  import { saveDraftAction } from "@/app/supplier/onboarding/actions";
+  import { Input } from "@/components/ui/input";
++ import { Button } from "@/components/ui/button";
+  import { FieldWrapper } from "./field-wrapper";
+  import { StatusMessage } from "./status-message";
 ```
 
 </details>
@@ -4821,7 +4821,7 @@ Updating the PRD and implementation plan to separate applications from onboarded
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 52, lines removed: 15
@@ -4856,7 +4856,7 @@ Lines added: 52, lines removed: 15
 +   geography       Geography @relation(fields: [geographyId], references: [id])
 +   application     Application @relation(fields: [applicationId], references: [id])
 +   documents       SupplierDocument[]
-+   updateApplications Application[] @relation(&quot;SupplierUpdateApplications&quot;)
++   updateApplications Application[] @relation("SupplierUpdateApplications")
 + }
 + &#96;&#96;&#96;
 + 
@@ -4864,7 +4864,7 @@ Lines added: 52, lines removed: 15
 + - Supplier is created when Application status changes to &#96;APPROVED&#96;
 + - Supplier data is pre-filled from Application.data
 + - Supplier documents are copied from Application documents
-+ - Supplier represents the &quot;source of truth&quot; for onboarded supplier information
++ - Supplier represents the "source of truth" for onboarded supplier information
 + - Applications represent the workflow/approval process
 + 
 + #### 4.2.2 Route Structure
@@ -4872,13 +4872,13 @@ Lines added: 52, lines removed: 15
   **New Route:**
 - - &#96;/supplier/profile/[applicationId]&#96; - Company Profile view for approved applications
 + - &#96;/supplier/profile/[supplierId]&#96; - Company Profile view for onboarded suppliers
-+ - Alternative: &#96;/supplier/profile&#96; - Shows supplier&#39;s own profile (if only one)
++ - Alternative: &#96;/supplier/profile&#96; - Shows supplier's own profile (if only one)
   
   **Access Control:**
   - Only accessible to users with &#96;SUPPLIER&#96; role
 - - Only accessible when application status is &#96;APPROVED&#96;
 - - Redirect to onboarding wizard if status is not &#96;APPROVED&#96;
-+ - Only accessible to members of the supplier&#39;s organization
++ - Only accessible to members of the supplier's organization
 + - Supplier must exist (created from approved Application)
   
 - #### 4.2.2 Component Structure
@@ -4920,7 +4920,7 @@ Lines added: 7, lines removed: 4
   **Re-Approval Workflow:**
   - When supplier edits any field in Company Profile:
 -   - Status changes to &#96;PENDING_SUPPLIER&#96; (reusing existing status)
--   - Field shows &quot;Pending re-approval&quot; badge
+-   - Field shows "Pending re-approval" badge
 -   - Procurement notified to review changes
 -   - After approval, status returns to &#96;APPROVED&#96;
 +   - Create a new Application with status &#96;DRAFT&#96;
@@ -4942,7 +4942,7 @@ Lines added: 7, lines removed: 4
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 88, lines removed: 3
@@ -4950,11 +4950,11 @@ Lines added: 88, lines removed: 3
 ```diff
 @@ -273,15 +273,100 @@
     submittedById String?  // Track who actually submitted (supplier or internal)
-    submissionType String? // &#39;SUPPLIER&#39; or &#39;INTERNAL&#39;
+    submissionType String? // 'SUPPLIER' or 'INTERNAL'
 +   supplierId String?     // Link to Supplier if this is an update/re-approval request
 +   
 +   // Relations
-+   supplier Supplier? @relation(&quot;SupplierUpdateApplications&quot;, fields: [supplierId], references: [id])
++   supplier Supplier? @relation("SupplierUpdateApplications", fields: [supplierId], references: [id])
     
     // Prevent multiple active applications per FormConfig
 -   @@unique([organizationId, formConfigId, status]) // Only for active statuses
@@ -4967,7 +4967,7 @@ Lines added: 88, lines removed: 3
 + **Note:** Use application-level validation:
   - Check for existing active applications before allowing new submission
   - Active statuses: &#96;DRAFT&#96;, &#96;SUBMITTED&#96;, &#96;IN_REVIEW&#96;, &#96;PENDING_SUPPLIER&#96;, &#96;APPROVED&#96;
-  - &#96;REJECTED&#96; applications don&#39;t count as &quot;active&quot; for this check
+  - &#96;REJECTED&#96; applications don't count as "active" for this check
 + - &#96;supplierId&#96; is set when creating an Application for Supplier updates
 + 
 + #### 4.4.2 Supplier Model (NEW)
@@ -4985,12 +4985,12 @@ Lines added: 88, lines removed: 3
 +   createdAt       DateTime @default(now())
 +   updatedAt       DateTime @updatedAt
 +   
-+   organization    Organization @relation(&quot;SupplierOrganizations&quot;, fields: [organizationId], references: [id], onDelete: Cascade)
-+   entity          Entity   @relation(&quot;SupplierEntities&quot;, fields: [entityId], references: [id], onDelete: Cascade)
-+   geography       Geography @relation(&quot;SupplierGeographies&quot;, fields: [geographyId], references: [id], onDelete: Cascade)
-+   application     Application @relation(&quot;SupplierApplication&quot;, fields: [applicationId], references: [id], onDelete: Cascade)
++   organization    Organization @relation("SupplierOrganizations", fields: [organizationId], references: [id], onDelete: Cascade)
++   entity          Entity   @relation("SupplierEntities", fields: [entityId], references: [id], onDelete: Cascade)
++   geography       Geography @relation("SupplierGeographies", fields: [geographyId], references: [id], onDelete: Cascade)
++   application     Application @relation("SupplierApplication", fields: [applicationId], references: [id], onDelete: Cascade)
 +   documents       SupplierDocument[]
-+   updateApplications Application[] @relation(&quot;SupplierUpdateApplications&quot;)
++   updateApplications Application[] @relation("SupplierUpdateApplications")
 +   
 +   @@index([organizationId])
 +   @@index([entityId])
@@ -5013,7 +5013,7 @@ Lines added: 88, lines removed: 3
 +   fileSize        Int?
 +   uploadedAt      DateTime @default(now())
 +   supplier        Supplier @relation(fields: [supplierId], references: [id], onDelete: Cascade)
-+   documentType    DocumentType @relation(&quot;SupplierDocuments&quot;, fields: [documentTypeId], references: [id], onDelete: Cascade)
++   documentType    DocumentType @relation("SupplierDocuments", fields: [documentTypeId], references: [id], onDelete: Cascade)
 +   
 +   @@index([supplierId])
 + }
@@ -5024,7 +5024,7 @@ Lines added: 88, lines removed: 3
 + &#96;&#96;&#96;prisma
 + model Organization {
 +   // ... existing fields ...
-+   suppliers Supplier[] @relation(&quot;SupplierOrganizations&quot;)
++   suppliers Supplier[] @relation("SupplierOrganizations")
 + }
 + &#96;&#96;&#96;
 + 
@@ -5033,12 +5033,12 @@ Lines added: 88, lines removed: 3
 + &#96;&#96;&#96;prisma
 + model Entity {
 +   // ... existing fields ...
-+   suppliers Supplier[] @relation(&quot;SupplierEntities&quot;)
++   suppliers Supplier[] @relation("SupplierEntities")
 + }
 + 
 + model Geography {
 +   // ... existing fields ...
-+   suppliers Supplier[] @relation(&quot;SupplierGeographies&quot;)
++   suppliers Supplier[] @relation("SupplierGeographies")
 + }
 + &#96;&#96;&#96;
 + 
@@ -5047,7 +5047,7 @@ Lines added: 88, lines removed: 3
 + &#96;&#96;&#96;prisma
 + model DocumentType {
 +   // ... existing fields ...
-+   supplierDocuments SupplierDocument[] @relation(&quot;SupplierDocuments&quot;)
++   supplierDocuments SupplierDocument[] @relation("SupplierDocuments")
 + }
 + &#96;&#96;&#96;
   
@@ -5062,7 +5062,7 @@ Lines added: 88, lines removed: 3
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 25, lines removed: 10
@@ -5094,7 +5094,7 @@ Lines added: 25, lines removed: 10
 + 
   4. **Supplier edits any field:**
 -    - Status changes to &#96;PENDING_SUPPLIER&#96; (re-approval required)
--    - Field shows &quot;Pending re-approval&quot; indicator
+-    - Field shows "Pending re-approval" indicator
 -    - Procurement notified to review changes
 +    - System creates a new Application with status &#96;DRAFT&#96;
 +    - Application.data is pre-filled with current Supplier.data
@@ -5123,7 +5123,7 @@ Lines added: 25, lines removed: 10
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 6, lines removed: 6
@@ -5156,7 +5156,7 @@ Lines added: 6, lines removed: 6
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 9, lines removed: 7
@@ -5213,7 +5213,7 @@ Updating the implementation plan with Supplier model changes:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 1498, lines removed: 1206
@@ -5232,10 +5232,10 @@ Lines added: 1498, lines removed: 1206
 + #### File: &#96;prisma/schema.prisma&#96; (UPDATE)
 ...
 - &#96;&#96;&#96;typescript
-- import { NextRequest, NextResponse } from &quot;next/server&quot;;
-- import { auth } from &quot;@/lib/auth&quot;;
-- import { prisma } from &quot;@/lib/prisma&quot;;
-- import { requireRole } from &quot;@/lib/permissions&quot;;
+- import { NextRequest, NextResponse } from "next/server";
+- import { auth } from "@/lib/auth";
+- import { prisma } from "@/lib/prisma";
+- import { requireRole } from "@/lib/permissions";
 - 
 - export async function GET(
 -   request: NextRequest,
@@ -5245,19 +5245,19 @@ Lines added: 1498, lines removed: 1206
 -   const session = await auth();
 - 
 -   if (!session?.user?.id) {
--     return NextResponse.json({ error: &quot;Unauthorized&quot; }, { status: 401 });
+-     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 -   }
 - 
 -   // Check user is supplier and member of organization
 -   const application = await prisma.application.findFirst({
 -     where: {
 -       id: applicationId,
--       status: &quot;APPROVED&quot;,
+-       status: "APPROVED",
 -       organization: {
 -         members: {
 -           some: {
 -             userId: session.user.id,
--             role: &quot;SUPPLIER&quot;,
+-             role: "SUPPLIER",
 -           },
 -         },
 -       },
@@ -5278,7 +5278,7 @@ Lines added: 1498, lines removed: 1206
 -             include: {
 -               fields: true,
 -             },
--             orderBy: { order: &quot;asc&quot; },
+-             orderBy: { order: "asc" },
 -           },
 -         },
 -       },
@@ -5287,7 +5287,7 @@ Lines added: 1498, lines removed: 1206
 -   });
 - 
 -   if (!application) {
--     return NextResponse.json({ error: &quot;Not found&quot; }, { status: 404 });
+-     return NextResponse.json({ error: "Not found" }, { status: 404 });
 -   }
 - 
 -   return NextResponse.json({
@@ -5309,12 +5309,12 @@ Lines added: 1498, lines removed: 1206
 - #### File: &#96;app/supplier/profile/[applicationId]/actions.ts&#96; (NEW)
 - 
 - &#96;&#96;&#96;typescript
-- &quot;use server&quot;;
+- "use server";
 - 
-- import { auth } from &quot;@/lib/auth&quot;;
-- import { prisma } from &quot;@/lib/prisma&quot;;
-- import { revalidatePath } from &quot;next/cache&quot;;
-- import { SupplierWizardData, supplierWizardSchema } from &quot;@/lib/supplierWizardSchema&quot;;
+- import { auth } from "@/lib/auth";
+- import { prisma } from "@/lib/prisma";
+- import { revalidatePath } from "next/cache";
+- import { SupplierWizardData, supplierWizardSchema } from "@/lib/supplierWizardSchema";
 - 
 - export async function updateCompanyProfileAction(
 -   applicationId: string,
@@ -5322,7 +5322,7 @@ Lines added: 1498, lines removed: 1206
 - ) {
 -   const session = await auth();
 -   if (!session?.user?.id) {
--     throw new Error(&quot;Unauthorized&quot;);
+-     throw new Error("Unauthorized");
 -   }
 - 
 -   const application = await prisma.application.findFirst({
@@ -5332,7 +5332,7 @@ Lines added: 1498, lines removed: 1206
 -         members: {
 -           some: {
 -             userId: session.user.id,
--             role: &quot;SUPPLIER&quot;,
+-             role: "SUPPLIER",
 -           },
 -         },
 -       },
@@ -5340,17 +5340,17 @@ Lines added: 1498, lines removed: 1206
 -   });
 - 
 -   if (!application) {
--     throw new Error(&quot;Application not found&quot;);
+-     throw new Error("Application not found");
 -   }
 - 
--   if (application.status !== &quot;APPROVED&quot;) {
--     throw new Error(&quot;Can only edit approved applications&quot;);
+-   if (application.status !== "APPROVED") {
+-     throw new Error("Can only edit approved applications");
 -   }
 - 
 -   // Validate form data
 -   const parsed = supplierWizardSchema.safeParse(formData);
 -   if (!parsed.success) {
--     throw new Error(&quot;Validation failed&quot;);
+-     throw new Error("Validation failed");
 -   }
 - 
 -   // Update application and change status to PENDING_SUPPLIER
@@ -5358,16 +5358,16 @@ Lines added: 1498, lines removed: 1206
 -     where: { id: application.id },
 -     data: {
 -       data: parsed.data,
--       status: &quot;PENDING_SUPPLIER&quot;,
+-       status: "PENDING_SUPPLIER",
 -       updatedById: session.user.id,
 -       auditLogs: {
 -         create: {
 -           actorId: session.user.id,
--           actorRole: &quot;SUPPLIER&quot;,
+-           actorRole: "SUPPLIER",
 -           organizationId: application.organizationId,
--           action: &quot;PROFILE_EDITED&quot;,
+-           action: "PROFILE_EDITED",
 -           details: {
--             note: &quot;Company profile edited, requires re-approval&quot;,
+-             note: "Company profile edited, requires re-approval",
 -           },
 -         },
 -       },
@@ -5375,7 +5375,7 @@ Lines added: 1498, lines removed: 1206
 -   });
 - 
 -   revalidatePath(&#96;/supplier/profile/${applicationId}&#96;);
--   revalidatePath(&quot;/supplier&quot;);
+-   revalidatePath("/supplier");
 - 
 -   return { ok: true };
 - }
@@ -5386,12 +5386,12 @@ Lines added: 1498, lines removed: 1206
 - #### File: &#96;components/supplier/company-profile-header.tsx&#96; (NEW)
 - 
 - &#96;&#96;&#96;typescript
-- &quot;use client&quot;;
+- "use client";
 - 
-- import { Badge } from &quot;@/components/ui/badge&quot;;
-- import { Card, CardHeader, CardTitle } from &quot;@/components/ui/card&quot;;
-- import { CheckCircle2 } from &quot;lucide-react&quot;;
-- import { format } from &quot;date-fns&quot;;
+- import { Badge } from "@/components/ui/badge";
+- import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+- import { CheckCircle2 } from "lucide-react";
+- import { format } from "date-fns";
 - 
 - interface CompanyProfileHeaderProps {
 -   companyName: string;
@@ -5409,21 +5409,21 @@ Lines added: 1498, lines removed: 1206
 -   return (
 -     &lt;Card&gt;
 -       &lt;CardHeader&gt;
--         &lt;div className=&quot;flex items-start justify-between&quot;&gt;
+-         &lt;div className="flex items-start justify-between"&gt;
 -           &lt;div&gt;
--             &lt;CardTitle className=&quot;text-2xl&quot;&gt;{companyName}&lt;/CardTitle&gt;
--             &lt;p className=&quot;text-sm text-muted-foreground mt-1&quot;&gt;
+-             &lt;CardTitle className="text-2xl"&gt;{companyName}&lt;/CardTitle&gt;
+-             &lt;p className="text-sm text-muted-foreground mt-1"&gt;
 -               {entityName} • {geographyCode}
 -             &lt;/p&gt;
 -           &lt;/div&gt;
--           &lt;div className=&quot;flex flex-col items-end gap-2&quot;&gt;
--             &lt;Badge variant=&quot;default&quot; className=&quot;bg-green-500&quot;&gt;
--               &lt;CheckCircle2 className=&quot;h-3 w-3 mr-1&quot; /&gt;
+-           &lt;div className="flex flex-col items-end gap-2"&gt;
+-             &lt;Badge variant="default" className="bg-green-500"&gt;
+-               &lt;CheckCircle2 className="h-3 w-3 mr-1" /&gt;
 -               Approved
 -             &lt;/Badge&gt;
 -             {approvedAt &amp;&amp; (
--               &lt;p className=&quot;text-xs text-muted-foreground&quot;&gt;
--                 Approved {format(approvedAt, &quot;MMM d, yyyy&quot;)}
+-               &lt;p className="text-xs text-muted-foreground"&gt;
+-                 Approved {format(approvedAt, "MMM d, yyyy")}
 -               &lt;/p&gt;
 -             )}
 -           &lt;/div&gt;
@@ -5437,20 +5437,20 @@ Lines added: 1498, lines removed: 1206
 - #### File: &#96;components/supplier/editable-field.tsx&#96; (NEW)
 - 
 - &#96;&#96;&#96;typescript
-- &quot;use client&quot;;
+- "use client";
 - 
-- import { useState, useTransition } from &quot;react&quot;;
-- import { Input } from &quot;@/components/ui/input&quot;;
-- import { Button } from &quot;@/components/ui/button&quot;;
-- import { Label } from &quot;@/components/ui/label&quot;;
-- import { Edit2, Check, X } from &quot;lucide-react&quot;;
-- import { cn } from &quot;@/lib/utils&quot;;
+- import { useState, useTransition } from "react";
+- import { Input } from "@/components/ui/input";
+- import { Button } from "@/components/ui/button";
+- import { Label } from "@/components/ui/label";
+- import { Edit2, Check, X } from "lucide-react";
+- import { cn } from "@/lib/utils";
 - 
 - interface EditableFieldProps {
 -   label: string;
 -   value: string | number | null | undefined;
 -   fieldKey: string;
--   type?: &quot;text&quot; | &quot;email&quot; | &quot;tel&quot; | &quot;number&quot;;
+-   type?: "text" | "email" | "tel" | "number";
 -   onSave: (value: string) =&gt; Promise&lt;void&gt;;
 -   disabled?: boolean;
 -   className?: string;
@@ -5460,13 +5460,13 @@ Lines added: 1498, lines removed: 1206
 -   label,
 -   value,
 -   fieldKey,
--   type = &quot;text&quot;,
+-   type = "text",
 -   onSave,
 -   disabled = false,
 -   className,
 - }: EditableFieldProps) {
 -   const [isEditing, setIsEditing] = useState(false);
--   const [editValue, setEditValue] = useState(String(value || &quot;&quot;));
+-   const [editValue, setEditValue] = useState(String(value || ""));
 -   const [isSaving, startSaving] = useTransition();
 - 
 -   const handleSave = () =&gt; {
@@ -5477,58 +5477,58 @@ Lines added: 1498, lines removed: 1206
 -   };
 - 
 -   const handleCancel = () =&gt; {
--     setEditValue(String(value || &quot;&quot;));
+-     setEditValue(String(value || ""));
 -     setIsEditing(false);
 -   };
 - 
 -   if (disabled) {
 -     return (
--       &lt;div className={cn(&quot;space-y-2&quot;, className)}&gt;
--         &lt;Label className=&quot;text-muted-foreground&quot;&gt;{label}&lt;/Label&gt;
--         &lt;p className=&quot;text-sm font-medium&quot;&gt;{value || &quot;—&quot;}&lt;/p&gt;
+-       &lt;div className={cn("space-y-2", className)}&gt;
+-         &lt;Label className="text-muted-foreground"&gt;{label}&lt;/Label&gt;
+-         &lt;p className="text-sm font-medium"&gt;{value || "—"}&lt;/p&gt;
 -       &lt;/div&gt;
 -     );
 -   }
 - 
 -   return (
--     &lt;div className={cn(&quot;space-y-2&quot;, className)}&gt;
+-     &lt;div className={cn("space-y-2", className)}&gt;
 -       &lt;Label&gt;{label}&lt;/Label&gt;
 -       {isEditing ? (
--         &lt;div className=&quot;flex items-center gap-2&quot;&gt;
+-         &lt;div className="flex items-center gap-2"&gt;
 -           &lt;Input
 -             type={type}
 -             value={editValue}
 -             onChange={(e) =&gt; setEditValue(e.target.value)}
--             className=&quot;flex-1&quot;
+-             className="flex-1"
 -             disabled={isSaving}
 -           /&gt;
 -           &lt;Button
--             size=&quot;icon&quot;
--             variant=&quot;ghost&quot;
+-             size="icon"
+-             variant="ghost"
 -             onClick={handleSave}
 -             disabled={isSaving}
 -           &gt;
--             &lt;Check className=&quot;h-4 w-4&quot; /&gt;
+-             &lt;Check className="h-4 w-4" /&gt;
 -           &lt;/Button&gt;
 -           &lt;Button
--             size=&quot;icon&quot;
--             variant=&quot;ghost&quot;
+-             size="icon"
+-             variant="ghost"
 -             onClick={handleCancel}
 -             disabled={isSaving}
 -           &gt;
--             &lt;X className=&quot;h-4 w-4&quot; /&gt;
+-             &lt;X className="h-4 w-4" /&gt;
 -           &lt;/Button&gt;
 -         &lt;/div&gt;
 -       ) : (
--         &lt;div className=&quot;flex items-center gap-2&quot;&gt;
--           &lt;p className=&quot;text-sm font-medium flex-1&quot;&gt;{value || &quot;—&quot;}&lt;/p&gt;
+-         &lt;div className="flex items-center gap-2"&gt;
+-           &lt;p className="text-sm font-medium flex-1"&gt;{value || "—"}&lt;/p&gt;
 -           &lt;Button
--             size=&quot;icon&quot;
--             variant=&quot;ghost&quot;
+-             size="icon"
+-             variant="ghost"
 -             onClick={() =&gt; setIsEditing(true)}
--             className=&quot;h-8 w-8&quot;
+-             className="h-8 w-8"
 -           &gt;
--             &lt;Edit2 className=&quot;h-4 w-4&quot; /&gt;
+-             &lt;Edit2 className="h-4 w-4" /&gt;
 -           &lt;/Button&gt;
 -         &lt;/div&gt;
 -       )}
@@ -5540,18 +5540,18 @@ Lines added: 1498, lines removed: 1206
 - #### File: &#96;components/supplier/company-profile-section.tsx&#96; (NEW)
 - 
 - &#96;&#96;&#96;typescript
-- &quot;use client&quot;;
+- "use client";
 - 
-- import { Card, CardContent, CardHeader, CardTitle } from &quot;@/components/ui/card&quot;;
-- import { EditableField } from &quot;./editable-field&quot;;
-- import { Alert, AlertDescription } from &quot;@/components/ui/alert&quot;;
-- import { Info } from &quot;lucide-react&quot;;
+- import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+- import { EditableField } from "./editable-field";
+- import { Alert, AlertDescription } from "@/components/ui/alert";
+- import { Info } from "lucide-react";
 - 
 - interface Field {
 -   key: string;
 -   label: string;
 -   value: string | number | null | undefined;
--   type?: &quot;text&quot; | &quot;email&quot; | &quot;tel&quot; | &quot;number&quot;;
+-   type?: "text" | "email" | "tel" | "number";
 - }
 - 
 - interface CompanyProfileSectionProps {
@@ -5571,13 +5571,13 @@ Lines added: 1498, lines removed: 1206
 -         &lt;CardTitle&gt;{title}&lt;/CardTitle&gt;
 -       &lt;/CardHeader&gt;
 -       &lt;CardContent&gt;
--         &lt;Alert className=&quot;mb-4&quot;&gt;
--           &lt;Info className=&quot;h-4 w-4&quot; /&gt;
+-         &lt;Alert className="mb-4"&gt;
+-           &lt;Info className="h-4 w-4" /&gt;
 -           &lt;AlertDescription&gt;
 -             All changes require re-approval from procurement.
 -           &lt;/AlertDescription&gt;
 -         &lt;/Alert&gt;
--         &lt;div className=&quot;grid gap-4 md:grid-cols-2&quot;&gt;
+-         &lt;div className="grid gap-4 md:grid-cols-2"&gt;
 -           {fields.map((field) =&gt; (
 -             &lt;EditableField
 -               key={field.key}
@@ -5598,19 +5598,19 @@ Lines added: 1498, lines removed: 1206
 - #### File: &#96;components/supplier/company-profile.tsx&#96; (NEW)
 - 
 - &#96;&#96;&#96;typescript
-- &quot;use client&quot;;
+- "use client";
 - 
-- import { useState, useTransition } from &quot;react&quot;;
-- import { useRouter } from &quot;next/navigation&quot;;
-- import { CompanyProfileHeader } from &quot;./company-profile-header&quot;;
-- import { CompanyProfileSection } from &quot;./company-profile-section&quot;;
-- import { updateCompanyProfileAction } from &quot;@/app/supplier/profile/[applicationId]/actions&quot;;
-- import { SupplierWizardData } from &quot;@/lib/supplierWizardSchema&quot;;
-- import { useToast } from &quot;@/hooks/use-toast&quot;;
-- import { Card, CardContent, CardHeader, CardTitle } from &quot;@/components/ui/card&quot;;
-- import { Button } from &quot;@/components/ui/button&quot;;
-- import { Download, FileText } from &quot;lucide-react&quot;;
-- import { format } from &quot;date-fns&quot;;
+- import { useState, useTransition } from "react";
+- import { useRouter } from "next/navigation";
+- import { CompanyProfileHeader } from "./company-profile-header";
+- import { CompanyProfileSection } from "./company-profile-section";
+- import { updateCompanyProfileAction } from "@/app/supplier/profile/[applicationId]/actions";
+- import { SupplierWizardData } from "@/lib/supplierWizardSchema";
+- import { useToast } from "@/hooks/use-toast";
+- import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+- import { Button } from "@/components/ui/button";
+- import { Download, FileText } from "lucide-react";
+- import { format } from "date-fns";
 - 
 - interface CompanyProfileProps {
 -   applicationId: string;
@@ -5644,7 +5644,7 @@ Lines added: 1498, lines removed: 1206
 - 
 -   const handleFieldUpdate = async (fieldKey: string, value: string) =&gt; {
 -     // Update local state
--     const keys = fieldKey.split(&quot;.&quot;);
+-     const keys = fieldKey.split(".");
 -     const newData = { ...formData };
 -     let current: any = newData;
 - 
@@ -5660,17 +5660,17 @@ Lines added: 1498, lines removed: 1206
 -       try {
 -         await updateCompanyProfileAction(applicationId, newData);
 -         toast({
--           title: &quot;Changes saved&quot;,
+-           title: "Changes saved",
 -           description:
--             &quot;Your changes have been submitted for re-approval. Procurement will review and approve.&quot;,
+-             "Your changes have been submitted for re-approval. Procurement will review and approve.",
 -         });
 -         router.refresh();
 -       } catch (error) {
 -         toast({
--           title: &quot;Error&quot;,
+-           title: "Error",
 -           description:
--             error instanceof Error ? error.message : &quot;Failed to save changes&quot;,
--           variant: &quot;destructive&quot;,
+-             error instanceof Error ? error.message : "Failed to save changes",
+-           variant: "destructive",
 -         });
 -       }
 -     });
@@ -5679,73 +5679,73 @@ Lines added: 1498, lines removed: 1206
 -   // Organize fields into sections
 -   const companyInfoFields = [
 -     {
--       key: &quot;supplierInformation.supplierName&quot;,
--       label: &quot;Supplier Name&quot;,
+-       key: "supplierInformation.supplierName",
+-       label: "Supplier Name",
 -       value: formData.supplierInformation?.supplierName,
--       type: &quot;text&quot; as const,
+-       type: "text" as const,
 -     },
 -     {
--       key: &quot;supplierInformation.salesContactName&quot;,
--       label: &quot;Sales Contact Name&quot;,
+-       key: "supplierInformation.salesContactName",
+-       label: "Sales Contact Name",
 -       value: formData.supplierInformation?.salesContactName,
--       type: &quot;text&quot; as const,
+-       type: "text" as const,
 -     },
 -     {
--       key: &quot;supplierInformation.salesContactEmail&quot;,
--       label: &quot;Sales Contact Email&quot;,
+-       key: "supplierInformation.salesContactEmail",
+-       label: "Sales Contact Email",
 -       value: formData.supplierInformation?.salesContactEmail,
--       type: &quot;email&quot; as const,
+-       type: "email" as const,
 -     },
 -   ];
 - 
 -   const addressFields = [
 -     {
--       key: &quot;addresses.remitToAddress.line1&quot;,
--       label: &quot;Remit-to Address Line 1&quot;,
+-       key: "addresses.remitToAddress.line1",
+-       label: "Remit-to Address Line 1",
 -       value: formData.addresses?.remitToAddress?.line1,
--       type: &quot;text&quot; as const,
+-       type: "text" as const,
 -     },
 -     {
--       key: &quot;addresses.remitToAddress.city&quot;,
--       label: &quot;City&quot;,
+-       key: "addresses.remitToAddress.city",
+-       label: "City",
 -       value: formData.addresses?.remitToAddress?.city,
--       type: &quot;text&quot; as const,
+-       type: "text" as const,
 -     },
 -     {
--       key: &quot;addresses.remitToAddress.country&quot;,
--       label: &quot;Country&quot;,
+-       key: "addresses.remitToAddress.country",
+-       label: "Country",
 -       value: formData.addresses?.remitToAddress?.country,
--       type: &quot;text&quot; as const,
+-       type: "text" as const,
 -     },
 -   ];
 - 
 -   const bankingFields = [
 -     {
--       key: &quot;bankInformation.bankName&quot;,
--       label: &quot;Bank Name&quot;,
+-       key: "bankInformation.bankName",
+-       label: "Bank Name",
 -       value: formData.bankInformation?.bankName,
--       type: &quot;text&quot; as const,
+-       type: "text" as const,
 -     },
 -     {
--       key: &quot;bankInformation.routingNumber&quot;,
--       label: &quot;Routing Number&quot;,
+-       key: "bankInformation.routingNumber",
+-       label: "Routing Number",
 -       value: formData.bankInformation?.routingNumber
--         ? &quot;••••••&quot;
+-         ? "••••••"
 -         : null,
--       type: &quot;text&quot; as const,
+-       type: "text" as const,
 -     },
 -     {
--       key: &quot;bankInformation.accountNumber&quot;,
--       label: &quot;Account Number&quot;,
+-       key: "bankInformation.accountNumber",
+-       label: "Account Number",
 -       value: formData.bankInformation?.accountNumber
--         ? &quot;••••••&quot;
+-         ? "••••••"
 -         : null,
--       type: &quot;text&quot; as const,
+-       type: "text" as const,
 -     },
 -   ];
 - 
 -   return (
--     &lt;div className=&quot;space-y-6&quot;&gt;
+-     &lt;div className="space-y-6"&gt;
 -       &lt;CompanyProfileHeader
 -         companyName={companyName}
 -         approvedAt={approvedAt}
@@ -5754,19 +5754,19 @@ Lines added: 1498, lines removed: 1206
 -       /&gt;
 - 
 -       &lt;CompanyProfileSection
--         title=&quot;Company Information&quot;
+-         title="Company Information"
 -         fields={companyInfoFields}
 -         onFieldUpdate={handleFieldUpdate}
 -       /&gt;
 - 
 -       &lt;CompanyProfileSection
--         title=&quot;Addresses&quot;
+-         title="Addresses"
 -         fields={addressFields}
 -         onFieldUpdate={handleFieldUpdate}
 -       /&gt;
 - 
 -       &lt;CompanyProfileSection
--         title=&quot;Banking Information&quot;
+-         title="Banking Information"
 -         fields={bankingFields}
 -         onFieldUpdate={handleFieldUpdate}
 -       /&gt;
@@ -5777,30 +5777,30 @@ Lines added: 1498, lines removed: 1206
 -         &lt;/CardHeader&gt;
 -         &lt;CardContent&gt;
 -           {documents.length === 0 ? (
--             &lt;p className=&quot;text-sm text-muted-foreground&quot;&gt;No documents uploaded.&lt;/p&gt;
+-             &lt;p className="text-sm text-muted-foreground"&gt;No documents uploaded.&lt;/p&gt;
 -           ) : (
--             &lt;div className=&quot;space-y-2&quot;&gt;
+-             &lt;div className="space-y-2"&gt;
 -               {documents.map((doc) =&gt; (
 -                 &lt;div
 -                   key={doc.id}
--                   className=&quot;flex items-center justify-between p-3 border rounded-lg&quot;
+-                   className="flex items-center justify-between p-3 border rounded-lg"
 -                 &gt;
--                   &lt;div className=&quot;flex items-center gap-3&quot;&gt;
--                     &lt;FileText className=&quot;h-5 w-5 text-muted-foreground&quot; /&gt;
+-                   &lt;div className="flex items-center gap-3"&gt;
+-                     &lt;FileText className="h-5 w-5 text-muted-foreground" /&gt;
 -                     &lt;div&gt;
--                       &lt;p className=&quot;text-sm font-medium&quot;&gt;{doc.documentType.label}&lt;/p&gt;
--                       &lt;p className=&quot;text-xs text-muted-foreground&quot;&gt;
--                         {doc.fileName} • Uploaded {format(doc.uploadedAt, &quot;MMM d, yyyy&quot;)}
+-                       &lt;p className="text-sm font-medium"&gt;{doc.documentType.label}&lt;/p&gt;
+-                       &lt;p className="text-xs text-muted-foreground"&gt;
+-                         {doc.fileName} • Uploaded {format(doc.uploadedAt, "MMM d, yyyy")}
 -                       &lt;/p&gt;
 -                     &lt;/div&gt;
 -                   &lt;/div&gt;
 -                   &lt;Button
--                     variant=&quot;outline&quot;
--                     size=&quot;sm&quot;
+-                     variant="outline"
+-                     size="sm"
 -                     asChild
 -                   &gt;
--                     &lt;a href={doc.fileUrl} target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;
--                       &lt;Download className=&quot;h-4 w-4 mr-2&quot; /&gt;
+-                     &lt;a href={doc.fileUrl} target="_blank" rel="noopener noreferrer"&gt;
+-                       &lt;Download className="h-4 w-4 mr-2" /&gt;
 -                       Download
 -                     &lt;/a&gt;
 -                   &lt;/Button&gt;
@@ -5818,12 +5818,12 @@ Lines added: 1498, lines removed: 1206
 - #### File: &#96;app/supplier/profile/[applicationId]/page.tsx&#96; (NEW)
 - 
 - &#96;&#96;&#96;typescript
-- import { notFound, redirect } from &quot;next/navigation&quot;;
-- import { prisma } from &quot;@/lib/prisma&quot;;
-- import { auth } from &quot;@/lib/auth&quot;;
-- import { CompanyProfile } from &quot;@/components/supplier/company-profile&quot;;
-- import { SupplierWizardData } from &quot;@/lib/supplierWizardSchema&quot;;
-- import { requireRole } from &quot;@/lib/permissions&quot;;
+- import { notFound, redirect } from "next/navigation";
+- import { prisma } from "@/lib/prisma";
+- import { auth } from "@/lib/auth";
+- import { CompanyProfile } from "@/components/supplier/company-profile";
+- import { SupplierWizardData } from "@/lib/supplierWizardSchema";
+- import { requireRole } from "@/lib/permissions";
 - 
 - interface Params {
 -   applicationId: string;
@@ -5838,11 +5838,11 @@ Lines added: 1498, lines removed: 1206
 -   const session = await auth();
 - 
 -   if (!session?.user?.id) {
--     redirect(&quot;/signin&quot;);
+-     redirect("/signin");
 -   }
 - 
 -   // Check user is supplier
--   await requireRole([&quot;SUPPLIER&quot;]);
+-   await requireRole(["SUPPLIER"]);
 - 
 -   const application = await prisma.application.findFirst({
 -     where: {
@@ -5863,7 +5863,7 @@ Lines added: 1498, lines removed: 1206
 -         include: {
 -           documentType: true,
 -         },
--         orderBy: { uploadedAt: &quot;desc&quot; },
+-         orderBy: { uploadedAt: "desc" },
 -       },
 -     },
 -   });
@@ -5873,7 +5873,7 @@ Lines added: 1498, lines removed: 1206
 -   }
 - 
 -   // Redirect if not approved
--   if (application.status !== &quot;APPROVED&quot;) {
+-   if (application.status !== "APPROVED") {
 -     redirect(&#96;/supplier/onboarding/${applicationId}&#96;);
 -   }
 - 
@@ -5881,10 +5881,10 @@ Lines added: 1498, lines removed: 1206
 -     (application.data as SupplierWizardData | null) ?? ({} as SupplierWizardData);
 - 
 -   return (
--     &lt;div className=&quot;container mx-auto py-8 space-y-6&quot;&gt;
--       &lt;div className=&quot;space-y-2&quot;&gt;
--         &lt;h1 className=&quot;text-3xl font-semibold&quot;&gt;Company Profile&lt;/h1&gt;
--         &lt;p className=&quot;text-muted-foreground&quot;&gt;
+-     &lt;div className="container mx-auto py-8 space-y-6"&gt;
+-       &lt;div className="space-y-2"&gt;
+-         &lt;h1 className="text-3xl font-semibold"&gt;Company Profile&lt;/h1&gt;
+-         &lt;p className="text-muted-foreground"&gt;
 -           View and manage your approved company information
 -         &lt;/p&gt;
 -       &lt;/div&gt;
@@ -5917,7 +5917,7 @@ Lines added: 1498, lines removed: 1206
 - 
 - &#96;&#96;&#96;typescript
 - // In the applications list, add:
-- {application.status === &quot;APPROVED&quot; &amp;&amp; (
+- {application.status === "APPROVED" &amp;&amp; (
 -   &lt;Link href={&#96;/supplier/profile/${application.id}&#96;}&gt;
 -     View Company Profile
 -   &lt;/Link&gt;
@@ -5953,12 +5953,12 @@ Lines added: 1498, lines removed: 1206
 +   createdAt       DateTime @default(now())
 +   updatedAt       DateTime @updatedAt
 +   
-+   organization    Organization @relation(&quot;SupplierOrganizations&quot;, fields: [organizationId], references: [id], onDelete: Cascade)
-+   entity          Entity   @relation(&quot;SupplierEntities&quot;, fields: [entityId], references: [id], onDelete: Cascade)
-+   geography       Geography @relation(&quot;SupplierGeographies&quot;, fields: [geographyId], references: [id], onDelete: Cascade)
-+   application     Application @relation(&quot;SupplierApplication&quot;, fields: [applicationId], references: [id], onDelete: Cascade)
++   organization    Organization @relation("SupplierOrganizations", fields: [organizationId], references: [id], onDelete: Cascade)
++   entity          Entity   @relation("SupplierEntities", fields: [entityId], references: [id], onDelete: Cascade)
++   geography       Geography @relation("SupplierGeographies", fields: [geographyId], references: [id], onDelete: Cascade)
++   application     Application @relation("SupplierApplication", fields: [applicationId], references: [id], onDelete: Cascade)
 +   documents       SupplierDocument[]
-+   updateApplications Application[] @relation(&quot;SupplierUpdateApplications&quot;)
++   updateApplications Application[] @relation("SupplierUpdateApplications")
 +   
 +   @@index([organizationId])
 +   @@index([entityId])
@@ -5976,7 +5976,7 @@ Lines added: 1498, lines removed: 1206
 +   fileSize        Int?
 +   uploadedAt      DateTime @default(now())
 +   supplier        Supplier @relation(fields: [supplierId], references: [id], onDelete: Cascade)
-+   documentType    DocumentType @relation(&quot;SupplierDocuments&quot;, fields: [documentTypeId], references: [id], onDelete: Cascade)
++   documentType    DocumentType @relation("SupplierDocuments", fields: [documentTypeId], references: [id], onDelete: Cascade)
 +   
 +   @@index([supplierId])
 + }
@@ -5991,8 +5991,8 @@ Lines added: 1498, lines removed: 1206
 +   submissionType String?
 +   supplierId String?     // Link to Supplier if this is an update/re-approval request
 +   
-+   supplier Supplier? @relation(&quot;SupplierUpdateApplications&quot;, fields: [supplierId], references: [id])
-+   createdSupplier Supplier? @relation(&quot;SupplierApplication&quot;)
++   supplier Supplier? @relation("SupplierUpdateApplications", fields: [supplierId], references: [id])
++   createdSupplier Supplier? @relation("SupplierApplication")
 + }
 + &#96;&#96;&#96;
 + 
@@ -6001,22 +6001,22 @@ Lines added: 1498, lines removed: 1206
 + &#96;&#96;&#96;prisma
 + model Organization {
 +   // ... existing fields ...
-+   suppliers Supplier[] @relation(&quot;SupplierOrganizations&quot;)
++   suppliers Supplier[] @relation("SupplierOrganizations")
 + }
 + 
 + model Entity {
 +   // ... existing fields ...
-+   suppliers Supplier[] @relation(&quot;SupplierEntities&quot;)
++   suppliers Supplier[] @relation("SupplierEntities")
 + }
 + 
 + model Geography {
 +   // ... existing fields ...
-+   suppliers Supplier[] @relation(&quot;SupplierGeographies&quot;)
++   suppliers Supplier[] @relation("SupplierGeographies")
 + }
 + 
 + model DocumentType {
 +   // ... existing fields ...
-+   supplierDocuments SupplierDocument[] @relation(&quot;SupplierDocuments&quot;)
++   supplierDocuments SupplierDocument[] @relation("SupplierDocuments")
 + }
 + &#96;&#96;&#96;
 + 
@@ -6030,8 +6030,8 @@ Lines added: 1498, lines removed: 1206
 + #### File: &#96;lib/suppliers.ts&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ import { prisma } from &quot;@/lib/prisma&quot;;
-+ import { SupplierWizardData } from &quot;@/lib/supplierWizardSchema&quot;;
++ import { prisma } from "@/lib/prisma";
++ import { SupplierWizardData } from "@/lib/supplierWizardSchema";
 + 
 + export async function createSupplierFromApplication(applicationId: string) {
 +   const application = await prisma.application.findUnique({
@@ -6044,8 +6044,8 @@ Lines added: 1498, lines removed: 1206
 +     },
 +   });
 + 
-+   if (!application || application.status !== &quot;APPROVED&quot;) {
-+     throw new Error(&quot;Application must be approved to create Supplier&quot;);
++   if (!application || application.status !== "APPROVED") {
++     throw new Error("Application must be approved to create Supplier");
 +   }
 + 
 +   // Check if Supplier already exists
@@ -6095,8 +6095,8 @@ Lines added: 1498, lines removed: 1206
 +     include: { documents: true },
 +   });
 + 
-+   if (!application || application.status !== &quot;APPROVED&quot;) {
-+     throw new Error(&quot;Application must be approved to update Supplier&quot;);
++   if (!application || application.status !== "APPROVED") {
++     throw new Error("Application must be approved to update Supplier");
 +   }
 + 
 +   const supplier = await prisma.supplier.findUnique({
@@ -6104,7 +6104,7 @@ Lines added: 1498, lines removed: 1206
 +   });
 + 
 +   if (!supplier) {
-+     throw new Error(&quot;Supplier not found&quot;);
++     throw new Error("Supplier not found");
 +   }
 + 
 +   // Update Supplier data
@@ -6146,7 +6146,7 @@ Lines added: 1498, lines removed: 1206
 +       geography: true,
 +       documents: {
 +         include: { documentType: true },
-+         orderBy: { uploadedAt: &quot;desc&quot; },
++         orderBy: { uploadedAt: "desc" },
 +       },
 +       application: {
 +         select: {
@@ -6171,10 +6171,10 @@ Lines added: 1498, lines removed: 1206
 +   const { applicationId, targetStatus, note } = input;
 +   const session = await auth();
 +   if (!session?.user?.id) {
-+     throw new Error(&quot;Unauthorized&quot;);
++     throw new Error("Unauthorized");
 +   }
 + 
-+   await requireRole([&quot;ADMIN&quot;, &quot;PROCUREMENT&quot;]);
++   await requireRole(["ADMIN", "PROCUREMENT"]);
 + 
 +   const application = await prisma.application.findUnique({
 +     where: { id: applicationId },
@@ -6182,11 +6182,11 @@ Lines added: 1498, lines removed: 1206
 +   });
 + 
 +   if (!application) {
-+     throw new Error(&quot;Application not found&quot;);
++     throw new Error("Application not found");
 +   }
 + 
 +   if (!canTransition(application.status, targetStatus)) {
-+     throw new Error(&quot;Invalid state transition&quot;);
++     throw new Error("Invalid state transition");
 +   }
 + 
 +   await prisma.application.update({
@@ -6194,14 +6194,14 @@ Lines added: 1498, lines removed: 1206
 +     data: {
 +       status: targetStatus,
 +       updatedById: session.user.id,
-+       approvedAt: targetStatus === &quot;APPROVED&quot; ? new Date() : undefined,
++       approvedAt: targetStatus === "APPROVED" ? new Date() : undefined,
 +       auditLogs: {
 +         create: {
 +           actorId: session.user.id,
-+           actorRole: &quot;PROCUREMENT&quot;,
++           actorRole: "PROCUREMENT",
 +           action: &#96;STATUS_${targetStatus}&#96;,
 +           details: {
-+             note: note ?? &quot;&quot;,
++             note: note ?? "",
 +           },
 +         },
 +       },
@@ -6209,7 +6209,7 @@ Lines added: 1498, lines removed: 1206
 +   });
 + 
 +   // Create or update Supplier when approved
-+   if (targetStatus === &quot;APPROVED&quot;) {
++   if (targetStatus === "APPROVED") {
 +     if (application.supplierId) {
 +       // Update existing Supplier
 +       await updateSupplierFromApplication(application.supplierId, applicationId);
@@ -6232,10 +6232,10 @@ Lines added: 1498, lines removed: 1206
 + #### File: &#96;app/api/supplier/profile/[supplierId]/route.ts&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ import { NextRequest, NextResponse } from &quot;next/server&quot;;
-+ import { auth } from &quot;@/lib/auth&quot;;
-+ import { prisma } from &quot;@/lib/prisma&quot;;
-+ import { requireRole } from &quot;@/lib/permissions&quot;;
++ import { NextRequest, NextResponse } from "next/server";
++ import { auth } from "@/lib/auth";
++ import { prisma } from "@/lib/prisma";
++ import { requireRole } from "@/lib/permissions";
 + 
 + export async function GET(
 +   request: NextRequest,
@@ -6245,19 +6245,19 @@ Lines added: 1498, lines removed: 1206
 +   const session = await auth();
 + 
 +   if (!session?.user?.id) {
-+     return NextResponse.json({ error: &quot;Unauthorized&quot; }, { status: 401 });
++     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 +   }
 + 
 +   // Check user is supplier and member of organization
 +   const application = await prisma.application.findFirst({
 +     where: {
 +       id: applicationId,
-+       status: &quot;APPROVED&quot;,
++       status: "APPROVED",
 +       organization: {
 +         members: {
 +           some: {
 +             userId: session.user.id,
-+             role: &quot;SUPPLIER&quot;,
++             role: "SUPPLIER",
 +           },
 +         },
 +       },
@@ -6278,7 +6278,7 @@ Lines added: 1498, lines removed: 1206
 +             include: {
 +               fields: true,
 +             },
-+             orderBy: { order: &quot;asc&quot; },
++             orderBy: { order: "asc" },
 +           },
 +         },
 +       },
@@ -6287,7 +6287,7 @@ Lines added: 1498, lines removed: 1206
 +   });
 + 
 +   if (!application) {
-+     return NextResponse.json({ error: &quot;Not found&quot; }, { status: 404 });
++     return NextResponse.json({ error: "Not found" }, { status: 404 });
 +   }
 + 
 +   return NextResponse.json({
@@ -6309,12 +6309,12 @@ Lines added: 1498, lines removed: 1206
 + #### File: &#96;app/supplier/profile/[applicationId]/actions.ts&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use server&quot;;
++ "use server";
 + 
-+ import { auth } from &quot;@/lib/auth&quot;;
-+ import { prisma } from &quot;@/lib/prisma&quot;;
-+ import { revalidatePath } from &quot;next/cache&quot;;
-+ import { SupplierWizardData, supplierWizardSchema } from &quot;@/lib/supplierWizardSchema&quot;;
++ import { auth } from "@/lib/auth";
++ import { prisma } from "@/lib/prisma";
++ import { revalidatePath } from "next/cache";
++ import { SupplierWizardData, supplierWizardSchema } from "@/lib/supplierWizardSchema";
 + 
 + export async function updateCompanyProfileAction(
 +   applicationId: string,
@@ -6322,7 +6322,7 @@ Lines added: 1498, lines removed: 1206
 + ) {
 +   const session = await auth();
 +   if (!session?.user?.id) {
-+     throw new Error(&quot;Unauthorized&quot;);
++     throw new Error("Unauthorized");
 +   }
 + 
 +   const application = await prisma.application.findFirst({
@@ -6332,7 +6332,7 @@ Lines added: 1498, lines removed: 1206
 +         members: {
 +           some: {
 +             userId: session.user.id,
-+             role: &quot;SUPPLIER&quot;,
++             role: "SUPPLIER",
 +           },
 +         },
 +       },
@@ -6340,17 +6340,17 @@ Lines added: 1498, lines removed: 1206
 +   });
 + 
 +   if (!application) {
-+     throw new Error(&quot;Application not found&quot;);
++     throw new Error("Application not found");
 +   }
 + 
-+   if (application.status !== &quot;APPROVED&quot;) {
-+     throw new Error(&quot;Can only edit approved applications&quot;);
++   if (application.status !== "APPROVED") {
++     throw new Error("Can only edit approved applications");
 +   }
 + 
 +   // Validate form data
 +   const parsed = supplierWizardSchema.safeParse(formData);
 +   if (!parsed.success) {
-+     throw new Error(&quot;Validation failed&quot;);
++     throw new Error("Validation failed");
 +   }
 + 
 +   // Update application and change status to PENDING_SUPPLIER
@@ -6358,16 +6358,16 @@ Lines added: 1498, lines removed: 1206
 +     where: { id: application.id },
 +     data: {
 +       data: parsed.data,
-+       status: &quot;PENDING_SUPPLIER&quot;,
++       status: "PENDING_SUPPLIER",
 +       updatedById: session.user.id,
 +       auditLogs: {
 +         create: {
 +           actorId: session.user.id,
-+           actorRole: &quot;SUPPLIER&quot;,
++           actorRole: "SUPPLIER",
 +           organizationId: application.organizationId,
-+           action: &quot;PROFILE_EDITED&quot;,
++           action: "PROFILE_EDITED",
 +           details: {
-+             note: &quot;Company profile edited, requires re-approval&quot;,
++             note: "Company profile edited, requires re-approval",
 +           },
 +         },
 +       },
@@ -6375,7 +6375,7 @@ Lines added: 1498, lines removed: 1206
 +   });
 + 
 +   revalidatePath(&#96;/supplier/profile/${applicationId}&#96;);
-+   revalidatePath(&quot;/supplier&quot;);
++   revalidatePath("/supplier");
 + 
 +   return { ok: true };
 + }
@@ -6386,12 +6386,12 @@ Lines added: 1498, lines removed: 1206
 + #### File: &#96;components/supplier/company-profile-header.tsx&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { Badge } from &quot;@/components/ui/badge&quot;;
-+ import { Card, CardHeader, CardTitle } from &quot;@/components/ui/card&quot;;
-+ import { CheckCircle2 } from &quot;lucide-react&quot;;
-+ import { format } from &quot;date-fns&quot;;
++ import { Badge } from "@/components/ui/badge";
++ import { Card, CardHeader, CardTitle } from "@/components/ui/card";
++ import { CheckCircle2 } from "lucide-react";
++ import { format } from "date-fns";
 + 
 + interface CompanyProfileHeaderProps {
 +   companyName: string;
@@ -6409,21 +6409,21 @@ Lines added: 1498, lines removed: 1206
 +   return (
 +     &lt;Card&gt;
 +       &lt;CardHeader&gt;
-+         &lt;div className=&quot;flex items-start justify-between&quot;&gt;
++         &lt;div className="flex items-start justify-between"&gt;
 +           &lt;div&gt;
-+             &lt;CardTitle className=&quot;text-2xl&quot;&gt;{companyName}&lt;/CardTitle&gt;
-+             &lt;p className=&quot;text-sm text-muted-foreground mt-1&quot;&gt;
++             &lt;CardTitle className="text-2xl"&gt;{companyName}&lt;/CardTitle&gt;
++             &lt;p className="text-sm text-muted-foreground mt-1"&gt;
 +               {entityName} • {geographyCode}
 +             &lt;/p&gt;
 +           &lt;/div&gt;
-+           &lt;div className=&quot;flex flex-col items-end gap-2&quot;&gt;
-+             &lt;Badge variant=&quot;default&quot; className=&quot;bg-green-500&quot;&gt;
-+               &lt;CheckCircle2 className=&quot;h-3 w-3 mr-1&quot; /&gt;
++           &lt;div className="flex flex-col items-end gap-2"&gt;
++             &lt;Badge variant="default" className="bg-green-500"&gt;
++               &lt;CheckCircle2 className="h-3 w-3 mr-1" /&gt;
 +               Approved
 +             &lt;/Badge&gt;
 +             {approvedAt &amp;&amp; (
-+               &lt;p className=&quot;text-xs text-muted-foreground&quot;&gt;
-+                 Approved {format(approvedAt, &quot;MMM d, yyyy&quot;)}
++               &lt;p className="text-xs text-muted-foreground"&gt;
++                 Approved {format(approvedAt, "MMM d, yyyy")}
 +               &lt;/p&gt;
 +             )}
 +           &lt;/div&gt;
@@ -6437,20 +6437,20 @@ Lines added: 1498, lines removed: 1206
 + #### File: &#96;components/supplier/editable-field.tsx&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { useState, useTransition } from &quot;react&quot;;
-+ import { Input } from &quot;@/components/ui/input&quot;;
-+ import { Button } from &quot;@/components/ui/button&quot;;
-+ import { Label } from &quot;@/components/ui/label&quot;;
-+ import { Edit2, Check, X } from &quot;lucide-react&quot;;
-+ import { cn } from &quot;@/lib/utils&quot;;
++ import { useState, useTransition } from "react";
++ import { Input } from "@/components/ui/input";
++ import { Button } from "@/components/ui/button";
++ import { Label } from "@/components/ui/label";
++ import { Edit2, Check, X } from "lucide-react";
++ import { cn } from "@/lib/utils";
 + 
 + interface EditableFieldProps {
 +   label: string;
 +   value: string | number | null | undefined;
 +   fieldKey: string;
-+   type?: &quot;text&quot; | &quot;email&quot; | &quot;tel&quot; | &quot;number&quot;;
++   type?: "text" | "email" | "tel" | "number";
 +   onSave: (value: string) =&gt; Promise&lt;void&gt;;
 +   disabled?: boolean;
 +   className?: string;
@@ -6460,13 +6460,13 @@ Lines added: 1498, lines removed: 1206
 +   label,
 +   value,
 +   fieldKey,
-+   type = &quot;text&quot;,
++   type = "text",
 +   onSave,
 +   disabled = false,
 +   className,
 + }: EditableFieldProps) {
 +   const [isEditing, setIsEditing] = useState(false);
-+   const [editValue, setEditValue] = useState(String(value || &quot;&quot;));
++   const [editValue, setEditValue] = useState(String(value || ""));
 +   const [isSaving, startSaving] = useTransition();
 + 
 +   const handleSave = () =&gt; {
@@ -6477,58 +6477,58 @@ Lines added: 1498, lines removed: 1206
 +   };
 + 
 +   const handleCancel = () =&gt; {
-+     setEditValue(String(value || &quot;&quot;));
++     setEditValue(String(value || ""));
 +     setIsEditing(false);
 +   };
 + 
 +   if (disabled) {
 +     return (
-+       &lt;div className={cn(&quot;space-y-2&quot;, className)}&gt;
-+         &lt;Label className=&quot;text-muted-foreground&quot;&gt;{label}&lt;/Label&gt;
-+         &lt;p className=&quot;text-sm font-medium&quot;&gt;{value || &quot;—&quot;}&lt;/p&gt;
++       &lt;div className={cn("space-y-2", className)}&gt;
++         &lt;Label className="text-muted-foreground"&gt;{label}&lt;/Label&gt;
++         &lt;p className="text-sm font-medium"&gt;{value || "—"}&lt;/p&gt;
 +       &lt;/div&gt;
 +     );
 +   }
 + 
 +   return (
-+     &lt;div className={cn(&quot;space-y-2&quot;, className)}&gt;
++     &lt;div className={cn("space-y-2", className)}&gt;
 +       &lt;Label&gt;{label}&lt;/Label&gt;
 +       {isEditing ? (
-+         &lt;div className=&quot;flex items-center gap-2&quot;&gt;
++         &lt;div className="flex items-center gap-2"&gt;
 +           &lt;Input
 +             type={type}
 +             value={editValue}
 +             onChange={(e) =&gt; setEditValue(e.target.value)}
-+             className=&quot;flex-1&quot;
++             className="flex-1"
 +             disabled={isSaving}
 +           /&gt;
 +           &lt;Button
-+             size=&quot;icon&quot;
-+             variant=&quot;ghost&quot;
++             size="icon"
++             variant="ghost"
 +             onClick={handleSave}
 +             disabled={isSaving}
 +           &gt;
-+             &lt;Check className=&quot;h-4 w-4&quot; /&gt;
++             &lt;Check className="h-4 w-4" /&gt;
 +           &lt;/Button&gt;
 +           &lt;Button
-+             size=&quot;icon&quot;
-+             variant=&quot;ghost&quot;
++             size="icon"
++             variant="ghost"
 +             onClick={handleCancel}
 +             disabled={isSaving}
 +           &gt;
-+             &lt;X className=&quot;h-4 w-4&quot; /&gt;
++             &lt;X className="h-4 w-4" /&gt;
 +           &lt;/Button&gt;
 +         &lt;/div&gt;
 +       ) : (
-+         &lt;div className=&quot;flex items-center gap-2&quot;&gt;
-+           &lt;p className=&quot;text-sm font-medium flex-1&quot;&gt;{value || &quot;—&quot;}&lt;/p&gt;
++         &lt;div className="flex items-center gap-2"&gt;
++           &lt;p className="text-sm font-medium flex-1"&gt;{value || "—"}&lt;/p&gt;
 +           &lt;Button
-+             size=&quot;icon&quot;
-+             variant=&quot;ghost&quot;
++             size="icon"
++             variant="ghost"
 +             onClick={() =&gt; setIsEditing(true)}
-+             className=&quot;h-8 w-8&quot;
++             className="h-8 w-8"
 +           &gt;
-+             &lt;Edit2 className=&quot;h-4 w-4&quot; /&gt;
++             &lt;Edit2 className="h-4 w-4" /&gt;
 +           &lt;/Button&gt;
 +         &lt;/div&gt;
 +       )}
@@ -6540,18 +6540,18 @@ Lines added: 1498, lines removed: 1206
 + #### File: &#96;components/supplier/company-profile-section.tsx&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { Card, CardContent, CardHeader, CardTitle } from &quot;@/components/ui/card&quot;;
-+ import { EditableField } from &quot;./editable-field&quot;;
-+ import { Alert, AlertDescription } from &quot;@/components/ui/alert&quot;;
-+ import { Info } from &quot;lucide-react&quot;;
++ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
++ import { EditableField } from "./editable-field";
++ import { Alert, AlertDescription } from "@/components/ui/alert";
++ import { Info } from "lucide-react";
 + 
 + interface Field {
 +   key: string;
 +   label: string;
 +   value: string | number | null | undefined;
-+   type?: &quot;text&quot; | &quot;email&quot; | &quot;tel&quot; | &quot;number&quot;;
++   type?: "text" | "email" | "tel" | "number";
 + }
 + 
 + interface CompanyProfileSectionProps {
@@ -6571,13 +6571,13 @@ Lines added: 1498, lines removed: 1206
 +         &lt;CardTitle&gt;{title}&lt;/CardTitle&gt;
 +       &lt;/CardHeader&gt;
 +       &lt;CardContent&gt;
-+         &lt;Alert className=&quot;mb-4&quot;&gt;
-+           &lt;Info className=&quot;h-4 w-4&quot; /&gt;
++         &lt;Alert className="mb-4"&gt;
++           &lt;Info className="h-4 w-4" /&gt;
 +           &lt;AlertDescription&gt;
 +             All changes require re-approval from procurement.
 +           &lt;/AlertDescription&gt;
 +         &lt;/Alert&gt;
-+         &lt;div className=&quot;grid gap-4 md:grid-cols-2&quot;&gt;
++         &lt;div className="grid gap-4 md:grid-cols-2"&gt;
 +           {fields.map((field) =&gt; (
 +             &lt;EditableField
 +               key={field.key}
@@ -6598,19 +6598,19 @@ Lines added: 1498, lines removed: 1206
 + #### File: &#96;components/supplier/company-profile.tsx&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { useState, useTransition } from &quot;react&quot;;
-+ import { useRouter } from &quot;next/navigation&quot;;
-+ import { CompanyProfileHeader } from &quot;./company-profile-header&quot;;
-+ import { CompanyProfileSection } from &quot;./company-profile-section&quot;;
-+ import { updateCompanyProfileAction } from &quot;@/app/supplier/profile/[applicationId]/actions&quot;;
-+ import { SupplierWizardData } from &quot;@/lib/supplierWizardSchema&quot;;
-+ import { useToast } from &quot;@/hooks/use-toast&quot;;
-+ import { Card, CardContent, CardHeader, CardTitle } from &quot;@/components/ui/card&quot;;
-+ import { Button } from &quot;@/components/ui/button&quot;;
-+ import { Download, FileText } from &quot;lucide-react&quot;;
-+ import { format } from &quot;date-fns&quot;;
++ import { useState, useTransition } from "react";
++ import { useRouter } from "next/navigation";
++ import { CompanyProfileHeader } from "./company-profile-header";
++ import { CompanyProfileSection } from "./company-profile-section";
++ import { updateCompanyProfileAction } from "@/app/supplier/profile/[applicationId]/actions";
++ import { SupplierWizardData } from "@/lib/supplierWizardSchema";
++ import { useToast } from "@/hooks/use-toast";
++ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
++ import { Button } from "@/components/ui/button";
++ import { Download, FileText } from "lucide-react";
++ import { format } from "date-fns";
 + 
 + interface CompanyProfileProps {
 +   applicationId: string;
@@ -6644,7 +6644,7 @@ Lines added: 1498, lines removed: 1206
 + 
 +   const handleFieldUpdate = async (fieldKey: string, value: string) =&gt; {
 +     // Update local state
-+     const keys = fieldKey.split(&quot;.&quot;);
++     const keys = fieldKey.split(".");
 +     const newData = { ...formData };
 +     let current: any = newData;
 ...
@@ -6658,14 +6658,14 @@ Lines added: 1498, lines removed: 1206
 - Add new actions:
 - 
 - &#96;&#96;&#96;typescript
-- &quot;use server&quot;;
+- "use server";
 - 
-- import { revalidatePath } from &quot;next/cache&quot;;
-- import { auth } from &quot;@/lib/auth&quot;;
-- import { prisma } from &quot;@/lib/prisma&quot;;
-- import { requireRole } from &quot;@/lib/permissions&quot;;
-- import { canTransition } from &quot;@/lib/application-state&quot;;
-- import { SupplierWizardData, supplierWizardSchema } from &quot;@/lib/supplierWizardSchema&quot;;
+- import { revalidatePath } from "next/cache";
+- import { auth } from "@/lib/auth";
+- import { prisma } from "@/lib/prisma";
+- import { requireRole } from "@/lib/permissions";
+- import { canTransition } from "@/lib/application-state";
+- import { SupplierWizardData, supplierWizardSchema } from "@/lib/supplierWizardSchema";
 - 
 - // ... existing actions ...
 - 
@@ -6677,10 +6677,10 @@ Lines added: 1498, lines removed: 1206
 - }) {
 -   const session = await auth();
 -   if (!session?.user?.id) {
--     throw new Error(&quot;Unauthorized&quot;);
+-     throw new Error("Unauthorized");
 -   }
 - 
--   await requireRole([&quot;ADMIN&quot;, &quot;PROCUREMENT&quot;, &quot;MEMBER&quot;]);
+-   await requireRole(["ADMIN", "PROCUREMENT", "MEMBER"]);
 - 
 -   const application = await prisma.application.create({
 -     data: {
@@ -6688,53 +6688,53 @@ Lines added: 1498, lines removed: 1206
 -       entityId: input.entityId,
 -       geographyId: input.geographyId,
 -       formConfigId: input.formConfigId,
--       status: &quot;DRAFT&quot;,
+-       status: "DRAFT",
 -       createdById: session.user.id,
 -       updatedById: session.user.id,
 -     },
 -   });
 - 
--   revalidatePath(&quot;/dashboard/procurement&quot;);
+-   revalidatePath("/dashboard/procurement");
 -   return { ok: true, applicationId: application.id };
 - }
 - 
 - export async function submitOnBehalfAction(applicationId: string) {
 -   const session = await auth();
 -   if (!session?.user?.id) {
--     throw new Error(&quot;Unauthorized&quot;);
+-     throw new Error("Unauthorized");
 -   }
 - 
--   await requireRole([&quot;ADMIN&quot;, &quot;PROCUREMENT&quot;, &quot;MEMBER&quot;]);
+-   await requireRole(["ADMIN", "PROCUREMENT", "MEMBER"]);
 - 
 -   const application = await prisma.application.findUnique({
 -     where: { id: applicationId },
 -   });
 - 
 -   if (!application) {
--     throw new Error(&quot;Application not found&quot;);
+-     throw new Error("Application not found");
 -   }
 - 
--   if (application.status !== &quot;DRAFT&quot; &amp;&amp; application.status !== &quot;PENDING_SUPPLIER&quot;) {
--     throw new Error(&quot;Can only submit DRAFT or PENDING_SUPPLIER applications&quot;);
+-   if (application.status !== "DRAFT" &amp;&amp; application.status !== "PENDING_SUPPLIER") {
+-     throw new Error("Can only submit DRAFT or PENDING_SUPPLIER applications");
 -   }
 - 
 -   await prisma.application.update({
 -     where: { id: application.id },
 -     data: {
--       status: &quot;SUBMITTED&quot;,
+-       status: "SUBMITTED",
 -       submittedAt: new Date(),
 -       submittedById: session.user.id,
--       submissionType: &quot;INTERNAL&quot;,
+-       submissionType: "INTERNAL",
 -       updatedById: session.user.id,
 -       auditLogs: {
 -         create: {
 -           actorId: session.user.id,
--           actorRole: &quot;PROCUREMENT&quot;, // or get actual role
+-           actorRole: "PROCUREMENT", // or get actual role
 -           organizationId: application.organizationId,
--           action: &quot;APPLICATION_SUBMITTED&quot;,
+-           action: "APPLICATION_SUBMITTED",
 -           details: {
--             submissionType: &quot;INTERNAL&quot;,
--             note: &quot;Submitted by internal team member&quot;,
+-             submissionType: "INTERNAL",
+-             note: "Submitted by internal team member",
 -           },
 -         },
 -       },
@@ -6742,7 +6742,7 @@ Lines added: 1498, lines removed: 1206
 -   });
 - 
 -   revalidatePath(&#96;/dashboard/procurement/${applicationId}&#96;);
--   revalidatePath(&quot;/dashboard/procurement&quot;);
+-   revalidatePath("/dashboard/procurement");
 -   
 -   return { ok: true };
 - }
@@ -6753,26 +6753,26 @@ Lines added: 1498, lines removed: 1206
 - ) {
 -   const session = await auth();
 -   if (!session?.user?.id) {
--     throw new Error(&quot;Unauthorized&quot;);
+-     throw new Error("Unauthorized");
 -   }
 - 
--   await requireRole([&quot;ADMIN&quot;, &quot;PROCUREMENT&quot;, &quot;MEMBER&quot;]);
+-   await requireRole(["ADMIN", "PROCUREMENT", "MEMBER"]);
 - 
 -   const application = await prisma.application.findUnique({
 -     where: { id: applicationId },
 -   });
 - 
 -   if (!application) {
--     throw new Error(&quot;Application not found&quot;);
+-     throw new Error("Application not found");
 -   }
 - 
--   if (application.status !== &quot;DRAFT&quot;) {
--     throw new Error(&quot;Can only edit DRAFT applications&quot;);
+-   if (application.status !== "DRAFT") {
+-     throw new Error("Can only edit DRAFT applications");
 -   }
 - 
 -   const parsed = supplierWizardSchema.safeParse(formData);
 -   if (!parsed.success) {
--     throw new Error(&quot;Validation failed&quot;);
+-     throw new Error("Validation failed");
 -   }
 - 
 -   await prisma.application.update({
@@ -6792,7 +6792,7 @@ Lines added: 1498, lines removed: 1206
 - 
 - #### File: &#96;components/procurement/submissions-table.tsx&#96; (UPDATE)
 - 
-- Add &quot;Submitted By&quot; column:
+- Add "Submitted By" column:
 - 
 - &#96;&#96;&#96;typescript
 - // Add column header
@@ -6800,10 +6800,10 @@ Lines added: 1498, lines removed: 1206
 - 
 - // Add cell
 - &lt;TableCell&gt;
--   {row.submissionType === &quot;INTERNAL&quot; ? (
--     &lt;Badge variant=&quot;secondary&quot;&gt;Internal Team&lt;/Badge&gt;
+-   {row.submissionType === "INTERNAL" ? (
+-     &lt;Badge variant="secondary"&gt;Internal Team&lt;/Badge&gt;
 -   ) : (
--     &lt;Badge variant=&quot;outline&quot;&gt;Supplier&lt;/Badge&gt;
+-     &lt;Badge variant="outline"&gt;Supplier&lt;/Badge&gt;
 -   )}
 - &lt;/TableCell&gt;
 - &#96;&#96;&#96;
@@ -6811,30 +6811,30 @@ Lines added: 1498, lines removed: 1206
 - #### File: &#96;components/procurement/submission-source-badge.tsx&#96; (NEW)
 - 
 - &#96;&#96;&#96;typescript
-- &quot;use client&quot;;
+- "use client";
 - 
-- import { Badge } from &quot;@/components/ui/badge&quot;;
-- import { User, Users } from &quot;lucide-react&quot;;
+- import { Badge } from "@/components/ui/badge";
+- import { User, Users } from "lucide-react";
 - 
 - interface SubmissionSourceBadgeProps {
--   submissionType: &quot;SUPPLIER&quot; | &quot;INTERNAL&quot; | null;
+-   submissionType: "SUPPLIER" | "INTERNAL" | null;
 - }
 - 
 - export function SubmissionSourceBadge({
 -   submissionType,
 - }: SubmissionSourceBadgeProps) {
--   if (submissionType === &quot;INTERNAL&quot;) {
+-   if (submissionType === "INTERNAL") {
 -     return (
--       &lt;Badge variant=&quot;secondary&quot; className=&quot;gap-1&quot;&gt;
--         &lt;Users className=&quot;h-3 w-3&quot; /&gt;
+-       &lt;Badge variant="secondary" className="gap-1"&gt;
+-         &lt;Users className="h-3 w-3" /&gt;
 -         Internal Team
 -       &lt;/Badge&gt;
 -     );
 -   }
 - 
 -   return (
--     &lt;Badge variant=&quot;outline&quot; className=&quot;gap-1&quot;&gt;
--       &lt;User className=&quot;h-3 w-3&quot; /&gt;
+-     &lt;Badge variant="outline" className="gap-1"&gt;
+-       &lt;User className="h-3 w-3" /&gt;
 -       Supplier
 -     &lt;/Badge&gt;
 -   );
@@ -6857,10 +6857,10 @@ Lines added: 1498, lines removed: 1206
 - #### File: &#96;components/procurement/create-application-dialog.tsx&#96; (NEW)
 - 
 - &#96;&#96;&#96;typescript
-- &quot;use client&quot;;
+- "use client";
 - 
-- import { useState, useTransition } from &quot;react&quot;;
-- import { useRouter } from &quot;next/navigation&quot;;
+- import { useState, useTransition } from "react";
+- import { useRouter } from "next/navigation";
 - import {
 -   Dialog,
 -   DialogContent,
@@ -6868,18 +6868,18 @@ Lines added: 1498, lines removed: 1206
 -   DialogHeader,
 -   DialogTitle,
 -   DialogTrigger,
-- } from &quot;@/components/ui/dialog&quot;;
-- import { Button } from &quot;@/components/ui/button&quot;;
-- import { Label } from &quot;@/components/ui/label&quot;;
+- } from "@/components/ui/dialog";
+- import { Button } from "@/components/ui/button";
+- import { Label } from "@/components/ui/label";
 - import {
 -   Select,
 -   SelectContent,
 -   SelectItem,
 -   SelectTrigger,
 -   SelectValue,
-- } from &quot;@/components/ui/select&quot;;
-- import { createApplicationOnBehalfAction } from &quot;@/app/dashboard/procurement/[id]/actions&quot;;
-- import { useToast } from &quot;@/hooks/use-toast&quot;;
+- } from "@/components/ui/select";
+- import { createApplicationOnBehalfAction } from "@/app/dashboard/procurement/[id]/actions";
+- import { useToast } from "@/hooks/use-toast";
 - 
 - interface CreateApplicationDialogProps {
 -   organizations: Array&lt;{ id: string; name: string }&gt;;
@@ -6895,10 +6895,10 @@ Lines added: 1498, lines removed: 1206
 -   formConfigs,
 - }: CreateApplicationDialogProps) {
 -   const [open, setOpen] = useState(false);
--   const [organizationId, setOrganizationId] = useState(&quot;&quot;);
--   const [entityId, setEntityId] = useState(&quot;&quot;);
--   const [geographyId, setGeographyId] = useState(&quot;&quot;);
--   const [formConfigId, setFormConfigId] = useState(&quot;&quot;);
+-   const [organizationId, setOrganizationId] = useState("");
+-   const [entityId, setEntityId] = useState("");
+-   const [geographyId, setGeographyId] = useState("");
+-   const [formConfigId, setFormConfigId] = useState("");
 -   const [isCreating, startCreating] = useTransition();
 -   const router = useRouter();
 -   const { toast } = useToast();
@@ -6917,17 +6917,17 @@ Lines added: 1498, lines removed: 1206
 +       try {
 +         await updateCompanyProfileAction(applicationId, newData);
 +         toast({
-+           title: &quot;Changes saved&quot;,
++           title: "Changes saved",
 +           description:
-+             &quot;Your changes have been submitted for re-approval. Procurement will review and approve.&quot;,
++             "Your changes have been submitted for re-approval. Procurement will review and approve.",
 +         });
 +         router.refresh();
 +       } catch (error) {
 +         toast({
-+           title: &quot;Error&quot;,
++           title: "Error",
 +           description:
-+             error instanceof Error ? error.message : &quot;Failed to save changes&quot;,
-+           variant: &quot;destructive&quot;,
++             error instanceof Error ? error.message : "Failed to save changes",
++           variant: "destructive",
 +         });
 +       }
 +     });
@@ -6936,73 +6936,73 @@ Lines added: 1498, lines removed: 1206
 +   // Organize fields into sections
 +   const companyInfoFields = [
 +     {
-+       key: &quot;supplierInformation.supplierName&quot;,
-+       label: &quot;Supplier Name&quot;,
++       key: "supplierInformation.supplierName",
++       label: "Supplier Name",
 +       value: formData.supplierInformation?.supplierName,
-+       type: &quot;text&quot; as const,
++       type: "text" as const,
 +     },
 +     {
-+       key: &quot;supplierInformation.salesContactName&quot;,
-+       label: &quot;Sales Contact Name&quot;,
++       key: "supplierInformation.salesContactName",
++       label: "Sales Contact Name",
 +       value: formData.supplierInformation?.salesContactName,
-+       type: &quot;text&quot; as const,
++       type: "text" as const,
 +     },
 +     {
-+       key: &quot;supplierInformation.salesContactEmail&quot;,
-+       label: &quot;Sales Contact Email&quot;,
++       key: "supplierInformation.salesContactEmail",
++       label: "Sales Contact Email",
 +       value: formData.supplierInformation?.salesContactEmail,
-+       type: &quot;email&quot; as const,
++       type: "email" as const,
 +     },
 +   ];
 + 
 +   const addressFields = [
 +     {
-+       key: &quot;addresses.remitToAddress.line1&quot;,
-+       label: &quot;Remit-to Address Line 1&quot;,
++       key: "addresses.remitToAddress.line1",
++       label: "Remit-to Address Line 1",
 +       value: formData.addresses?.remitToAddress?.line1,
-+       type: &quot;text&quot; as const,
++       type: "text" as const,
 +     },
 +     {
-+       key: &quot;addresses.remitToAddress.city&quot;,
-+       label: &quot;City&quot;,
++       key: "addresses.remitToAddress.city",
++       label: "City",
 +       value: formData.addresses?.remitToAddress?.city,
-+       type: &quot;text&quot; as const,
++       type: "text" as const,
 +     },
 +     {
-+       key: &quot;addresses.remitToAddress.country&quot;,
-+       label: &quot;Country&quot;,
++       key: "addresses.remitToAddress.country",
++       label: "Country",
 +       value: formData.addresses?.remitToAddress?.country,
-+       type: &quot;text&quot; as const,
++       type: "text" as const,
 +     },
 +   ];
 + 
 +   const bankingFields = [
 +     {
-+       key: &quot;bankInformation.bankName&quot;,
-+       label: &quot;Bank Name&quot;,
++       key: "bankInformation.bankName",
++       label: "Bank Name",
 +       value: formData.bankInformation?.bankName,
-+       type: &quot;text&quot; as const,
++       type: "text" as const,
 +     },
 +     {
-+       key: &quot;bankInformation.routingNumber&quot;,
-+       label: &quot;Routing Number&quot;,
++       key: "bankInformation.routingNumber",
++       label: "Routing Number",
 +       value: formData.bankInformation?.routingNumber
-+         ? &quot;••••••&quot;
++         ? "••••••"
 +         : null,
-+       type: &quot;text&quot; as const,
++       type: "text" as const,
 +     },
 +     {
-+       key: &quot;bankInformation.accountNumber&quot;,
-+       label: &quot;Account Number&quot;,
++       key: "bankInformation.accountNumber",
++       label: "Account Number",
 +       value: formData.bankInformation?.accountNumber
-+         ? &quot;••••••&quot;
++         ? "••••••"
 +         : null,
-+       type: &quot;text&quot; as const,
++       type: "text" as const,
 +     },
 +   ];
 + 
 +   return (
-+     &lt;div className=&quot;space-y-6&quot;&gt;
++     &lt;div className="space-y-6"&gt;
 +       &lt;CompanyProfileHeader
 +         companyName={companyName}
 +         approvedAt={approvedAt}
@@ -7011,19 +7011,19 @@ Lines added: 1498, lines removed: 1206
 +       /&gt;
 + 
 +       &lt;CompanyProfileSection
-+         title=&quot;Company Information&quot;
++         title="Company Information"
 +         fields={companyInfoFields}
 +         onFieldUpdate={handleFieldUpdate}
 +       /&gt;
 + 
 +       &lt;CompanyProfileSection
-+         title=&quot;Addresses&quot;
++         title="Addresses"
 +         fields={addressFields}
 +         onFieldUpdate={handleFieldUpdate}
 +       /&gt;
 + 
 +       &lt;CompanyProfileSection
-+         title=&quot;Banking Information&quot;
++         title="Banking Information"
 +         fields={bankingFields}
 +         onFieldUpdate={handleFieldUpdate}
 +       /&gt;
@@ -7034,30 +7034,30 @@ Lines added: 1498, lines removed: 1206
 +         &lt;/CardHeader&gt;
 +         &lt;CardContent&gt;
 +           {documents.length === 0 ? (
-+             &lt;p className=&quot;text-sm text-muted-foreground&quot;&gt;No documents uploaded.&lt;/p&gt;
++             &lt;p className="text-sm text-muted-foreground"&gt;No documents uploaded.&lt;/p&gt;
 +           ) : (
-+             &lt;div className=&quot;space-y-2&quot;&gt;
++             &lt;div className="space-y-2"&gt;
 +               {documents.map((doc) =&gt; (
 +                 &lt;div
 +                   key={doc.id}
-+                   className=&quot;flex items-center justify-between p-3 border rounded-lg&quot;
++                   className="flex items-center justify-between p-3 border rounded-lg"
 +                 &gt;
-+                   &lt;div className=&quot;flex items-center gap-3&quot;&gt;
-+                     &lt;FileText className=&quot;h-5 w-5 text-muted-foreground&quot; /&gt;
++                   &lt;div className="flex items-center gap-3"&gt;
++                     &lt;FileText className="h-5 w-5 text-muted-foreground" /&gt;
 +                     &lt;div&gt;
-+                       &lt;p className=&quot;text-sm font-medium&quot;&gt;{doc.documentType.label}&lt;/p&gt;
-+                       &lt;p className=&quot;text-xs text-muted-foreground&quot;&gt;
-+                         {doc.fileName} • Uploaded {format(doc.uploadedAt, &quot;MMM d, yyyy&quot;)}
++                       &lt;p className="text-sm font-medium"&gt;{doc.documentType.label}&lt;/p&gt;
++                       &lt;p className="text-xs text-muted-foreground"&gt;
++                         {doc.fileName} • Uploaded {format(doc.uploadedAt, "MMM d, yyyy")}
 +                       &lt;/p&gt;
 +                     &lt;/div&gt;
 +                   &lt;/div&gt;
 +                   &lt;Button
-+                     variant=&quot;outline&quot;
-+                     size=&quot;sm&quot;
++                     variant="outline"
++                     size="sm"
 +                     asChild
 +                   &gt;
-+                     &lt;a href={doc.fileUrl} target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;
-+                       &lt;Download className=&quot;h-4 w-4 mr-2&quot; /&gt;
++                     &lt;a href={doc.fileUrl} target="_blank" rel="noopener noreferrer"&gt;
++                       &lt;Download className="h-4 w-4 mr-2" /&gt;
 +                       Download
 +                     &lt;/a&gt;
 +                   &lt;/Button&gt;
@@ -7075,12 +7075,12 @@ Lines added: 1498, lines removed: 1206
 + #### File: &#96;app/supplier/profile/[applicationId]/page.tsx&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ import { notFound, redirect } from &quot;next/navigation&quot;;
-+ import { prisma } from &quot;@/lib/prisma&quot;;
-+ import { auth } from &quot;@/lib/auth&quot;;
-+ import { CompanyProfile } from &quot;@/components/supplier/company-profile&quot;;
-+ import { SupplierWizardData } from &quot;@/lib/supplierWizardSchema&quot;;
-+ import { requireRole } from &quot;@/lib/permissions&quot;;
++ import { notFound, redirect } from "next/navigation";
++ import { prisma } from "@/lib/prisma";
++ import { auth } from "@/lib/auth";
++ import { CompanyProfile } from "@/components/supplier/company-profile";
++ import { SupplierWizardData } from "@/lib/supplierWizardSchema";
++ import { requireRole } from "@/lib/permissions";
 + 
 + interface Params {
 +   applicationId: string;
@@ -7095,11 +7095,11 @@ Lines added: 1498, lines removed: 1206
 +   const session = await auth();
 + 
 +   if (!session?.user?.id) {
-+     redirect(&quot;/signin&quot;);
++     redirect("/signin");
 +   }
 + 
 +   // Check user is supplier
-+   await requireRole([&quot;SUPPLIER&quot;]);
++   await requireRole(["SUPPLIER"]);
 + 
 +   const application = await prisma.application.findFirst({
 +     where: {
@@ -7120,7 +7120,7 @@ Lines added: 1498, lines removed: 1206
 +         include: {
 +           documentType: true,
 +         },
-+         orderBy: { uploadedAt: &quot;desc&quot; },
++         orderBy: { uploadedAt: "desc" },
 +       },
 +     },
 +   });
@@ -7130,7 +7130,7 @@ Lines added: 1498, lines removed: 1206
 +   }
 + 
 +   // Redirect if not approved
-+   if (application.status !== &quot;APPROVED&quot;) {
++   if (application.status !== "APPROVED") {
 +     redirect(&#96;/supplier/onboarding/${applicationId}&#96;);
 +   }
 + 
@@ -7138,10 +7138,10 @@ Lines added: 1498, lines removed: 1206
 +     (application.data as SupplierWizardData | null) ?? ({} as SupplierWizardData);
 + 
 +   return (
-+     &lt;div className=&quot;container mx-auto py-8 space-y-6&quot;&gt;
-+       &lt;div className=&quot;space-y-2&quot;&gt;
-+         &lt;h1 className=&quot;text-3xl font-semibold&quot;&gt;Company Profile&lt;/h1&gt;
-+         &lt;p className=&quot;text-muted-foreground&quot;&gt;
++     &lt;div className="container mx-auto py-8 space-y-6"&gt;
++       &lt;div className="space-y-2"&gt;
++         &lt;h1 className="text-3xl font-semibold"&gt;Company Profile&lt;/h1&gt;
++         &lt;p className="text-muted-foreground"&gt;
 +           View and manage your approved company information
 +         &lt;/p&gt;
 +       &lt;/div&gt;
@@ -7167,9 +7167,9 @@ Lines added: 1498, lines removed: 1206
 -   const handleCreate = () =&gt; {
 -     if (!organizationId || !entityId || !geographyId || !formConfigId) {
 -       toast({
--         title: &quot;Error&quot;,
--         description: &quot;Please fill all fields&quot;,
--         variant: &quot;destructive&quot;,
+-         title: "Error",
+-         description: "Please fill all fields",
+-         variant: "destructive",
 -       });
 -       return;
 -     }
@@ -7183,16 +7183,16 @@ Lines added: 1498, lines removed: 1206
 -           formConfigId,
 -         });
 -         toast({
--           title: &quot;Application created&quot;,
--           description: &quot;You can now edit and submit this application.&quot;,
+-           title: "Application created",
+-           description: "You can now edit and submit this application.",
 -         });
 -         setOpen(false);
 -         router.push(&#96;/dashboard/procurement/${result.applicationId}&#96;);
 -       } catch (error) {
 -         toast({
--           title: &quot;Error&quot;,
--           description: error instanceof Error ? error.message : &quot;Failed to create application&quot;,
--           variant: &quot;destructive&quot;,
+-           title: "Error",
+-           description: error instanceof Error ? error.message : "Failed to create application",
+-           variant: "destructive",
 -         });
 -       }
 -     });
@@ -7210,12 +7210,12 @@ Lines added: 1498, lines removed: 1206
 -             Create a new application for a supplier organization.
 -           &lt;/DialogDescription&gt;
 -         &lt;/DialogHeader&gt;
--         &lt;div className=&quot;space-y-4&quot;&gt;
--           &lt;div className=&quot;space-y-2&quot;&gt;
+-         &lt;div className="space-y-4"&gt;
+-           &lt;div className="space-y-2"&gt;
 -             &lt;Label&gt;Organization&lt;/Label&gt;
 -             &lt;Select value={organizationId} onValueChange={setOrganizationId}&gt;
 -               &lt;SelectTrigger&gt;
--                 &lt;SelectValue placeholder=&quot;Select organization&quot; /&gt;
+-                 &lt;SelectValue placeholder="Select organization" /&gt;
 -               &lt;/SelectTrigger&gt;
 -               &lt;SelectContent&gt;
 -                 {organizations.map((org) =&gt; (
@@ -7227,11 +7227,11 @@ Lines added: 1498, lines removed: 1206
 -             &lt;/Select&gt;
 -           &lt;/div&gt;
 - 
--           &lt;div className=&quot;space-y-2&quot;&gt;
+-           &lt;div className="space-y-2"&gt;
 -             &lt;Label&gt;Entity&lt;/Label&gt;
 -             &lt;Select value={entityId} onValueChange={setEntityId}&gt;
 -               &lt;SelectTrigger&gt;
--                 &lt;SelectValue placeholder=&quot;Select entity&quot; /&gt;
+-                 &lt;SelectValue placeholder="Select entity" /&gt;
 -               &lt;/SelectTrigger&gt;
 -               &lt;SelectContent&gt;
 -                 {entities.map((entity) =&gt; (
@@ -7253,7 +7253,7 @@ Lines added: 1498, lines removed: 1206
 + 
 + &#96;&#96;&#96;typescript
 + // In the applications list, add:
-+ {application.status === &quot;APPROVED&quot; &amp;&amp; (
++ {application.status === "APPROVED" &amp;&amp; (
 +   &lt;Link href={&#96;/supplier/profile/${application.id}&#96;}&gt;
 +     View Company Profile
 +   &lt;/Link&gt;
@@ -7286,14 +7286,14 @@ Lines added: 1498, lines removed: 1206
 + Add new actions:
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use server&quot;;
++ "use server";
 + 
-+ import { revalidatePath } from &quot;next/cache&quot;;
-+ import { auth } from &quot;@/lib/auth&quot;;
-+ import { prisma } from &quot;@/lib/prisma&quot;;
-+ import { requireRole } from &quot;@/lib/permissions&quot;;
-+ import { canTransition } from &quot;@/lib/application-state&quot;;
-+ import { SupplierWizardData, supplierWizardSchema } from &quot;@/lib/supplierWizardSchema&quot;;
++ import { revalidatePath } from "next/cache";
++ import { auth } from "@/lib/auth";
++ import { prisma } from "@/lib/prisma";
++ import { requireRole } from "@/lib/permissions";
++ import { canTransition } from "@/lib/application-state";
++ import { SupplierWizardData, supplierWizardSchema } from "@/lib/supplierWizardSchema";
 + 
 + // ... existing actions ...
 + 
@@ -7305,10 +7305,10 @@ Lines added: 1498, lines removed: 1206
 + }) {
 +   const session = await auth();
 +   if (!session?.user?.id) {
-+     throw new Error(&quot;Unauthorized&quot;);
++     throw new Error("Unauthorized");
 +   }
 + 
-+   await requireRole([&quot;ADMIN&quot;, &quot;PROCUREMENT&quot;, &quot;MEMBER&quot;]);
++   await requireRole(["ADMIN", "PROCUREMENT", "MEMBER"]);
 + 
 +   const application = await prisma.application.create({
 +     data: {
@@ -7316,17 +7316,17 @@ Lines added: 1498, lines removed: 1206
 +       entityId: input.entityId,
 +       geographyId: input.geographyId,
 +       formConfigId: input.formConfigId,
-+       status: &quot;DRAFT&quot;,
++       status: "DRAFT",
 +       createdById: session.user.id,
 +       updatedById: session.user.id,
 +     },
 +   });
 ...
--           &lt;div className=&quot;space-y-2&quot;&gt;
+-           &lt;div className="space-y-2"&gt;
 -             &lt;Label&gt;Geography&lt;/Label&gt;
 -             &lt;Select value={geographyId} onValueChange={setGeographyId}&gt;
 -               &lt;SelectTrigger&gt;
--                 &lt;SelectValue placeholder=&quot;Select geography&quot; /&gt;
+-                 &lt;SelectValue placeholder="Select geography" /&gt;
 -               &lt;/SelectTrigger&gt;
 -               &lt;SelectContent&gt;
 -                 {geographies.map((geo) =&gt; (
@@ -7338,7 +7338,7 @@ Lines added: 1498, lines removed: 1206
 -             &lt;/Select&gt;
 -           &lt;/div&gt;
 - 
--           &lt;div className=&quot;space-y-2&quot;&gt;
+-           &lt;div className="space-y-2"&gt;
 -             &lt;Label&gt;Form Configuration&lt;/Label&gt;
 -             &lt;Select
 -               value={formConfigId}
@@ -7346,7 +7346,7 @@ Lines added: 1498, lines removed: 1206
 -               disabled={!entityId || !geographyId}
 -             &gt;
 -               &lt;SelectTrigger&gt;
--                 &lt;SelectValue placeholder=&quot;Select form config&quot; /&gt;
+-                 &lt;SelectValue placeholder="Select form config" /&gt;
 -               &lt;/SelectTrigger&gt;
 -               &lt;SelectContent&gt;
 -                 {availableFormConfigs.map((config) =&gt; (
@@ -7361,9 +7361,9 @@ Lines added: 1498, lines removed: 1206
 -           &lt;Button
 -             onClick={handleCreate}
 -             disabled={isCreating || !formConfigId}
--             className=&quot;w-full&quot;
+-             className="w-full"
 -           &gt;
--             {isCreating ? &quot;Creating...&quot; : &quot;Create Application&quot;}
+-             {isCreating ? "Creating..." : "Create Application"}
 -           &lt;/Button&gt;
 -         &lt;/div&gt;
 -       &lt;/DialogContent&gt;
@@ -7422,47 +7422,47 @@ Lines added: 1498, lines removed: 1206
 - npx shadcn@latest add tabs
 - npx shadcn@latest add textarea
 - &#96;&#96;&#96;
-+   revalidatePath(&quot;/dashboard/procurement&quot;);
++   revalidatePath("/dashboard/procurement");
 +   return { ok: true, applicationId: application.id };
 + }
 + 
 + export async function submitOnBehalfAction(applicationId: string) {
 +   const session = await auth();
 +   if (!session?.user?.id) {
-+     throw new Error(&quot;Unauthorized&quot;);
++     throw new Error("Unauthorized");
 +   }
 + 
-+   await requireRole([&quot;ADMIN&quot;, &quot;PROCUREMENT&quot;, &quot;MEMBER&quot;]);
++   await requireRole(["ADMIN", "PROCUREMENT", "MEMBER"]);
 + 
 +   const application = await prisma.application.findUnique({
 +     where: { id: applicationId },
 +   });
 + 
 +   if (!application) {
-+     throw new Error(&quot;Application not found&quot;);
++     throw new Error("Application not found");
 +   }
 + 
-+   if (application.status !== &quot;DRAFT&quot; &amp;&amp; application.status !== &quot;PENDING_SUPPLIER&quot;) {
-+     throw new Error(&quot;Can only submit DRAFT or PENDING_SUPPLIER applications&quot;);
++   if (application.status !== "DRAFT" &amp;&amp; application.status !== "PENDING_SUPPLIER") {
++     throw new Error("Can only submit DRAFT or PENDING_SUPPLIER applications");
 +   }
 + 
 +   await prisma.application.update({
 +     where: { id: application.id },
 +     data: {
-+       status: &quot;SUBMITTED&quot;,
++       status: "SUBMITTED",
 +       submittedAt: new Date(),
 +       submittedById: session.user.id,
-+       submissionType: &quot;INTERNAL&quot;,
++       submissionType: "INTERNAL",
 +       updatedById: session.user.id,
 +       auditLogs: {
 +         create: {
 +           actorId: session.user.id,
-+           actorRole: &quot;PROCUREMENT&quot;, // or get actual role
++           actorRole: "PROCUREMENT", // or get actual role
 +           organizationId: application.organizationId,
-+           action: &quot;APPLICATION_SUBMITTED&quot;,
++           action: "APPLICATION_SUBMITTED",
 +           details: {
-+             submissionType: &quot;INTERNAL&quot;,
-+             note: &quot;Submitted by internal team member&quot;,
++             submissionType: "INTERNAL",
++             note: "Submitted by internal team member",
 +           },
 +         },
 +       },
@@ -7470,7 +7470,7 @@ Lines added: 1498, lines removed: 1206
 +   });
 + 
 +   revalidatePath(&#96;/dashboard/procurement/${applicationId}&#96;);
-+   revalidatePath(&quot;/dashboard/procurement&quot;);
++   revalidatePath("/dashboard/procurement");
 +   
 +   return { ok: true };
 + }
@@ -7481,26 +7481,26 @@ Lines added: 1498, lines removed: 1206
 + ) {
 +   const session = await auth();
 +   if (!session?.user?.id) {
-+     throw new Error(&quot;Unauthorized&quot;);
++     throw new Error("Unauthorized");
 +   }
 + 
-+   await requireRole([&quot;ADMIN&quot;, &quot;PROCUREMENT&quot;, &quot;MEMBER&quot;]);
++   await requireRole(["ADMIN", "PROCUREMENT", "MEMBER"]);
 + 
 +   const application = await prisma.application.findUnique({
 +     where: { id: applicationId },
 +   });
 + 
 +   if (!application) {
-+     throw new Error(&quot;Application not found&quot;);
++     throw new Error("Application not found");
 +   }
 + 
-+   if (application.status !== &quot;DRAFT&quot;) {
-+     throw new Error(&quot;Can only edit DRAFT applications&quot;);
++   if (application.status !== "DRAFT") {
++     throw new Error("Can only edit DRAFT applications");
 +   }
 + 
 +   const parsed = supplierWizardSchema.safeParse(formData);
 +   if (!parsed.success) {
-+     throw new Error(&quot;Validation failed&quot;);
++     throw new Error("Validation failed");
 +   }
 + 
 +   await prisma.application.update({
@@ -7520,7 +7520,7 @@ Lines added: 1498, lines removed: 1206
 + 
 + #### File: &#96;components/procurement/submissions-table.tsx&#96; (UPDATE)
 + 
-+ Add &quot;Submitted By&quot; column:
++ Add "Submitted By" column:
 ...
 - ### Files Created
 - 
@@ -7547,10 +7547,10 @@ Lines added: 1498, lines removed: 1206
 + 
 + // Add cell
 + &lt;TableCell&gt;
-+   {row.submissionType === &quot;INTERNAL&quot; ? (
-+     &lt;Badge variant=&quot;secondary&quot;&gt;Internal Team&lt;/Badge&gt;
++   {row.submissionType === "INTERNAL" ? (
++     &lt;Badge variant="secondary"&gt;Internal Team&lt;/Badge&gt;
 +   ) : (
-+     &lt;Badge variant=&quot;outline&quot;&gt;Supplier&lt;/Badge&gt;
++     &lt;Badge variant="outline"&gt;Supplier&lt;/Badge&gt;
 +   )}
 + &lt;/TableCell&gt;
 + &#96;&#96;&#96;
@@ -7558,7 +7558,7 @@ Lines added: 1498, lines removed: 1206
 + #### File: &#96;components/procurement/submission-source-badge.tsx&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use client&quot;;
++ "use client";
 ...
 - - &#96;prisma/schema.prisma&#96;
 - - &#96;app/supplier/onboarding/actions.ts&#96;
@@ -7600,28 +7600,28 @@ Lines added: 1498, lines removed: 1206
 - 5. Deploy incrementally
 - 
 - 
-+ import { Badge } from &quot;@/components/ui/badge&quot;;
-+ import { User, Users } from &quot;lucide-react&quot;;
++ import { Badge } from "@/components/ui/badge";
++ import { User, Users } from "lucide-react";
 + 
 + interface SubmissionSourceBadgeProps {
-+   submissionType: &quot;SUPPLIER&quot; | &quot;INTERNAL&quot; | null;
++   submissionType: "SUPPLIER" | "INTERNAL" | null;
 + }
 + 
 + export function SubmissionSourceBadge({
 +   submissionType,
 + }: SubmissionSourceBadgeProps) {
-+   if (submissionType === &quot;INTERNAL&quot;) {
++   if (submissionType === "INTERNAL") {
 +     return (
-+       &lt;Badge variant=&quot;secondary&quot; className=&quot;gap-1&quot;&gt;
-+         &lt;Users className=&quot;h-3 w-3&quot; /&gt;
++       &lt;Badge variant="secondary" className="gap-1"&gt;
++         &lt;Users className="h-3 w-3" /&gt;
 +         Internal Team
 +       &lt;/Badge&gt;
 +     );
 +   }
 + 
 +   return (
-+     &lt;Badge variant=&quot;outline&quot; className=&quot;gap-1&quot;&gt;
-+       &lt;User className=&quot;h-3 w-3&quot; /&gt;
++     &lt;Badge variant="outline" className="gap-1"&gt;
++       &lt;User className="h-3 w-3" /&gt;
 +       Supplier
 +     &lt;/Badge&gt;
 +   );
@@ -7644,10 +7644,10 @@ Lines added: 1498, lines removed: 1206
 + #### File: &#96;components/procurement/create-application-dialog.tsx&#96; (NEW)
 + 
 + &#96;&#96;&#96;typescript
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { useState, useTransition } from &quot;react&quot;;
-+ import { useRouter } from &quot;next/navigation&quot;;
++ import { useState, useTransition } from "react";
++ import { useRouter } from "next/navigation";
 + import {
 +   Dialog,
 +   DialogContent,
@@ -7655,18 +7655,18 @@ Lines added: 1498, lines removed: 1206
 +   DialogHeader,
 +   DialogTitle,
 +   DialogTrigger,
-+ } from &quot;@/components/ui/dialog&quot;;
-+ import { Button } from &quot;@/components/ui/button&quot;;
-+ import { Label } from &quot;@/components/ui/label&quot;;
++ } from "@/components/ui/dialog";
++ import { Button } from "@/components/ui/button";
++ import { Label } from "@/components/ui/label";
 + import {
 +   Select,
 +   SelectContent,
 +   SelectItem,
 +   SelectTrigger,
 +   SelectValue,
-+ } from &quot;@/components/ui/select&quot;;
-+ import { createApplicationOnBehalfAction } from &quot;@/app/dashboard/procurement/[id]/actions&quot;;
-+ import { useToast } from &quot;@/hooks/use-toast&quot;;
++ } from "@/components/ui/select";
++ import { createApplicationOnBehalfAction } from "@/app/dashboard/procurement/[id]/actions";
++ import { useToast } from "@/hooks/use-toast";
 + 
 + interface CreateApplicationDialogProps {
 +   organizations: Array&lt;{ id: string; name: string }&gt;;
@@ -7682,10 +7682,10 @@ Lines added: 1498, lines removed: 1206
 +   formConfigs,
 + }: CreateApplicationDialogProps) {
 +   const [open, setOpen] = useState(false);
-+   const [organizationId, setOrganizationId] = useState(&quot;&quot;);
-+   const [entityId, setEntityId] = useState(&quot;&quot;);
-+   const [geographyId, setGeographyId] = useState(&quot;&quot;);
-+   const [formConfigId, setFormConfigId] = useState(&quot;&quot;);
++   const [organizationId, setOrganizationId] = useState("");
++   const [entityId, setEntityId] = useState("");
++   const [geographyId, setGeographyId] = useState("");
++   const [formConfigId, setFormConfigId] = useState("");
 +   const [isCreating, startCreating] = useTransition();
 +   const router = useRouter();
 +   const { toast } = useToast();
@@ -7697,9 +7697,9 @@ Lines added: 1498, lines removed: 1206
 +   const handleCreate = () =&gt; {
 +     if (!organizationId || !entityId || !geographyId || !formConfigId) {
 +       toast({
-+         title: &quot;Error&quot;,
-+         description: &quot;Please fill all fields&quot;,
-+         variant: &quot;destructive&quot;,
++         title: "Error",
++         description: "Please fill all fields",
++         variant: "destructive",
 +       });
 +       return;
 +     }
@@ -7713,16 +7713,16 @@ Lines added: 1498, lines removed: 1206
 +           formConfigId,
 +         });
 +         toast({
-+           title: &quot;Application created&quot;,
-+           description: &quot;You can now edit and submit this application.&quot;,
++           title: "Application created",
++           description: "You can now edit and submit this application.",
 +         });
 +         setOpen(false);
 +         router.push(&#96;/dashboard/procurement/${result.applicationId}&#96;);
 +       } catch (error) {
 +         toast({
-+           title: &quot;Error&quot;,
-+           description: error instanceof Error ? error.message : &quot;Failed to create application&quot;,
-+           variant: &quot;destructive&quot;,
++           title: "Error",
++           description: error instanceof Error ? error.message : "Failed to create application",
++           variant: "destructive",
 +         });
 +       }
 +     });
@@ -7740,12 +7740,12 @@ Lines added: 1498, lines removed: 1206
 +             Create a new application for a supplier organization.
 +           &lt;/DialogDescription&gt;
 +         &lt;/DialogHeader&gt;
-+         &lt;div className=&quot;space-y-4&quot;&gt;
-+           &lt;div className=&quot;space-y-2&quot;&gt;
++         &lt;div className="space-y-4"&gt;
++           &lt;div className="space-y-2"&gt;
 +             &lt;Label&gt;Organization&lt;/Label&gt;
 +             &lt;Select value={organizationId} onValueChange={setOrganizationId}&gt;
 +               &lt;SelectTrigger&gt;
-+                 &lt;SelectValue placeholder=&quot;Select organization&quot; /&gt;
++                 &lt;SelectValue placeholder="Select organization" /&gt;
 +               &lt;/SelectTrigger&gt;
 +               &lt;SelectContent&gt;
 +                 {organizations.map((org) =&gt; (
@@ -7757,11 +7757,11 @@ Lines added: 1498, lines removed: 1206
 +             &lt;/Select&gt;
 +           &lt;/div&gt;
 + 
-+           &lt;div className=&quot;space-y-2&quot;&gt;
++           &lt;div className="space-y-2"&gt;
 +             &lt;Label&gt;Entity&lt;/Label&gt;
 +             &lt;Select value={entityId} onValueChange={setEntityId}&gt;
 +               &lt;SelectTrigger&gt;
-+                 &lt;SelectValue placeholder=&quot;Select entity&quot; /&gt;
++                 &lt;SelectValue placeholder="Select entity" /&gt;
 +               &lt;/SelectTrigger&gt;
 +               &lt;SelectContent&gt;
 +                 {entities.map((entity) =&gt; (
@@ -7773,11 +7773,11 @@ Lines added: 1498, lines removed: 1206
 +             &lt;/Select&gt;
 +           &lt;/div&gt;
 + 
-+           &lt;div className=&quot;space-y-2&quot;&gt;
++           &lt;div className="space-y-2"&gt;
 +             &lt;Label&gt;Geography&lt;/Label&gt;
 +             &lt;Select value={geographyId} onValueChange={setGeographyId}&gt;
 +               &lt;SelectTrigger&gt;
-+                 &lt;SelectValue placeholder=&quot;Select geography&quot; /&gt;
++                 &lt;SelectValue placeholder="Select geography" /&gt;
 +               &lt;/SelectTrigger&gt;
 +               &lt;SelectContent&gt;
 +                 {geographies.map((geo) =&gt; (
@@ -7789,7 +7789,7 @@ Lines added: 1498, lines removed: 1206
 +             &lt;/Select&gt;
 +           &lt;/div&gt;
 + 
-+           &lt;div className=&quot;space-y-2&quot;&gt;
++           &lt;div className="space-y-2"&gt;
 +             &lt;Label&gt;Form Configuration&lt;/Label&gt;
 +             &lt;Select
 +               value={formConfigId}
@@ -7797,7 +7797,7 @@ Lines added: 1498, lines removed: 1206
 +               disabled={!entityId || !geographyId}
 +             &gt;
 +               &lt;SelectTrigger&gt;
-+                 &lt;SelectValue placeholder=&quot;Select form config&quot; /&gt;
++                 &lt;SelectValue placeholder="Select form config" /&gt;
 +               &lt;/SelectTrigger&gt;
 +               &lt;SelectContent&gt;
 +                 {availableFormConfigs.map((config) =&gt; (
@@ -7812,9 +7812,9 @@ Lines added: 1498, lines removed: 1206
 +           &lt;Button
 +             onClick={handleCreate}
 +             disabled={isCreating || !formConfigId}
-+             className=&quot;w-full&quot;
++             className="w-full"
 +           &gt;
-+             {isCreating ? &quot;Creating...&quot; : &quot;Create Application&quot;}
++             {isCreating ? "Creating..." : "Create Application"}
 +           &lt;/Button&gt;
 +         &lt;/div&gt;
 +       &lt;/DialogContent&gt;
@@ -7944,16 +7944,16 @@ Lines added: 1498, lines removed: 1206
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 3, lines removed: 2
 
 ```diff
 @@ -1092,10 +1092,11 @@
-  import { prisma } from &quot;@/lib/prisma&quot;;
-  import { requireRole } from &quot;@/lib/permissions&quot;;
-+ import { getSupplierByOrganization } from &quot;@/lib/suppliers&quot;;
+  import { prisma } from "@/lib/prisma";
+  import { requireRole } from "@/lib/permissions";
++ import { getSupplierByOrganization } from "@/lib/suppliers";
   
   export async function GET(
     request: NextRequest,
@@ -7977,7 +7977,7 @@ Lines added: 2, lines removed: 3
 +   const supplier = await prisma.supplier.findFirst({
       where: {
 -       id: applicationId,
--       status: &quot;APPROVED&quot;,
+-       status: "APPROVED",
 +       id: supplierId,
         organization: {
           members: {
@@ -7993,7 +7993,7 @@ Lines added: 22, lines removed: 21
 -           uploadedBy: true,
 -         },
 +         },
-+         orderBy: { uploadedAt: &quot;desc&quot; },
++         orderBy: { uploadedAt: "desc" },
         },
 -       formConfig: {
 -         include: {
@@ -8001,7 +8001,7 @@ Lines added: 22, lines removed: 21
 -             include: {
 -               fields: true,
 -             },
--             orderBy: { order: &quot;asc&quot; },
+-             orderBy: { order: "asc" },
 +       application: {
 +         select: {
 +           id: true,
@@ -8020,7 +8020,7 @@ Lines added: 22, lines removed: 21
   
 -   if (!application) {
 +   if (!supplier) {
-      return NextResponse.json({ error: &quot;Not found&quot; }, { status: 404 });
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
   
     return NextResponse.json({
@@ -8056,7 +8056,7 @@ Lines added: 22, lines removed: 21
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: 1
@@ -8076,7 +8076,7 @@ Lines added: 2, lines removed: 2
 
 ```diff
 @@ -1173,6 +1173,6 @@
-  import { SupplierWizardData, supplierWizardSchema } from &quot;@/lib/supplierWizardSchema&quot;;
+  import { SupplierWizardData, supplierWizardSchema } from "@/lib/supplierWizardSchema";
   
 - export async function updateCompanyProfileAction(
 -   applicationId: string,
@@ -8115,13 +8115,13 @@ Lines added: 5, lines removed: 6
     });
   
 -   if (!application) {
--     throw new Error(&quot;Application not found&quot;);
+-     throw new Error("Application not found");
 -   }
 - 
--   if (application.status !== &quot;APPROVED&quot;) {
--     throw new Error(&quot;Can only edit approved applications&quot;);
+-   if (application.status !== "APPROVED") {
+-     throw new Error("Can only edit approved applications");
 +   if (!supplier) {
-+     throw new Error(&quot;Supplier not found&quot;);
++     throw new Error("Supplier not found");
     }
   
 ```
@@ -8138,12 +8138,12 @@ Lines added: 35, lines removed: 9
 -     where: { id: application.id },
 -     data: {
 -       data: parsed.data,
--       status: &quot;PENDING_SUPPLIER&quot;,
+-       status: "PENDING_SUPPLIER",
 +   // Check for existing draft update application
 +   const existingDraft = await prisma.application.findFirst({
 +     where: {
 +       supplierId: supplier.id,
-+       status: { in: [&quot;DRAFT&quot;, &quot;SUBMITTED&quot;, &quot;IN_REVIEW&quot;, &quot;PENDING_SUPPLIER&quot;] },
++       status: { in: ["DRAFT", "SUBMITTED", "IN_REVIEW", "PENDING_SUPPLIER"] },
 +     },
 +   });
 + 
@@ -8167,21 +8167,21 @@ Lines added: 35, lines removed: 9
 +       geographyId: supplier.geographyId,
 +       formConfigId: supplier.application.formConfigId,
 +       supplierId: supplier.id,
-+       status: &quot;DRAFT&quot;,
++       status: "DRAFT",
 +       data: parsed.data,
 +       createdById: session.user.id,
         updatedById: session.user.id,
         auditLogs: {
           create: {
             actorId: session.user.id,
-            actorRole: &quot;SUPPLIER&quot;,
+            actorRole: "SUPPLIER",
 -           organizationId: application.organizationId,
--           action: &quot;PROFILE_EDITED&quot;,
+-           action: "PROFILE_EDITED",
 +           organizationId: supplier.organizationId,
-+           action: &quot;SUPPLIER_UPDATE_REQUESTED&quot;,
++           action: "SUPPLIER_UPDATE_REQUESTED",
             details: {
--             note: &quot;Company profile edited, requires re-approval&quot;,
-+             note: &quot;Supplier profile update requested&quot;,
+-             note: "Company profile edited, requires re-approval",
++             note: "Supplier profile update requested",
 +             supplierId: supplier.id,
             },
           },
@@ -8196,7 +8196,7 @@ Lines added: 2, lines removed: 2
   
 -   revalidatePath(&#96;/supplier/profile/${applicationId}&#96;);
 +   revalidatePath(&#96;/supplier/profile/${supplierId}&#96;);
-    revalidatePath(&quot;/supplier&quot;);
+    revalidatePath("/supplier");
   
 -   return { ok: true };
 +   return { ok: true, applicationId: application.id };
@@ -8212,7 +8212,7 @@ Lines added: 2, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: 1
@@ -8232,9 +8232,9 @@ Lines added: 2, lines removed: 1
 
 ```diff
 @@ -1706,7 +1706,8 @@
-  import { SupplierWizardData } from &quot;@/lib/supplierWizardSchema&quot;;
-  import { requireRole } from &quot;@/lib/permissions&quot;;
-+ import { getSupplierByOrganization } from &quot;@/lib/suppliers&quot;;
+  import { SupplierWizardData } from "@/lib/supplierWizardSchema";
+  import { requireRole } from "@/lib/permissions";
++ import { getSupplierByOrganization } from "@/lib/suppliers";
   
   interface Params {
 -   applicationId: string;
@@ -8261,7 +8261,7 @@ Lines added: 2, lines removed: 2
 
 ```diff
 @@ -1726,7 +1727,7 @@
-    await requireRole([&quot;SUPPLIER&quot;]);
+    await requireRole(["SUPPLIER"]);
   
 -   const application = await prisma.application.findFirst({
 +   const supplier = await prisma.supplier.findFirst({
@@ -8277,7 +8277,7 @@ Lines added: 14, lines removed: 7
 
 ```diff
 @@ -1747,18 +1748,25 @@
-          orderBy: { uploadedAt: &quot;desc&quot; },
+          orderBy: { uploadedAt: "desc" },
         },
 +       application: {
 +         select: {
@@ -8300,7 +8300,7 @@ Lines added: 14, lines removed: 7
     }
 - 
 -   // Redirect if not approved
--   if (application.status !== &quot;APPROVED&quot;) {
+-   if (application.status !== "APPROVED") {
 -     redirect(&#96;/supplier/onboarding/${applicationId}&#96;);
 -   }
   
@@ -8349,40 +8349,40 @@ Lines added: 45, lines removed: undefined
 + Alternative route that finds supplier by organization:
 + 
 + &#96;&#96;&#96;typescript
-+ import { redirect } from &quot;next/navigation&quot;;
-+ import { auth } from &quot;@/lib/auth&quot;;
-+ import { getSupplierByOrganization } from &quot;@/lib/suppliers&quot;;
-+ import { requireRole } from &quot;@/lib/permissions&quot;;
++ import { redirect } from "next/navigation";
++ import { auth } from "@/lib/auth";
++ import { getSupplierByOrganization } from "@/lib/suppliers";
++ import { requireRole } from "@/lib/permissions";
 + 
 + export default async function SupplierProfilePage() {
 +   const session = await auth();
 + 
 +   if (!session?.user?.id) {
-+     redirect(&quot;/signin&quot;);
++     redirect("/signin");
 +   }
 + 
-+   await requireRole([&quot;SUPPLIER&quot;]);
++   await requireRole(["SUPPLIER"]);
 + 
-+   // Get user&#39;s organization
++   // Get user's organization
 +   const user = await prisma.user.findUnique({
 +     where: { id: session.user.id },
 +     include: {
 +       memberships: {
-+         where: { role: &quot;SUPPLIER&quot; },
++         where: { role: "SUPPLIER" },
 +         include: { organization: true },
 +       },
 +     },
 +   });
 + 
 +   if (!user || user.memberships.length === 0) {
-+     redirect(&quot;/supplier&quot;);
++     redirect("/supplier");
 +   }
 + 
 +   const organizationId = user.memberships[0].organizationId;
 +   const supplier = await getSupplierByOrganization(organizationId);
 + 
 +   if (!supplier) {
-+     redirect(&quot;/supplier&quot;);
++     redirect("/supplier");
 +   }
 + 
 +   redirect(&#96;/supplier/profile/${supplier.id}&#96;);
@@ -8399,7 +8399,7 @@ Lines added: 45, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: 1
@@ -8422,7 +8422,7 @@ Lines added: 1, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: 1
@@ -8445,7 +8445,7 @@ Lines added: 1, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 6, lines removed: 6
@@ -8461,21 +8461,21 @@ Lines added: 6, lines removed: 6
 -         await updateCompanyProfileAction(applicationId, newData);
 +         const result = await createUpdateApplicationAction(supplierId, newData);
           toast({
--           title: &quot;Changes saved&quot;,
-+           title: &quot;Update request created&quot;,
+-           title: "Changes saved",
++           title: "Update request created",
             description:
--             &quot;Your changes have been submitted for re-approval. Procurement will review and approve.&quot;,
-+             &quot;A new application has been created for your changes. Please submit it for re-approval.&quot;,
+-             "Your changes have been submitted for re-approval. Procurement will review and approve.",
++             "A new application has been created for your changes. Please submit it for re-approval.",
           });
 -         router.refresh();
 +         router.push(&#96;/supplier/onboarding/${result.applicationId}&#96;);
         } catch (error) {
           toast({
-            title: &quot;Error&quot;,
+            title: "Error",
             description:
--             error instanceof Error ? error.message : &quot;Failed to save changes&quot;,
-+             error instanceof Error ? error.message : &quot;Failed to create update request&quot;,
-            variant: &quot;destructive&quot;,
+-             error instanceof Error ? error.message : "Failed to save changes",
++             error instanceof Error ? error.message : "Failed to create update request",
+            variant: "destructive",
           });
 ```
 
@@ -8487,7 +8487,7 @@ Lines added: 6, lines removed: 6
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 27, lines removed: 5
@@ -8506,7 +8506,7 @@ Lines added: 27, lines removed: 5
   
   &#96;&#96;&#96;typescript
 - // In the applications list, add:
-- {application.status === &quot;APPROVED&quot; &amp;&amp; (
+- {application.status === "APPROVED" &amp;&amp; (
 -   &lt;Link href={&#96;/supplier/profile/${application.id}&#96;}&gt;
 + // Get supplier for the organization
 + const supplier = await getSupplierByOrganization(organizationId);
@@ -8527,7 +8527,7 @@ Lines added: 27, lines removed: 5
 + 
 + &#96;&#96;&#96;typescript
 + // When application is approved, redirect to Supplier profile
-+ if (application.status === &quot;APPROVED&quot;) {
++ if (application.status === "APPROVED") {
 +   const supplier = await prisma.supplier.findUnique({
 +     where: { applicationId: application.id },
 +   });
@@ -8548,7 +8548,7 @@ Lines added: 27, lines removed: 5
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 5, lines removed: 3
@@ -8577,7 +8577,7 @@ Lines added: 5, lines removed: 3
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 8, lines removed: 3
@@ -8648,18 +8648,18 @@ Fixing a missing import in the implementation plan:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: undefined
 
 ```diff
 @@ -1806,4 +1806,5 @@
-  import { redirect } from &quot;next/navigation&quot;;
-  import { auth } from &quot;@/lib/auth&quot;;
-+ import { prisma } from &quot;@/lib/prisma&quot;;
-  import { getSupplierByOrganization } from &quot;@/lib/suppliers&quot;;
-  import { requireRole } from &quot;@/lib/permissions&quot;;
+  import { redirect } from "next/navigation";
+  import { auth } from "@/lib/auth";
++ import { prisma } from "@/lib/prisma";
+  import { getSupplierByOrganization } from "@/lib/suppliers";
+  import { requireRole } from "@/lib/permissions";
 ```
 
 </details>
@@ -8670,7 +8670,7 @@ Lines added: 1, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: undefined
@@ -8679,7 +8679,7 @@ Lines added: 2, lines removed: undefined
 @@ -1023,4 +1023,6 @@
   
   &#96;&#96;&#96;typescript
-+ import { createSupplierFromApplication, updateSupplierFromApplication } from &quot;@/lib/suppliers&quot;;
++ import { createSupplierFromApplication, updateSupplierFromApplication } from "@/lib/suppliers";
 + 
   export async function transitionApplicationAction(input: TransitionInput) {
     const { applicationId, targetStatus, note } = input;
@@ -8750,7 +8750,7 @@ The string to replace was not found in the file.
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 14, lines removed: undefined

@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import { getFormConfigById } from "@/lib/forms/form-config-fetcher";
 import { calculateFormMetadata } from "@/lib/forms/form-metadata";
 
+// Cache form metadata for 1 hour (metadata is derived from form config which rarely changes)
+export const revalidate = 3600;
+
 export async function GET(
     request: Request,
     { params }: { params: Promise<{ formId: string }> }

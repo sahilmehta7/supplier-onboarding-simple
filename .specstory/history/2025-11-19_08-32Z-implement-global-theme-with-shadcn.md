@@ -158,7 +158,7 @@ Updating `app/globals.css` with the custom theme, preserving the existing struct
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: app/globals.css</summary>
+<details><summary>Tool use: **search_replace** • Edit file: app/globals.css</summary>
 
 **Chunk 1**
 Lines added: 70, lines removed: 66

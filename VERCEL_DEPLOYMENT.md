@@ -7,8 +7,23 @@ This application is ready for deployment on Vercel. Please follow the steps belo
 You must configure the following environment variables in your Vercel project settings:
 
 ### Database (Prisma)
-- `DATABASE_URL`: Your connection string (e.g., from Supabase, Neon, or other Postgres provider).
-- `DIRECT_URL`: (Optional) Used for migrations if your database requires it (e.g., Supabase).
+
+**Important for Supabase users:** Use connection pooling for optimal performance on Vercel.
+
+- `DATABASE_URL`: Your **pooled** connection string
+  - **For Supabase**: Use the **Transaction mode** pooler connection string
+  - Format: `postgresql://postgres.[project-ref]:[password]@aws-0-[region].pooler.supabase.com:6543/postgres?pgbouncer=true`
+  - Find it in: Supabase Dashboard > Project Settings > Database > Connection Pooling > Transaction mode
+  - This prevents connection exhaustion on serverless functions
+  
+- `DIRECT_URL`: Direct (non-pooled) connection string
+  - **For Supabase**: Use the **Session mode** or direct connection string
+  - Format: `postgresql://postgres.[project-ref]:[password]@aws-0-[region].pooler.supabase.com:5432/postgres`
+  - Find it in: Supabase Dashboard > Project Settings > Database > Connection String
+  - Required for running migrations with `prisma migrate deploy`
+
+**Why use connection pooling?**
+Vercel serverless functions create new database connections frequently. Without pooling, you may hit connection limits (default: 15-100 connections depending on your plan). Connection pooling via PgBouncer allows thousands of serverless function invocations to share a small pool of actual database connections.
 
 ### Authentication (NextAuth)
 - `NEXTAUTH_URL`: The URL of your deployed application (e.g., `https://your-app.vercel.app`).
@@ -59,5 +74,30 @@ A `postinstall` script has been added to `package.json` to automatically run `pr
 
 ## 5. Troubleshooting
 
-- **Prisma Errors:** If you see errors related to Prisma Client, ensure `prisma generate` ran successfully (check the build logs). The added `postinstall` script should handle this.
-- **Database Connection:** Ensure your database allows connections from Vercel's IP addresses or is open to the internet (0.0.0.0/0) if using a managed service.
+### Prisma Errors
+If you see errors related to Prisma Client, ensure `prisma generate` ran successfully (check the build logs). The added `postinstall` script should handle this.
+
+### Database Connection Issues
+
+**"Too many connections" or "P1001: Can't reach database server"**
+- Verify you're using the **Transaction mode pooler** connection string for `DATABASE_URL`
+- Check that your connection string includes `?pgbouncer=true` parameter
+- For Supabase: Ensure connection pooling is enabled in your project settings
+
+**"Error: prepared statement already exists"**
+- This occurs when using Session mode pooler for `DATABASE_URL`
+- Solution: Use Transaction mode pooler instead (it doesn't support prepared statements but works better with serverless)
+
+**Migration Failures**
+- Ensure `DIRECT_URL` is set to a non-pooled connection (Session mode or direct connection)
+- The build command runs migrations, so this must be a direct connection that supports DDL operations
+
+**Slow Query Performance**
+- Check Vercel function logs for slow query warnings (queries >1000ms are logged)
+- Review the query patterns and ensure indexes are properly set
+- Consider upgrading your database plan if you're hitting resource limits
+
+### Network Configuration
+- Supabase allows connections from anywhere by default (0.0.0.0/0)
+- If using a different provider, ensure your database allows connections from Vercel's IP addresses
+- For enhanced security, you can restrict to Vercel's IP ranges (check Vercel documentation for current ranges)

@@ -157,6 +157,8 @@ model FormConfig {
   sections      FormSection[]
 
   @@unique([entityId, geographyId, version])
+  @@index([isActive])
+  @@index([isActive, entityId, geographyId])
 }
 
 model FormSection {

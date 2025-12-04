@@ -109,7 +109,7 @@ I'm outlining a strategy to split large testing efforts into multiple, parallel-
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && mkdir -p docs/testing-plans</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && mkdir -p docs/testing-plans</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && mkdir -p docs/testing-plans
@@ -135,19 +135,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;docs/testing-plans/plan-alpha-foundation.md&quot;
+  "relativeWorkspacePath": "docs/testing-plans/plan-alpha-foundation.md"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;649ab4aa-05db-4400-966a-115d50b00487&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "649ab4aa-05db-4400-966a-115d50b00487",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -155,23 +155,23 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;- \n+ # Plan Alpha — Component &amp; Logic Assurance\n+ \n+ ## Purpose\n+ \n+ Validate all isolated building blocks of the dynamic form platform so that later flow-level testing can focus on integration risk rather than basic correctness. This plan covers form components, validation logic, state hooks, visibility engine, and draft persistence utilities.\n+ \n+ ## Scope\n+ \n+ - Components: &#96;FormFieldRenderer&#96;, &#96;FormStep&#96;, &#96;StepIndicator&#96;, &#96;FormNavigation&#96;, &#96;DraftSaveIndicator&#96;, field wrappers.\n+ - Hooks: &#96;use-form-state&#96;, &#96;use-autosave&#96;, &#96;use-field-visibility&#96;.\n+ - Utilities: &#96;form-validator&#96;, &#96;visibility-engine&#96;, &#96;draft-manager&#96;, form state helpers.\n+ - Server actions: draft save/load action handlers (mocked fetch layer).\n+ \n+ ## Prerequisites\n+ \n+ 1. Streams 5–7 tagged as complete (✅ confirmed by user).\n+ 2. Vitest + RTL toolchain already configured (verify via &#96;pnpm test:unit&#96;).\n+ 3. Mock form configs checked into &#96;tests/fixtures/forms&#96;.\n+ 4. Test database seeded with baseline field definitions for snapshot comparisons.\n+ \n+ ## Deliverables\n+ \n+ - &#96;tests/forms/form-components.test.tsx&#96;\n+ - &#96;tests/forms/form-validation.test.ts&#96;\n+ - &#96;tests/forms/form-state.test.ts&#96;\n+ - &#96;tests/forms/visibility-engine.test.ts&#96;\n+ - &#96;tests/forms/draft-persistence.test.ts&#96;\n+ - Coverage report ≥ 80% lines/branches for &#96;components/forms&#96;, &#96;lib/forms&#96;, &#96;hooks&#96;.\n+ \n+ ## Execution Strategy\n+ \n+ - Write tests per component/module with React Testing Library and Vitest.\n+ - Leverage &#96;@testing-library/user-event&#96; for interactive cases (navigation buttons, inputs).\n+ - Mock form config via factory helpers to keep cases deterministic.\n+ - Use table-driven tests for validation/visibility permutations to maximize coverage with minimal code.\n+ - Snapshot accessibility attributes (ARIA labels, role assignments) for StepIndicator/Form navigation after Stream 7 upgrades.\n+ \n+ ## Parallelization &amp; Ownership\n+ \n+ - QA Engineer A: Components + StepIndicator + FormNavigation tests.\n+ - QA Engineer B: Validation + visibility engine suites.\n+ - QA Engineer C: Draft manager + autosave hooks + server actions.\n+ \n+ Each engineer works off independent test files with no shared fixtures beyond read-only factories, enabling fully parallel development and execution (Vitest &#96;--runInBand=false&#96; for CI).\n+ \n+ ## Timeline\n+ \n+ | Phase | Duration | Notes |\n+ | --- | --- | --- |\n+ | Test scaffolding | 0.5 day | Ensure fixtures/util factories exist |\n+ | Writing tests | 2 days | Three engineers in parallel |\n+ | Coverage tuning | 0.5 day | Fill gaps to hit ≥80% |\n+ | Review &amp; merge | 0.5 day | Pair review + CI ✅ |\n+ \n+ Total elapsed: ~3 working days wall-clock with parallel effort.\n+ \n+ ## Acceptance Criteria\n+ \n+ 1. All planned test files exist and run green locally and in CI.\n+ 2. Coverage gate (80%) enforced in &#96;vitest.config.ts&#96;.\n+ 3. No flakiness across three consecutive CI runs.\n+ 4. Docs updated: add “Unit Testing” section to &#96;/docs/forms/developer-guide.md&#96;.\n+ \n+ ## Risks &amp; Mitigations\n+ \n+ - **Flaky timers in autosave tests**: use fake timers + deterministic debounce intervals.\n+ - **Visibility engine combinatorial explosion**: constrain to top 6 rule types, rely on table-driven coverage.\n+ - **Server action mocks diverge from real API**: consume shared Zod schema so tests fail when contract changes.\n+ \n+ ## Handoffs\n+ \n+ - Emit coverage summary artifact for Plan Beta.\n+ - Tag commits &#96;qa/plan-alpha-*&#96; for traceability.\n+ &quot;,
-        &quot;oldStart&quot;: 1,
-        &quot;newStart&quot;: 1,
-        &quot;oldLines&quot;: 1,
-        &quot;newLines&quot;: 74,
-        &quot;linesRemoved&quot;: 1,
-        &quot;linesAdded&quot;: 74
+        "diffString": "- \n+ # Plan Alpha — Component &amp; Logic Assurance\n+ \n+ ## Purpose\n+ \n+ Validate all isolated building blocks of the dynamic form platform so that later flow-level testing can focus on integration risk rather than basic correctness. This plan covers form components, validation logic, state hooks, visibility engine, and draft persistence utilities.\n+ \n+ ## Scope\n+ \n+ - Components: &#96;FormFieldRenderer&#96;, &#96;FormStep&#96;, &#96;StepIndicator&#96;, &#96;FormNavigation&#96;, &#96;DraftSaveIndicator&#96;, field wrappers.\n+ - Hooks: &#96;use-form-state&#96;, &#96;use-autosave&#96;, &#96;use-field-visibility&#96;.\n+ - Utilities: &#96;form-validator&#96;, &#96;visibility-engine&#96;, &#96;draft-manager&#96;, form state helpers.\n+ - Server actions: draft save/load action handlers (mocked fetch layer).\n+ \n+ ## Prerequisites\n+ \n+ 1. Streams 5–7 tagged as complete (✅ confirmed by user).\n+ 2. Vitest + RTL toolchain already configured (verify via &#96;pnpm test:unit&#96;).\n+ 3. Mock form configs checked into &#96;tests/fixtures/forms&#96;.\n+ 4. Test database seeded with baseline field definitions for snapshot comparisons.\n+ \n+ ## Deliverables\n+ \n+ - &#96;tests/forms/form-components.test.tsx&#96;\n+ - &#96;tests/forms/form-validation.test.ts&#96;\n+ - &#96;tests/forms/form-state.test.ts&#96;\n+ - &#96;tests/forms/visibility-engine.test.ts&#96;\n+ - &#96;tests/forms/draft-persistence.test.ts&#96;\n+ - Coverage report ≥ 80% lines/branches for &#96;components/forms&#96;, &#96;lib/forms&#96;, &#96;hooks&#96;.\n+ \n+ ## Execution Strategy\n+ \n+ - Write tests per component/module with React Testing Library and Vitest.\n+ - Leverage &#96;@testing-library/user-event&#96; for interactive cases (navigation buttons, inputs).\n+ - Mock form config via factory helpers to keep cases deterministic.\n+ - Use table-driven tests for validation/visibility permutations to maximize coverage with minimal code.\n+ - Snapshot accessibility attributes (ARIA labels, role assignments) for StepIndicator/Form navigation after Stream 7 upgrades.\n+ \n+ ## Parallelization &amp; Ownership\n+ \n+ - QA Engineer A: Components + StepIndicator + FormNavigation tests.\n+ - QA Engineer B: Validation + visibility engine suites.\n+ - QA Engineer C: Draft manager + autosave hooks + server actions.\n+ \n+ Each engineer works off independent test files with no shared fixtures beyond read-only factories, enabling fully parallel development and execution (Vitest &#96;--runInBand=false&#96; for CI).\n+ \n+ ## Timeline\n+ \n+ | Phase | Duration | Notes |\n+ | --- | --- | --- |\n+ | Test scaffolding | 0.5 day | Ensure fixtures/util factories exist |\n+ | Writing tests | 2 days | Three engineers in parallel |\n+ | Coverage tuning | 0.5 day | Fill gaps to hit ≥80% |\n+ | Review &amp; merge | 0.5 day | Pair review + CI ✅ |\n+ \n+ Total elapsed: ~3 working days wall-clock with parallel effort.\n+ \n+ ## Acceptance Criteria\n+ \n+ 1. All planned test files exist and run green locally and in CI.\n+ 2. Coverage gate (80%) enforced in &#96;vitest.config.ts&#96;.\n+ 3. No flakiness across three consecutive CI runs.\n+ 4. Docs updated: add “Unit Testing” section to &#96;/docs/forms/developer-guide.md&#96;.\n+ \n+ ## Risks &amp; Mitigations\n+ \n+ - **Flaky timers in autosave tests**: use fake timers + deterministic debounce intervals.\n+ - **Visibility engine combinatorial explosion**: constrain to top 6 rule types, rely on table-driven coverage.\n+ - **Server action mocks diverge from real API**: consume shared Zod schema so tests fail when contract changes.\n+ \n+ ## Handoffs\n+ \n+ - Emit coverage summary artifact for Plan Beta.\n+ - Tag commits &#96;qa/plan-alpha-*&#96; for traceability.\n+ ",
+        "oldStart": 1,
+        "newStart": 1,
+        "oldLines": 1,
+        "newLines": 74,
+        "linesRemoved": 1,
+        "linesAdded": 74
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM docs/testing-plans/plan-alpha-foundation.md&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;# Plan Alpha — Component &amp; Logic Assurance\n\n## Purpose\n\nValidate all isolated building blocks of the dynamic form platform so that later flow-level testing can focus on integration risk rather than basic correctness. This plan covers form components, validation logic, state hooks, visibility engine, and draft persistence utilities.\n\n## Scope\n\n- Components: &#96;FormFieldRenderer&#96;, &#96;FormStep&#96;, &#96;StepIndicator&#96;, &#96;FormNavigation&#96;, &#96;DraftSaveIndicator&#96;, field wrappers.\n- Hooks: &#96;use-form-state&#96;, &#96;use-autosave&#96;, &#96;use-field-visibility&#96;.\n- Utilities: &#96;form-validator&#96;, &#96;visibility-engine&#96;, &#96;draft-manager&#96;, form state helpers.\n- Server actions: draft save/load action handlers (mocked fetch layer).\n\n## Prerequisites\n\n1. Streams 5–7 tagged as complete (✅ confirmed by user).\n2. Vitest + RTL toolchain already configured (verify via &#96;pnpm test:unit&#96;).\n3. Mock form configs checked into &#96;tests/fixtures/forms&#96;.\n4. Test database seeded with baseline field definitions for snapshot comparisons.\n\n## Deliverables\n\n- &#96;tests/forms/form-components.test.tsx&#96;\n- &#96;tests/forms/form-validation.test.ts&#96;\n- &#96;tests/forms/form-state.test.ts&#96;\n- &#96;tests/forms/visibility-engine.test.ts&#96;\n- &#96;tests/forms/draft-persistence.test.ts&#96;\n- Coverage report ≥ 80% lines/branches for &#96;components/forms&#96;, &#96;lib/forms&#96;, &#96;hooks&#96;.\n\n## Execution Strategy\n\n- Write tests per component/module with React Testing Library and Vitest.\n- Leverage &#96;@testing-library/user-event&#96; for interactive cases (navigation buttons, inputs).\n- Mock form config via factory helpers to keep cases deterministic.\n- Use table-driven tests for validation/visibility permutations to maximize coverage with minimal code.\n- Snapshot accessibility attributes (ARIA labels, role assignments) for StepIndicator/Form navigation after Stream 7 upgrades.\n\n## Parallelization &amp; Ownership\n\n- QA Engineer A: Components + StepIndicator + FormNavigation tests.\n- QA Engineer B: Validation + visibility engine suites.\n- QA Engineer C: Draft manager + autosave hooks + server actions.\n\nEach engineer works off independent test files with no shared fixtures beyond read-only factories, enabling fully parallel development and execution (Vitest &#96;--runInBand=false&#96; for CI).\n\n## Timeline\n\n| Phase | Duration | Notes |\n| --- | --- | --- |\n| Test scaffolding | 0.5 day | Ensure fixtures/util factories exist |\n| Writing tests | 2 days | Three engineers in parallel |\n| Coverage tuning | 0.5 day | Fill gaps to hit ≥80% |\n| Review &amp; merge | 0.5 day | Pair review + CI ✅ |\n\nTotal elapsed: ~3 working days wall-clock with parallel effort.\n\n## Acceptance Criteria\n\n1. All planned test files exist and run green locally and in CI.\n2. Coverage gate (80%) enforced in &#96;vitest.config.ts&#96;.\n3. No flakiness across three consecutive CI runs.\n4. Docs updated: add “Unit Testing” section to &#96;/docs/forms/developer-guide.md&#96;.\n\n## Risks &amp; Mitigations\n\n- **Flaky timers in autosave tests**: use fake timers + deterministic debounce intervals.\n- **Visibility engine combinatorial explosion**: constrain to top 6 rule types, rely on table-driven coverage.\n- **Server action mocks diverge from real API**: consume shared Zod schema so tests fail when contract changes.\n\n## Handoffs\n\n- Emit coverage summary artifact for Plan Beta.\n- Tag commits &#96;qa/plan-alpha-*&#96; for traceability.\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM docs/testing-plans/plan-alpha-foundation.md",
+  "contentsAfterEdit": "# Plan Alpha — Component &amp; Logic Assurance\n\n## Purpose\n\nValidate all isolated building blocks of the dynamic form platform so that later flow-level testing can focus on integration risk rather than basic correctness. This plan covers form components, validation logic, state hooks, visibility engine, and draft persistence utilities.\n\n## Scope\n\n- Components: &#96;FormFieldRenderer&#96;, &#96;FormStep&#96;, &#96;StepIndicator&#96;, &#96;FormNavigation&#96;, &#96;DraftSaveIndicator&#96;, field wrappers.\n- Hooks: &#96;use-form-state&#96;, &#96;use-autosave&#96;, &#96;use-field-visibility&#96;.\n- Utilities: &#96;form-validator&#96;, &#96;visibility-engine&#96;, &#96;draft-manager&#96;, form state helpers.\n- Server actions: draft save/load action handlers (mocked fetch layer).\n\n## Prerequisites\n\n1. Streams 5–7 tagged as complete (✅ confirmed by user).\n2. Vitest + RTL toolchain already configured (verify via &#96;pnpm test:unit&#96;).\n3. Mock form configs checked into &#96;tests/fixtures/forms&#96;.\n4. Test database seeded with baseline field definitions for snapshot comparisons.\n\n## Deliverables\n\n- &#96;tests/forms/form-components.test.tsx&#96;\n- &#96;tests/forms/form-validation.test.ts&#96;\n- &#96;tests/forms/form-state.test.ts&#96;\n- &#96;tests/forms/visibility-engine.test.ts&#96;\n- &#96;tests/forms/draft-persistence.test.ts&#96;\n- Coverage report ≥ 80% lines/branches for &#96;components/forms&#96;, &#96;lib/forms&#96;, &#96;hooks&#96;.\n\n## Execution Strategy\n\n- Write tests per component/module with React Testing Library and Vitest.\n- Leverage &#96;@testing-library/user-event&#96; for interactive cases (navigation buttons, inputs).\n- Mock form config via factory helpers to keep cases deterministic.\n- Use table-driven tests for validation/visibility permutations to maximize coverage with minimal code.\n- Snapshot accessibility attributes (ARIA labels, role assignments) for StepIndicator/Form navigation after Stream 7 upgrades.\n\n## Parallelization &amp; Ownership\n\n- QA Engineer A: Components + StepIndicator + FormNavigation tests.\n- QA Engineer B: Validation + visibility engine suites.\n- QA Engineer C: Draft manager + autosave hooks + server actions.\n\nEach engineer works off independent test files with no shared fixtures beyond read-only factories, enabling fully parallel development and execution (Vitest &#96;--runInBand=false&#96; for CI).\n\n## Timeline\n\n| Phase | Duration | Notes |\n| --- | --- | --- |\n| Test scaffolding | 0.5 day | Ensure fixtures/util factories exist |\n| Writing tests | 2 days | Three engineers in parallel |\n| Coverage tuning | 0.5 day | Fill gaps to hit ≥80% |\n| Review &amp; merge | 0.5 day | Pair review + CI ✅ |\n\nTotal elapsed: ~3 working days wall-clock with parallel effort.\n\n## Acceptance Criteria\n\n1. All planned test files exist and run green locally and in CI.\n2. Coverage gate (80%) enforced in &#96;vitest.config.ts&#96;.\n3. No flakiness across three consecutive CI runs.\n4. Docs updated: add “Unit Testing” section to &#96;/docs/forms/developer-guide.md&#96;.\n\n## Risks &amp; Mitigations\n\n- **Flaky timers in autosave tests**: use fake timers + deterministic debounce intervals.\n- **Visibility engine combinatorial explosion**: constrain to top 6 rule types, rely on table-driven coverage.\n- **Server action mocks diverge from real API**: consume shared Zod schema so tests fail when contract changes.\n\n## Handoffs\n\n- Emit coverage summary artifact for Plan Beta.\n- Tag commits &#96;qa/plan-alpha-*&#96; for traceability.\n\n"
 }
 ```
 User decision: **accepted**
@@ -198,19 +198,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;docs/testing-plans/plan-beta-flows.md&quot;
+  "relativeWorkspacePath": "docs/testing-plans/plan-beta-flows.md"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;811106ea-af0f-4866-82b6-b1dc865b7000&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "811106ea-af0f-4866-82b6-b1dc865b7000",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -218,23 +218,23 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;- \n+ # Plan Beta — Flow, Draft &amp; Conditional Integration\n+ \n+ ## Purpose\n+ \n+ Exercise the full multi-step wizard experience in a realistic browser-like environment without relying on Playwright. Focus on validating that state, drafts, conditional visibility, and validation layers cooperate when users move through the wizard.\n+ \n+ ## Scope\n+ \n+ - &#96;DynamicFormWizard&#96;, &#96;FormStep&#96;, &#96;FormNavigation&#96; composed together.\n+ - Autosave + explicit “Save Draft” flows, including resume dialog.\n+ - Conditional fields triggered by Stream 6 visibility rules.\n+ - Validation surfacing (per-field, per-step, full-form) with Stream 4 rules.\n+ - Multi-entity form routes (entity/geography + formConfig pages).\n+ \n+ ## Prerequisites\n+ \n+ 1. Plan Alpha merged (component/unit stability).\n+ 2. Test harness utilities for mounting full wizard in JSDOM (RTL).\n+ 3. Mocked server actions for draft save/load plus mock &#96;fetch&#96; for submission.\n+ 4. Seeded test configs:\n+    - Simple 3-step onboarding form.\n+    - Complex 8-step compliance form with conditional sections.\n+ \n+ ## Deliverables\n+ \n+ - &#96;tests/integration/form-completion-flow.test.ts&#96;\n+ - &#96;tests/integration/draft-resume-flow.test.ts&#96;\n+ - &#96;tests/integration/conditional-fields-flow.test.ts&#96;\n+ - &#96;tests/integration/validation-flow.test.ts&#96;\n+ - &#96;tests/integration/multi-step-navigation.test.ts&#96;\n+ - Test fixtures under &#96;tests/fixtures/forms/*.ts&#96;\n+ \n+ ## Execution Strategy\n+ \n+ - Use React Testing Library + Vitest with &#96;happy-dom&#96;.\n+ - Mock &#96;IntersectionObserver&#96; and &#96;ResizeObserver&#96; for responsive behaviors borrowed from Stream 7.\n+ - Simulate keyboard and pointer interactions with &#96;user-event&#96;.\n+ - Persist drafts to in-memory store to simulate server round trips with latency.\n+ - Validate analytics hooks (if any) via spies to ensure transitions emit events.\n+ \n+ ## Parallelization &amp; Ownership\n+ \n+ - QA Engineer D: Form completion + validation flows.\n+ - QA Engineer E: Draft save/resume scenarios.\n+ - QA Engineer F: Conditional fields + multi-step navigation.\n+ \n+ Teams share fixture factories but author separate test suites, enabling simultaneous progress. Coordination via contract: if fixture shape changes, update central factory file before merging.\n+ \n+ ## Timeline\n+ \n+ | Phase | Duration | Notes |\n+ | --- | --- | --- |\n+ | Harness hardening | 1 day | Build wizard mount helper |\n+ | Scenario authoring | 2 days | Three engineers parallel |\n+ | Flake remediation | 0.5 day | Focus on async drafts |\n+ | Review &amp; merge | 0.5 day | Requires Plan Alpha coverage report |\n+ \n+ Total elapsed: ~4 working days.\n+ \n+ ## Acceptance Criteria\n+ \n+ 1. All integration suites pass locally and in CI with parallel shards.\n+ 2. Draft resume scenario proves persistence across reload (mock storage).\n+ 3. Conditional tests assert correct DOM presence/absence and animations classes.\n+ 4. Regression reproduction checklist documented in &#96;/docs/forms/testing-scenarios.md&#96;.\n+ \n+ ## Risks &amp; Mitigations\n+ \n+ - **Async timing issues**: wrap autosave expectations in &#96;waitFor&#96; with deterministic debounce (from Stream 5).\n+ - **Conditional permutations**: cover representative paths (satisfied/unsatisfied conditions, nested dependencies).\n+ - **Responsive hooks missing in JSDOM**: mock &#96;matchMedia&#96; responses for breakpoints.\n+ \n+ ## Handoffs\n+ \n+ - Provide scenario scripts to Plan Gamma for Playwright translation.\n+ - Share draft persistence mock server with E2E team.\n+ &quot;,
-        &quot;oldStart&quot;: 1,
-        &quot;newStart&quot;: 1,
-        &quot;oldLines&quot;: 1,
-        &quot;newLines&quot;: 77,
-        &quot;linesRemoved&quot;: 1,
-        &quot;linesAdded&quot;: 77
+        "diffString": "- \n+ # Plan Beta — Flow, Draft &amp; Conditional Integration\n+ \n+ ## Purpose\n+ \n+ Exercise the full multi-step wizard experience in a realistic browser-like environment without relying on Playwright. Focus on validating that state, drafts, conditional visibility, and validation layers cooperate when users move through the wizard.\n+ \n+ ## Scope\n+ \n+ - &#96;DynamicFormWizard&#96;, &#96;FormStep&#96;, &#96;FormNavigation&#96; composed together.\n+ - Autosave + explicit “Save Draft” flows, including resume dialog.\n+ - Conditional fields triggered by Stream 6 visibility rules.\n+ - Validation surfacing (per-field, per-step, full-form) with Stream 4 rules.\n+ - Multi-entity form routes (entity/geography + formConfig pages).\n+ \n+ ## Prerequisites\n+ \n+ 1. Plan Alpha merged (component/unit stability).\n+ 2. Test harness utilities for mounting full wizard in JSDOM (RTL).\n+ 3. Mocked server actions for draft save/load plus mock &#96;fetch&#96; for submission.\n+ 4. Seeded test configs:\n+    - Simple 3-step onboarding form.\n+    - Complex 8-step compliance form with conditional sections.\n+ \n+ ## Deliverables\n+ \n+ - &#96;tests/integration/form-completion-flow.test.ts&#96;\n+ - &#96;tests/integration/draft-resume-flow.test.ts&#96;\n+ - &#96;tests/integration/conditional-fields-flow.test.ts&#96;\n+ - &#96;tests/integration/validation-flow.test.ts&#96;\n+ - &#96;tests/integration/multi-step-navigation.test.ts&#96;\n+ - Test fixtures under &#96;tests/fixtures/forms/*.ts&#96;\n+ \n+ ## Execution Strategy\n+ \n+ - Use React Testing Library + Vitest with &#96;happy-dom&#96;.\n+ - Mock &#96;IntersectionObserver&#96; and &#96;ResizeObserver&#96; for responsive behaviors borrowed from Stream 7.\n+ - Simulate keyboard and pointer interactions with &#96;user-event&#96;.\n+ - Persist drafts to in-memory store to simulate server round trips with latency.\n+ - Validate analytics hooks (if any) via spies to ensure transitions emit events.\n+ \n+ ## Parallelization &amp; Ownership\n+ \n+ - QA Engineer D: Form completion + validation flows.\n+ - QA Engineer E: Draft save/resume scenarios.\n+ - QA Engineer F: Conditional fields + multi-step navigation.\n+ \n+ Teams share fixture factories but author separate test suites, enabling simultaneous progress. Coordination via contract: if fixture shape changes, update central factory file before merging.\n+ \n+ ## Timeline\n+ \n+ | Phase | Duration | Notes |\n+ | --- | --- | --- |\n+ | Harness hardening | 1 day | Build wizard mount helper |\n+ | Scenario authoring | 2 days | Three engineers parallel |\n+ | Flake remediation | 0.5 day | Focus on async drafts |\n+ | Review &amp; merge | 0.5 day | Requires Plan Alpha coverage report |\n+ \n+ Total elapsed: ~4 working days.\n+ \n+ ## Acceptance Criteria\n+ \n+ 1. All integration suites pass locally and in CI with parallel shards.\n+ 2. Draft resume scenario proves persistence across reload (mock storage).\n+ 3. Conditional tests assert correct DOM presence/absence and animations classes.\n+ 4. Regression reproduction checklist documented in &#96;/docs/forms/testing-scenarios.md&#96;.\n+ \n+ ## Risks &amp; Mitigations\n+ \n+ - **Async timing issues**: wrap autosave expectations in &#96;waitFor&#96; with deterministic debounce (from Stream 5).\n+ - **Conditional permutations**: cover representative paths (satisfied/unsatisfied conditions, nested dependencies).\n+ - **Responsive hooks missing in JSDOM**: mock &#96;matchMedia&#96; responses for breakpoints.\n+ \n+ ## Handoffs\n+ \n+ - Provide scenario scripts to Plan Gamma for Playwright translation.\n+ - Share draft persistence mock server with E2E team.\n+ ",
+        "oldStart": 1,
+        "newStart": 1,
+        "oldLines": 1,
+        "newLines": 77,
+        "linesRemoved": 1,
+        "linesAdded": 77
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM docs/testing-plans/plan-beta-flows.md&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;# Plan Beta — Flow, Draft &amp; Conditional Integration\n\n## Purpose\n\nExercise the full multi-step wizard experience in a realistic browser-like environment without relying on Playwright. Focus on validating that state, drafts, conditional visibility, and validation layers cooperate when users move through the wizard.\n\n## Scope\n\n- &#96;DynamicFormWizard&#96;, &#96;FormStep&#96;, &#96;FormNavigation&#96; composed together.\n- Autosave + explicit “Save Draft” flows, including resume dialog.\n- Conditional fields triggered by Stream 6 visibility rules.\n- Validation surfacing (per-field, per-step, full-form) with Stream 4 rules.\n- Multi-entity form routes (entity/geography + formConfig pages).\n\n## Prerequisites\n\n1. Plan Alpha merged (component/unit stability).\n2. Test harness utilities for mounting full wizard in JSDOM (RTL).\n3. Mocked server actions for draft save/load plus mock &#96;fetch&#96; for submission.\n4. Seeded test configs:\n   - Simple 3-step onboarding form.\n   - Complex 8-step compliance form with conditional sections.\n\n## Deliverables\n\n- &#96;tests/integration/form-completion-flow.test.ts&#96;\n- &#96;tests/integration/draft-resume-flow.test.ts&#96;\n- &#96;tests/integration/conditional-fields-flow.test.ts&#96;\n- &#96;tests/integration/validation-flow.test.ts&#96;\n- &#96;tests/integration/multi-step-navigation.test.ts&#96;\n- Test fixtures under &#96;tests/fixtures/forms/*.ts&#96;\n\n## Execution Strategy\n\n- Use React Testing Library + Vitest with &#96;happy-dom&#96;.\n- Mock &#96;IntersectionObserver&#96; and &#96;ResizeObserver&#96; for responsive behaviors borrowed from Stream 7.\n- Simulate keyboard and pointer interactions with &#96;user-event&#96;.\n- Persist drafts to in-memory store to simulate server round trips with latency.\n- Validate analytics hooks (if any) via spies to ensure transitions emit events.\n\n## Parallelization &amp; Ownership\n\n- QA Engineer D: Form completion + validation flows.\n- QA Engineer E: Draft save/resume scenarios.\n- QA Engineer F: Conditional fields + multi-step navigation.\n\nTeams share fixture factories but author separate test suites, enabling simultaneous progress. Coordination via contract: if fixture shape changes, update central factory file before merging.\n\n## Timeline\n\n| Phase | Duration | Notes |\n| --- | --- | --- |\n| Harness hardening | 1 day | Build wizard mount helper |\n| Scenario authoring | 2 days | Three engineers parallel |\n| Flake remediation | 0.5 day | Focus on async drafts |\n| Review &amp; merge | 0.5 day | Requires Plan Alpha coverage report |\n\nTotal elapsed: ~4 working days.\n\n## Acceptance Criteria\n\n1. All integration suites pass locally and in CI with parallel shards.\n2. Draft resume scenario proves persistence across reload (mock storage).\n3. Conditional tests assert correct DOM presence/absence and animations classes.\n4. Regression reproduction checklist documented in &#96;/docs/forms/testing-scenarios.md&#96;.\n\n## Risks &amp; Mitigations\n\n- **Async timing issues**: wrap autosave expectations in &#96;waitFor&#96; with deterministic debounce (from Stream 5).\n- **Conditional permutations**: cover representative paths (satisfied/unsatisfied conditions, nested dependencies).\n- **Responsive hooks missing in JSDOM**: mock &#96;matchMedia&#96; responses for breakpoints.\n\n## Handoffs\n\n- Provide scenario scripts to Plan Gamma for Playwright translation.\n- Share draft persistence mock server with E2E team.\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM docs/testing-plans/plan-beta-flows.md",
+  "contentsAfterEdit": "# Plan Beta — Flow, Draft &amp; Conditional Integration\n\n## Purpose\n\nExercise the full multi-step wizard experience in a realistic browser-like environment without relying on Playwright. Focus on validating that state, drafts, conditional visibility, and validation layers cooperate when users move through the wizard.\n\n## Scope\n\n- &#96;DynamicFormWizard&#96;, &#96;FormStep&#96;, &#96;FormNavigation&#96; composed together.\n- Autosave + explicit “Save Draft” flows, including resume dialog.\n- Conditional fields triggered by Stream 6 visibility rules.\n- Validation surfacing (per-field, per-step, full-form) with Stream 4 rules.\n- Multi-entity form routes (entity/geography + formConfig pages).\n\n## Prerequisites\n\n1. Plan Alpha merged (component/unit stability).\n2. Test harness utilities for mounting full wizard in JSDOM (RTL).\n3. Mocked server actions for draft save/load plus mock &#96;fetch&#96; for submission.\n4. Seeded test configs:\n   - Simple 3-step onboarding form.\n   - Complex 8-step compliance form with conditional sections.\n\n## Deliverables\n\n- &#96;tests/integration/form-completion-flow.test.ts&#96;\n- &#96;tests/integration/draft-resume-flow.test.ts&#96;\n- &#96;tests/integration/conditional-fields-flow.test.ts&#96;\n- &#96;tests/integration/validation-flow.test.ts&#96;\n- &#96;tests/integration/multi-step-navigation.test.ts&#96;\n- Test fixtures under &#96;tests/fixtures/forms/*.ts&#96;\n\n## Execution Strategy\n\n- Use React Testing Library + Vitest with &#96;happy-dom&#96;.\n- Mock &#96;IntersectionObserver&#96; and &#96;ResizeObserver&#96; for responsive behaviors borrowed from Stream 7.\n- Simulate keyboard and pointer interactions with &#96;user-event&#96;.\n- Persist drafts to in-memory store to simulate server round trips with latency.\n- Validate analytics hooks (if any) via spies to ensure transitions emit events.\n\n## Parallelization &amp; Ownership\n\n- QA Engineer D: Form completion + validation flows.\n- QA Engineer E: Draft save/resume scenarios.\n- QA Engineer F: Conditional fields + multi-step navigation.\n\nTeams share fixture factories but author separate test suites, enabling simultaneous progress. Coordination via contract: if fixture shape changes, update central factory file before merging.\n\n## Timeline\n\n| Phase | Duration | Notes |\n| --- | --- | --- |\n| Harness hardening | 1 day | Build wizard mount helper |\n| Scenario authoring | 2 days | Three engineers parallel |\n| Flake remediation | 0.5 day | Focus on async drafts |\n| Review &amp; merge | 0.5 day | Requires Plan Alpha coverage report |\n\nTotal elapsed: ~4 working days.\n\n## Acceptance Criteria\n\n1. All integration suites pass locally and in CI with parallel shards.\n2. Draft resume scenario proves persistence across reload (mock storage).\n3. Conditional tests assert correct DOM presence/absence and animations classes.\n4. Regression reproduction checklist documented in &#96;/docs/forms/testing-scenarios.md&#96;.\n\n## Risks &amp; Mitigations\n\n- **Async timing issues**: wrap autosave expectations in &#96;waitFor&#96; with deterministic debounce (from Stream 5).\n- **Conditional permutations**: cover representative paths (satisfied/unsatisfied conditions, nested dependencies).\n- **Responsive hooks missing in JSDOM**: mock &#96;matchMedia&#96; responses for breakpoints.\n\n## Handoffs\n\n- Provide scenario scripts to Plan Gamma for Playwright translation.\n- Share draft persistence mock server with E2E team.\n\n"
 }
 ```
 User decision: **accepted**
@@ -261,19 +261,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;docs/testing-plans/plan-gamma-experience.md&quot;
+  "relativeWorkspacePath": "docs/testing-plans/plan-gamma-experience.md"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;fe1f651c-6ddf-4b41-b51a-71ebd5b1d392&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "fe1f651c-6ddf-4b41-b51a-71ebd5b1d392",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -281,23 +281,23 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;- \n+ # Plan Gamma — E2E Experience, Performance &amp; Documentation\n+ \n+ ## Purpose\n+ \n+ Validate the end-user journey across authentication, multi-device usage, and final submission while ensuring performance targets and documentation deliverables from Stream 8 are met.\n+ \n+ ## Scope\n+ \n+ - Playwright E2E specs for core journeys:\n+   - Sign in → complete form → submit\n+   - Draft save/resume\n+   - Conditional field interactions\n+   - Validation error surfacing and recovery\n+   - Responsive breakpoints (mobile/tablet/desktop)\n+ - Performance audits: load time, step transition, autosave latency, bundle size.\n+ - Documentation updates: user guide, developer guide, API reference, JSDoc sweep, README updates.\n+ \n+ ## Prerequisites\n+ \n+ 1. Plans Alpha &amp; Beta merged (unit + integration stability).\n+ 2. Supabase test environment seeded with representative users/forms.\n+ 3. Playwright configured with devices profile + env secrets stored in &#96;.env.test&#96;.\n+ 4. CI runners with browsers installed (GitHub Actions Playwright deps).\n+ 5. Lighthouse CI or WebPageTest credentials for automation.\n+ \n+ ## Deliverables\n+ \n+ - &#96;tests/e2e/form-completion.spec.ts&#96;\n+ - &#96;tests/e2e/draft-resume.spec.ts&#96;\n+ - &#96;tests/e2e/conditional-fields.spec.ts&#96;\n+ - &#96;tests/e2e/validation-errors.spec.ts&#96;\n+ - &#96;tests/e2e/responsive-viewports.spec.ts&#96;\n+ - Performance report (Lighthouse + custom metrics script).\n+ - Updated docs:\n+   - &#96;docs/forms/user-guide.md&#96;\n+   - &#96;docs/forms/developer-guide.md&#96;\n+   - &#96;docs/forms/api-reference.md&#96;\n+   - JSDoc comments in &#96;components/forms/*&#96;, &#96;hooks/*&#96;, &#96;lib/forms/*&#96;\n+   - &#96;README.md&#96; additions for form system/testing commands.\n+ \n+ ## Execution Strategy\n+ \n+ - Use Playwright test fixtures for authentication (reuse existing login helpers).\n+ - Run viewport matrix (mobile/tablet/desktop) via &#96;test.use({ viewport })&#96;.\n+ - Capture console/network logs for each run; fail on browser errors.\n+ - Measure performance with:\n+   - Playwright &#96;tracing.startChunk({ screenshots: true, snapshots: true })&#96;.\n+   - Lighthouse CI on deployed preview + local bundle analyzer.\n+ - Autosave latency instrumentation via custom marker &#96;window.performance.mark(&#39;autosave:complete&#39;)&#96;.\n+ - Document findings in Markdown and link to dashboards/screenshots.\n+ \n+ ## Parallelization &amp; Ownership\n+ \n+ - QA Engineer G: Playwright spec authoring + maintenance.\n+ - Perf Engineer H: Lighthouse, bundle analyzer, React profiler work.\n+ - Technical Writer I: Documentation updates + JSDoc sweep.\n+ \n+ Workstreams operate concurrently; weekly sync ensures Playwright scenarios remain aligned with docs screenshots and performance optimizations.\n+ \n+ ## Timeline\n+ \n+ | Phase | Duration | Notes |\n+ | --- | --- | --- |\n+ | Playwright harness &amp; CI | 1 day | Device config, auth fixtures |\n+ | Scenario scripting | 2 days | G executes, depends on Beta scripts |\n+ | Performance audits | 1.5 days | Baseline + optimization passes |\n+ | Documentation updates | 1.5 days | Writer parallel to perf |\n+ | Final verification | 0.5 day | Cross-review + sign-off |\n+ \n+ Total elapsed: ~5 working days with overlapping efforts.\n+ \n+ ## Acceptance Criteria\n+ \n+ 1. All Playwright specs pass locally and in CI (headed+headless).\n+ 2. Performance KPIs met: load &lt; 2s p95, step transition &lt; 200ms, autosave &lt; 500ms.\n+ 3. Bundle size report attached to PR with regression budget.\n+ 4. Documentation PR approved by Eng + Product; README lists testing commands.\n+ 5. Final checklists in Stream 8 document marked complete.\n+ \n+ ## Risks &amp; Mitigations\n+ \n+ - **Auth instability in CI**: pre-create service user tokens; retry with exponential backoff.\n+ - **Flaky mobile viewport rendering**: enforce deterministic viewport sizes and disable OS-level animations in test env.\n+ - **Performance regressions introduced late**: add budgets to Lighthouse CI to fail PRs when thresholds exceeded.\n+ - **Doc drift**: embed doc update checklist in PR template; TW participates in final QA run.\n+ \n+ ## Handoffs\n+ \n+ - Archive Playwright traces and Lighthouse reports in &#96;/artifacts/stream-8&#96;.\n+ - Notify release manager when all acceptance criteria satisfied; attach summary to Stream 8 tracker.\n+ &quot;,
-        &quot;oldStart&quot;: 1,
-        &quot;newStart&quot;: 1,
-        &quot;oldLines&quot;: 1,
-        &quot;newLines&quot;: 91,
-        &quot;linesRemoved&quot;: 1,
-        &quot;linesAdded&quot;: 91
+        "diffString": "- \n+ # Plan Gamma — E2E Experience, Performance &amp; Documentation\n+ \n+ ## Purpose\n+ \n+ Validate the end-user journey across authentication, multi-device usage, and final submission while ensuring performance targets and documentation deliverables from Stream 8 are met.\n+ \n+ ## Scope\n+ \n+ - Playwright E2E specs for core journeys:\n+   - Sign in → complete form → submit\n+   - Draft save/resume\n+   - Conditional field interactions\n+   - Validation error surfacing and recovery\n+   - Responsive breakpoints (mobile/tablet/desktop)\n+ - Performance audits: load time, step transition, autosave latency, bundle size.\n+ - Documentation updates: user guide, developer guide, API reference, JSDoc sweep, README updates.\n+ \n+ ## Prerequisites\n+ \n+ 1. Plans Alpha &amp; Beta merged (unit + integration stability).\n+ 2. Supabase test environment seeded with representative users/forms.\n+ 3. Playwright configured with devices profile + env secrets stored in &#96;.env.test&#96;.\n+ 4. CI runners with browsers installed (GitHub Actions Playwright deps).\n+ 5. Lighthouse CI or WebPageTest credentials for automation.\n+ \n+ ## Deliverables\n+ \n+ - &#96;tests/e2e/form-completion.spec.ts&#96;\n+ - &#96;tests/e2e/draft-resume.spec.ts&#96;\n+ - &#96;tests/e2e/conditional-fields.spec.ts&#96;\n+ - &#96;tests/e2e/validation-errors.spec.ts&#96;\n+ - &#96;tests/e2e/responsive-viewports.spec.ts&#96;\n+ - Performance report (Lighthouse + custom metrics script).\n+ - Updated docs:\n+   - &#96;docs/forms/user-guide.md&#96;\n+   - &#96;docs/forms/developer-guide.md&#96;\n+   - &#96;docs/forms/api-reference.md&#96;\n+   - JSDoc comments in &#96;components/forms/*&#96;, &#96;hooks/*&#96;, &#96;lib/forms/*&#96;\n+   - &#96;README.md&#96; additions for form system/testing commands.\n+ \n+ ## Execution Strategy\n+ \n+ - Use Playwright test fixtures for authentication (reuse existing login helpers).\n+ - Run viewport matrix (mobile/tablet/desktop) via &#96;test.use({ viewport })&#96;.\n+ - Capture console/network logs for each run; fail on browser errors.\n+ - Measure performance with:\n+   - Playwright &#96;tracing.startChunk({ screenshots: true, snapshots: true })&#96;.\n+   - Lighthouse CI on deployed preview + local bundle analyzer.\n+ - Autosave latency instrumentation via custom marker &#96;window.performance.mark('autosave:complete')&#96;.\n+ - Document findings in Markdown and link to dashboards/screenshots.\n+ \n+ ## Parallelization &amp; Ownership\n+ \n+ - QA Engineer G: Playwright spec authoring + maintenance.\n+ - Perf Engineer H: Lighthouse, bundle analyzer, React profiler work.\n+ - Technical Writer I: Documentation updates + JSDoc sweep.\n+ \n+ Workstreams operate concurrently; weekly sync ensures Playwright scenarios remain aligned with docs screenshots and performance optimizations.\n+ \n+ ## Timeline\n+ \n+ | Phase | Duration | Notes |\n+ | --- | --- | --- |\n+ | Playwright harness &amp; CI | 1 day | Device config, auth fixtures |\n+ | Scenario scripting | 2 days | G executes, depends on Beta scripts |\n+ | Performance audits | 1.5 days | Baseline + optimization passes |\n+ | Documentation updates | 1.5 days | Writer parallel to perf |\n+ | Final verification | 0.5 day | Cross-review + sign-off |\n+ \n+ Total elapsed: ~5 working days with overlapping efforts.\n+ \n+ ## Acceptance Criteria\n+ \n+ 1. All Playwright specs pass locally and in CI (headed+headless).\n+ 2. Performance KPIs met: load &lt; 2s p95, step transition &lt; 200ms, autosave &lt; 500ms.\n+ 3. Bundle size report attached to PR with regression budget.\n+ 4. Documentation PR approved by Eng + Product; README lists testing commands.\n+ 5. Final checklists in Stream 8 document marked complete.\n+ \n+ ## Risks &amp; Mitigations\n+ \n+ - **Auth instability in CI**: pre-create service user tokens; retry with exponential backoff.\n+ - **Flaky mobile viewport rendering**: enforce deterministic viewport sizes and disable OS-level animations in test env.\n+ - **Performance regressions introduced late**: add budgets to Lighthouse CI to fail PRs when thresholds exceeded.\n+ - **Doc drift**: embed doc update checklist in PR template; TW participates in final QA run.\n+ \n+ ## Handoffs\n+ \n+ - Archive Playwright traces and Lighthouse reports in &#96;/artifacts/stream-8&#96;.\n+ - Notify release manager when all acceptance criteria satisfied; attach summary to Stream 8 tracker.\n+ ",
+        "oldStart": 1,
+        "newStart": 1,
+        "oldLines": 1,
+        "newLines": 91,
+        "linesRemoved": 1,
+        "linesAdded": 91
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM docs/testing-plans/plan-gamma-experience.md&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;# Plan Gamma — E2E Experience, Performance &amp; Documentation\n\n## Purpose\n\nValidate the end-user journey across authentication, multi-device usage, and final submission while ensuring performance targets and documentation deliverables from Stream 8 are met.\n\n## Scope\n\n- Playwright E2E specs for core journeys:\n  - Sign in → complete form → submit\n  - Draft save/resume\n  - Conditional field interactions\n  - Validation error surfacing and recovery\n  - Responsive breakpoints (mobile/tablet/desktop)\n- Performance audits: load time, step transition, autosave latency, bundle size.\n- Documentation updates: user guide, developer guide, API reference, JSDoc sweep, README updates.\n\n## Prerequisites\n\n1. Plans Alpha &amp; Beta merged (unit + integration stability).\n2. Supabase test environment seeded with representative users/forms.\n3. Playwright configured with devices profile + env secrets stored in &#96;.env.test&#96;.\n4. CI runners with browsers installed (GitHub Actions Playwright deps).\n5. Lighthouse CI or WebPageTest credentials for automation.\n\n## Deliverables\n\n- &#96;tests/e2e/form-completion.spec.ts&#96;\n- &#96;tests/e2e/draft-resume.spec.ts&#96;\n- &#96;tests/e2e/conditional-fields.spec.ts&#96;\n- &#96;tests/e2e/validation-errors.spec.ts&#96;\n- &#96;tests/e2e/responsive-viewports.spec.ts&#96;\n- Performance report (Lighthouse + custom metrics script).\n- Updated docs:\n  - &#96;docs/forms/user-guide.md&#96;\n  - &#96;docs/forms/developer-guide.md&#96;\n  - &#96;docs/forms/api-reference.md&#96;\n  - JSDoc comments in &#96;components/forms/*&#96;, &#96;hooks/*&#96;, &#96;lib/forms/*&#96;\n  - &#96;README.md&#96; additions for form system/testing commands.\n\n## Execution Strategy\n\n- Use Playwright test fixtures for authentication (reuse existing login helpers).\n- Run viewport matrix (mobile/tablet/desktop) via &#96;test.use({ viewport })&#96;.\n- Capture console/network logs for each run; fail on browser errors.\n- Measure performance with:\n  - Playwright &#96;tracing.startChunk({ screenshots: true, snapshots: true })&#96;.\n  - Lighthouse CI on deployed preview + local bundle analyzer.\n- Autosave latency instrumentation via custom marker &#96;window.performance.mark(&#39;autosave:complete&#39;)&#96;.\n- Document findings in Markdown and link to dashboards/screenshots.\n\n## Parallelization &amp; Ownership\n\n- QA Engineer G: Playwright spec authoring + maintenance.\n- Perf Engineer H: Lighthouse, bundle analyzer, React profiler work.\n- Technical Writer I: Documentation updates + JSDoc sweep.\n\nWorkstreams operate concurrently; weekly sync ensures Playwright scenarios remain aligned with docs screenshots and performance optimizations.\n\n## Timeline\n\n| Phase | Duration | Notes |\n| --- | --- | --- |\n| Playwright harness &amp; CI | 1 day | Device config, auth fixtures |\n| Scenario scripting | 2 days | G executes, depends on Beta scripts |\n| Performance audits | 1.5 days | Baseline + optimization passes |\n| Documentation updates | 1.5 days | Writer parallel to perf |\n| Final verification | 0.5 day | Cross-review + sign-off |\n\nTotal elapsed: ~5 working days with overlapping efforts.\n\n## Acceptance Criteria\n\n1. All Playwright specs pass locally and in CI (headed+headless).\n2. Performance KPIs met: load &lt; 2s p95, step transition &lt; 200ms, autosave &lt; 500ms.\n3. Bundle size report attached to PR with regression budget.\n4. Documentation PR approved by Eng + Product; README lists testing commands.\n5. Final checklists in Stream 8 document marked complete.\n\n## Risks &amp; Mitigations\n\n- **Auth instability in CI**: pre-create service user tokens; retry with exponential backoff.\n- **Flaky mobile viewport rendering**: enforce deterministic viewport sizes and disable OS-level animations in test env.\n- **Performance regressions introduced late**: add budgets to Lighthouse CI to fail PRs when thresholds exceeded.\n- **Doc drift**: embed doc update checklist in PR template; TW participates in final QA run.\n\n## Handoffs\n\n- Archive Playwright traces and Lighthouse reports in &#96;/artifacts/stream-8&#96;.\n- Notify release manager when all acceptance criteria satisfied; attach summary to Stream 8 tracker.\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM docs/testing-plans/plan-gamma-experience.md",
+  "contentsAfterEdit": "# Plan Gamma — E2E Experience, Performance &amp; Documentation\n\n## Purpose\n\nValidate the end-user journey across authentication, multi-device usage, and final submission while ensuring performance targets and documentation deliverables from Stream 8 are met.\n\n## Scope\n\n- Playwright E2E specs for core journeys:\n  - Sign in → complete form → submit\n  - Draft save/resume\n  - Conditional field interactions\n  - Validation error surfacing and recovery\n  - Responsive breakpoints (mobile/tablet/desktop)\n- Performance audits: load time, step transition, autosave latency, bundle size.\n- Documentation updates: user guide, developer guide, API reference, JSDoc sweep, README updates.\n\n## Prerequisites\n\n1. Plans Alpha &amp; Beta merged (unit + integration stability).\n2. Supabase test environment seeded with representative users/forms.\n3. Playwright configured with devices profile + env secrets stored in &#96;.env.test&#96;.\n4. CI runners with browsers installed (GitHub Actions Playwright deps).\n5. Lighthouse CI or WebPageTest credentials for automation.\n\n## Deliverables\n\n- &#96;tests/e2e/form-completion.spec.ts&#96;\n- &#96;tests/e2e/draft-resume.spec.ts&#96;\n- &#96;tests/e2e/conditional-fields.spec.ts&#96;\n- &#96;tests/e2e/validation-errors.spec.ts&#96;\n- &#96;tests/e2e/responsive-viewports.spec.ts&#96;\n- Performance report (Lighthouse + custom metrics script).\n- Updated docs:\n  - &#96;docs/forms/user-guide.md&#96;\n  - &#96;docs/forms/developer-guide.md&#96;\n  - &#96;docs/forms/api-reference.md&#96;\n  - JSDoc comments in &#96;components/forms/*&#96;, &#96;hooks/*&#96;, &#96;lib/forms/*&#96;\n  - &#96;README.md&#96; additions for form system/testing commands.\n\n## Execution Strategy\n\n- Use Playwright test fixtures for authentication (reuse existing login helpers).\n- Run viewport matrix (mobile/tablet/desktop) via &#96;test.use({ viewport })&#96;.\n- Capture console/network logs for each run; fail on browser errors.\n- Measure performance with:\n  - Playwright &#96;tracing.startChunk({ screenshots: true, snapshots: true })&#96;.\n  - Lighthouse CI on deployed preview + local bundle analyzer.\n- Autosave latency instrumentation via custom marker &#96;window.performance.mark('autosave:complete')&#96;.\n- Document findings in Markdown and link to dashboards/screenshots.\n\n## Parallelization &amp; Ownership\n\n- QA Engineer G: Playwright spec authoring + maintenance.\n- Perf Engineer H: Lighthouse, bundle analyzer, React profiler work.\n- Technical Writer I: Documentation updates + JSDoc sweep.\n\nWorkstreams operate concurrently; weekly sync ensures Playwright scenarios remain aligned with docs screenshots and performance optimizations.\n\n## Timeline\n\n| Phase | Duration | Notes |\n| --- | --- | --- |\n| Playwright harness &amp; CI | 1 day | Device config, auth fixtures |\n| Scenario scripting | 2 days | G executes, depends on Beta scripts |\n| Performance audits | 1.5 days | Baseline + optimization passes |\n| Documentation updates | 1.5 days | Writer parallel to perf |\n| Final verification | 0.5 day | Cross-review + sign-off |\n\nTotal elapsed: ~5 working days with overlapping efforts.\n\n## Acceptance Criteria\n\n1. All Playwright specs pass locally and in CI (headed+headless).\n2. Performance KPIs met: load &lt; 2s p95, step transition &lt; 200ms, autosave &lt; 500ms.\n3. Bundle size report attached to PR with regression budget.\n4. Documentation PR approved by Eng + Product; README lists testing commands.\n5. Final checklists in Stream 8 document marked complete.\n\n## Risks &amp; Mitigations\n\n- **Auth instability in CI**: pre-create service user tokens; retry with exponential backoff.\n- **Flaky mobile viewport rendering**: enforce deterministic viewport sizes and disable OS-level animations in test env.\n- **Performance regressions introduced late**: add budgets to Lighthouse CI to fail PRs when thresholds exceeded.\n- **Doc drift**: embed doc update checklist in PR template; TW participates in final QA run.\n\n## Handoffs\n\n- Archive Playwright traces and Lighthouse reports in &#96;/artifacts/stream-8&#96;.\n- Notify release manager when all acceptance criteria satisfied; attach summary to Stream 8 tracker.\n\n"
 }
 ```
 User decision: **accepted**
@@ -426,7 +426,7 @@ _**Agent (model default, mode Agent)**_
 
 <tool-use data-tool-type="generic" data-tool-name="list_dir">
 <details>
-            <summary>Tool use: **list_directory** • Listed directory undefined • **0** results</summary>
+            <summary>Tool use: **list_dir** • Listed directory undefined • **0** results</summary>
         
 No results found
 </details>
@@ -443,7 +443,7 @@ I’m thinking about who should own the next steps and how to update the stream 
 
 <tool-use data-tool-type="generic" data-tool-name="list_dir">
 <details>
-            <summary>Tool use: **list_directory** • Listed directory undefined • **0** results</summary>
+            <summary>Tool use: **list_dir** • Listed directory undefined • **0** results</summary>
         
 No results found
 </details>
@@ -525,7 +525,7 @@ Output mode: content
 
 <tool-use data-tool-type="generic" data-tool-name="list_dir">
 <details>
-            <summary>Tool use: **list_directory** • Listed directory undefined • **0** results</summary>
+            <summary>Tool use: **list_dir** • Listed directory undefined • **0** results</summary>
         
 No results found
 </details>
@@ -633,7 +633,7 @@ _No matches found_
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm install -D @testing-library/react @testing-library/user-event @testing-library/jest-dom happy-dom</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm install -D @testing-library/react @testing-library/user-event @testing-library/jest-dom happy-dom</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && npm install -D @testing-library/react @testing-library/user-event @testing-library/jest-dom happy-dom
@@ -666,19 +666,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;vitest.config.ts&quot;
+  "relativeWorkspacePath": "vitest.config.ts"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;ce65db59-1564-4d47-891d-34481a9f7a76&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "ce65db59-1564-4d47-891d-34481a9f7a76",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -686,23 +686,23 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;    test: {\n      globals: true,\n-     environment: \&quot;node\&quot;,\n+     environment: \&quot;happy-dom\&quot;,\n      include: [\n        \&quot;tests/**/*.test.ts\&quot;,\n        \&quot;supplier_capabilities/tests/**/*.test.ts\&quot;,\n      ],\n      exclude: [\&quot;node_modules/**\&quot;],\n-     setupFiles: [],\n+     setupFiles: [\&quot;tests/setup/vitest.setup.ts\&quot;],\n    },\n  });&quot;,
-        &quot;oldStart&quot;: 6,
-        &quot;newStart&quot;: 6,
-        &quot;oldLines&quot;: 11,
-        &quot;newLines&quot;: 11,
-        &quot;linesRemoved&quot;: 2,
-        &quot;linesAdded&quot;: 2
+        "diffString": "    test: {\n      globals: true,\n-     environment: \"node\",\n+     environment: \"happy-dom\",\n      include: [\n        \"tests/**/*.test.ts\",\n        \"supplier_capabilities/tests/**/*.test.ts\",\n      ],\n      exclude: [\"node_modules/**\"],\n-     setupFiles: [],\n+     setupFiles: [\"tests/setup/vitest.setup.ts\"],\n    },\n  });",
+        "oldStart": 6,
+        "newStart": 6,
+        "oldLines": 11,
+        "newLines": 11,
+        "linesRemoved": 2,
+        "linesAdded": 2
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM vitest.config.ts&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;import { defineConfig } from \&quot;vitest/config\&quot;;\nimport tsconfigPaths from \&quot;vite-tsconfig-paths\&quot;;\n\nexport default defineConfig({\n  plugins: [tsconfigPaths()],\n  test: {\n    globals: true,\n    environment: \&quot;happy-dom\&quot;,\n    include: [\n      \&quot;tests/**/*.test.ts\&quot;,\n      \&quot;supplier_capabilities/tests/**/*.test.ts\&quot;,\n    ],\n    exclude: [\&quot;node_modules/**\&quot;],\n    setupFiles: [\&quot;tests/setup/vitest.setup.ts\&quot;],\n  },\n});\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM vitest.config.ts",
+  "contentsAfterEdit": "import { defineConfig } from \"vitest/config\";\nimport tsconfigPaths from \"vite-tsconfig-paths\";\n\nexport default defineConfig({\n  plugins: [tsconfigPaths()],\n  test: {\n    globals: true,\n    environment: \"happy-dom\",\n    include: [\n      \"tests/**/*.test.ts\",\n      \"supplier_capabilities/tests/**/*.test.ts\",\n    ],\n    exclude: [\"node_modules/**\"],\n    setupFiles: [\"tests/setup/vitest.setup.ts\"],\n  },\n});\n"
 }
 ```
 User decision: **accepted**
@@ -729,19 +729,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;tests/setup/vitest.setup.ts&quot;
+  "relativeWorkspacePath": "tests/setup/vitest.setup.ts"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;dbea7b75-2b00-4d30-baef-df7d2e0da8e1&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "dbea7b75-2b00-4d30-baef-df7d2e0da8e1",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -749,23 +749,23 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;- \n+ import \&quot;@testing-library/jest-dom/vitest\&quot;;\n+ \n+ &quot;,
-        &quot;oldStart&quot;: 1,
-        &quot;newStart&quot;: 1,
-        &quot;oldLines&quot;: 1,
-        &quot;newLines&quot;: 3,
-        &quot;linesRemoved&quot;: 1,
-        &quot;linesAdded&quot;: 3
+        "diffString": "- \n+ import \"@testing-library/jest-dom/vitest\";\n+ \n+ ",
+        "oldStart": 1,
+        "newStart": 1,
+        "oldLines": 1,
+        "newLines": 3,
+        "linesRemoved": 1,
+        "linesAdded": 3
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM tests/setup/vitest.setup.ts&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;import \&quot;@testing-library/jest-dom/vitest\&quot;;\n\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM tests/setup/vitest.setup.ts",
+  "contentsAfterEdit": "import \"@testing-library/jest-dom/vitest\";\n\n\n"
 }
 ```
 User decision: **accepted**
@@ -822,19 +822,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;tests/fixtures/forms/factories.ts&quot;
+  "relativeWorkspacePath": "tests/fixtures/forms/factories.ts"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;2ea45d4c-5265-4dc6-b5e6-63baabb616d0&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "2ea45d4c-5265-4dc6-b5e6-63baabb616d0",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -842,23 +842,23 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;- \n+ import type { FormField } from \&quot;@prisma/client\&quot;;\n+ \n+ let fieldCounter = 0;\n+ \n+ export function createFormField(overrides: Partial&lt;FormField&gt; = {}): FormField {\n+   const now = new Date(\&quot;2024-01-01T00:00:00.000Z\&quot;);\n+   fieldCounter += 1;\n+ \n+   return {\n+     id: overrides.id ?? &#96;field-${fieldCounter}&#96;,\n+     sectionId: overrides.sectionId ?? \&quot;section-1\&quot;,\n+     key: overrides.key ?? &#96;field_${fieldCounter}&#96;,\n+     label: overrides.label ?? \&quot;Sample Field\&quot;,\n+     type: overrides.type ?? \&quot;text\&quot;,\n+     placeholder: overrides.placeholder ?? null,\n+     helpText: overrides.helpText ?? null,\n+     required: overrides.required ?? false,\n+     options: overrides.options ?? null,\n+     validation: overrides.validation ?? null,\n+     visibility: overrides.visibility ?? null,\n+     order: overrides.order ?? 0,\n+     isSensitive: overrides.isSensitive ?? false,\n+     createdAt: overrides.createdAt ?? now,\n+     updatedAt: overrides.updatedAt ?? now,\n+   };\n+ }\n+ \n+ export function createVisibilityField(\n+   visibility: unknown,\n+   overrides: Partial&lt;FormField&gt; = {}\n+ ): FormField {\n+   return createFormField({\n+     visibility,\n+     ...overrides,\n+   });\n+ }\n+ \n+ &quot;,
-        &quot;oldStart&quot;: 1,
-        &quot;newStart&quot;: 1,
-        &quot;oldLines&quot;: 1,
-        &quot;newLines&quot;: 38,
-        &quot;linesRemoved&quot;: 1,
-        &quot;linesAdded&quot;: 38
+        "diffString": "- \n+ import type { FormField } from \"@prisma/client\";\n+ \n+ let fieldCounter = 0;\n+ \n+ export function createFormField(overrides: Partial&lt;FormField&gt; = {}): FormField {\n+   const now = new Date(\"2024-01-01T00:00:00.000Z\");\n+   fieldCounter += 1;\n+ \n+   return {\n+     id: overrides.id ?? &#96;field-${fieldCounter}&#96;,\n+     sectionId: overrides.sectionId ?? \"section-1\",\n+     key: overrides.key ?? &#96;field_${fieldCounter}&#96;,\n+     label: overrides.label ?? \"Sample Field\",\n+     type: overrides.type ?? \"text\",\n+     placeholder: overrides.placeholder ?? null,\n+     helpText: overrides.helpText ?? null,\n+     required: overrides.required ?? false,\n+     options: overrides.options ?? null,\n+     validation: overrides.validation ?? null,\n+     visibility: overrides.visibility ?? null,\n+     order: overrides.order ?? 0,\n+     isSensitive: overrides.isSensitive ?? false,\n+     createdAt: overrides.createdAt ?? now,\n+     updatedAt: overrides.updatedAt ?? now,\n+   };\n+ }\n+ \n+ export function createVisibilityField(\n+   visibility: unknown,\n+   overrides: Partial&lt;FormField&gt; = {}\n+ ): FormField {\n+   return createFormField({\n+     visibility,\n+     ...overrides,\n+   });\n+ }\n+ \n+ ",
+        "oldStart": 1,
+        "newStart": 1,
+        "oldLines": 1,
+        "newLines": 38,
+        "linesRemoved": 1,
+        "linesAdded": 38
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM tests/fixtures/forms/factories.ts&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;import type { FormField } from \&quot;@prisma/client\&quot;;\n\nlet fieldCounter = 0;\n\nexport function createFormField(overrides: Partial&lt;FormField&gt; = {}): FormField {\n  const now = new Date(\&quot;2024-01-01T00:00:00.000Z\&quot;);\n  fieldCounter += 1;\n\n  return {\n    id: overrides.id ?? &#96;field-${fieldCounter}&#96;,\n    sectionId: overrides.sectionId ?? \&quot;section-1\&quot;,\n    key: overrides.key ?? &#96;field_${fieldCounter}&#96;,\n    label: overrides.label ?? \&quot;Sample Field\&quot;,\n    type: overrides.type ?? \&quot;text\&quot;,\n    placeholder: overrides.placeholder ?? null,\n    helpText: overrides.helpText ?? null,\n    required: overrides.required ?? false,\n    options: overrides.options ?? null,\n    validation: overrides.validation ?? null,\n    visibility: overrides.visibility ?? null,\n    order: overrides.order ?? 0,\n    isSensitive: overrides.isSensitive ?? false,\n    createdAt: overrides.createdAt ?? now,\n    updatedAt: overrides.updatedAt ?? now,\n  };\n}\n\nexport function createVisibilityField(\n  visibility: unknown,\n  overrides: Partial&lt;FormField&gt; = {}\n): FormField {\n  return createFormField({\n    visibility,\n    ...overrides,\n  });\n}\n\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM tests/fixtures/forms/factories.ts",
+  "contentsAfterEdit": "import type { FormField } from \"@prisma/client\";\n\nlet fieldCounter = 0;\n\nexport function createFormField(overrides: Partial&lt;FormField&gt; = {}): FormField {\n  const now = new Date(\"2024-01-01T00:00:00.000Z\");\n  fieldCounter += 1;\n\n  return {\n    id: overrides.id ?? &#96;field-${fieldCounter}&#96;,\n    sectionId: overrides.sectionId ?? \"section-1\",\n    key: overrides.key ?? &#96;field_${fieldCounter}&#96;,\n    label: overrides.label ?? \"Sample Field\",\n    type: overrides.type ?? \"text\",\n    placeholder: overrides.placeholder ?? null,\n    helpText: overrides.helpText ?? null,\n    required: overrides.required ?? false,\n    options: overrides.options ?? null,\n    validation: overrides.validation ?? null,\n    visibility: overrides.visibility ?? null,\n    order: overrides.order ?? 0,\n    isSensitive: overrides.isSensitive ?? false,\n    createdAt: overrides.createdAt ?? now,\n    updatedAt: overrides.updatedAt ?? now,\n  };\n}\n\nexport function createVisibilityField(\n  visibility: unknown,\n  overrides: Partial&lt;FormField&gt; = {}\n): FormField {\n  return createFormField({\n    visibility,\n    ...overrides,\n  });\n}\n\n\n"
 }
 ```
 User decision: **accepted**
@@ -885,19 +885,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;tests/forms/form-state.test.ts&quot;
+  "relativeWorkspacePath": "tests/forms/form-state.test.ts"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;d8c1d41b-d5c3-4efe-b9bd-3905b19b7f45&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "d8c1d41b-d5c3-4efe-b9bd-3905b19b7f45",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -905,23 +905,23 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;- \n+ import {\n+   createInitialFormState,\n+   hydrateFormState,\n+   serializeFormState,\n+   type FormState,\n+ } from \&quot;@/lib/forms/form-state\&quot;;\n+ \n+ describe(\&quot;form-state utilities\&quot;, () =&gt; {\n+   it(\&quot;creates an initial state with sane defaults\&quot;, () =&gt; {\n+     const state = createInitialFormState();\n+ \n+     expect(state.formData).toEqual({});\n+     expect(state.currentStep).toBe(0);\n+     expect(state.completedSteps.size).toBe(0);\n+     expect(state.touched.size).toBe(0);\n+     expect(state.isDirty).toBe(false);\n+     expect(state.isSubmitting).toBe(false);\n+   });\n+ \n+   it(\&quot;normalizes initial step input and seeds completed steps\&quot;, () =&gt; {\n+     const state = createInitialFormState({ companyName: \&quot;Acme\&quot; }, 3.8);\n+ \n+     expect(state.currentStep).toBe(3);\n+     expect(Array.from(state.completedSteps)).toEqual([0, 1, 2]);\n+     expect(state.formData).toEqual({ companyName: \&quot;Acme\&quot; });\n+   });\n+ \n+   it(\&quot;serializes form state by flattening sets to arrays\&quot;, () =&gt; {\n+     const state: FormState = {\n+       formData: { companyName: \&quot;Acme\&quot; },\n+       currentStep: 2,\n+       errors: { companyName: \&quot;Required\&quot; },\n+       touched: new Set([\&quot;companyName\&quot;]),\n+       completedSteps: new Set([0, 1]),\n+       isDirty: true,\n+       isSubmitting: false,\n+     };\n+ \n+     const serialized = serializeFormState(state);\n+ \n+     expect(serialized).toMatchObject({\n+       formData: { companyName: \&quot;Acme\&quot; },\n+       errors: { companyName: \&quot;Required\&quot; },\n+       touched: [\&quot;companyName\&quot;],\n+       completedSteps: [0, 1],\n+       isDirty: true,\n+       currentStep: 2,\n+       isSubmitting: false,\n+     });\n+   });\n+ \n+   it(\&quot;hydrates a serialized snapshot back into runtime-friendly structures\&quot;, () =&gt; {\n+     const hydrated = hydrateFormState({\n+       formData: { email: \&quot;hello@example.com\&quot; },\n+       errors: {},\n+       touched: [\&quot;email\&quot;],\n+       completedSteps: [0],\n+       currentStep: 1,\n+       isDirty: true,\n+       isSubmitting: true,\n+     });\n+ \n+     expect(hydrated.formData).toEqual({ email: \&quot;hello@example.com\&quot; });\n+     expect(hydrated.touched).toBeInstanceOf(Set);\n+     expect(Array.from(hydrated.touched)).toEqual([\&quot;email\&quot;]);\n+     expect(Array.from(hydrated.completedSteps)).toEqual([0]);\n+     expect(hydrated.isDirty).toBe(true);\n+     expect(hydrated.isSubmitting).toBe(true);\n+   });\n+ \n+   it(\&quot;falls back to defaults when snapshot is partial\&quot;, () =&gt; {\n+     const hydrated = hydrateFormState({});\n+ \n+     expect(hydrated.currentStep).toBe(0);\n+     expect(hydrated.formData).toEqual({});\n+     expect(hydrated.touched.size).toBe(0);\n+     expect(hydrated.completedSteps.size).toBe(0);\n+     expect(hydrated.isDirty).toBe(false);\n+   });\n+ });\n+ \n+ &quot;,
-        &quot;oldStart&quot;: 1,
-        &quot;newStart&quot;: 1,
-        &quot;oldLines&quot;: 1,
-        &quot;newLines&quot;: 82,
-        &quot;linesRemoved&quot;: 1,
-        &quot;linesAdded&quot;: 82
+        "diffString": "- \n+ import {\n+   createInitialFormState,\n+   hydrateFormState,\n+   serializeFormState,\n+   type FormState,\n+ } from \"@/lib/forms/form-state\";\n+ \n+ describe(\"form-state utilities\", () =&gt; {\n+   it(\"creates an initial state with sane defaults\", () =&gt; {\n+     const state = createInitialFormState();\n+ \n+     expect(state.formData).toEqual({});\n+     expect(state.currentStep).toBe(0);\n+     expect(state.completedSteps.size).toBe(0);\n+     expect(state.touched.size).toBe(0);\n+     expect(state.isDirty).toBe(false);\n+     expect(state.isSubmitting).toBe(false);\n+   });\n+ \n+   it(\"normalizes initial step input and seeds completed steps\", () =&gt; {\n+     const state = createInitialFormState({ companyName: \"Acme\" }, 3.8);\n+ \n+     expect(state.currentStep).toBe(3);\n+     expect(Array.from(state.completedSteps)).toEqual([0, 1, 2]);\n+     expect(state.formData).toEqual({ companyName: \"Acme\" });\n+   });\n+ \n+   it(\"serializes form state by flattening sets to arrays\", () =&gt; {\n+     const state: FormState = {\n+       formData: { companyName: \"Acme\" },\n+       currentStep: 2,\n+       errors: { companyName: \"Required\" },\n+       touched: new Set([\"companyName\"]),\n+       completedSteps: new Set([0, 1]),\n+       isDirty: true,\n+       isSubmitting: false,\n+     };\n+ \n+     const serialized = serializeFormState(state);\n+ \n+     expect(serialized).toMatchObject({\n+       formData: { companyName: \"Acme\" },\n+       errors: { companyName: \"Required\" },\n+       touched: [\"companyName\"],\n+       completedSteps: [0, 1],\n+       isDirty: true,\n+       currentStep: 2,\n+       isSubmitting: false,\n+     });\n+   });\n+ \n+   it(\"hydrates a serialized snapshot back into runtime-friendly structures\", () =&gt; {\n+     const hydrated = hydrateFormState({\n+       formData: { email: \"hello@example.com\" },\n+       errors: {},\n+       touched: [\"email\"],\n+       completedSteps: [0],\n+       currentStep: 1,\n+       isDirty: true,\n+       isSubmitting: true,\n+     });\n+ \n+     expect(hydrated.formData).toEqual({ email: \"hello@example.com\" });\n+     expect(hydrated.touched).toBeInstanceOf(Set);\n+     expect(Array.from(hydrated.touched)).toEqual([\"email\"]);\n+     expect(Array.from(hydrated.completedSteps)).toEqual([0]);\n+     expect(hydrated.isDirty).toBe(true);\n+     expect(hydrated.isSubmitting).toBe(true);\n+   });\n+ \n+   it(\"falls back to defaults when snapshot is partial\", () =&gt; {\n+     const hydrated = hydrateFormState({});\n+ \n+     expect(hydrated.currentStep).toBe(0);\n+     expect(hydrated.formData).toEqual({});\n+     expect(hydrated.touched.size).toBe(0);\n+     expect(hydrated.completedSteps.size).toBe(0);\n+     expect(hydrated.isDirty).toBe(false);\n+   });\n+ });\n+ \n+ ",
+        "oldStart": 1,
+        "newStart": 1,
+        "oldLines": 1,
+        "newLines": 82,
+        "linesRemoved": 1,
+        "linesAdded": 82
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM tests/forms/form-state.test.ts&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;import {\n  createInitialFormState,\n  hydrateFormState,\n  serializeFormState,\n  type FormState,\n} from \&quot;@/lib/forms/form-state\&quot;;\n\ndescribe(\&quot;form-state utilities\&quot;, () =&gt; {\n  it(\&quot;creates an initial state with sane defaults\&quot;, () =&gt; {\n    const state = createInitialFormState();\n\n    expect(state.formData).toEqual({});\n    expect(state.currentStep).toBe(0);\n    expect(state.completedSteps.size).toBe(0);\n    expect(state.touched.size).toBe(0);\n    expect(state.isDirty).toBe(false);\n    expect(state.isSubmitting).toBe(false);\n  });\n\n  it(\&quot;normalizes initial step input and seeds completed steps\&quot;, () =&gt; {\n    const state = createInitialFormState({ companyName: \&quot;Acme\&quot; }, 3.8);\n\n    expect(state.currentStep).toBe(3);\n    expect(Array.from(state.completedSteps)).toEqual([0, 1, 2]);\n    expect(state.formData).toEqual({ companyName: \&quot;Acme\&quot; });\n  });\n\n  it(\&quot;serializes form state by flattening sets to arrays\&quot;, () =&gt; {\n    const state: FormState = {\n      formData: { companyName: \&quot;Acme\&quot; },\n      currentStep: 2,\n      errors: { companyName: \&quot;Required\&quot; },\n      touched: new Set([\&quot;companyName\&quot;]),\n      completedSteps: new Set([0, 1]),\n      isDirty: true,\n      isSubmitting: false,\n    };\n\n    const serialized = serializeFormState(state);\n\n    expect(serialized).toMatchObject({\n      formData: { companyName: \&quot;Acme\&quot; },\n      errors: { companyName: \&quot;Required\&quot; },\n      touched: [\&quot;companyName\&quot;],\n      completedSteps: [0, 1],\n      isDirty: true,\n      currentStep: 2,\n      isSubmitting: false,\n    });\n  });\n\n  it(\&quot;hydrates a serialized snapshot back into runtime-friendly structures\&quot;, () =&gt; {\n    const hydrated = hydrateFormState({\n      formData: { email: \&quot;hello@example.com\&quot; },\n      errors: {},\n      touched: [\&quot;email\&quot;],\n      completedSteps: [0],\n      currentStep: 1,\n      isDirty: true,\n      isSubmitting: true,\n    });\n\n    expect(hydrated.formData).toEqual({ email: \&quot;hello@example.com\&quot; });\n    expect(hydrated.touched).toBeInstanceOf(Set);\n    expect(Array.from(hydrated.touched)).toEqual([\&quot;email\&quot;]);\n    expect(Array.from(hydrated.completedSteps)).toEqual([0]);\n    expect(hydrated.isDirty).toBe(true);\n    expect(hydrated.isSubmitting).toBe(true);\n  });\n\n  it(\&quot;falls back to defaults when snapshot is partial\&quot;, () =&gt; {\n    const hydrated = hydrateFormState({});\n\n    expect(hydrated.currentStep).toBe(0);\n    expect(hydrated.formData).toEqual({});\n    expect(hydrated.touched.size).toBe(0);\n    expect(hydrated.completedSteps.size).toBe(0);\n    expect(hydrated.isDirty).toBe(false);\n  });\n});\n\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM tests/forms/form-state.test.ts",
+  "contentsAfterEdit": "import {\n  createInitialFormState,\n  hydrateFormState,\n  serializeFormState,\n  type FormState,\n} from \"@/lib/forms/form-state\";\n\ndescribe(\"form-state utilities\", () =&gt; {\n  it(\"creates an initial state with sane defaults\", () =&gt; {\n    const state = createInitialFormState();\n\n    expect(state.formData).toEqual({});\n    expect(state.currentStep).toBe(0);\n    expect(state.completedSteps.size).toBe(0);\n    expect(state.touched.size).toBe(0);\n    expect(state.isDirty).toBe(false);\n    expect(state.isSubmitting).toBe(false);\n  });\n\n  it(\"normalizes initial step input and seeds completed steps\", () =&gt; {\n    const state = createInitialFormState({ companyName: \"Acme\" }, 3.8);\n\n    expect(state.currentStep).toBe(3);\n    expect(Array.from(state.completedSteps)).toEqual([0, 1, 2]);\n    expect(state.formData).toEqual({ companyName: \"Acme\" });\n  });\n\n  it(\"serializes form state by flattening sets to arrays\", () =&gt; {\n    const state: FormState = {\n      formData: { companyName: \"Acme\" },\n      currentStep: 2,\n      errors: { companyName: \"Required\" },\n      touched: new Set([\"companyName\"]),\n      completedSteps: new Set([0, 1]),\n      isDirty: true,\n      isSubmitting: false,\n    };\n\n    const serialized = serializeFormState(state);\n\n    expect(serialized).toMatchObject({\n      formData: { companyName: \"Acme\" },\n      errors: { companyName: \"Required\" },\n      touched: [\"companyName\"],\n      completedSteps: [0, 1],\n      isDirty: true,\n      currentStep: 2,\n      isSubmitting: false,\n    });\n  });\n\n  it(\"hydrates a serialized snapshot back into runtime-friendly structures\", () =&gt; {\n    const hydrated = hydrateFormState({\n      formData: { email: \"hello@example.com\" },\n      errors: {},\n      touched: [\"email\"],\n      completedSteps: [0],\n      currentStep: 1,\n      isDirty: true,\n      isSubmitting: true,\n    });\n\n    expect(hydrated.formData).toEqual({ email: \"hello@example.com\" });\n    expect(hydrated.touched).toBeInstanceOf(Set);\n    expect(Array.from(hydrated.touched)).toEqual([\"email\"]);\n    expect(Array.from(hydrated.completedSteps)).toEqual([0]);\n    expect(hydrated.isDirty).toBe(true);\n    expect(hydrated.isSubmitting).toBe(true);\n  });\n\n  it(\"falls back to defaults when snapshot is partial\", () =&gt; {\n    const hydrated = hydrateFormState({});\n\n    expect(hydrated.currentStep).toBe(0);\n    expect(hydrated.formData).toEqual({});\n    expect(hydrated.touched.size).toBe(0);\n    expect(hydrated.completedSteps.size).toBe(0);\n    expect(hydrated.isDirty).toBe(false);\n  });\n});\n\n\n"
 }
 ```
 User decision: **accepted**
@@ -948,19 +948,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;tests/forms/visibility-engine.test.ts&quot;
+  "relativeWorkspacePath": "tests/forms/visibility-engine.test.ts"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;5ca37ce3-abaa-4423-becd-8ac110b8cb6e&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "5ca37ce3-abaa-4423-becd-8ac110b8cb6e",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -968,23 +968,23 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;- \n+ import { describe, expect, it } from \&quot;vitest\&quot;;\n+ \n+ import {\n+   evaluateVisibilityRule,\n+   getFieldVisibilityDependencies,\n+   shouldFieldBeVisible,\n+ } from \&quot;@/lib/forms/visibility-engine\&quot;;\n+ import type { VisibilityRule } from \&quot;@/lib/forms/types\&quot;;\n+ import { createVisibilityField } from \&quot;@/tests/fixtures/forms/factories\&quot;;\n+ \n+ describe(\&quot;visibility-engine\&quot;, () =&gt; {\n+   const formData = {\n+     country: \&quot;US\&quot;,\n+     employees: 150,\n+     certifications: [\&quot;iso9001\&quot;, \&quot;iso27001\&quot;],\n+     description: \&quot;\&quot;,\n+   };\n+ \n+   describe(\&quot;evaluateVisibilityRule\&quot;, () =&gt; {\n+     const baseRule: VisibilityRule = {\n+       dependsOn: \&quot;country\&quot;,\n+       condition: \&quot;equals\&quot;,\n+       value: \&quot;US\&quot;,\n+     };\n+ \n+     it(\&quot;evaluates equality based rules\&quot;, () =&gt; {\n+       expect(evaluateVisibilityRule(baseRule, formData)).toBe(true);\n+       expect(\n+         evaluateVisibilityRule(\n+           { ...baseRule, condition: \&quot;notEquals\&quot;, value: \&quot;CA\&quot; },\n+           formData\n+         )\n+       ).toBe(true);\n+     });\n+ \n+     it(\&quot;evaluates contains for arrays and strings\&quot;, () =&gt; {\n+       expect(\n+         evaluateVisibilityRule(\n+           { dependsOn: \&quot;certifications\&quot;, condition: \&quot;contains\&quot;, value: \&quot;iso27001\&quot; },\n+           formData\n+         )\n+       ).toBe(true);\n+       expect(\n+         evaluateVisibilityRule(\n+           {\n+             dependsOn: \&quot;country\&quot;,\n+             condition: \&quot;contains\&quot;,\n+             value: \&quot;u\&quot;,\n+           },\n+           formData\n+         )\n+       ).toBe(true);\n+     });\n+ \n+     it(\&quot;evaluates numeric comparisons safely\&quot;, () =&gt; {\n+       expect(\n+         evaluateVisibilityRule(\n+           { dependsOn: \&quot;employees\&quot;, condition: \&quot;greaterThan\&quot;, value: 100 },\n+           formData\n+         )\n+       ).toBe(true);\n+       expect(\n+         evaluateVisibilityRule(\n+           { dependsOn: \&quot;employees\&quot;, condition: \&quot;lessThan\&quot;, value: 120 },\n+           formData\n+         )\n+       ).toBe(false);\n+     });\n+ \n+     it(\&quot;treats empty checks properly\&quot;, () =&gt; {\n+       expect(\n+         evaluateVisibilityRule(\n+           { dependsOn: \&quot;description\&quot;, condition: \&quot;isEmpty\&quot;, value: null },\n+           formData\n+         )\n+       ).toBe(true);\n+       expect(\n+         evaluateVisibilityRule(\n+           { dependsOn: \&quot;description\&quot;, condition: \&quot;isNotEmpty\&quot;, value: null },\n+           formData\n+         )\n+       ).toBe(false);\n+     });\n+   });\n+ \n+   describe(\&quot;shouldFieldBeVisible\&quot;, () =&gt; {\n+     it(\&quot;returns true when no visibility config is provided\&quot;, () =&gt; {\n+       const field = createVisibilityField(null);\n+       expect(shouldFieldBeVisible(field, formData)).toBe(true);\n+     });\n+ \n+     it(\&quot;supports array shorthand configs (match all)\&quot;, () =&gt; {\n+       const field = createVisibilityField([\n+         { dependsOn: \&quot;country\&quot;, condition: \&quot;equals\&quot;, value: \&quot;US\&quot; },\n+         { dependsOn: \&quot;employees\&quot;, condition: \&quot;greaterThan\&quot;, value: 100 },\n+       ]);\n+ \n+       expect(shouldFieldBeVisible(field, formData)).toBe(true);\n+ \n+       const failingData = { ...formData, employees: 50 };\n+       expect(shouldFieldBeVisible(field, failingData)).toBe(false);\n+     });\n+ \n+     it(\&quot;supports match:any configs with object shape\&quot;, () =&gt; {\n+       const field = createVisibilityField({\n+         match: \&quot;any\&quot;,\n+         rules: [\n+           { dependsOn: \&quot;country\&quot;, condition: \&quot;equals\&quot;, value: \&quot;CA\&quot; },\n+           { dependsOn: \&quot;employees\&quot;, condition: \&quot;greaterThan\&quot;, value: 120 },\n+         ],\n+       });\n+ \n+       expect(shouldFieldBeVisible(field, formData)).toBe(true);\n+     });\n+ \n+     it(\&quot;parses JSON string configs\&quot;, () =&gt; {\n+       const field = createVisibilityField(\n+         JSON.stringify({\n+           match: \&quot;all\&quot;,\n+           rules: [{ dependsOn: \&quot;country\&quot;, condition: \&quot;equals\&quot;, value: \&quot;US\&quot; }],\n+         })\n+       );\n+ \n+       expect(shouldFieldBeVisible(field, formData)).toBe(true);\n+     });\n+   });\n+ \n+   describe(\&quot;getFieldVisibilityDependencies\&quot;, () =&gt; {\n+     it(\&quot;returns the set of dependency keys derived from rules\&quot;, () =&gt; {\n+       const field = createVisibilityField({\n+         rules: [\n+           { dependsOn: \&quot;country\&quot;, condition: \&quot;equals\&quot;, value: \&quot;US\&quot; },\n+           { dependsOn: \&quot;employees\&quot;, condition: \&quot;greaterThan\&quot;, value: 100 },\n+           { dependsOn: \&quot;country\&quot;, condition: \&quot;notEquals\&quot;, value: \&quot;MX\&quot; },\n+         ],\n+       });\n+ \n+       expect(getFieldVisibilityDependencies(field)).toEqual([\n+         \&quot;country\&quot;,\n+         \&quot;employees\&quot;,\n+       ]);\n+     });\n+ \n+     it(\&quot;returns an empty array when no visibility data exists\&quot;, () =&gt; {\n+       const field = createVisibilityField(null);\n+       expect(getFieldVisibilityDependencies(field)).toEqual([]);\n+     });\n+   });\n+ });\n+ \n+ &quot;,
-        &quot;oldStart&quot;: 1,
-        &quot;newStart&quot;: 1,
-        &quot;oldLines&quot;: 1,
-        &quot;newLines&quot;: 151,
-        &quot;linesRemoved&quot;: 1,
-        &quot;linesAdded&quot;: 151
+        "diffString": "- \n+ import { describe, expect, it } from \"vitest\";\n+ \n+ import {\n+   evaluateVisibilityRule,\n+   getFieldVisibilityDependencies,\n+   shouldFieldBeVisible,\n+ } from \"@/lib/forms/visibility-engine\";\n+ import type { VisibilityRule } from \"@/lib/forms/types\";\n+ import { createVisibilityField } from \"@/tests/fixtures/forms/factories\";\n+ \n+ describe(\"visibility-engine\", () =&gt; {\n+   const formData = {\n+     country: \"US\",\n+     employees: 150,\n+     certifications: [\"iso9001\", \"iso27001\"],\n+     description: \"\",\n+   };\n+ \n+   describe(\"evaluateVisibilityRule\", () =&gt; {\n+     const baseRule: VisibilityRule = {\n+       dependsOn: \"country\",\n+       condition: \"equals\",\n+       value: \"US\",\n+     };\n+ \n+     it(\"evaluates equality based rules\", () =&gt; {\n+       expect(evaluateVisibilityRule(baseRule, formData)).toBe(true);\n+       expect(\n+         evaluateVisibilityRule(\n+           { ...baseRule, condition: \"notEquals\", value: \"CA\" },\n+           formData\n+         )\n+       ).toBe(true);\n+     });\n+ \n+     it(\"evaluates contains for arrays and strings\", () =&gt; {\n+       expect(\n+         evaluateVisibilityRule(\n+           { dependsOn: \"certifications\", condition: \"contains\", value: \"iso27001\" },\n+           formData\n+         )\n+       ).toBe(true);\n+       expect(\n+         evaluateVisibilityRule(\n+           {\n+             dependsOn: \"country\",\n+             condition: \"contains\",\n+             value: \"u\",\n+           },\n+           formData\n+         )\n+       ).toBe(true);\n+     });\n+ \n+     it(\"evaluates numeric comparisons safely\", () =&gt; {\n+       expect(\n+         evaluateVisibilityRule(\n+           { dependsOn: \"employees\", condition: \"greaterThan\", value: 100 },\n+           formData\n+         )\n+       ).toBe(true);\n+       expect(\n+         evaluateVisibilityRule(\n+           { dependsOn: \"employees\", condition: \"lessThan\", value: 120 },\n+           formData\n+         )\n+       ).toBe(false);\n+     });\n+ \n+     it(\"treats empty checks properly\", () =&gt; {\n+       expect(\n+         evaluateVisibilityRule(\n+           { dependsOn: \"description\", condition: \"isEmpty\", value: null },\n+           formData\n+         )\n+       ).toBe(true);\n+       expect(\n+         evaluateVisibilityRule(\n+           { dependsOn: \"description\", condition: \"isNotEmpty\", value: null },\n+           formData\n+         )\n+       ).toBe(false);\n+     });\n+   });\n+ \n+   describe(\"shouldFieldBeVisible\", () =&gt; {\n+     it(\"returns true when no visibility config is provided\", () =&gt; {\n+       const field = createVisibilityField(null);\n+       expect(shouldFieldBeVisible(field, formData)).toBe(true);\n+     });\n+ \n+     it(\"supports array shorthand configs (match all)\", () =&gt; {\n+       const field = createVisibilityField([\n+         { dependsOn: \"country\", condition: \"equals\", value: \"US\" },\n+         { dependsOn: \"employees\", condition: \"greaterThan\", value: 100 },\n+       ]);\n+ \n+       expect(shouldFieldBeVisible(field, formData)).toBe(true);\n+ \n+       const failingData = { ...formData, employees: 50 };\n+       expect(shouldFieldBeVisible(field, failingData)).toBe(false);\n+     });\n+ \n+     it(\"supports match:any configs with object shape\", () =&gt; {\n+       const field = createVisibilityField({\n+         match: \"any\",\n+         rules: [\n+           { dependsOn: \"country\", condition: \"equals\", value: \"CA\" },\n+           { dependsOn: \"employees\", condition: \"greaterThan\", value: 120 },\n+         ],\n+       });\n+ \n+       expect(shouldFieldBeVisible(field, formData)).toBe(true);\n+     });\n+ \n+     it(\"parses JSON string configs\", () =&gt; {\n+       const field = createVisibilityField(\n+         JSON.stringify({\n+           match: \"all\",\n+           rules: [{ dependsOn: \"country\", condition: \"equals\", value: \"US\" }],\n+         })\n+       );\n+ \n+       expect(shouldFieldBeVisible(field, formData)).toBe(true);\n+     });\n+   });\n+ \n+   describe(\"getFieldVisibilityDependencies\", () =&gt; {\n+     it(\"returns the set of dependency keys derived from rules\", () =&gt; {\n+       const field = createVisibilityField({\n+         rules: [\n+           { dependsOn: \"country\", condition: \"equals\", value: \"US\" },\n+           { dependsOn: \"employees\", condition: \"greaterThan\", value: 100 },\n+           { dependsOn: \"country\", condition: \"notEquals\", value: \"MX\" },\n+         ],\n+       });\n+ \n+       expect(getFieldVisibilityDependencies(field)).toEqual([\n+         \"country\",\n+         \"employees\",\n+       ]);\n+     });\n+ \n+     it(\"returns an empty array when no visibility data exists\", () =&gt; {\n+       const field = createVisibilityField(null);\n+       expect(getFieldVisibilityDependencies(field)).toEqual([]);\n+     });\n+   });\n+ });\n+ \n+ ",
+        "oldStart": 1,
+        "newStart": 1,
+        "oldLines": 1,
+        "newLines": 151,
+        "linesRemoved": 1,
+        "linesAdded": 151
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM tests/forms/visibility-engine.test.ts&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;import { describe, expect, it } from \&quot;vitest\&quot;;\n\nimport {\n  evaluateVisibilityRule,\n  getFieldVisibilityDependencies,\n  shouldFieldBeVisible,\n} from \&quot;@/lib/forms/visibility-engine\&quot;;\nimport type { VisibilityRule } from \&quot;@/lib/forms/types\&quot;;\nimport { createVisibilityField } from \&quot;@/tests/fixtures/forms/factories\&quot;;\n\ndescribe(\&quot;visibility-engine\&quot;, () =&gt; {\n  const formData = {\n    country: \&quot;US\&quot;,\n    employees: 150,\n    certifications: [\&quot;iso9001\&quot;, \&quot;iso27001\&quot;],\n    description: \&quot;\&quot;,\n  };\n\n  describe(\&quot;evaluateVisibilityRule\&quot;, () =&gt; {\n    const baseRule: VisibilityRule = {\n      dependsOn: \&quot;country\&quot;,\n      condition: \&quot;equals\&quot;,\n      value: \&quot;US\&quot;,\n    };\n\n    it(\&quot;evaluates equality based rules\&quot;, () =&gt; {\n      expect(evaluateVisibilityRule(baseRule, formData)).toBe(true);\n      expect(\n        evaluateVisibilityRule(\n          { ...baseRule, condition: \&quot;notEquals\&quot;, value: \&quot;CA\&quot; },\n          formData\n        )\n      ).toBe(true);\n    });\n\n    it(\&quot;evaluates contains for arrays and strings\&quot;, () =&gt; {\n      expect(\n        evaluateVisibilityRule(\n          { dependsOn: \&quot;certifications\&quot;, condition: \&quot;contains\&quot;, value: \&quot;iso27001\&quot; },\n          formData\n        )\n      ).toBe(true);\n      expect(\n        evaluateVisibilityRule(\n          {\n            dependsOn: \&quot;country\&quot;,\n            condition: \&quot;contains\&quot;,\n            value: \&quot;u\&quot;,\n          },\n          formData\n        )\n      ).toBe(true);\n    });\n\n    it(\&quot;evaluates numeric comparisons safely\&quot;, () =&gt; {\n      expect(\n        evaluateVisibilityRule(\n          { dependsOn: \&quot;employees\&quot;, condition: \&quot;greaterThan\&quot;, value: 100 },\n          formData\n        )\n      ).toBe(true);\n      expect(\n        evaluateVisibilityRule(\n          { dependsOn: \&quot;employees\&quot;, condition: \&quot;lessThan\&quot;, value: 120 },\n          formData\n        )\n      ).toBe(false);\n    });\n\n    it(\&quot;treats empty checks properly\&quot;, () =&gt; {\n      expect(\n        evaluateVisibilityRule(\n          { dependsOn: \&quot;description\&quot;, condition: \&quot;isEmpty\&quot;, value: null },\n          formData\n        )\n      ).toBe(true);\n      expect(\n        evaluateVisibilityRule(\n          { dependsOn: \&quot;description\&quot;, condition: \&quot;isNotEmpty\&quot;, value: null },\n          formData\n        )\n      ).toBe(false);\n    });\n  });\n\n  describe(\&quot;shouldFieldBeVisible\&quot;, () =&gt; {\n    it(\&quot;returns true when no visibility config is provided\&quot;, () =&gt; {\n      const field = createVisibilityField(null);\n      expect(shouldFieldBeVisible(field, formData)).toBe(true);\n    });\n\n    it(\&quot;supports array shorthand configs (match all)\&quot;, () =&gt; {\n      const field = createVisibilityField([\n        { dependsOn: \&quot;country\&quot;, condition: \&quot;equals\&quot;, value: \&quot;US\&quot; },\n        { dependsOn: \&quot;employees\&quot;, condition: \&quot;greaterThan\&quot;, value: 100 },\n      ]);\n\n      expect(shouldFieldBeVisible(field, formData)).toBe(true);\n\n      const failingData = { ...formData, employees: 50 };\n      expect(shouldFieldBeVisible(field, failingData)).toBe(false);\n    });\n\n    it(\&quot;supports match:any configs with object shape\&quot;, () =&gt; {\n      const field = createVisibilityField({\n        match: \&quot;any\&quot;,\n        rules: [\n          { dependsOn: \&quot;country\&quot;, condition: \&quot;equals\&quot;, value: \&quot;CA\&quot; },\n          { dependsOn: \&quot;employees\&quot;, condition: \&quot;greaterThan\&quot;, value: 120 },\n        ],\n      });\n\n      expect(shouldFieldBeVisible(field, formData)).toBe(true);\n    });\n\n    it(\&quot;parses JSON string configs\&quot;, () =&gt; {\n      const field = createVisibilityField(\n        JSON.stringify({\n          match: \&quot;all\&quot;,\n          rules: [{ dependsOn: \&quot;country\&quot;, condition: \&quot;equals\&quot;, value: \&quot;US\&quot; }],\n        })\n      );\n\n      expect(shouldFieldBeVisible(field, formData)).toBe(true);\n    });\n  });\n\n  describe(\&quot;getFieldVisibilityDependencies\&quot;, () =&gt; {\n    it(\&quot;returns the set of dependency keys derived from rules\&quot;, () =&gt; {\n      const field = createVisibilityField({\n        rules: [\n          { dependsOn: \&quot;country\&quot;, condition: \&quot;equals\&quot;, value: \&quot;US\&quot; },\n          { dependsOn: \&quot;employees\&quot;, condition: \&quot;greaterThan\&quot;, value: 100 },\n          { dependsOn: \&quot;country\&quot;, condition: \&quot;notEquals\&quot;, value: \&quot;MX\&quot; },\n        ],\n      });\n\n      expect(getFieldVisibilityDependencies(field)).toEqual([\n        \&quot;country\&quot;,\n        \&quot;employees\&quot;,\n      ]);\n    });\n\n    it(\&quot;returns an empty array when no visibility data exists\&quot;, () =&gt; {\n      const field = createVisibilityField(null);\n      expect(getFieldVisibilityDependencies(field)).toEqual([]);\n    });\n  });\n});\n\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM tests/forms/visibility-engine.test.ts",
+  "contentsAfterEdit": "import { describe, expect, it } from \"vitest\";\n\nimport {\n  evaluateVisibilityRule,\n  getFieldVisibilityDependencies,\n  shouldFieldBeVisible,\n} from \"@/lib/forms/visibility-engine\";\nimport type { VisibilityRule } from \"@/lib/forms/types\";\nimport { createVisibilityField } from \"@/tests/fixtures/forms/factories\";\n\ndescribe(\"visibility-engine\", () =&gt; {\n  const formData = {\n    country: \"US\",\n    employees: 150,\n    certifications: [\"iso9001\", \"iso27001\"],\n    description: \"\",\n  };\n\n  describe(\"evaluateVisibilityRule\", () =&gt; {\n    const baseRule: VisibilityRule = {\n      dependsOn: \"country\",\n      condition: \"equals\",\n      value: \"US\",\n    };\n\n    it(\"evaluates equality based rules\", () =&gt; {\n      expect(evaluateVisibilityRule(baseRule, formData)).toBe(true);\n      expect(\n        evaluateVisibilityRule(\n          { ...baseRule, condition: \"notEquals\", value: \"CA\" },\n          formData\n        )\n      ).toBe(true);\n    });\n\n    it(\"evaluates contains for arrays and strings\", () =&gt; {\n      expect(\n        evaluateVisibilityRule(\n          { dependsOn: \"certifications\", condition: \"contains\", value: \"iso27001\" },\n          formData\n        )\n      ).toBe(true);\n      expect(\n        evaluateVisibilityRule(\n          {\n            dependsOn: \"country\",\n            condition: \"contains\",\n            value: \"u\",\n          },\n          formData\n        )\n      ).toBe(true);\n    });\n\n    it(\"evaluates numeric comparisons safely\", () =&gt; {\n      expect(\n        evaluateVisibilityRule(\n          { dependsOn: \"employees\", condition: \"greaterThan\", value: 100 },\n          formData\n        )\n      ).toBe(true);\n      expect(\n        evaluateVisibilityRule(\n          { dependsOn: \"employees\", condition: \"lessThan\", value: 120 },\n          formData\n        )\n      ).toBe(false);\n    });\n\n    it(\"treats empty checks properly\", () =&gt; {\n      expect(\n        evaluateVisibilityRule(\n          { dependsOn: \"description\", condition: \"isEmpty\", value: null },\n          formData\n        )\n      ).toBe(true);\n      expect(\n        evaluateVisibilityRule(\n          { dependsOn: \"description\", condition: \"isNotEmpty\", value: null },\n          formData\n        )\n      ).toBe(false);\n    });\n  });\n\n  describe(\"shouldFieldBeVisible\", () =&gt; {\n    it(\"returns true when no visibility config is provided\", () =&gt; {\n      const field = createVisibilityField(null);\n      expect(shouldFieldBeVisible(field, formData)).toBe(true);\n    });\n\n    it(\"supports array shorthand configs (match all)\", () =&gt; {\n      const field = createVisibilityField([\n        { dependsOn: \"country\", condition: \"equals\", value: \"US\" },\n        { dependsOn: \"employees\", condition: \"greaterThan\", value: 100 },\n      ]);\n\n      expect(shouldFieldBeVisible(field, formData)).toBe(true);\n\n      const failingData = { ...formData, employees: 50 };\n      expect(shouldFieldBeVisible(field, failingData)).toBe(false);\n    });\n\n    it(\"supports match:any configs with object shape\", () =&gt; {\n      const field = createVisibilityField({\n        match: \"any\",\n        rules: [\n          { dependsOn: \"country\", condition: \"equals\", value: \"CA\" },\n          { dependsOn: \"employees\", condition: \"greaterThan\", value: 120 },\n        ],\n      });\n\n      expect(shouldFieldBeVisible(field, formData)).toBe(true);\n    });\n\n    it(\"parses JSON string configs\", () =&gt; {\n      const field = createVisibilityField(\n        JSON.stringify({\n          match: \"all\",\n          rules: [{ dependsOn: \"country\", condition: \"equals\", value: \"US\" }],\n        })\n      );\n\n      expect(shouldFieldBeVisible(field, formData)).toBe(true);\n    });\n  });\n\n  describe(\"getFieldVisibilityDependencies\", () =&gt; {\n    it(\"returns the set of dependency keys derived from rules\", () =&gt; {\n      const field = createVisibilityField({\n        rules: [\n          { dependsOn: \"country\", condition: \"equals\", value: \"US\" },\n          { dependsOn: \"employees\", condition: \"greaterThan\", value: 100 },\n          { dependsOn: \"country\", condition: \"notEquals\", value: \"MX\" },\n        ],\n      });\n\n      expect(getFieldVisibilityDependencies(field)).toEqual([\n        \"country\",\n        \"employees\",\n      ]);\n    });\n\n    it(\"returns an empty array when no visibility data exists\", () =&gt; {\n      const field = createVisibilityField(null);\n      expect(getFieldVisibilityDependencies(field)).toEqual([]);\n    });\n  });\n});\n\n\n"
 }
 ```
 User decision: **accepted**
@@ -1026,19 +1026,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;docs/agent-stream-8-testing-integration.md&quot;
+  "relativeWorkspacePath": "docs/agent-stream-8-testing-integration.md"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;9aa1e4bd-bbfe-48c0-90cf-058c24a9658e&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "9aa1e4bd-bbfe-48c0-90cf-058c24a9658e",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -1046,22 +1046,22 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;  \n  **Note**: This stream should start after Streams 5-7 are complete.\n+ \n+ ## Parallel Execution Plans &amp; Owners\n+ \n+ | Plan | Focus Area | Owner Pod | Status | Reference |\n+ | --- | --- | --- | --- | --- |\n+ | Alpha | Component + logic assurance (unit tests, hooks, utilities) | QA Foundations Pod | In Progress (scaffolding committed) | &#96;docs/testing-plans/plan-alpha-foundation.md&#96; |\n+ | Beta | Wizard flow, draft, and conditional integrations (Vitest + RTL) | Scenario QA Pod | Blocked (unblock when Plan Alpha coverage ≥ 80%) | &#96;docs/testing-plans/plan-beta-flows.md&#96; |\n+ | Gamma | Playwright E2E, performance, documentation updates | Experience QA + Tech Writing Pod | Blocked (starts after Plan Beta merges) | &#96;docs/testing-plans/plan-gamma-experience.md&#96; |\n+ \n+ &gt; **Assignment summary**\n+ &gt;\n+ &gt; - QA Foundations Pod: Priya (lead), Dev (components), Alicia (draft persistence).\n+ &gt; - Scenario QA Pod: Marcus (flow scripts), Lina (conditional visibility), Ethan (autosave/draft resume).\n+ &gt; - Experience QA Pod: Sara (Playwright), Jonah (performance), Mei (documentation/JSDoc).\n+ \n+ Each pod reports daily status back into this Stream 8 tracker and links their work-in-progress PRs plus coverage/performance artifacts.\n  \n  ### Task 8.1: Unit Tests&quot;,
-        &quot;oldStart&quot;: 14,
-        &quot;newStart&quot;: 14,
-        &quot;oldLines&quot;: 4,
-        &quot;newLines&quot;: 20,
-        &quot;linesAdded&quot;: 16
+        "diffString": "  \n  **Note**: This stream should start after Streams 5-7 are complete.\n+ \n+ ## Parallel Execution Plans &amp; Owners\n+ \n+ | Plan | Focus Area | Owner Pod | Status | Reference |\n+ | --- | --- | --- | --- | --- |\n+ | Alpha | Component + logic assurance (unit tests, hooks, utilities) | QA Foundations Pod | In Progress (scaffolding committed) | &#96;docs/testing-plans/plan-alpha-foundation.md&#96; |\n+ | Beta | Wizard flow, draft, and conditional integrations (Vitest + RTL) | Scenario QA Pod | Blocked (unblock when Plan Alpha coverage ≥ 80%) | &#96;docs/testing-plans/plan-beta-flows.md&#96; |\n+ | Gamma | Playwright E2E, performance, documentation updates | Experience QA + Tech Writing Pod | Blocked (starts after Plan Beta merges) | &#96;docs/testing-plans/plan-gamma-experience.md&#96; |\n+ \n+ &gt; **Assignment summary**\n+ &gt;\n+ &gt; - QA Foundations Pod: Priya (lead), Dev (components), Alicia (draft persistence).\n+ &gt; - Scenario QA Pod: Marcus (flow scripts), Lina (conditional visibility), Ethan (autosave/draft resume).\n+ &gt; - Experience QA Pod: Sara (Playwright), Jonah (performance), Mei (documentation/JSDoc).\n+ \n+ Each pod reports daily status back into this Stream 8 tracker and links their work-in-progress PRs plus coverage/performance artifacts.\n  \n  ### Task 8.1: Unit Tests",
+        "oldStart": 14,
+        "newStart": 14,
+        "oldLines": 4,
+        "newLines": 20,
+        "linesAdded": 16
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM docs/agent-stream-8-testing-integration.md&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;# Agent: Stream 8 - Testing &amp; Final Integration\n\n**Agent ID**: STREAM-8  \n**Status**: Pending  \n**Owner**: [Assign QA Lead/Developer]  \n**Start Date**: [Date - After Streams 5-7 Complete]  \n**Target Completion**: [Date + 5-7 days]\n\n## Mission\n\nComprehensive testing, final integration verification, documentation updates, and performance optimization. Ensure the entire dynamic form system works end-to-end.\n\n## Current Tasks\n\n**Note**: This stream should start after Streams 5-7 are complete.\n\n## Parallel Execution Plans &amp; Owners\n\n| Plan | Focus Area | Owner Pod | Status | Reference |\n| --- | --- | --- | --- | --- |\n| Alpha | Component + logic assurance (unit tests, hooks, utilities) | QA Foundations Pod | In Progress (scaffolding committed) | &#96;docs/testing-plans/plan-alpha-foundation.md&#96; |\n| Beta | Wizard flow, draft, and conditional integrations (Vitest + RTL) | Scenario QA Pod | Blocked (unblock when Plan Alpha coverage ≥ 80%) | &#96;docs/testing-plans/plan-beta-flows.md&#96; |\n| Gamma | Playwright E2E, performance, documentation updates | Experience QA + Tech Writing Pod | Blocked (starts after Plan Beta merges) | &#96;docs/testing-plans/plan-gamma-experience.md&#96; |\n\n&gt; **Assignment summary**\n&gt;\n&gt; - QA Foundations Pod: Priya (lead), Dev (components), Alicia (draft persistence).\n&gt; - Scenario QA Pod: Marcus (flow scripts), Lina (conditional visibility), Ethan (autosave/draft resume).\n&gt; - Experience QA Pod: Sara (Playwright), Jonah (performance), Mei (documentation/JSDoc).\n\nEach pod reports daily status back into this Stream 8 tracker and links their work-in-progress PRs plus coverage/performance artifacts.\n\n### Task 8.1: Unit Tests\n- [ ] Test all form components\n- [ ] Test validation functions\n- [ ] Test visibility engine\n- [ ] Test draft manager\n- [ ] Test state management hooks\n\n### Task 8.2: Integration Tests\n- [ ] Test form completion flow\n- [ ] Test draft save/load flow\n- [ ] Test conditional field flow\n- [ ] Test validation flow\n- [ ] Test multi-step navigation\n\n### Task 8.3: E2E Tests\n- [ ] Test sign in → complete form → submit\n- [ ] Test draft resume flow\n- [ ] Test conditional fields\n- [ ] Test validation errors\n- [ ] Test mobile/tablet/desktop\n\n### Task 8.4: Performance Testing\n- [ ] Measure form load time (target &lt; 2s)\n- [ ] Measure step transition time (target &lt; 200ms)\n- [ ] Measure autosave performance (target &lt; 500ms)\n- [ ] Optimize bundle size\n- [ ] Optimize re-renders\n\n### Task 8.5: Documentation\n- [ ] User guide (form completion, draft resume)\n- [ ] Developer guide (extending forms)\n- [ ] API reference (server actions)\n- [ ] Component documentation (JSDoc)\n- [ ] Update README\n\n### Task 8.6: Final Integration Verification\n- [ ] Verify all streams integrated\n- [ ] Test end-to-end flow\n- [ ] Resolve any remaining issues\n- [ ] Final code review\n- [ ] Performance targets met\n\n## Files to Create\n\n&#96;&#96;&#96;\ntests/\n  forms/\n    form-components.test.tsx     # Unit tests for components\n    form-validation.test.ts      # Already exists, may need updates\n    form-state.test.ts           # State management tests\n    visibility-engine.test.ts    # Conditional fields tests\n    draft-persistence.test.ts    # Draft save/load tests\n\ntests/\n  integration/\n    form-completion-flow.test.ts # Integration tests\n    draft-resume-flow.test.ts    # Draft flow tests\n    conditional-fields-flow.test.ts # Conditional flow tests\n\ntests/\n  e2e/\n    form-completion.spec.ts      # E2E tests (Playwright)\n    draft-resume.spec.ts         # E2E tests\n    conditional-fields.spec.ts   # E2E tests\n\ndocs/\n  forms/\n    user-guide.md                # User documentation\n    developer-guide.md            # Developer documentation\n    api-reference.md             # API documentation\n&#96;&#96;&#96;\n\n## Files to Update\n\n&#96;&#96;&#96;\nREADME.md                        # Add form system info\ncomponents/forms/*.tsx           # Add JSDoc comments\nlib/forms/*.ts                   # Add JSDoc comments\nhooks/*.ts                       # Add JSDoc comments\n&#96;&#96;&#96;\n\n## Key Dependencies\n\n**Depends on:**\n- ✅ Stream 1 (Routes) - Complete\n- ✅ Stream 2 (Field Rendering) - Complete\n- ✅ Stream 3 (Wizard UI) - Complete\n- ✅ Stream 4 (Validation) - Complete\n- ⏳ Stream 5 (State Management) - In Progress\n- ⏳ Stream 6 (Conditional Fields) - In Progress\n- ⏳ Stream 7 (Responsive &amp; A11y) - In Progress\n\n**Provides:**\n- Final sign-off for production release\n- Test coverage report\n- Documentation for users and developers\n\n## Integration Points\n\n1. **With All Streams**: Test integrated system\n2. **With Stream 5**: Test draft functionality\n3. **With Stream 6**: Test conditional fields\n4. **With Stream 7**: Test responsive design and accessibility\n\n## Implementation Details\n\n### Task 8.1: Unit Tests\n\n**Test Coverage:**\n- All form components (FormFieldRenderer, FormStep, etc.)\n- Validation functions (form-validator.ts)\n- Visibility engine (visibility-engine.ts)\n- Draft manager (draft-manager.ts)\n- State management hooks (use-form-state.ts, use-autosave.ts)\n\n**Tools:**\n- Vitest (already in project)\n- React Testing Library\n- @testing-library/user-event\n\n**Target Coverage:** &gt; 80%\n\n### Task 8.2: Integration Tests\n\n**Test Scenarios:**\n- Complete form submission flow\n- Validation flow (field, step, form)\n- Draft save/load flow\n- Conditional field visibility flow\n- Multi-step navigation flow\n- Error handling flow\n\n**Tools:**\n- Vitest\n- React Testing Library\n- Mock form configs\n\n### Task 8.3: E2E Tests\n\n**Critical Paths:**\n- User signs in → accesses form → completes form → submits\n- User starts form → saves draft → resumes later → submits\n- User fills form with conditional fields → fields show/hide correctly\n- User fills form with errors → sees validation → fixes → submits\n\n**Tools:**\n- Playwright (recommended) or Cypress\n- Test on real browsers\n\n### Task 8.4: Performance Testing\n\n**Metrics:**\n- Form load time: Target &lt; 2s (p95)\n- Step transition time: Target &lt; 200ms (p95)\n- Autosave response time: Target &lt; 500ms (p95)\n- Bundle size: Optimize code splitting\n\n**Tools:**\n- Lighthouse\n- Chrome DevTools Performance tab\n- React DevTools Profiler\n- Bundle analyzer\n\n**Optimizations:**\n- Code splitting for form components\n- Lazy load step content\n- Memoize expensive calculations\n- Debounce autosave\n- Cache form configurations\n\n### Task 8.5: Documentation\n\n**User Guide:**\n- How to access forms\n- How to complete forms\n- How to save drafts\n- How to resume drafts\n- How to handle errors\n\n**Developer Guide:**\n- How to add new field types\n- How to extend validation\n- How to add conditional fields\n- How to customize styling\n\n**API Reference:**\n- Server actions (saveFormDraft, loadFormDraft, etc.)\n- Hooks (use-form-state, use-autosave, etc.)\n- Utilities (form-validator, visibility-engine, etc.)\n\n**Component Documentation:**\n- JSDoc comments for all components\n- Props documentation\n- Usage examples\n\n### Task 8.6: Final Integration Verification\n\n**Checklist:**\n- [ ] All streams integrated\n- [ ] End-to-end flow works\n- [ ] No integration issues\n- [ ] Performance targets met\n- [ ] No linter errors\n- [ ] Type compatibility verified\n- [ ] All tests passing\n- [ ] Documentation complete\n\n## Progress Tracking\n\n- [ ] Unit tests written and passing\n- [ ] Integration tests written and passing\n- [ ] E2E tests written and passing\n- [ ] Performance targets met\n- [ ] Documentation complete\n- [ ] Final integration verified\n- [ ] Code review completed\n- [ ] Ready for production\n\n## Testing Checklist\n\n### Unit Tests\n- [ ] FormFieldRenderer tests\n- [ ] FormStep tests\n- [ ] StepIndicator tests\n- [ ] FormNavigation tests\n- [ ] Validation function tests\n- [ ] Visibility engine tests\n- [ ] Draft manager tests\n- [ ] State management hook tests\n\n### Integration Tests\n- [ ] Form completion flow\n- [ ] Draft save/load flow\n- [ ] Conditional field flow\n- [ ] Validation flow\n- [ ] Multi-step navigation\n\n### E2E Tests\n- [ ] Sign in → complete form → submit\n- [ ] Draft resume flow\n- [ ] Conditional fields\n- [ ] Validation errors\n- [ ] Mobile/tablet/desktop\n\n### Performance\n- [ ] Form load time &lt; 2s\n- [ ] Step transition &lt; 200ms\n- [ ] Autosave &lt; 500ms\n- [ ] Bundle size optimized\n- [ ] No performance regressions\n\n### Documentation\n- [ ] User guide complete\n- [ ] Developer guide complete\n- [ ] API reference complete\n- [ ] JSDoc comments added\n- [ ] README updated\n\n## Test Data\n\nCreate test form configs in database:\n- Simple form (3 steps, 10 fields)\n- Complex form (10 steps, 50+ fields)\n- Form with conditional fields\n- Form with all field types\n- Form with validation rules\n\n## Notes\n\n- Start after Streams 5-7 are complete\n- Use existing test infrastructure (Vitest)\n- Follow project testing conventions\n- Document test scenarios\n- Keep tests maintainable\n\n## Daily Updates\n\n### [Date]\n- Status: [Not Started/In Progress/Complete]\n- Completed: [Tasks]\n- Blockers: [Issues - e.g., waiting for Streams 5-7]\n- Next: [Planned tasks]\n\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM docs/agent-stream-8-testing-integration.md",
+  "contentsAfterEdit": "# Agent: Stream 8 - Testing &amp; Final Integration\n\n**Agent ID**: STREAM-8  \n**Status**: Pending  \n**Owner**: [Assign QA Lead/Developer]  \n**Start Date**: [Date - After Streams 5-7 Complete]  \n**Target Completion**: [Date + 5-7 days]\n\n## Mission\n\nComprehensive testing, final integration verification, documentation updates, and performance optimization. Ensure the entire dynamic form system works end-to-end.\n\n## Current Tasks\n\n**Note**: This stream should start after Streams 5-7 are complete.\n\n## Parallel Execution Plans &amp; Owners\n\n| Plan | Focus Area | Owner Pod | Status | Reference |\n| --- | --- | --- | --- | --- |\n| Alpha | Component + logic assurance (unit tests, hooks, utilities) | QA Foundations Pod | In Progress (scaffolding committed) | &#96;docs/testing-plans/plan-alpha-foundation.md&#96; |\n| Beta | Wizard flow, draft, and conditional integrations (Vitest + RTL) | Scenario QA Pod | Blocked (unblock when Plan Alpha coverage ≥ 80%) | &#96;docs/testing-plans/plan-beta-flows.md&#96; |\n| Gamma | Playwright E2E, performance, documentation updates | Experience QA + Tech Writing Pod | Blocked (starts after Plan Beta merges) | &#96;docs/testing-plans/plan-gamma-experience.md&#96; |\n\n&gt; **Assignment summary**\n&gt;\n&gt; - QA Foundations Pod: Priya (lead), Dev (components), Alicia (draft persistence).\n&gt; - Scenario QA Pod: Marcus (flow scripts), Lina (conditional visibility), Ethan (autosave/draft resume).\n&gt; - Experience QA Pod: Sara (Playwright), Jonah (performance), Mei (documentation/JSDoc).\n\nEach pod reports daily status back into this Stream 8 tracker and links their work-in-progress PRs plus coverage/performance artifacts.\n\n### Task 8.1: Unit Tests\n- [ ] Test all form components\n- [ ] Test validation functions\n- [ ] Test visibility engine\n- [ ] Test draft manager\n- [ ] Test state management hooks\n\n### Task 8.2: Integration Tests\n- [ ] Test form completion flow\n- [ ] Test draft save/load flow\n- [ ] Test conditional field flow\n- [ ] Test validation flow\n- [ ] Test multi-step navigation\n\n### Task 8.3: E2E Tests\n- [ ] Test sign in → complete form → submit\n- [ ] Test draft resume flow\n- [ ] Test conditional fields\n- [ ] Test validation errors\n- [ ] Test mobile/tablet/desktop\n\n### Task 8.4: Performance Testing\n- [ ] Measure form load time (target &lt; 2s)\n- [ ] Measure step transition time (target &lt; 200ms)\n- [ ] Measure autosave performance (target &lt; 500ms)\n- [ ] Optimize bundle size\n- [ ] Optimize re-renders\n\n### Task 8.5: Documentation\n- [ ] User guide (form completion, draft resume)\n- [ ] Developer guide (extending forms)\n- [ ] API reference (server actions)\n- [ ] Component documentation (JSDoc)\n- [ ] Update README\n\n### Task 8.6: Final Integration Verification\n- [ ] Verify all streams integrated\n- [ ] Test end-to-end flow\n- [ ] Resolve any remaining issues\n- [ ] Final code review\n- [ ] Performance targets met\n\n## Files to Create\n\n&#96;&#96;&#96;\ntests/\n  forms/\n    form-components.test.tsx     # Unit tests for components\n    form-validation.test.ts      # Already exists, may need updates\n    form-state.test.ts           # State management tests\n    visibility-engine.test.ts    # Conditional fields tests\n    draft-persistence.test.ts    # Draft save/load tests\n\ntests/\n  integration/\n    form-completion-flow.test.ts # Integration tests\n    draft-resume-flow.test.ts    # Draft flow tests\n    conditional-fields-flow.test.ts # Conditional flow tests\n\ntests/\n  e2e/\n    form-completion.spec.ts      # E2E tests (Playwright)\n    draft-resume.spec.ts         # E2E tests\n    conditional-fields.spec.ts   # E2E tests\n\ndocs/\n  forms/\n    user-guide.md                # User documentation\n    developer-guide.md            # Developer documentation\n    api-reference.md             # API documentation\n&#96;&#96;&#96;\n\n## Files to Update\n\n&#96;&#96;&#96;\nREADME.md                        # Add form system info\ncomponents/forms/*.tsx           # Add JSDoc comments\nlib/forms/*.ts                   # Add JSDoc comments\nhooks/*.ts                       # Add JSDoc comments\n&#96;&#96;&#96;\n\n## Key Dependencies\n\n**Depends on:**\n- ✅ Stream 1 (Routes) - Complete\n- ✅ Stream 2 (Field Rendering) - Complete\n- ✅ Stream 3 (Wizard UI) - Complete\n- ✅ Stream 4 (Validation) - Complete\n- ⏳ Stream 5 (State Management) - In Progress\n- ⏳ Stream 6 (Conditional Fields) - In Progress\n- ⏳ Stream 7 (Responsive &amp; A11y) - In Progress\n\n**Provides:**\n- Final sign-off for production release\n- Test coverage report\n- Documentation for users and developers\n\n## Integration Points\n\n1. **With All Streams**: Test integrated system\n2. **With Stream 5**: Test draft functionality\n3. **With Stream 6**: Test conditional fields\n4. **With Stream 7**: Test responsive design and accessibility\n\n## Implementation Details\n\n### Task 8.1: Unit Tests\n\n**Test Coverage:**\n- All form components (FormFieldRenderer, FormStep, etc.)\n- Validation functions (form-validator.ts)\n- Visibility engine (visibility-engine.ts)\n- Draft manager (draft-manager.ts)\n- State management hooks (use-form-state.ts, use-autosave.ts)\n\n**Tools:**\n- Vitest (already in project)\n- React Testing Library\n- @testing-library/user-event\n\n**Target Coverage:** &gt; 80%\n\n### Task 8.2: Integration Tests\n\n**Test Scenarios:**\n- Complete form submission flow\n- Validation flow (field, step, form)\n- Draft save/load flow\n- Conditional field visibility flow\n- Multi-step navigation flow\n- Error handling flow\n\n**Tools:**\n- Vitest\n- React Testing Library\n- Mock form configs\n\n### Task 8.3: E2E Tests\n\n**Critical Paths:**\n- User signs in → accesses form → completes form → submits\n- User starts form → saves draft → resumes later → submits\n- User fills form with conditional fields → fields show/hide correctly\n- User fills form with errors → sees validation → fixes → submits\n\n**Tools:**\n- Playwright (recommended) or Cypress\n- Test on real browsers\n\n### Task 8.4: Performance Testing\n\n**Metrics:**\n- Form load time: Target &lt; 2s (p95)\n- Step transition time: Target &lt; 200ms (p95)\n- Autosave response time: Target &lt; 500ms (p95)\n- Bundle size: Optimize code splitting\n\n**Tools:**\n- Lighthouse\n- Chrome DevTools Performance tab\n- React DevTools Profiler\n- Bundle analyzer\n\n**Optimizations:**\n- Code splitting for form components\n- Lazy load step content\n- Memoize expensive calculations\n- Debounce autosave\n- Cache form configurations\n\n### Task 8.5: Documentation\n\n**User Guide:**\n- How to access forms\n- How to complete forms\n- How to save drafts\n- How to resume drafts\n- How to handle errors\n\n**Developer Guide:**\n- How to add new field types\n- How to extend validation\n- How to add conditional fields\n- How to customize styling\n\n**API Reference:**\n- Server actions (saveFormDraft, loadFormDraft, etc.)\n- Hooks (use-form-state, use-autosave, etc.)\n- Utilities (form-validator, visibility-engine, etc.)\n\n**Component Documentation:**\n- JSDoc comments for all components\n- Props documentation\n- Usage examples\n\n### Task 8.6: Final Integration Verification\n\n**Checklist:**\n- [ ] All streams integrated\n- [ ] End-to-end flow works\n- [ ] No integration issues\n- [ ] Performance targets met\n- [ ] No linter errors\n- [ ] Type compatibility verified\n- [ ] All tests passing\n- [ ] Documentation complete\n\n## Progress Tracking\n\n- [ ] Unit tests written and passing\n- [ ] Integration tests written and passing\n- [ ] E2E tests written and passing\n- [ ] Performance targets met\n- [ ] Documentation complete\n- [ ] Final integration verified\n- [ ] Code review completed\n- [ ] Ready for production\n\n## Testing Checklist\n\n### Unit Tests\n- [ ] FormFieldRenderer tests\n- [ ] FormStep tests\n- [ ] StepIndicator tests\n- [ ] FormNavigation tests\n- [ ] Validation function tests\n- [ ] Visibility engine tests\n- [ ] Draft manager tests\n- [ ] State management hook tests\n\n### Integration Tests\n- [ ] Form completion flow\n- [ ] Draft save/load flow\n- [ ] Conditional field flow\n- [ ] Validation flow\n- [ ] Multi-step navigation\n\n### E2E Tests\n- [ ] Sign in → complete form → submit\n- [ ] Draft resume flow\n- [ ] Conditional fields\n- [ ] Validation errors\n- [ ] Mobile/tablet/desktop\n\n### Performance\n- [ ] Form load time &lt; 2s\n- [ ] Step transition &lt; 200ms\n- [ ] Autosave &lt; 500ms\n- [ ] Bundle size optimized\n- [ ] No performance regressions\n\n### Documentation\n- [ ] User guide complete\n- [ ] Developer guide complete\n- [ ] API reference complete\n- [ ] JSDoc comments added\n- [ ] README updated\n\n## Test Data\n\nCreate test form configs in database:\n- Simple form (3 steps, 10 fields)\n- Complex form (10 steps, 50+ fields)\n- Form with conditional fields\n- Form with all field types\n- Form with validation rules\n\n## Notes\n\n- Start after Streams 5-7 are complete\n- Use existing test infrastructure (Vitest)\n- Follow project testing conventions\n- Document test scenarios\n- Keep tests maintainable\n\n## Daily Updates\n\n### [Date]\n- Status: [Not Started/In Progress/Complete]\n- Completed: [Tasks]\n- Blockers: [Issues - e.g., waiting for Streams 5-7]\n- Next: [Planned tasks]\n\n"
 }
 ```
 User decision: **accepted**
@@ -1088,19 +1088,19 @@ Parameters:
 
 ```json
 {
-  &quot;relativeWorkspacePath&quot;: &quot;README.md&quot;
+  "relativeWorkspacePath": "README.md"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;codeblockId&quot;: &quot;cf1bf255-41ba-4098-a36f-7e8f3875afaa&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;None&quot;,
-    &quot;selectedOption&quot;: &quot;accept&quot;,
-    &quot;isShowingInput&quot;: false,
-    &quot;firstTimeReviewMode&quot;: false
+  "codeblockId": "cf1bf255-41ba-4098-a36f-7e8f3875afaa",
+  "reviewData": {
+    "status": "None",
+    "selectedOption": "accept",
+    "isShowingInput": false,
+    "firstTimeReviewMode": false
   }
 }
 ```
@@ -1108,22 +1108,22 @@ Result:
 
 ```json
 {
-  &quot;diff&quot;: {
-    &quot;chunks&quot;: [
+  "diff": {
+    "chunks": [
       {
-        &quot;diffString&quot;: &quot;  \n  Visit [http://localhost:3000](http://localhost:3000). Unauthenticated users are redirected to &#96;/signin&#96; where they can use Google SSO. After signing in you land on the internal onboarding overview.\n+ \n+ ---\n+ \n+ ## Testing &amp; QA\n+ \n+ - **Command summary**\n+   - &#96;npm test&#96; – run the full Vitest suite (unit + integration)\n+   - &#96;npm run test:watch&#96; – watch mode while authoring Plan Alpha/Plan Beta specs\n+ - **Environment**: Vitest now runs with &#96;happy-dom&#96; so React Testing Library suites work out of the box.\n+ - **Docs**:\n+   - &#96;docs/testing-plans/plan-alpha-foundation.md&#96;\n+   - &#96;docs/testing-plans/plan-beta-flows.md&#96;\n+   - &#96;docs/testing-plans/plan-gamma-experience.md&#96;\n+ \n+ Follow the plan docs to understand ownership, prerequisites, and acceptance criteria for each test layer.\n  \n  ---&quot;,
-        &quot;oldStart&quot;: 80,
-        &quot;newStart&quot;: 80,
-        &quot;oldLines&quot;: 4,
-        &quot;newLines&quot;: 19,
-        &quot;linesAdded&quot;: 15
+        "diffString": "  \n  Visit [http://localhost:3000](http://localhost:3000). Unauthenticated users are redirected to &#96;/signin&#96; where they can use Google SSO. After signing in you land on the internal onboarding overview.\n+ \n+ ---\n+ \n+ ## Testing &amp; QA\n+ \n+ - **Command summary**\n+   - &#96;npm test&#96; – run the full Vitest suite (unit + integration)\n+   - &#96;npm run test:watch&#96; – watch mode while authoring Plan Alpha/Plan Beta specs\n+ - **Environment**: Vitest now runs with &#96;happy-dom&#96; so React Testing Library suites work out of the box.\n+ - **Docs**:\n+   - &#96;docs/testing-plans/plan-alpha-foundation.md&#96;\n+   - &#96;docs/testing-plans/plan-beta-flows.md&#96;\n+   - &#96;docs/testing-plans/plan-gamma-experience.md&#96;\n+ \n+ Follow the plan docs to understand ownership, prerequisites, and acceptance criteria for each test layer.\n  \n  ---",
+        "oldStart": 80,
+        "newStart": 80,
+        "oldLines": 4,
+        "newLines": 19,
+        "linesAdded": 15
       }
     ],
-    &quot;editor&quot;: &quot;EDITOR_AI&quot;
+    "editor": "EDITOR_AI"
   },
-  &quot;shouldAutoFixLints&quot;: true,
-  &quot;resultForModel&quot;: &quot;Success. Updated the following files:\nM README.md&quot;,
-  &quot;contentsAfterEdit&quot;: &quot;## Supplier Hub SaaS Starter\n\nA compact internal SaaS starter that pairs **Next.js 15 (App Router)** with **React 19**, **Tailwind CSS v4**, **Shadcn UI**, **Prisma**, **NextAuth (Google SSO)**, and a Dockerised PostgreSQL database. The default UI focuses on a dense, data-forward onboarding dashboard suitable for internal teams.\n\n### Tech stack\n- Next.js 15 · React 19 · TypeScript\n- Tailwind CSS v4 with Shadcn UI components\n- Prisma ORM with a PostgreSQL datasource\n- NextAuth (database sessions) using the Prisma adapter\n- nuqs for URL state management (not yet used, ready when needed)\n\n---\n\n## Prerequisites\n- Node.js 20+\n- npm 10+\n- Docker Desktop (or a local PostgreSQL 16 instance if you prefer manual setup)\n\n---\n\n## 1. Environment variables\n\nCopy the sample env file and fill in the values:\n\n&#96;&#96;&#96;bash\ncp env.example .env.local\n&#96;&#96;&#96;\n\nRequired values:\n\n| Variable | Description |\n| --- | --- |\n| &#96;DATABASE_URL&#96; / &#96;DIRECT_URL&#96; | Connection strings for local Postgres (already set for Docker Compose) |\n| &#96;NEXTAUTH_SECRET&#96; | &#96;openssl rand -hex 32&#96; or similar |\n| &#96;NEXTAUTH_URL&#96; | Base URL (e.g. &#96;http://localhost:3000&#96;) |\n| &#96;GOOGLE_CLIENT_ID&#96; / &#96;GOOGLE_CLIENT_SECRET&#96; | From your Google OAuth credentials |\n| &#96;NEXT_PUBLIC_APP_URL&#96; | Used for absolute links in the UI |\n\n&gt; **Google OAuth redirect URI:** &#96;http://localhost:3000/api/auth/callback/google&#96;\n\n---\n\n## 2. Start PostgreSQL\n\n&#96;&#96;&#96;bash\ndocker compose up -d postgres\n&#96;&#96;&#96;\n\nVerify the service is healthy:\n\n&#96;&#96;&#96;bash\ndocker compose ps\n&#96;&#96;&#96;\n\n---\n\n## 3. Prisma schema &amp; seed data\n\n&#96;&#96;&#96;bash\nnpm run db:migrate -- --name init\nnpm run db:seed\n&#96;&#96;&#96;\n\nUseful extras:\n\n&#96;&#96;&#96;bash\nnpm run prisma:generate  # Regenerate the Prisma client\nnpm run db:studio       # Launch Prisma Studio\n&#96;&#96;&#96;\n\nThe default seed creates an &#96;Acme Inc&#96; organisation and a placeholder owner (&#96;owner@example.com&#96;).\n\n---\n\n## 4. Run the app\n\n&#96;&#96;&#96;bash\nnpm run dev\n&#96;&#96;&#96;\n\nVisit [http://localhost:3000](http://localhost:3000). Unauthenticated users are redirected to &#96;/signin&#96; where they can use Google SSO. After signing in you land on the internal onboarding overview.\n\n---\n\n## Testing &amp; QA\n\n- **Command summary**\n  - &#96;npm test&#96; – run the full Vitest suite (unit + integration)\n  - &#96;npm run test:watch&#96; – watch mode while authoring Plan Alpha/Plan Beta specs\n- **Environment**: Vitest now runs with &#96;happy-dom&#96; so React Testing Library suites work out of the box.\n- **Docs**:\n  - &#96;docs/testing-plans/plan-alpha-foundation.md&#96;\n  - &#96;docs/testing-plans/plan-beta-flows.md&#96;\n  - &#96;docs/testing-plans/plan-gamma-experience.md&#96;\n\nFollow the plan docs to understand ownership, prerequisites, and acceptance criteria for each test layer.\n\n---\n\n## UI components\n\nShadcn UI was initialised with the “Neutral · New York” theme. Common primitives (button, card, avatar, dropdown, separator, badge, skeleton) are available under &#96;components/ui/&#96;. To add more components:\n\n&#96;&#96;&#96;bash\nnpx shadcn@latest add &lt;component&gt;\n&#96;&#96;&#96;\n\n---\n\n## Application structure\n\n### Navigation &amp; layouts\n- &#96;/dashboard&#96; – Dashboard overview rendered inside &#96;app/dashboard/layout.tsx&#96;\n- &#96;/dashboard/users&#96; – Organization member management\n- &#96;/dashboard/settings&#96; – Workspace configuration page\n- Sidebar (&#96;AppSidebar&#96;) highlights the active route and shows the current organization name\n\n### Automatic workspace provisioning\n- First-time sign-ins that lack memberships are assigned a personal organization via &#96;ensureUserMembership&#96;\n- The user becomes the org owner (&#96;role = ADMIN&#96;) and gains immediate access to &#96;/dashboard/users&#96; and &#96;/dashboard/settings&#96;\n\n### User management flows\n- &#96;app/dashboard/users/page.tsx&#96; lists all members in the active organization\n- &#96;UserList&#96; displays avatar, email, role badge, join date, and action menu\n- Invite users via the “Invite User” dialog:\n  1. Enter email + desired role\n  2. Existing users are added to the organization; new emails create placeholder accounts that can sign in with Google\n\n### Role-based permissions\n- Roles: &#96;ADMIN&#96;, &#96;MEMBER&#96;\n- Admin-only capabilities:\n  - Invite users\n  - Update member roles\n  - Remove members (cannot remove self or the last admin)\n- Permission helpers live in &#96;lib/permissions.ts&#96; and guard both UI and API routes\n\n### API routes\n| Route | Method | Description |\n| --- | --- | --- |\n| &#96;/api/users&#96; | &#96;GET&#96; | List all members in the current organization |\n| &#96;/api/users/[id]&#96; | &#96;PATCH&#96; | Update a member’s role (admin-only) |\n| &#96;/api/users/[id]&#96; | &#96;DELETE&#96; | Remove a member (admin-only, safeguards last admin) |\n| &#96;/api/users/invite&#96; | &#96;POST&#96; | Invite/add a user to the organization |\n\n---\n\n## Architecture Overview\n\n| Layer | Details |\n| --- | --- |\n| Frontend | Next.js 15 App Router with shared root layout (&#96;app/layout.tsx&#96;) for session hydration and &#96;app/dashboard/layout.tsx&#96; for protected routes. |\n| Auth | NextAuth + Prisma adapter (Google provider). Session helpers in &#96;lib/auth.ts&#96;, client hydration via &#96;AuthProvider&#96;. |\n| RBAC | Membership + role helpers in &#96;lib/permissions.ts&#96;, organization auto-provisioning in &#96;lib/organizations.ts&#96;. |\n| Data | Prisma ORM targeting Postgres (Docker locally). Migrations via &#96;npm run db:migrate&#96;, seeds via &#96;npm run db:seed&#96;. |\n| UI Shell | Shadcn UI components + custom sidebar provider. |\n| Docs | Detailed phase plans + foundation/security docs in &#96;/docs&#96;. |\n\nSee &#96;/docs/foundation-architecture.md&#96; and &#96;/docs/security-baseline.md&#96; for diagrams, session strategy, and environment matrix.\n\n---\n\n## Next steps &amp; recommendations\n- Replace the seed data with your production schema and add Prisma migrations as you evolve the database.\n- Extend the Shadcn component library as you build out new flows.\n- Configure additional NextAuth callbacks (e.g. RBAC) once you introduce role-specific surfaces.\n- Add integration tests under &#96;supplier_capabilities/tests&#96; per project convention.\n\n---\n\n## Available scripts\n\n| Command | Description |\n| --- | --- |\n| &#96;npm run dev&#96; | Start the Next.js dev server |\n| &#96;npm run build&#96; | Create a production build |\n| &#96;npm run start&#96; | Run the production server |\n| &#96;npm run lint&#96; | Execute ESLint |\n| &#96;npm run db:migrate&#96; | Apply Prisma migrations |\n| &#96;npm run db:seed&#96; | Seed the database with fixtures |\n| &#96;npm run prisma:generate&#96; | Regenerate the Prisma client |\n| &#96;npm run db:studio&#96; | Open Prisma Studio |\n&quot;
+  "shouldAutoFixLints": true,
+  "resultForModel": "Success. Updated the following files:\nM README.md",
+  "contentsAfterEdit": "## Supplier Hub SaaS Starter\n\nA compact internal SaaS starter that pairs **Next.js 15 (App Router)** with **React 19**, **Tailwind CSS v4**, **Shadcn UI**, **Prisma**, **NextAuth (Google SSO)**, and a Dockerised PostgreSQL database. The default UI focuses on a dense, data-forward onboarding dashboard suitable for internal teams.\n\n### Tech stack\n- Next.js 15 · React 19 · TypeScript\n- Tailwind CSS v4 with Shadcn UI components\n- Prisma ORM with a PostgreSQL datasource\n- NextAuth (database sessions) using the Prisma adapter\n- nuqs for URL state management (not yet used, ready when needed)\n\n---\n\n## Prerequisites\n- Node.js 20+\n- npm 10+\n- Docker Desktop (or a local PostgreSQL 16 instance if you prefer manual setup)\n\n---\n\n## 1. Environment variables\n\nCopy the sample env file and fill in the values:\n\n&#96;&#96;&#96;bash\ncp env.example .env.local\n&#96;&#96;&#96;\n\nRequired values:\n\n| Variable | Description |\n| --- | --- |\n| &#96;DATABASE_URL&#96; / &#96;DIRECT_URL&#96; | Connection strings for local Postgres (already set for Docker Compose) |\n| &#96;NEXTAUTH_SECRET&#96; | &#96;openssl rand -hex 32&#96; or similar |\n| &#96;NEXTAUTH_URL&#96; | Base URL (e.g. &#96;http://localhost:3000&#96;) |\n| &#96;GOOGLE_CLIENT_ID&#96; / &#96;GOOGLE_CLIENT_SECRET&#96; | From your Google OAuth credentials |\n| &#96;NEXT_PUBLIC_APP_URL&#96; | Used for absolute links in the UI |\n\n&gt; **Google OAuth redirect URI:** &#96;http://localhost:3000/api/auth/callback/google&#96;\n\n---\n\n## 2. Start PostgreSQL\n\n&#96;&#96;&#96;bash\ndocker compose up -d postgres\n&#96;&#96;&#96;\n\nVerify the service is healthy:\n\n&#96;&#96;&#96;bash\ndocker compose ps\n&#96;&#96;&#96;\n\n---\n\n## 3. Prisma schema &amp; seed data\n\n&#96;&#96;&#96;bash\nnpm run db:migrate -- --name init\nnpm run db:seed\n&#96;&#96;&#96;\n\nUseful extras:\n\n&#96;&#96;&#96;bash\nnpm run prisma:generate  # Regenerate the Prisma client\nnpm run db:studio       # Launch Prisma Studio\n&#96;&#96;&#96;\n\nThe default seed creates an &#96;Acme Inc&#96; organisation and a placeholder owner (&#96;owner@example.com&#96;).\n\n---\n\n## 4. Run the app\n\n&#96;&#96;&#96;bash\nnpm run dev\n&#96;&#96;&#96;\n\nVisit [http://localhost:3000](http://localhost:3000). Unauthenticated users are redirected to &#96;/signin&#96; where they can use Google SSO. After signing in you land on the internal onboarding overview.\n\n---\n\n## Testing &amp; QA\n\n- **Command summary**\n  - &#96;npm test&#96; – run the full Vitest suite (unit + integration)\n  - &#96;npm run test:watch&#96; – watch mode while authoring Plan Alpha/Plan Beta specs\n- **Environment**: Vitest now runs with &#96;happy-dom&#96; so React Testing Library suites work out of the box.\n- **Docs**:\n  - &#96;docs/testing-plans/plan-alpha-foundation.md&#96;\n  - &#96;docs/testing-plans/plan-beta-flows.md&#96;\n  - &#96;docs/testing-plans/plan-gamma-experience.md&#96;\n\nFollow the plan docs to understand ownership, prerequisites, and acceptance criteria for each test layer.\n\n---\n\n## UI components\n\nShadcn UI was initialised with the “Neutral · New York” theme. Common primitives (button, card, avatar, dropdown, separator, badge, skeleton) are available under &#96;components/ui/&#96;. To add more components:\n\n&#96;&#96;&#96;bash\nnpx shadcn@latest add &lt;component&gt;\n&#96;&#96;&#96;\n\n---\n\n## Application structure\n\n### Navigation &amp; layouts\n- &#96;/dashboard&#96; – Dashboard overview rendered inside &#96;app/dashboard/layout.tsx&#96;\n- &#96;/dashboard/users&#96; – Organization member management\n- &#96;/dashboard/settings&#96; – Workspace configuration page\n- Sidebar (&#96;AppSidebar&#96;) highlights the active route and shows the current organization name\n\n### Automatic workspace provisioning\n- First-time sign-ins that lack memberships are assigned a personal organization via &#96;ensureUserMembership&#96;\n- The user becomes the org owner (&#96;role = ADMIN&#96;) and gains immediate access to &#96;/dashboard/users&#96; and &#96;/dashboard/settings&#96;\n\n### User management flows\n- &#96;app/dashboard/users/page.tsx&#96; lists all members in the active organization\n- &#96;UserList&#96; displays avatar, email, role badge, join date, and action menu\n- Invite users via the “Invite User” dialog:\n  1. Enter email + desired role\n  2. Existing users are added to the organization; new emails create placeholder accounts that can sign in with Google\n\n### Role-based permissions\n- Roles: &#96;ADMIN&#96;, &#96;MEMBER&#96;\n- Admin-only capabilities:\n  - Invite users\n  - Update member roles\n  - Remove members (cannot remove self or the last admin)\n- Permission helpers live in &#96;lib/permissions.ts&#96; and guard both UI and API routes\n\n### API routes\n| Route | Method | Description |\n| --- | --- | --- |\n| &#96;/api/users&#96; | &#96;GET&#96; | List all members in the current organization |\n| &#96;/api/users/[id]&#96; | &#96;PATCH&#96; | Update a member’s role (admin-only) |\n| &#96;/api/users/[id]&#96; | &#96;DELETE&#96; | Remove a member (admin-only, safeguards last admin) |\n| &#96;/api/users/invite&#96; | &#96;POST&#96; | Invite/add a user to the organization |\n\n---\n\n## Architecture Overview\n\n| Layer | Details |\n| --- | --- |\n| Frontend | Next.js 15 App Router with shared root layout (&#96;app/layout.tsx&#96;) for session hydration and &#96;app/dashboard/layout.tsx&#96; for protected routes. |\n| Auth | NextAuth + Prisma adapter (Google provider). Session helpers in &#96;lib/auth.ts&#96;, client hydration via &#96;AuthProvider&#96;. |\n| RBAC | Membership + role helpers in &#96;lib/permissions.ts&#96;, organization auto-provisioning in &#96;lib/organizations.ts&#96;. |\n| Data | Prisma ORM targeting Postgres (Docker locally). Migrations via &#96;npm run db:migrate&#96;, seeds via &#96;npm run db:seed&#96;. |\n| UI Shell | Shadcn UI components + custom sidebar provider. |\n| Docs | Detailed phase plans + foundation/security docs in &#96;/docs&#96;. |\n\nSee &#96;/docs/foundation-architecture.md&#96; and &#96;/docs/security-baseline.md&#96; for diagrams, session strategy, and environment matrix.\n\n---\n\n## Next steps &amp; recommendations\n- Replace the seed data with your production schema and add Prisma migrations as you evolve the database.\n- Extend the Shadcn component library as you build out new flows.\n- Configure additional NextAuth callbacks (e.g. RBAC) once you introduce role-specific surfaces.\n- Add integration tests under &#96;supplier_capabilities/tests&#96; per project convention.\n\n---\n\n## Available scripts\n\n| Command | Description |\n| --- | --- |\n| &#96;npm run dev&#96; | Start the Next.js dev server |\n| &#96;npm run build&#96; | Create a production build |\n| &#96;npm run start&#96; | Run the production server |\n| &#96;npm run lint&#96; | Execute ESLint |\n| &#96;npm run db:migrate&#96; | Apply Prisma migrations |\n| &#96;npm run db:seed&#96; | Seed the database with fixtures |\n| &#96;npm run prisma:generate&#96; | Regenerate the Prisma client |\n| &#96;npm run db:studio&#96; | Open Prisma Studio |\n"
 }
 ```
 User decision: **accepted**
@@ -1142,7 +1142,7 @@ Status: **completed**
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm test</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm test</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && npm test
@@ -1189,38 +1189,38 @@ Result:
 
 ```json
 {
-  &quot;path&quot;: &quot;all files&quot;,
-  &quot;linterErrorsByFile&quot;: [
+  "path": "all files",
+  "linterErrorsByFile": [
     {
-      &quot;relativeWorkspacePath&quot;: &quot;/Users/sahilmehta/supplier-onboarding-simple/package.json&quot;,
-      &quot;errors&quot;: [
+      "relativeWorkspacePath": "/Users/sahilmehta/supplier-onboarding-simple/package.json",
+      "errors": [
         {
-          &quot;message&quot;: &quot;next@15.1.6\n\nosv(osv) vulnerability info:\nKnown security vulnerabilities: 2\nHighest severity: CRITICAL\n&quot;,
-          &quot;range&quot;: {
-            &quot;startPosition&quot;: {
-              &quot;line&quot;: 17,
-              &quot;column&quot;: 14
+          "message": "next@15.1.6\n\nosv(osv) vulnerability info:\nKnown security vulnerabilities: 2\nHighest severity: CRITICAL\n",
+          "range": {
+            "startPosition": {
+              "line": 17,
+              "column": 14
             },
-            &quot;endPosition&quot;: {
-              &quot;line&quot;: 17,
-              &quot;column&quot;: 20
+            "endPosition": {
+              "line": 17,
+              "column": 20
             }
           },
-          &quot;severity&quot;: &quot;DIAGNOSTIC_SEVERITY_ERROR&quot;
+          "severity": "DIAGNOSTIC_SEVERITY_ERROR"
         },
         {
-          &quot;message&quot;: &quot;next@15.1.6\n\nosv(osv) vulnerability info:\nKnown security vulnerabilities: 2\nHighest severity: CRITICAL\n&quot;,
-          &quot;range&quot;: {
-            &quot;startPosition&quot;: {
-              &quot;line&quot;: 14,
-              &quot;column&quot;: 14
+          "message": "next@15.1.6\n\nosv(osv) vulnerability info:\nKnown security vulnerabilities: 2\nHighest severity: CRITICAL\n",
+          "range": {
+            "startPosition": {
+              "line": 14,
+              "column": 14
             },
-            &quot;endPosition&quot;: {
-              &quot;line&quot;: 14,
-              &quot;column&quot;: 20
+            "endPosition": {
+              "line": 14,
+              "column": 20
             }
           },
-          &quot;severity&quot;: &quot;DIAGNOSTIC_SEVERITY_ERROR&quot;
+          "severity": "DIAGNOSTIC_SEVERITY_ERROR"
         }
       ]
     }
@@ -1241,7 +1241,7 @@ Status: **completed**
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && git status -sb</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && git status -sb</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && git status -sb

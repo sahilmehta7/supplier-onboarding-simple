@@ -312,7 +312,7 @@ Creating the Phase 3 implementation plan:
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
+<details><summary>Tool use: **write** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 1016, lines removed: 1
@@ -340,7 +340,7 @@ Lines added: 1016, lines removed: 1
 + - Internal team can submit applications on behalf of suppliers
 + - Enhanced audit logging with submission type tracking
 + - UI distinction between supplier-submitted vs internally-submitted applications
-+ - &quot;Submitted By&quot; column/badge in procurement dashboard
++ - "Submitted By" column/badge in procurement dashboard
 + 
 + ---
 + 
@@ -373,7 +373,7 @@ Lines added: 1016, lines removed: 1
 + 
 + **Verification:**
 + - [x] &#96;Application.submittedById&#96; field exists (String?)
-+ - [x] &#96;Application.submissionType&#96; field exists (String? - &#39;SUPPLIER&#39; or &#39;INTERNAL&#39;)
++ - [x] &#96;Application.submissionType&#96; field exists (String? - 'SUPPLIER' or 'INTERNAL')
 + - [x] &#96;Application.submittedBy&#96; relation exists
 + - [x] &#96;User.submittedApplications&#96; relation exists
 + 
@@ -413,11 +413,11 @@ Lines added: 1016, lines removed: 1
 + ) {
 +   const session = await auth();
 +   if (!session?.user?.id) {
-+     throw new Error(&quot;Unauthorized&quot;);
++     throw new Error("Unauthorized");
 +   }
 + 
 +   // Require internal team role
-+   await requireRole([&quot;ADMIN&quot;, &quot;PROCUREMENT&quot;, &quot;MEMBER&quot;]);
++   await requireRole(["ADMIN", "PROCUREMENT", "MEMBER"]);
 + 
 +   const { organizationId, formConfigId, initialData } = input;
 + 
@@ -427,7 +427,7 @@ Lines added: 1016, lines removed: 1
 +   });
 + 
 +   if (!organization) {
-+     throw new Error(&quot;Organization not found&quot;);
++     throw new Error("Organization not found");
 +   }
 + 
 +   // Verify form config exists
@@ -440,7 +440,7 @@ Lines added: 1016, lines removed: 1
 +   });
 + 
 +   if (!formConfig) {
-+     throw new Error(&quot;Form configuration not found&quot;);
++     throw new Error("Form configuration not found");
 +   }
 + 
 +   // Check for existing active applications (prevent duplicates)
@@ -449,14 +449,14 @@ Lines added: 1016, lines removed: 1
 +       organizationId,
 +       formConfigId,
 +       status: {
-+         in: [&quot;DRAFT&quot;, &quot;SUBMITTED&quot;, &quot;IN_REVIEW&quot;, &quot;PENDING_SUPPLIER&quot;, &quot;APPROVED&quot;],
++         in: ["DRAFT", "SUBMITTED", "IN_REVIEW", "PENDING_SUPPLIER", "APPROVED"],
 +       },
 +     },
 +   });
 + 
 +   if (existingActive) {
 +     throw new Error(
-+       &quot;An active application already exists for this organization and form configuration&quot;
++       "An active application already exists for this organization and form configuration"
 +     );
 +   }
 + 
@@ -467,7 +467,7 @@ Lines added: 1016, lines removed: 1
 +       formConfigId,
 +       entityId: formConfig.entityId,
 +       geographyId: formConfig.geographyId,
-+       status: &quot;DRAFT&quot;,
++       status: "DRAFT",
 +       data: initialData ?? {},
 +       createdById: session.user.id,
 +       updatedById: session.user.id,
@@ -479,11 +479,11 @@ Lines added: 1016, lines removed: 1
 +     data: {
 +       applicationId: application.id,
 +       actorId: session.user.id,
-+       actorRole: session.user.role ?? &quot;MEMBER&quot;,
-+       action: &quot;APPLICATION_CREATED&quot;,
++       actorRole: session.user.role ?? "MEMBER",
++       action: "APPLICATION_CREATED",
 +       details: {
-+         note: &quot;Application created by internal team&quot;,
-+         createdBy: &quot;INTERNAL&quot;,
++         note: "Application created by internal team",
++         createdBy: "INTERNAL",
 +       },
 +     },
 +   });
@@ -515,11 +515,11 @@ Lines added: 1016, lines removed: 1
 + export async function submitOnBehalfAction(applicationId: string) {
 +   const session = await auth();
 +   if (!session?.user?.id) {
-+     throw new Error(&quot;Unauthorized&quot;);
++     throw new Error("Unauthorized");
 +   }
 + 
 +   // Require internal team role
-+   await requireRole([&quot;ADMIN&quot;, &quot;PROCUREMENT&quot;, &quot;MEMBER&quot;]);
++   await requireRole(["ADMIN", "PROCUREMENT", "MEMBER"]);
 + 
 +   // Get application with form config
 +   const application = await prisma.application.findUnique({
@@ -530,24 +530,24 @@ Lines added: 1016, lines removed: 1
 +   });
 + 
 +   if (!application) {
-+     throw new Error(&quot;Application not found&quot;);
++     throw new Error("Application not found");
 +   }
 + 
 +   // Only allow submission from DRAFT or PENDING_SUPPLIER status
-+   if (application.status !== &quot;DRAFT&quot; &amp;&amp; application.status !== &quot;PENDING_SUPPLIER&quot;) {
++   if (application.status !== "DRAFT" &amp;&amp; application.status !== "PENDING_SUPPLIER") {
 +     throw new Error(
 +       &#96;Cannot submit application in ${application.status} status. Only DRAFT and PENDING_SUPPLIER applications can be submitted.&#96;
 +     );
 +   }
 + 
 +   // Check for duplicate active applications (only for DRAFT status)
-+   if (application.status === &quot;DRAFT&quot;) {
++   if (application.status === "DRAFT") {
 +     const existingActive = await prisma.application.findFirst({
 +       where: {
 +         organizationId: application.organizationId,
 +         formConfigId: application.formConfigId,
 +         status: {
-+           in: [&quot;DRAFT&quot;, &quot;SUBMITTED&quot;, &quot;IN_REVIEW&quot;, &quot;PENDING_SUPPLIER&quot;, &quot;APPROVED&quot;],
++           in: ["DRAFT", "SUBMITTED", "IN_REVIEW", "PENDING_SUPPLIER", "APPROVED"],
 +         },
 +         id: { not: applicationId },
 +       },
@@ -555,7 +555,7 @@ Lines added: 1016, lines removed: 1
 + 
 +     if (existingActive) {
 +       throw new Error(
-+         &quot;An active application already exists for this organization and form configuration&quot;
++         "An active application already exists for this organization and form configuration"
 +       );
 +     }
 +   }
@@ -564,10 +564,10 @@ Lines added: 1016, lines removed: 1
 +   await prisma.application.update({
 +     where: { id: applicationId },
 +     data: {
-+       status: &quot;SUBMITTED&quot;,
++       status: "SUBMITTED",
 +       submittedAt: new Date(),
 +       submittedById: session.user.id,
-+       submissionType: &quot;INTERNAL&quot;,
++       submissionType: "INTERNAL",
 +       updatedById: session.user.id,
 +     },
 +   });
@@ -577,12 +577,12 @@ Lines added: 1016, lines removed: 1
 +     data: {
 +       applicationId,
 +       actorId: session.user.id,
-+       actorRole: session.user.role ?? &quot;MEMBER&quot;,
-+       action: &quot;APPLICATION_SUBMITTED&quot;,
++       actorRole: session.user.role ?? "MEMBER",
++       action: "APPLICATION_SUBMITTED",
 +       details: {
-+         note: &quot;Application submitted by internal team&quot;,
-+         submissionType: &quot;INTERNAL&quot;,
-+         submittedBy: session.user.name ?? session.user.email ?? &quot;Internal Team&quot;,
++         note: "Application submitted by internal team",
++         submissionType: "INTERNAL",
++         submittedBy: session.user.name ?? session.user.email ?? "Internal Team",
 +       },
 +     },
 +   });
@@ -619,11 +619,11 @@ Lines added: 1016, lines removed: 1
 + export async function editDraftOnBehalfAction(input: EditDraftInput) {
 +   const session = await auth();
 +   if (!session?.user?.id) {
-+     throw new Error(&quot;Unauthorized&quot;);
++     throw new Error("Unauthorized");
 +   }
 + 
 +   // Require internal team role
-+   await requireRole([&quot;ADMIN&quot;, &quot;PROCUREMENT&quot;, &quot;MEMBER&quot;]);
++   await requireRole(["ADMIN", "PROCUREMENT", "MEMBER"]);
 + 
 +   const { applicationId, formData } = input;
 + 
@@ -633,11 +633,11 @@ Lines added: 1016, lines removed: 1
 +   });
 + 
 +   if (!application) {
-+     throw new Error(&quot;Application not found&quot;);
++     throw new Error("Application not found");
 +   }
 + 
 +   // Only allow editing DRAFT or PENDING_SUPPLIER applications
-+   if (application.status !== &quot;DRAFT&quot; &amp;&amp; application.status !== &quot;PENDING_SUPPLIER&quot;) {
++   if (application.status !== "DRAFT" &amp;&amp; application.status !== "PENDING_SUPPLIER") {
 +     throw new Error(
 +       &#96;Cannot edit application in ${application.status} status. Only DRAFT and PENDING_SUPPLIER applications can be edited.&#96;
 +     );
@@ -657,11 +657,11 @@ Lines added: 1016, lines removed: 1
 +     data: {
 +       applicationId,
 +       actorId: session.user.id,
-+       actorRole: session.user.role ?? &quot;MEMBER&quot;,
-+       action: &quot;APPLICATION_UPDATED&quot;,
++       actorRole: session.user.role ?? "MEMBER",
++       action: "APPLICATION_UPDATED",
 +       details: {
-+         note: &quot;Application edited by internal team&quot;,
-+         editedBy: &quot;INTERNAL&quot;,
++         note: "Application edited by internal team",
++         editedBy: "INTERNAL",
 +       },
 +     },
 +   });
@@ -681,10 +681,10 @@ Lines added: 1016, lines removed: 1
 + 
 + **File:** &#96;app/supplier/onboarding/actions.ts&#96; (UPDATE)
 + 
-+ **Purpose:** Ensure supplier submissions set &#96;submissionType: &#39;SUPPLIER&#39;&#96;.
++ **Purpose:** Ensure supplier submissions set &#96;submissionType: 'SUPPLIER'&#96;.
 + 
 + **Verification:**
-+ - Check that &#96;submitApplicationAction&#96; sets &#96;submissionType: &#39;SUPPLIER&#39;&#96;
++ - Check that &#96;submitApplicationAction&#96; sets &#96;submissionType: 'SUPPLIER'&#96;
 + - If not, update it to set the field
 + 
 + **Implementation (if needed):**
@@ -694,18 +694,18 @@ Lines added: 1016, lines removed: 1
 + await prisma.application.update({
 +   where: { id: application.id },
 +   data: {
-+     status: &quot;SUBMITTED&quot;,
++     status: "SUBMITTED",
 +     submittedAt: new Date(),
 +     submittedById: session.user.id,
-+     submissionType: &quot;SUPPLIER&quot;, // Ensure this is set
++     submissionType: "SUPPLIER", // Ensure this is set
 +     updatedById: session.user.id,
 +   },
 + });
 + &#96;&#96;&#96;
 + 
 + **Checkpoint:**
-+ - [ ] Supplier submission sets &#96;submissionType: &#39;SUPPLIER&#39;&#96;
-+ - [ ] Internal submission sets &#96;submissionType: &#39;INTERNAL&#39;&#96;
++ - [ ] Supplier submission sets &#96;submissionType: 'SUPPLIER'&#96;
++ - [ ] Internal submission sets &#96;submissionType: 'INTERNAL'&#96;
 + 
 + ---
 + 
@@ -752,7 +752,7 @@ Lines added: 1016, lines removed: 1
 +     name: string | null;
 +     email: string | null;
 +   } | null;
-+   submissionType: &quot;SUPPLIER&quot; | &quot;INTERNAL&quot; | null;
++   submissionType: "SUPPLIER" | "INTERNAL" | null;
 + }
 + &#96;&#96;&#96;
 + 
@@ -793,7 +793,7 @@ Lines added: 1016, lines removed: 1
 +       email: row.submittedBy.email,
 +     }
 +   : null,
-+ submissionType: row.submissionType as &quot;SUPPLIER&quot; | &quot;INTERNAL&quot; | null,
++ submissionType: row.submissionType as "SUPPLIER" | "INTERNAL" | null,
 + &#96;&#96;&#96;
 + 
 + **Checkpoint:**
@@ -838,7 +838,7 @@ Lines added: 1016, lines removed: 1
 +     name: string | null;
 +     email: string | null;
 +   } | null;
-+   submissionType: &quot;SUPPLIER&quot; | &quot;INTERNAL&quot; | null;
++   submissionType: "SUPPLIER" | "INTERNAL" | null;
 +   data: Record&lt;string, unknown&gt; | null;
 +   sections: SubmissionSection[];
 +   attachments: SubmissionAttachment[];
@@ -860,7 +860,7 @@ Lines added: 1016, lines removed: 1
 + **Dependencies:** Task 3  
 + **Priority:** High
 + 
-+ #### 4.1 Add &quot;Submitted By&quot; Column to Submissions Table
++ #### 4.1 Add "Submitted By" Column to Submissions Table
 + 
 + **File:** &#96;components/procurement/submissions-table.tsx&#96; (UPDATE)
 + 
@@ -871,7 +871,7 @@ Lines added: 1016, lines removed: 1
 + 1. **Add column header:**
 + 
 + &#96;&#96;&#96;typescript
-+ &lt;th className=&quot;px-6 py-4&quot;&gt;
++ &lt;th className="px-6 py-4"&gt;
 +   Submitted By
 + &lt;/th&gt;
 + &#96;&#96;&#96;
@@ -879,7 +879,7 @@ Lines added: 1016, lines removed: 1
 + 2. **Add column data:**
 + 
 + &#96;&#96;&#96;typescript
-+ &lt;td className=&quot;px-6 py-4&quot;&gt;
++ &lt;td className="px-6 py-4"&gt;
 +   &lt;SubmissionSourceBadge
 +     submissionType={row.submissionType}
 +     submittedBy={row.submittedBy}
@@ -892,7 +892,7 @@ Lines added: 1016, lines removed: 1
 + &#96;&#96;&#96;typescript
 + &lt;td
 +   colSpan={9} // Update from 8 to 9
-+   className=&quot;px-6 py-12 text-center text-sm text-slate-500&quot;
++   className="px-6 py-12 text-center text-sm text-slate-500"
 + &gt;
 + &#96;&#96;&#96;
 + 
@@ -910,12 +910,12 @@ Lines added: 1016, lines removed: 1
 + **Implementation:**
 + 
 + &#96;&#96;&#96;typescript
-+ import { Badge } from &quot;@/components/ui/badge&quot;;
-+ import { User, Building2 } from &quot;lucide-react&quot;;
-+ import { cn } from &quot;@/lib/utils&quot;;
++ import { Badge } from "@/components/ui/badge";
++ import { User, Building2 } from "lucide-react";
++ import { cn } from "@/lib/utils";
 + 
 + interface SubmissionSourceBadgeProps {
-+   submissionType: &quot;SUPPLIER&quot; | &quot;INTERNAL&quot; | null;
++   submissionType: "SUPPLIER" | "INTERNAL" | null;
 +   submittedBy: {
 +     id: string;
 +     name: string | null;
@@ -929,30 +929,30 @@ Lines added: 1016, lines removed: 1
 + }: SubmissionSourceBadgeProps) {
 +   if (!submissionType) {
 +     return (
-+       &lt;span className=&quot;text-sm text-slate-400&quot;&gt;—&lt;/span&gt;
++       &lt;span className="text-sm text-slate-400"&gt;—&lt;/span&gt;
 +     );
 +   }
 + 
-+   const isInternal = submissionType === &quot;INTERNAL&quot;;
-+   const displayName = submittedBy?.name ?? submittedBy?.email ?? &quot;Unknown&quot;;
++   const isInternal = submissionType === "INTERNAL";
++   const displayName = submittedBy?.name ?? submittedBy?.email ?? "Unknown";
 + 
 +   return (
-+     &lt;div className=&quot;flex items-center gap-2&quot;&gt;
++     &lt;div className="flex items-center gap-2"&gt;
 +       &lt;Badge
-+         variant={isInternal ? &quot;default&quot; : &quot;secondary&quot;}
++         variant={isInternal ? "default" : "secondary"}
 +         className={cn(
-+           &quot;rounded-full text-xs&quot;,
-+           isInternal &amp;&amp; &quot;bg-blue-100 text-blue-700 hover:bg-blue-100&quot;
++           "rounded-full text-xs",
++           isInternal &amp;&amp; "bg-blue-100 text-blue-700 hover:bg-blue-100"
 +         )}
 +       &gt;
 +         {isInternal ? (
-+           &lt;Building2 className=&quot;mr-1 h-3 w-3&quot; /&gt;
++           &lt;Building2 className="mr-1 h-3 w-3" /&gt;
 +         ) : (
-+           &lt;User className=&quot;mr-1 h-3 w-3&quot; /&gt;
++           &lt;User className="mr-1 h-3 w-3" /&gt;
 +         )}
-+         {isInternal ? &quot;Internal&quot; : &quot;Supplier&quot;}
++         {isInternal ? "Internal" : "Supplier"}
 +       &lt;/Badge&gt;
-+       &lt;span className=&quot;text-xs text-slate-500&quot;&gt;{displayName}&lt;/span&gt;
++       &lt;span className="text-xs text-slate-500"&gt;{displayName}&lt;/span&gt;
 +     &lt;/div&gt;
 +   );
 + }
@@ -976,25 +976,25 @@ Lines added: 1016, lines removed: 1
 + 
 + &#96;&#96;&#96;typescript
 + {
-+   label: &quot;Submitted By&quot;,
-+   value: submission.submissionType === &quot;INTERNAL&quot; ? (
-+     &lt;div className=&quot;flex items-center gap-2&quot;&gt;
-+       &lt;Badge variant=&quot;default&quot; className=&quot;bg-blue-100 text-blue-700&quot;&gt;
-+         &lt;Building2 className=&quot;mr-1 h-3 w-3&quot; /&gt;
++   label: "Submitted By",
++   value: submission.submissionType === "INTERNAL" ? (
++     &lt;div className="flex items-center gap-2"&gt;
++       &lt;Badge variant="default" className="bg-blue-100 text-blue-700"&gt;
++         &lt;Building2 className="mr-1 h-3 w-3" /&gt;
 +         Internal Team
 +       &lt;/Badge&gt;
-+       &lt;span className=&quot;text-sm text-slate-600&quot;&gt;
-+         {submission.submittedBy?.name ?? submission.submittedBy?.email ?? &quot;Unknown&quot;}
++       &lt;span className="text-sm text-slate-600"&gt;
++         {submission.submittedBy?.name ?? submission.submittedBy?.email ?? "Unknown"}
 +       &lt;/span&gt;
 +     &lt;/div&gt;
 +   ) : (
-+     &lt;div className=&quot;flex items-center gap-2&quot;&gt;
-+       &lt;Badge variant=&quot;secondary&quot;&gt;
-+         &lt;User className=&quot;mr-1 h-3 w-3&quot; /&gt;
++     &lt;div className="flex items-center gap-2"&gt;
++       &lt;Badge variant="secondary"&gt;
++         &lt;User className="mr-1 h-3 w-3" /&gt;
 +         Supplier
 +       &lt;/Badge&gt;
-+       &lt;span className=&quot;text-sm text-slate-600&quot;&gt;
-+         {submission.submittedBy?.name ?? submission.submittedBy?.email ?? &quot;Unknown&quot;}
++       &lt;span className="text-sm text-slate-600"&gt;
++         {submission.submittedBy?.name ?? submission.submittedBy?.email ?? "Unknown"}
 +       &lt;/span&gt;
 +     &lt;/div&gt;
 +   ),
@@ -1012,25 +1012,25 @@ Lines added: 1016, lines removed: 1
 + 
 + **Purpose:** Allow internal team to create new applications.
 + 
-+ **Note:** This may require a separate page/modal for creating applications. For Phase 3, we&#39;ll add a placeholder button that can be wired up later.
++ **Note:** This may require a separate page/modal for creating applications. For Phase 3, we'll add a placeholder button that can be wired up later.
 + 
 + **Changes:**
 + 
 + Add a button in the header section:
 + 
 + &#96;&#96;&#96;typescript
-+ &lt;div className=&quot;flex items-center justify-between gap-4&quot;&gt;
-+   &lt;div className=&quot;space-y-2&quot;&gt;
++ &lt;div className="flex items-center justify-between gap-4"&gt;
++   &lt;div className="space-y-2"&gt;
 +     {/* ... existing header content ... */}
 +   &lt;/div&gt;
 +   &lt;Button
-+     variant=&quot;default&quot;
++     variant="default"
 +     onClick={() =&gt; {
 +       // TODO: Navigate to create application page/modal
 +       // This will be implemented in a follow-up task
 +     }}
 +   &gt;
-+     &lt;Plus className=&quot;mr-2 h-4 w-4&quot; /&gt;
++     &lt;Plus className="mr-2 h-4 w-4" /&gt;
 +     Create Application
 +   &lt;/Button&gt;
 + &lt;/div&gt;
@@ -1052,12 +1052,12 @@ Lines added: 1016, lines removed: 1
 + 
 + **File:** &#96;app/supplier/onboarding/actions.ts&#96; (UPDATE)
 + 
-+ **Purpose:** Ensure supplier submissions always set &#96;submissionType: &#39;SUPPLIER&#39;&#96;.
++ **Purpose:** Ensure supplier submissions always set &#96;submissionType: 'SUPPLIER'&#96;.
 + 
 + **Verification Steps:**
 + 
 + 1. Locate &#96;submitApplicationAction&#96; function
-+ 2. Verify it sets &#96;submissionType: &#39;SUPPLIER&#39;&#96; when updating status
++ 2. Verify it sets &#96;submissionType: 'SUPPLIER'&#96; when updating status
 + 3. If missing, add it
 + 
 + **Example Update:**
@@ -1066,17 +1066,17 @@ Lines added: 1016, lines removed: 1
 + await prisma.application.update({
 +   where: { id: application.id },
 +   data: {
-+     status: &quot;SUBMITTED&quot;,
++     status: "SUBMITTED",
 +     submittedAt: new Date(),
 +     submittedById: session.user.id,
-+     submissionType: &quot;SUPPLIER&quot;, // Ensure this is set
++     submissionType: "SUPPLIER", // Ensure this is set
 +     updatedById: session.user.id,
 +   },
 + });
 + &#96;&#96;&#96;
 + 
 + **Checkpoint:**
-+ - [ ] Supplier submissions set &#96;submissionType: &#39;SUPPLIER&#39;&#96;
++ - [ ] Supplier submissions set &#96;submissionType: 'SUPPLIER'&#96;
 + - [ ] No breaking changes to existing functionality
 + 
 + ---
@@ -1109,7 +1109,7 @@ Lines added: 1016, lines removed: 1
 +    - [ ] Requires ADMIN/PROCUREMENT/MEMBER role
 +    - [ ] Rejects unauthorized users
 +    - [ ] Prevents submission from non-editable statuses
-+    - [ ] Sets &#96;submissionType: &#39;INTERNAL&#39;&#96;
++    - [ ] Sets &#96;submissionType: 'INTERNAL'&#96;
 +    - [ ] Sets &#96;submittedById&#96; correctly
 +    - [ ] Creates audit log with submission type
 +    - [ ] Prevents duplicate submissions
@@ -1160,7 +1160,7 @@ Lines added: 1016, lines removed: 1
 + **File:** &#96;docs/submission-workflow-prd.md&#96; (UPDATE)
 + 
 + **Changes:**
-+ - Update Phase 3 status to &quot;COMPLETED&quot;
++ - Update Phase 3 status to "COMPLETED"
 + - Add completion date
 + - Update implementation summary
 + 
@@ -1205,7 +1205,7 @@ Lines added: 1016, lines removed: 1
 + - [ ] Procurement user can create/submit applications
 + - [ ] Member user can create/submit applications
 + - [ ] Supplier user cannot create/submit for other organizations
-+ - [ ] Dashboard shows &quot;Submitted By&quot; column
++ - [ ] Dashboard shows "Submitted By" column
 + - [ ] Detail view shows submission source
 + - [ ] Badges display correctly (Internal vs Supplier)
 + - [ ] Filtering/sorting still works with new column
@@ -1222,11 +1222,11 @@ Lines added: 1016, lines removed: 1
 + 
 + 2. **Missing Submission Type:**
 +    - Handle legacy applications without &#96;submissionType&#96;
-+    - Default to &quot;SUPPLIER&quot; for backward compatibility
++    - Default to "SUPPLIER" for backward compatibility
 + 
 + 3. **Deleted Submitted By User:**
 +    - Handle case where &#96;submittedBy&#96; user is deleted
-+    - Show &quot;Unknown&quot; or &quot;Deleted User&quot; gracefully
++    - Show "Unknown" or "Deleted User" gracefully
 + 
 + 4. **Permission Edge Cases:**
 +    - Verify role checks work correctly
@@ -1560,7 +1560,7 @@ Adding internal team submission actions (Task 2):
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/app/dashboard/procurement/[id]/actions.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/app/dashboard/procurement/[id]/actions.ts</summary>
 
 **Chunk 1**
 Lines added: 233, lines removed: undefined
@@ -1581,11 +1581,11 @@ Lines added: 233, lines removed: undefined
 + ) {
 +   const session = await auth();
 +   if (!session?.user?.id) {
-+     throw new Error(&quot;Unauthorized&quot;);
++     throw new Error("Unauthorized");
 +   }
 + 
 +   // Require internal team role
-+   await requireRole([&quot;ADMIN&quot;, &quot;PROCUREMENT&quot;, &quot;MEMBER&quot;]);
++   await requireRole(["ADMIN", "PROCUREMENT", "MEMBER"]);
 + 
 +   const { organizationId, formConfigId, initialData } = input;
 + 
@@ -1595,7 +1595,7 @@ Lines added: 233, lines removed: undefined
 +   });
 + 
 +   if (!organization) {
-+     throw new Error(&quot;Organization not found&quot;);
++     throw new Error("Organization not found");
 +   }
 + 
 +   // Verify form config exists
@@ -1608,7 +1608,7 @@ Lines added: 233, lines removed: undefined
 +   });
 + 
 +   if (!formConfig) {
-+     throw new Error(&quot;Form configuration not found&quot;);
++     throw new Error("Form configuration not found");
 +   }
 + 
 +   // Check for existing active applications (prevent duplicates)
@@ -1617,14 +1617,14 @@ Lines added: 233, lines removed: undefined
 +       organizationId,
 +       formConfigId,
 +       status: {
-+         in: [&quot;DRAFT&quot;, &quot;SUBMITTED&quot;, &quot;IN_REVIEW&quot;, &quot;PENDING_SUPPLIER&quot;, &quot;APPROVED&quot;],
++         in: ["DRAFT", "SUBMITTED", "IN_REVIEW", "PENDING_SUPPLIER", "APPROVED"],
 +       },
 +     },
 +   });
 + 
 +   if (existingActive) {
 +     throw new Error(
-+       &quot;An active application already exists for this organization and form configuration&quot;
++       "An active application already exists for this organization and form configuration"
 +     );
 +   }
 + 
@@ -1635,7 +1635,7 @@ Lines added: 233, lines removed: undefined
 +       formConfigId,
 +       entityId: formConfig.entityId,
 +       geographyId: formConfig.geographyId,
-+       status: &quot;DRAFT&quot;,
++       status: "DRAFT",
 +       data: initialData ?? {},
 +       createdById: session.user.id,
 +       updatedById: session.user.id,
@@ -1647,11 +1647,11 @@ Lines added: 233, lines removed: undefined
 +     data: {
 +       applicationId: application.id,
 +       actorId: session.user.id,
-+       actorRole: &quot;PROCUREMENT&quot;,
-+       action: &quot;APPLICATION_CREATED&quot;,
++       actorRole: "PROCUREMENT",
++       action: "APPLICATION_CREATED",
 +       details: {
-+         note: &quot;Application created by internal team&quot;,
-+         createdBy: &quot;INTERNAL&quot;,
++         note: "Application created by internal team",
++         createdBy: "INTERNAL",
 +       },
 +     },
 +   });
@@ -1665,11 +1665,11 @@ Lines added: 233, lines removed: undefined
 + export async function submitOnBehalfAction(applicationId: string) {
 +   const session = await auth();
 +   if (!session?.user?.id) {
-+     throw new Error(&quot;Unauthorized&quot;);
++     throw new Error("Unauthorized");
 +   }
 + 
 +   // Require internal team role
-+   await requireRole([&quot;ADMIN&quot;, &quot;PROCUREMENT&quot;, &quot;MEMBER&quot;]);
++   await requireRole(["ADMIN", "PROCUREMENT", "MEMBER"]);
 + 
 +   // Get application with form config
 +   const application = await prisma.application.findUnique({
@@ -1680,24 +1680,24 @@ Lines added: 233, lines removed: undefined
 +   });
 + 
 +   if (!application) {
-+     throw new Error(&quot;Application not found&quot;);
++     throw new Error("Application not found");
 +   }
 + 
 +   // Only allow submission from DRAFT or PENDING_SUPPLIER status
-+   if (application.status !== &quot;DRAFT&quot; &amp;&amp; application.status !== &quot;PENDING_SUPPLIER&quot;) {
++   if (application.status !== "DRAFT" &amp;&amp; application.status !== "PENDING_SUPPLIER") {
 +     throw new Error(
 +       &#96;Cannot submit application in ${application.status} status. Only DRAFT and PENDING_SUPPLIER applications can be submitted.&#96;
 +     );
 +   }
 + 
 +   // Check for duplicate active applications (only for DRAFT status)
-+   if (application.status === &quot;DRAFT&quot;) {
++   if (application.status === "DRAFT") {
 +     const existingActive = await prisma.application.findFirst({
 +       where: {
 +         organizationId: application.organizationId,
 +         formConfigId: application.formConfigId,
 +         status: {
-+           in: [&quot;DRAFT&quot;, &quot;SUBMITTED&quot;, &quot;IN_REVIEW&quot;, &quot;PENDING_SUPPLIER&quot;, &quot;APPROVED&quot;],
++           in: ["DRAFT", "SUBMITTED", "IN_REVIEW", "PENDING_SUPPLIER", "APPROVED"],
 +         },
 +         id: { not: applicationId },
 +       },
@@ -1705,7 +1705,7 @@ Lines added: 233, lines removed: undefined
 + 
 +     if (existingActive) {
 +       throw new Error(
-+         &quot;An active application already exists for this organization and form configuration&quot;
++         "An active application already exists for this organization and form configuration"
 +       );
 +     }
 +   }
@@ -1714,10 +1714,10 @@ Lines added: 233, lines removed: undefined
 +   await prisma.application.update({
 +     where: { id: applicationId },
 +     data: {
-+       status: &quot;SUBMITTED&quot;,
++       status: "SUBMITTED",
 +       submittedAt: new Date(),
 +       submittedById: session.user.id,
-+       submissionType: &quot;INTERNAL&quot;,
++       submissionType: "INTERNAL",
 +       updatedById: session.user.id,
 +     },
 +   });
@@ -1727,12 +1727,12 @@ Lines added: 233, lines removed: undefined
 +     data: {
 +       applicationId,
 +       actorId: session.user.id,
-+       actorRole: &quot;PROCUREMENT&quot;,
-+       action: &quot;APPLICATION_SUBMITTED&quot;,
++       actorRole: "PROCUREMENT",
++       action: "APPLICATION_SUBMITTED",
 +       details: {
-+         note: &quot;Application submitted by internal team&quot;,
-+         submissionType: &quot;INTERNAL&quot;,
-+         submittedBy: session.user.name ?? session.user.email ?? &quot;Internal Team&quot;,
++         note: "Application submitted by internal team",
++         submissionType: "INTERNAL",
++         submittedBy: session.user.name ?? session.user.email ?? "Internal Team",
 +       },
 +     },
 +   });
@@ -1751,11 +1751,11 @@ Lines added: 233, lines removed: undefined
 + export async function editDraftOnBehalfAction(input: EditDraftInput) {
 +   const session = await auth();
 +   if (!session?.user?.id) {
-+     throw new Error(&quot;Unauthorized&quot;);
++     throw new Error("Unauthorized");
 +   }
 + 
 +   // Require internal team role
-+   await requireRole([&quot;ADMIN&quot;, &quot;PROCUREMENT&quot;, &quot;MEMBER&quot;]);
++   await requireRole(["ADMIN", "PROCUREMENT", "MEMBER"]);
 + 
 +   const { applicationId, formData } = input;
 + 
@@ -1765,11 +1765,11 @@ Lines added: 233, lines removed: undefined
 +   });
 + 
 +   if (!application) {
-+     throw new Error(&quot;Application not found&quot;);
++     throw new Error("Application not found");
 +   }
 + 
 +   // Only allow editing DRAFT or PENDING_SUPPLIER applications
-+   if (application.status !== &quot;DRAFT&quot; &amp;&amp; application.status !== &quot;PENDING_SUPPLIER&quot;) {
++   if (application.status !== "DRAFT" &amp;&amp; application.status !== "PENDING_SUPPLIER") {
 +     throw new Error(
 +       &#96;Cannot edit application in ${application.status} status. Only DRAFT and PENDING_SUPPLIER applications can be edited.&#96;
 +     );
@@ -1789,11 +1789,11 @@ Lines added: 233, lines removed: undefined
 +     data: {
 +       applicationId,
 +       actorId: session.user.id,
-+       actorRole: &quot;PROCUREMENT&quot;,
-+       action: &quot;APPLICATION_UPDATED&quot;,
++       actorRole: "PROCUREMENT",
++       action: "APPLICATION_UPDATED",
 +       details: {
-+         note: &quot;Application edited by internal team&quot;,
-+         editedBy: &quot;INTERNAL&quot;,
++         note: "Application edited by internal team",
++         editedBy: "INTERNAL",
 +       },
 +     },
 +   });
@@ -1842,7 +1842,7 @@ Updating the submissions data layer to include submission source information:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/lib/procurement/submissions.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/lib/procurement/submissions.ts</summary>
 
 **Chunk 1**
 Lines added: 6, lines removed: undefined
@@ -1856,7 +1856,7 @@ Lines added: 6, lines removed: undefined
 +     name: string | null;
 +     email: string | null;
 +   } | null;
-+   submissionType: &quot;SUPPLIER&quot; | &quot;INTERNAL&quot; | null;
++   submissionType: "SUPPLIER" | "INTERNAL" | null;
   }
   
 ```
@@ -1869,7 +1869,7 @@ Lines added: 6, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/lib/procurement/submissions.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/lib/procurement/submissions.ts</summary>
 
 **Chunk 1**
 Lines added: 6, lines removed: undefined
@@ -1883,7 +1883,7 @@ Lines added: 6, lines removed: undefined
 +     name: string | null;
 +     email: string | null;
 +   } | null;
-+   submissionType: &quot;SUPPLIER&quot; | &quot;INTERNAL&quot; | null;
++   submissionType: "SUPPLIER" | "INTERNAL" | null;
     data: Record&lt;string, unknown&gt; | null;
     sections: SubmissionSection[];
 ```
@@ -1896,7 +1896,7 @@ Lines added: 6, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/lib/procurement/submissions.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/lib/procurement/submissions.ts</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: undefined
@@ -1918,7 +1918,7 @@ Lines added: 1, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/lib/procurement/submissions.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/lib/procurement/submissions.ts</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: undefined
@@ -1940,7 +1940,7 @@ Lines added: 1, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/lib/procurement/submissions.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/lib/procurement/submissions.ts</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: undefined
@@ -1962,7 +1962,7 @@ Lines added: 1, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/lib/procurement/submissions.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/lib/procurement/submissions.ts</summary>
 
 **Chunk 1**
 Lines added: 8, lines removed: undefined
@@ -1978,7 +1978,7 @@ Lines added: 8, lines removed: undefined
 +           email: application.submittedBy.email,
 +         }
 +       : null,
-+     submissionType: application.submissionType as &quot;SUPPLIER&quot; | &quot;INTERNAL&quot; | null,
++     submissionType: application.submissionType as "SUPPLIER" | "INTERNAL" | null,
     };
   }
 ```
@@ -1991,7 +1991,7 @@ Lines added: 8, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/lib/procurement/submissions.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/lib/procurement/submissions.ts</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: undefined
@@ -2013,7 +2013,7 @@ Lines added: 1, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/lib/procurement/submissions.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/lib/procurement/submissions.ts</summary>
 
 **Chunk 1**
 Lines added: 8, lines removed: undefined
@@ -2029,7 +2029,7 @@ Lines added: 8, lines removed: undefined
 +           email: application.submittedBy.email,
 +         }
 +       : null,
-+     submissionType: application.submissionType as &quot;SUPPLIER&quot; | &quot;INTERNAL&quot; | null,
++     submissionType: application.submissionType as "SUPPLIER" | "INTERNAL" | null,
       data: (application.data as Record&lt;string, unknown&gt; | null) ?? null,
       sections,
 ```
@@ -2096,7 +2096,7 @@ Creating the SubmissionSourceBadge component and updating the UI (Task 4):
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/procurement/submission-source-badge.tsx</summary>
+<details><summary>Tool use: **write** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/procurement/submission-source-badge.tsx</summary>
 
 **Chunk 1**
 Lines added: 47, lines removed: 1
@@ -2104,12 +2104,12 @@ Lines added: 47, lines removed: 1
 ```diff
 @@ -1,1 +1,47 @@
 - 
-+ import { Badge } from &quot;@/components/ui/badge&quot;;
-+ import { User, Building2 } from &quot;lucide-react&quot;;
-+ import { cn } from &quot;@/lib/utils&quot;;
++ import { Badge } from "@/components/ui/badge";
++ import { User, Building2 } from "lucide-react";
++ import { cn } from "@/lib/utils";
 + 
 + interface SubmissionSourceBadgeProps {
-+   submissionType: &quot;SUPPLIER&quot; | &quot;INTERNAL&quot; | null;
++   submissionType: "SUPPLIER" | "INTERNAL" | null;
 +   submittedBy: {
 +     id: string;
 +     name: string | null;
@@ -2123,30 +2123,30 @@ Lines added: 47, lines removed: 1
 + }: SubmissionSourceBadgeProps) {
 +   if (!submissionType) {
 +     return (
-+       &lt;span className=&quot;text-sm text-slate-400&quot;&gt;—&lt;/span&gt;
++       &lt;span className="text-sm text-slate-400"&gt;—&lt;/span&gt;
 +     );
 +   }
 + 
-+   const isInternal = submissionType === &quot;INTERNAL&quot;;
-+   const displayName = submittedBy?.name ?? submittedBy?.email ?? &quot;Unknown&quot;;
++   const isInternal = submissionType === "INTERNAL";
++   const displayName = submittedBy?.name ?? submittedBy?.email ?? "Unknown";
 + 
 +   return (
-+     &lt;div className=&quot;flex items-center gap-2&quot;&gt;
++     &lt;div className="flex items-center gap-2"&gt;
 +       &lt;Badge
-+         variant={isInternal ? &quot;default&quot; : &quot;secondary&quot;}
++         variant={isInternal ? "default" : "secondary"}
 +         className={cn(
-+           &quot;rounded-full text-xs&quot;,
-+           isInternal &amp;&amp; &quot;bg-blue-100 text-blue-700 hover:bg-blue-100&quot;
++           "rounded-full text-xs",
++           isInternal &amp;&amp; "bg-blue-100 text-blue-700 hover:bg-blue-100"
 +         )}
 +       &gt;
 +         {isInternal ? (
-+           &lt;Building2 className=&quot;mr-1 h-3 w-3&quot; /&gt;
++           &lt;Building2 className="mr-1 h-3 w-3" /&gt;
 +         ) : (
-+           &lt;User className=&quot;mr-1 h-3 w-3&quot; /&gt;
++           &lt;User className="mr-1 h-3 w-3" /&gt;
 +         )}
-+         {isInternal ? &quot;Internal&quot; : &quot;Supplier&quot;}
++         {isInternal ? "Internal" : "Supplier"}
 +       &lt;/Badge&gt;
-+       &lt;span className=&quot;text-xs text-slate-500&quot;&gt;{displayName}&lt;/span&gt;
++       &lt;span className="text-xs text-slate-500"&gt;{displayName}&lt;/span&gt;
 +     &lt;/div&gt;
 +   );
 + }
@@ -2179,16 +2179,16 @@ Updating the submissions table to add the "Submitted By" column:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/procurement/submissions-table.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/procurement/submissions-table.tsx</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: undefined
 
 ```diff
 @@ -8,4 +8,5 @@
-  } from &quot;@/lib/procurement/submissions&quot;;
-  import { SortToggle } from &quot;@/components/procurement/sort-toggle&quot;;
-+ import { SubmissionSourceBadge } from &quot;@/components/procurement/submission-source-badge&quot;;
+  } from "@/lib/procurement/submissions";
+  import { SortToggle } from "@/components/procurement/sort-toggle";
++ import { SubmissionSourceBadge } from "@/components/procurement/submission-source-badge";
   
   interface SubmissionsTableProps {
 ```
@@ -2201,7 +2201,7 @@ Lines added: 1, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/procurement/submissions-table.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/procurement/submissions-table.tsx</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: undefined
@@ -2210,8 +2210,8 @@ Lines added: 1, lines removed: undefined
 @@ -67,4 +67,5 @@
                   /&gt;
                 &lt;/th&gt;
-+               &lt;th className=&quot;px-6 py-4&quot;&gt;Submitted By&lt;/th&gt;
-                &lt;th className=&quot;px-6 py-4&quot;&gt;
++               &lt;th className="px-6 py-4"&gt;Submitted By&lt;/th&gt;
+                &lt;th className="px-6 py-4"&gt;
                   &lt;SortToggle
 ```
 
@@ -2223,7 +2223,7 @@ Lines added: 1, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/procurement/submissions-table.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/procurement/submissions-table.tsx</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: 1
@@ -2234,7 +2234,7 @@ Lines added: 1, lines removed: 1
                   &lt;td
 -                   colSpan={8}
 +                   colSpan={9}
-                    className=&quot;px-6 py-12 text-center text-sm text-slate-500&quot;
+                    className="px-6 py-12 text-center text-sm text-slate-500"
                   &gt;
 ```
 
@@ -2246,7 +2246,7 @@ Lines added: 1, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/procurement/submissions-table.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/procurement/submissions-table.tsx</summary>
 
 **Chunk 1**
 Lines added: 6, lines removed: undefined
@@ -2255,13 +2255,13 @@ Lines added: 6, lines removed: undefined
 @@ -121,4 +121,10 @@
                       {formatDate(row.submittedAt)}
                     &lt;/td&gt;
-+                   &lt;td className=&quot;px-6 py-4&quot;&gt;
++                   &lt;td className="px-6 py-4"&gt;
 +                     &lt;SubmissionSourceBadge
 +                       submissionType={row.submissionType}
 +                       submittedBy={row.submittedBy}
 +                     /&gt;
 +                   &lt;/td&gt;
-                    &lt;td className=&quot;px-6 py-4 text-sm text-slate-600&quot;&gt;
+                    &lt;td className="px-6 py-4 text-sm text-slate-600"&gt;
                       {formatDate(row.updatedAt)}
 ```
 
@@ -2301,19 +2301,19 @@ Updating the detail view to show submission source:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/app/dashboard/procurement/[id]/page.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/app/dashboard/procurement/[id]/page.tsx</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: 1
 
 ```diff
 @@ -1,5 +1,5 @@
-  import { notFound } from &quot;next/navigation&quot;;
-  import type { ReactNode } from &quot;react&quot;;
-- import { Paperclip, MessageSquare, Clock } from &quot;lucide-react&quot;;
-+ import { Paperclip, MessageSquare, Clock, User, Building2 } from &quot;lucide-react&quot;;
-  import { Badge } from &quot;@/components/ui/badge&quot;;
-  import { CommentThread } from &quot;@/components/procurement/comment-thread&quot;;
+  import { notFound } from "next/navigation";
+  import type { ReactNode } from "react";
+- import { Paperclip, MessageSquare, Clock } from "lucide-react";
++ import { Paperclip, MessageSquare, Clock, User, Building2 } from "lucide-react";
+  import { Badge } from "@/components/ui/badge";
+  import { CommentThread } from "@/components/procurement/comment-thread";
 ```
 
 </details>
@@ -2324,43 +2324,43 @@ Lines added: 1, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/app/dashboard/procurement/[id]/page.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/app/dashboard/procurement/[id]/page.tsx</summary>
 
 **Chunk 1**
 Lines added: 26, lines removed: undefined
 
 ```diff
 @@ -161,4 +161,30 @@
-          : &quot;—&quot;,
+          : "—",
       },
 +     {
-+       label: &quot;Submitted By&quot;,
-+       value: submission.submissionType === &quot;INTERNAL&quot; ? (
-+         &lt;div className=&quot;flex items-center gap-2&quot;&gt;
-+           &lt;Badge variant=&quot;default&quot; className=&quot;bg-blue-100 text-blue-700&quot;&gt;
-+             &lt;Building2 className=&quot;mr-1 h-3 w-3&quot; /&gt;
++       label: "Submitted By",
++       value: submission.submissionType === "INTERNAL" ? (
++         &lt;div className="flex items-center gap-2"&gt;
++           &lt;Badge variant="default" className="bg-blue-100 text-blue-700"&gt;
++             &lt;Building2 className="mr-1 h-3 w-3" /&gt;
 +             Internal Team
 +           &lt;/Badge&gt;
-+           &lt;span className=&quot;text-sm text-slate-600&quot;&gt;
-+             {submission.submittedBy?.name ?? submission.submittedBy?.email ?? &quot;Unknown&quot;}
++           &lt;span className="text-sm text-slate-600"&gt;
++             {submission.submittedBy?.name ?? submission.submittedBy?.email ?? "Unknown"}
 +           &lt;/span&gt;
 +         &lt;/div&gt;
-+       ) : submission.submissionType === &quot;SUPPLIER&quot; ? (
-+         &lt;div className=&quot;flex items-center gap-2&quot;&gt;
-+           &lt;Badge variant=&quot;secondary&quot;&gt;
-+             &lt;User className=&quot;mr-1 h-3 w-3&quot; /&gt;
++       ) : submission.submissionType === "SUPPLIER" ? (
++         &lt;div className="flex items-center gap-2"&gt;
++           &lt;Badge variant="secondary"&gt;
++             &lt;User className="mr-1 h-3 w-3" /&gt;
 +             Supplier
 +           &lt;/Badge&gt;
-+           &lt;span className=&quot;text-sm text-slate-600&quot;&gt;
-+             {submission.submittedBy?.name ?? submission.submittedBy?.email ?? &quot;Unknown&quot;}
++           &lt;span className="text-sm text-slate-600"&gt;
++             {submission.submittedBy?.name ?? submission.submittedBy?.email ?? "Unknown"}
 +           &lt;/span&gt;
 +         &lt;/div&gt;
 +       ) : (
-+         &quot;—&quot;
++         "—"
 +       ),
 +     },
       {
-        label: &quot;Last updated&quot;,
+        label: "Last updated",
 ```
 
 </details>
@@ -2433,7 +2433,7 @@ Output mode: content
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm test 2>&1 | head -100</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm test 2>&1 | head -100</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && npm test 2>&1 | head -100
@@ -2527,7 +2527,7 @@ Creating tests for internal submission actions:
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/tests/internal-submission.test.ts</summary>
+<details><summary>Tool use: **write** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/tests/internal-submission.test.ts</summary>
 
 **Chunk 1**
 Lines added: 447, lines removed: 1
@@ -2535,19 +2535,19 @@ Lines added: 447, lines removed: 1
 ```diff
 @@ -1,1 +1,447 @@
 - 
-+ import { describe, it, expect, beforeEach, vi } from &quot;vitest&quot;;
++ import { describe, it, expect, beforeEach, vi } from "vitest";
 + import {
 +   createApplicationOnBehalfAction,
 +   submitOnBehalfAction,
 +   editDraftOnBehalfAction,
-+ } from &quot;@/app/dashboard/procurement/[id]/actions&quot;;
-+ import { ApplicationStatus } from &quot;@prisma/client&quot;;
-+ import { prisma } from &quot;@/lib/prisma&quot;;
-+ import { auth } from &quot;@/lib/auth&quot;;
-+ import { requireRole } from &quot;@/lib/permissions&quot;;
++ } from "@/app/dashboard/procurement/[id]/actions";
++ import { ApplicationStatus } from "@prisma/client";
++ import { prisma } from "@/lib/prisma";
++ import { auth } from "@/lib/auth";
++ import { requireRole } from "@/lib/permissions";
 + 
 + // Mock dependencies
-+ vi.mock(&quot;@/lib/prisma&quot;, () =&gt; ({
++ vi.mock("@/lib/prisma", () =&gt; ({
 +   prisma: {
 +     organization: {
 +       findUnique: vi.fn(),
@@ -2567,40 +2567,40 @@ Lines added: 447, lines removed: 1
 +   },
 + }));
 + 
-+ vi.mock(&quot;@/lib/auth&quot;, () =&gt; ({
++ vi.mock("@/lib/auth", () =&gt; ({
 +   auth: vi.fn(),
 + }));
 + 
-+ vi.mock(&quot;@/lib/permissions&quot;, () =&gt; ({
++ vi.mock("@/lib/permissions", () =&gt; ({
 +   requireRole: vi.fn(),
 + }));
 + 
-+ vi.mock(&quot;next/cache&quot;, () =&gt; ({
++ vi.mock("next/cache", () =&gt; ({
 +   revalidatePath: vi.fn(),
 + }));
 + 
-+ describe(&quot;Internal Team Submission Actions&quot;, () =&gt; {
-+   const mockUserId = &quot;user-123&quot;;
-+   const mockOrgId = &quot;org-123&quot;;
-+   const mockFormConfigId = &quot;form-config-123&quot;;
-+   const mockApplicationId = &quot;app-123&quot;;
-+   const mockEntityId = &quot;entity-123&quot;;
-+   const mockGeographyId = &quot;geo-123&quot;;
++ describe("Internal Team Submission Actions", () =&gt; {
++   const mockUserId = "user-123";
++   const mockOrgId = "org-123";
++   const mockFormConfigId = "form-config-123";
++   const mockApplicationId = "app-123";
++   const mockEntityId = "entity-123";
++   const mockGeographyId = "geo-123";
 + 
 +   beforeEach(() =&gt; {
 +     vi.clearAllMocks();
 +     vi.mocked(auth).mockResolvedValue({
-+       user: { id: mockUserId, email: &quot;admin@example.com&quot; },
++       user: { id: mockUserId, email: "admin@example.com" },
 +     } as any);
 +     vi.mocked(requireRole).mockResolvedValue({
-+       role: &quot;ADMIN&quot;,
++       role: "ADMIN",
 +       userId: mockUserId,
 +       organizationId: mockOrgId,
 +     } as any);
 +   });
 + 
-+   describe(&quot;createApplicationOnBehalfAction&quot;, () =&gt; {
-+     it(&quot;should create application successfully with valid input&quot;, async () =&gt; {
++   describe("createApplicationOnBehalfAction", () =&gt; {
++     it("should create application successfully with valid input", async () =&gt; {
 +       const mockFormConfig = {
 +         id: mockFormConfigId,
 +         entityId: mockEntityId,
@@ -2611,7 +2611,7 @@ Lines added: 447, lines removed: 1
 + 
 +       vi.mocked(prisma.organization.findUnique).mockResolvedValue({
 +         id: mockOrgId,
-+         name: &quot;Test Org&quot;,
++         name: "Test Org",
 +       } as any);
 + 
 +       vi.mocked(prisma.formConfig.findUnique).mockResolvedValue(
@@ -2624,13 +2624,13 @@ Lines added: 447, lines removed: 1
 +         id: mockApplicationId,
 +         organizationId: mockOrgId,
 +         formConfigId: mockFormConfigId,
-+         status: &quot;DRAFT&quot;,
++         status: "DRAFT",
 +       } as any);
 + 
 +       const result = await createApplicationOnBehalfAction({
 +         organizationId: mockOrgId,
 +         formConfigId: mockFormConfigId,
-+         initialData: { test: &quot;data&quot; },
++         initialData: { test: "data" },
 +       });
 + 
 +       expect(result.ok).toBe(true);
@@ -2641,17 +2641,17 @@ Lines added: 447, lines removed: 1
 +           formConfigId: mockFormConfigId,
 +           entityId: mockEntityId,
 +           geographyId: mockGeographyId,
-+           status: &quot;DRAFT&quot;,
-+           data: { test: &quot;data&quot; },
++           status: "DRAFT",
++           data: { test: "data" },
 +           createdById: mockUserId,
 +           updatedById: mockUserId,
 +         },
 +       });
 +     });
 + 
-+     it(&quot;should require ADMIN/PROCUREMENT/MEMBER role&quot;, async () =&gt; {
++     it("should require ADMIN/PROCUREMENT/MEMBER role", async () =&gt; {
 +       vi.mocked(requireRole).mockRejectedValue(
-+         new Error(&quot;Unauthorized: insufficient role&quot;)
++         new Error("Unauthorized: insufficient role")
 +       );
 + 
 +       await expect(
@@ -2659,10 +2659,10 @@ Lines added: 447, lines removed: 1
 +           organizationId: mockOrgId,
 +           formConfigId: mockFormConfigId,
 +         })
-+       ).rejects.toThrow(&quot;Unauthorized: insufficient role&quot;);
++       ).rejects.toThrow("Unauthorized: insufficient role");
 +     });
 + 
-+     it(&quot;should reject unauthorized users&quot;, async () =&gt; {
++     it("should reject unauthorized users", async () =&gt; {
 +       vi.mocked(auth).mockResolvedValue(null);
 + 
 +       await expect(
@@ -2670,10 +2670,10 @@ Lines added: 447, lines removed: 1
 +           organizationId: mockOrgId,
 +           formConfigId: mockFormConfigId,
 +         })
-+       ).rejects.toThrow(&quot;Unauthorized&quot;);
++       ).rejects.toThrow("Unauthorized");
 +     });
 + 
-+     it(&quot;should prevent duplicate active applications&quot;, async () =&gt; {
++     it("should prevent duplicate active applications", async () =&gt; {
 +       vi.mocked(prisma.organization.findUnique).mockResolvedValue({
 +         id: mockOrgId,
 +       } as any);
@@ -2685,8 +2685,8 @@ Lines added: 447, lines removed: 1
 +       } as any);
 + 
 +       vi.mocked(prisma.application.findFirst).mockResolvedValue({
-+         id: &quot;existing-app&quot;,
-+         status: &quot;DRAFT&quot;,
++         id: "existing-app",
++         status: "DRAFT",
 +       } as any);
 + 
 +       await expect(
@@ -2695,11 +2695,11 @@ Lines added: 447, lines removed: 1
 +           formConfigId: mockFormConfigId,
 +         })
 +       ).rejects.toThrow(
-+         &quot;An active application already exists for this organization and form configuration&quot;
++         "An active application already exists for this organization and form configuration"
 +       );
 +     });
 + 
-+     it(&quot;should create audit log entry&quot;, async () =&gt; {
++     it("should create audit log entry", async () =&gt; {
 +       vi.mocked(prisma.organization.findUnique).mockResolvedValue({
 +         id: mockOrgId,
 +       } as any);
@@ -2725,22 +2725,22 @@ Lines added: 447, lines removed: 1
 +         data: {
 +           applicationId: mockApplicationId,
 +           actorId: mockUserId,
-+           actorRole: &quot;PROCUREMENT&quot;,
-+           action: &quot;APPLICATION_CREATED&quot;,
++           actorRole: "PROCUREMENT",
++           action: "APPLICATION_CREATED",
 +           details: {
-+             note: &quot;Application created by internal team&quot;,
-+             createdBy: &quot;INTERNAL&quot;,
++             note: "Application created by internal team",
++             createdBy: "INTERNAL",
 +           },
 +         },
 +       });
 +     });
 +   });
 + 
-+   describe(&quot;submitOnBehalfAction&quot;, () =&gt; {
-+     it(&quot;should submit DRAFT application successfully&quot;, async () =&gt; {
++   describe("submitOnBehalfAction", () =&gt; {
++     it("should submit DRAFT application successfully", async () =&gt; {
 +       const mockApplication = {
 +         id: mockApplicationId,
-+         status: &quot;DRAFT&quot; as ApplicationStatus,
++         status: "DRAFT" as ApplicationStatus,
 +         organizationId: mockOrgId,
 +         formConfigId: mockFormConfigId,
 +         formConfig: { id: mockFormConfigId },
@@ -2754,8 +2754,8 @@ Lines added: 447, lines removed: 1
 + 
 +       vi.mocked(prisma.application.update).mockResolvedValue({
 +         id: mockApplicationId,
-+         status: &quot;SUBMITTED&quot;,
-+         submissionType: &quot;INTERNAL&quot;,
++         status: "SUBMITTED",
++         submissionType: "INTERNAL",
 +       } as any);
 + 
 +       const result = await submitOnBehalfAction(mockApplicationId);
@@ -2764,19 +2764,19 @@ Lines added: 447, lines removed: 1
 +       expect(prisma.application.update).toHaveBeenCalledWith({
 +         where: { id: mockApplicationId },
 +         data: {
-+           status: &quot;SUBMITTED&quot;,
++           status: "SUBMITTED",
 +           submittedAt: expect.any(Date),
 +           submittedById: mockUserId,
-+           submissionType: &quot;INTERNAL&quot;,
++           submissionType: "INTERNAL",
 +           updatedById: mockUserId,
 +         },
 +       });
 +     });
 + 
-+     it(&quot;should submit PENDING_SUPPLIER application successfully&quot;, async () =&gt; {
++     it("should submit PENDING_SUPPLIER application successfully", async () =&gt; {
 +       const mockApplication = {
 +         id: mockApplicationId,
-+         status: &quot;PENDING_SUPPLIER&quot; as ApplicationStatus,
++         status: "PENDING_SUPPLIER" as ApplicationStatus,
 +         organizationId: mockOrgId,
 +         formConfigId: mockFormConfigId,
 +         formConfig: { id: mockFormConfigId },
@@ -2788,7 +2788,7 @@ Lines added: 447, lines removed: 1
 + 
 +       vi.mocked(prisma.application.update).mockResolvedValue({
 +         id: mockApplicationId,
-+         status: &quot;SUBMITTED&quot;,
++         status: "SUBMITTED",
 +       } as any);
 + 
 +       const result = await submitOnBehalfAction(mockApplicationId);
@@ -2797,32 +2797,32 @@ Lines added: 447, lines removed: 1
 +       expect(prisma.application.update).toHaveBeenCalled();
 +     });
 + 
-+     it(&quot;should require ADMIN/PROCUREMENT/MEMBER role&quot;, async () =&gt; {
++     it("should require ADMIN/PROCUREMENT/MEMBER role", async () =&gt; {
 +       vi.mocked(requireRole).mockRejectedValue(
-+         new Error(&quot;Unauthorized: insufficient role&quot;)
++         new Error("Unauthorized: insufficient role")
 +       );
 + 
 +       await expect(submitOnBehalfAction(mockApplicationId)).rejects.toThrow(
-+         &quot;Unauthorized: insufficient role&quot;
++         "Unauthorized: insufficient role"
 +       );
 +     });
 + 
-+     it(&quot;should prevent submission from non-editable statuses&quot;, async () =&gt; {
++     it("should prevent submission from non-editable statuses", async () =&gt; {
 +       vi.mocked(prisma.application.findUnique).mockResolvedValue({
 +         id: mockApplicationId,
-+         status: &quot;SUBMITTED&quot; as ApplicationStatus,
++         status: "SUBMITTED" as ApplicationStatus,
 +         formConfig: { id: mockFormConfigId },
 +       } as any);
 + 
 +       await expect(submitOnBehalfAction(mockApplicationId)).rejects.toThrow(
-+         &quot;Cannot submit application in SUBMITTED status&quot;
++         "Cannot submit application in SUBMITTED status"
 +       );
 +     });
 + 
-+     it(&quot;should set submissionType to INTERNAL&quot;, async () =&gt; {
++     it("should set submissionType to INTERNAL", async () =&gt; {
 +       vi.mocked(prisma.application.findUnique).mockResolvedValue({
 +         id: mockApplicationId,
-+         status: &quot;DRAFT&quot; as ApplicationStatus,
++         status: "DRAFT" as ApplicationStatus,
 +         organizationId: mockOrgId,
 +         formConfigId: mockFormConfigId,
 +         formConfig: { id: mockFormConfigId },
@@ -2835,16 +2835,16 @@ Lines added: 447, lines removed: 1
 +       expect(prisma.application.update).toHaveBeenCalledWith(
 +         expect.objectContaining({
 +           data: expect.objectContaining({
-+             submissionType: &quot;INTERNAL&quot;,
++             submissionType: "INTERNAL",
 +           }),
 +         })
 +       );
 +     });
 + 
-+     it(&quot;should create audit log with submission type&quot;, async () =&gt; {
++     it("should create audit log with submission type", async () =&gt; {
 +       vi.mocked(prisma.application.findUnique).mockResolvedValue({
 +         id: mockApplicationId,
-+         status: &quot;DRAFT&quot; as ApplicationStatus,
++         status: "DRAFT" as ApplicationStatus,
 +         organizationId: mockOrgId,
 +         formConfigId: mockFormConfigId,
 +         formConfig: { id: mockFormConfigId },
@@ -2856,39 +2856,39 @@ Lines added: 447, lines removed: 1
 + 
 +       expect(prisma.auditLog.create).toHaveBeenCalledWith({
 +         data: expect.objectContaining({
-+           action: &quot;APPLICATION_SUBMITTED&quot;,
++           action: "APPLICATION_SUBMITTED",
 +           details: expect.objectContaining({
-+             submissionType: &quot;INTERNAL&quot;,
++             submissionType: "INTERNAL",
 +           }),
 +         }),
 +       });
 +     });
 + 
-+     it(&quot;should prevent duplicate submissions&quot;, async () =&gt; {
++     it("should prevent duplicate submissions", async () =&gt; {
 +       vi.mocked(prisma.application.findUnique).mockResolvedValue({
 +         id: mockApplicationId,
-+         status: &quot;DRAFT&quot; as ApplicationStatus,
++         status: "DRAFT" as ApplicationStatus,
 +         organizationId: mockOrgId,
 +         formConfigId: mockFormConfigId,
 +         formConfig: { id: mockFormConfigId },
 +       } as any);
 + 
 +       vi.mocked(prisma.application.findFirst).mockResolvedValue({
-+         id: &quot;other-app&quot;,
-+         status: &quot;DRAFT&quot;,
++         id: "other-app",
++         status: "DRAFT",
 +       } as any);
 + 
 +       await expect(submitOnBehalfAction(mockApplicationId)).rejects.toThrow(
-+         &quot;An active application already exists&quot;
++         "An active application already exists"
 +       );
 +     });
 +   });
 + 
-+   describe(&quot;editDraftOnBehalfAction&quot;, () =&gt; {
-+     it(&quot;should edit DRAFT application successfully&quot;, async () =&gt; {
++   describe("editDraftOnBehalfAction", () =&gt; {
++     it("should edit DRAFT application successfully", async () =&gt; {
 +       const mockApplication = {
 +         id: mockApplicationId,
-+         status: &quot;DRAFT&quot; as ApplicationStatus,
++         status: "DRAFT" as ApplicationStatus,
 +       };
 + 
 +       vi.mocked(prisma.application.findUnique).mockResolvedValue(
@@ -2901,36 +2901,36 @@ Lines added: 447, lines removed: 1
 + 
 +       const result = await editDraftOnBehalfAction({
 +         applicationId: mockApplicationId,
-+         formData: { test: &quot;updated&quot; },
++         formData: { test: "updated" },
 +       });
 + 
 +       expect(result.ok).toBe(true);
 +       expect(prisma.application.update).toHaveBeenCalledWith({
 +         where: { id: mockApplicationId },
 +         data: {
-+           data: { test: &quot;updated&quot; },
++           data: { test: "updated" },
 +           updatedById: mockUserId,
 +         },
 +       });
 +     });
 + 
-+     it(&quot;should edit PENDING_SUPPLIER application successfully&quot;, async () =&gt; {
++     it("should edit PENDING_SUPPLIER application successfully", async () =&gt; {
 +       vi.mocked(prisma.application.findUnique).mockResolvedValue({
 +         id: mockApplicationId,
-+         status: &quot;PENDING_SUPPLIER&quot; as ApplicationStatus,
++         status: "PENDING_SUPPLIER" as ApplicationStatus,
 +       } as any);
 + 
 +       await editDraftOnBehalfAction({
 +         applicationId: mockApplicationId,
-+         formData: { test: &quot;data&quot; },
++         formData: { test: "data" },
 +       });
 + 
 +       expect(prisma.application.update).toHaveBeenCalled();
 +     });
 + 
-+     it(&quot;should require ADMIN/PROCUREMENT/MEMBER role&quot;, async () =&gt; {
++     it("should require ADMIN/PROCUREMENT/MEMBER role", async () =&gt; {
 +       vi.mocked(requireRole).mockRejectedValue(
-+         new Error(&quot;Unauthorized: insufficient role&quot;)
++         new Error("Unauthorized: insufficient role")
 +       );
 + 
 +       await expect(
@@ -2938,13 +2938,13 @@ Lines added: 447, lines removed: 1
 +           applicationId: mockApplicationId,
 +           formData: {},
 +         })
-+       ).rejects.toThrow(&quot;Unauthorized: insufficient role&quot;);
++       ).rejects.toThrow("Unauthorized: insufficient role");
 +     });
 + 
-+     it(&quot;should prevent editing from non-editable statuses&quot;, async () =&gt; {
++     it("should prevent editing from non-editable statuses", async () =&gt; {
 +       vi.mocked(prisma.application.findUnique).mockResolvedValue({
 +         id: mockApplicationId,
-+         status: &quot;SUBMITTED&quot; as ApplicationStatus,
++         status: "SUBMITTED" as ApplicationStatus,
 +       } as any);
 + 
 +       await expect(
@@ -2952,29 +2952,29 @@ Lines added: 447, lines removed: 1
 +           applicationId: mockApplicationId,
 +           formData: {},
 +         })
-+       ).rejects.toThrow(&quot;Cannot edit application in SUBMITTED status&quot;);
++       ).rejects.toThrow("Cannot edit application in SUBMITTED status");
 +     });
 + 
-+     it(&quot;should create audit log entry&quot;, async () =&gt; {
++     it("should create audit log entry", async () =&gt; {
 +       vi.mocked(prisma.application.findUnique).mockResolvedValue({
 +         id: mockApplicationId,
-+         status: &quot;DRAFT&quot; as ApplicationStatus,
++         status: "DRAFT" as ApplicationStatus,
 +       } as any);
 + 
 +       await editDraftOnBehalfAction({
 +         applicationId: mockApplicationId,
-+         formData: { test: &quot;data&quot; },
++         formData: { test: "data" },
 +       });
 + 
 +       expect(prisma.auditLog.create).toHaveBeenCalledWith({
 +         data: {
 +           applicationId: mockApplicationId,
 +           actorId: mockUserId,
-+           actorRole: &quot;PROCUREMENT&quot;,
-+           action: &quot;APPLICATION_UPDATED&quot;,
++           actorRole: "PROCUREMENT",
++           action: "APPLICATION_UPDATED",
 +           details: {
-+             note: &quot;Application edited by internal team&quot;,
-+             editedBy: &quot;INTERNAL&quot;,
++             note: "Application edited by internal team",
++             editedBy: "INTERNAL",
 +           },
 +         },
 +       });
@@ -2991,7 +2991,7 @@ Lines added: 447, lines removed: 1
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm test tests/internal-submission.test.ts 2>&1</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm test tests/internal-submission.test.ts 2>&1</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && npm test tests/internal-submission.test.ts 2>&1
@@ -3048,7 +3048,7 @@ All new tests pass. Running the full test suite to check for regressions:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm test 2>&1 | tail -20</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm test 2>&1 | tail -20</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && npm test 2>&1 | tail -20
@@ -3100,7 +3100,7 @@ All 115 tests pass (98 existing + 17 new). Updating the documentation:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 3, lines removed: 1
@@ -3127,7 +3127,7 @@ Lines added: 3, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: 2
@@ -3152,7 +3152,7 @@ Lines added: 2, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 4, lines removed: 4
@@ -3181,7 +3181,7 @@ Lines added: 4, lines removed: 4
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 4, lines removed: 4
@@ -3210,7 +3210,7 @@ Lines added: 4, lines removed: 4
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 3, lines removed: 3
@@ -3237,7 +3237,7 @@ Lines added: 3, lines removed: 3
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: 2
@@ -3262,7 +3262,7 @@ Lines added: 2, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 3, lines removed: 3
@@ -3289,7 +3289,7 @@ Lines added: 3, lines removed: 3
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: 2
@@ -3314,7 +3314,7 @@ Lines added: 2, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 3, lines removed: 3
@@ -3341,7 +3341,7 @@ Lines added: 3, lines removed: 3
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 4, lines removed: 4
@@ -3370,7 +3370,7 @@ Lines added: 4, lines removed: 4
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 3, lines removed: 3
@@ -3397,7 +3397,7 @@ Lines added: 3, lines removed: 3
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: 2
@@ -3406,9 +3406,9 @@ Lines added: 2, lines removed: 2
 @@ -757,6 +757,6 @@
   
   **Checkpoint:**
-- - [ ] Supplier submissions set &#96;submissionType: &#39;SUPPLIER&#39;&#96;
+- - [ ] Supplier submissions set &#96;submissionType: 'SUPPLIER'&#96;
 - - [ ] No breaking changes to existing functionality
-+ - [x] Supplier submissions set &#96;submissionType: &#39;SUPPLIER&#39;&#96;
++ - [x] Supplier submissions set &#96;submissionType: 'SUPPLIER'&#96;
 + - [x] No breaking changes to existing functionality
   
   ---
@@ -3422,7 +3422,7 @@ Lines added: 2, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 3, lines removed: 3
@@ -3449,7 +3449,7 @@ Lines added: 3, lines removed: 3
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: 2
@@ -3474,7 +3474,7 @@ Lines added: 2, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: 2
@@ -3517,7 +3517,7 @@ Adding an implementation summary and updating the PRD:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/phase-3-implementation-plan.md</summary>
 
 **Chunk 1**
 Lines added: 74, lines removed: 6
@@ -3555,7 +3555,7 @@ Lines added: 74, lines removed: 6
 + 
 + 3. **UI Components**:
 +    - ✅ Created &#96;SubmissionSourceBadge&#96; component (&#96;components/procurement/submission-source-badge.tsx&#96;)
-+    - ✅ Updated &#96;SubmissionsTable&#96; to include &quot;Submitted By&quot; column
++    - ✅ Updated &#96;SubmissionsTable&#96; to include "Submitted By" column
 +    - ✅ Updated detail view (&#96;app/dashboard/procurement/[id]/page.tsx&#96;) to show submission source in overview
 + 
 + 4. **Testing**:
@@ -3576,7 +3576,7 @@ Lines added: 74, lines removed: 6
 + ### Key Decisions
 + 
 + 1. **Submission Type Tracking**: Used existing &#96;submissionType&#96; field (from Phase 1) to track submission source
-+ 2. **Backward Compatibility**: Handles null &#96;submissionType&#96; gracefully (shows &quot;—&quot; in UI)
++ 2. **Backward Compatibility**: Handles null &#96;submissionType&#96; gracefully (shows "—" in UI)
 + 3. **Role-Based Access**: All actions require ADMIN, PROCUREMENT, or MEMBER roles
 + 4. **Audit Logging**: All actions create audit log entries with submission type information
 + 
@@ -3595,7 +3595,7 @@ Lines added: 74, lines removed: 6
 + 
 + ### Future Enhancements
 + 
-+ See &quot;Future Enhancements&quot; section above for Phase 4 considerations.
++ See "Future Enhancements" section above for Phase 4 considerations.
   
   ---
   
@@ -3630,7 +3630,7 @@ Lines added: 74, lines removed: 6
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 11, lines removed: 11
@@ -3646,7 +3646,7 @@ Lines added: 11, lines removed: 11
 - - [ ] Update permission checks for internal team
 - - [ ] Enhance audit logging with &#96;submissionType&#96; field
 - - [ ] Update procurement dashboard UI to show submission source
-- - [ ] Add &quot;Submitted By&quot; column/badge to applications table
+- - [ ] Add "Submitted By" column/badge to applications table
 - - [ ] Add visual distinction (badge/icon) for supplier vs internal submissions
 - - [ ] Update detail view to show submission metadata prominently
 - - [ ] Tests
@@ -3657,7 +3657,7 @@ Lines added: 11, lines removed: 11
 + - [x] Update permission checks for internal team
 + - [x] Enhance audit logging with &#96;submissionType&#96; field
 + - [x] Update procurement dashboard UI to show submission source
-+ - [x] Add &quot;Submitted By&quot; column/badge to applications table
++ - [x] Add "Submitted By" column/badge to applications table
 + - [x] Add visual distinction (badge/icon) for supplier vs internal submissions
 + - [x] Update detail view to show submission metadata prominently
 + - [x] Tests (17 new tests, all passing)
@@ -3673,7 +3673,7 @@ Lines added: 11, lines removed: 11
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: 1
@@ -3696,7 +3696,7 @@ Lines added: 1, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: undefined
@@ -3733,7 +3733,7 @@ Lines added: 1, lines removed: undefined
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm test 2>&1 | tail -5</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm test 2>&1 | tail -5</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && npm test 2>&1 | tail -5
@@ -3762,7 +3762,7 @@ Updating the PRD header to reflect Phase 3 completion:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 3, lines removed: 2
@@ -3791,7 +3791,7 @@ Lines added: 3, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/submission-workflow-prd.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/submission-workflow-prd.md</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: 2

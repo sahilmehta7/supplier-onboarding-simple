@@ -215,7 +215,7 @@ Enhancing `buildFormSchema()` with custom validation rules:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: lib/form-schema.ts</summary>
+<details><summary>Tool use: **search_replace** • Edit file: lib/form-schema.ts</summary>
 
 **Chunk 1**
 Lines added: 12, lines removed: undefined
@@ -252,17 +252,17 @@ Lines added: 73, lines removed: undefined
 +  * Parse validation rules from FormField.validation JSON
 +  */
 + function parseValidationRules(field: FormField): ValidationRules | null {
-+   if (!field.validation || typeof field.validation !== &quot;object&quot;) {
++   if (!field.validation || typeof field.validation !== "object") {
 +     return null;
 +   }
 +   const validation = field.validation as Record&lt;string, unknown&gt;;
 +   return {
-+     min: typeof validation.min === &quot;number&quot; ? validation.min : undefined,
-+     max: typeof validation.max === &quot;number&quot; ? validation.max : undefined,
-+     pattern: typeof validation.pattern === &quot;string&quot; ? validation.pattern : undefined,
-+     minLength: typeof validation.minLength === &quot;number&quot; ? validation.minLength : undefined,
-+     maxLength: typeof validation.maxLength === &quot;number&quot; ? validation.maxLength : undefined,
-+     customMessage: typeof validation.customMessage === &quot;string&quot; ? validation.customMessage : undefined,
++     min: typeof validation.min === "number" ? validation.min : undefined,
++     max: typeof validation.max === "number" ? validation.max : undefined,
++     pattern: typeof validation.pattern === "string" ? validation.pattern : undefined,
++     minLength: typeof validation.minLength === "number" ? validation.minLength : undefined,
++     maxLength: typeof validation.maxLength === "number" ? validation.maxLength : undefined,
++     customMessage: typeof validation.customMessage === "string" ? validation.customMessage : undefined,
 +   };
 + }
 + 
@@ -277,7 +277,7 @@ Lines added: 73, lines removed: undefined
 +   let validatedSchema = schema;
 + 
 +   // Apply type-specific validations
-+   if (field.type === &quot;number&quot;) {
++   if (field.type === "number") {
 +     if (rules.min !== undefined) {
 +       validatedSchema = (validatedSchema as z.ZodNumber).min(
 +         rules.min,
@@ -290,7 +290,7 @@ Lines added: 73, lines removed: undefined
 +         rules.customMessage || &#96;${field.label} must be at most ${rules.max}&#96;
 +       );
 +     }
-+   } else if (field.type === &quot;text&quot; || field.type === &quot;email&quot; || field.type === &quot;tel&quot; || field.type === &quot;textarea&quot;) {
++   } else if (field.type === "text" || field.type === "email" || field.type === "tel" || field.type === "textarea") {
 +     // String validations
 +     if (rules.minLength !== undefined) {
 +       validatedSchema = (validatedSchema as z.ZodString).min(
@@ -331,7 +331,7 @@ Lines added: 10, lines removed: undefined
 @@ -38,8 +123,18 @@
         });
         break;
-+     case &quot;email&quot;:
++     case "email":
 +       schema = z.string().email(&#96;${field.label} must be a valid email address&#96;);
 +       break;
       default:
@@ -367,7 +367,7 @@ Creating form validation utilities and the field-level validation hook:
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: lib/forms/form-validator.ts</summary>
+<details><summary>Tool use: **write** • Edit file: lib/forms/form-validator.ts</summary>
 
 **Chunk 1**
 Lines added: 210, lines removed: 1
@@ -379,9 +379,9 @@ Lines added: 210, lines removed: 1
 +  * Form validation utilities for step-level and form-level validation
 +  */
 + 
-+ import { z } from &quot;zod&quot;;
-+ import type { FormConfigWithFields } from &quot;@/lib/form-schema&quot;;
-+ import { buildFormSchema } from &quot;@/lib/form-schema&quot;;
++ import { z } from "zod";
++ import type { FormConfigWithFields } from "@/lib/form-schema";
++ import { buildFormSchema } from "@/lib/form-schema";
 + 
 + /**
 +  * Validation result for a single field
@@ -425,12 +425,12 @@ Lines added: 210, lines removed: 1
 +       const firstIssue = error.issues[0];
 +       return {
 +         isValid: false,
-+         error: firstIssue?.message || &quot;Invalid value&quot;,
++         error: firstIssue?.message || "Invalid value",
 +       };
 +     }
 +     return {
 +       isValid: false,
-+       error: &quot;Validation failed&quot;,
++       error: "Validation failed",
 +     };
 +   }
 + }
@@ -460,7 +460,7 @@ Lines added: 210, lines removed: 1
 +     stepData[key] = formData[key];
 +   });
 + 
-+   // Create a schema for just this step&#39;s fields
++   // Create a schema for just this step's fields
 +   const stepSchemaFields: Record&lt;string, z.ZodTypeAny&gt; = {};
 +   stepFields.forEach((key) =&gt; {
 +     const fieldSchema = fullSchema.shape[key];
@@ -595,7 +595,7 @@ Lines added: 210, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: hooks/use-field-validation.ts</summary>
+<details><summary>Tool use: **write** • Edit file: hooks/use-field-validation.ts</summary>
 
 **Chunk 1**
 Lines added: 140, lines removed: 1
@@ -607,10 +607,10 @@ Lines added: 140, lines removed: 1
 +  * Hook for field-level validation with debouncing and timing control
 +  */
 + 
-+ import { useState, useEffect, useCallback, useRef } from &quot;react&quot;;
-+ import { z } from &quot;zod&quot;;
-+ import type { FieldValidationResult } from &quot;@/lib/forms/form-validator&quot;;
-+ import { validateField } from &quot;@/lib/forms/form-validator&quot;;
++ import { useState, useEffect, useCallback, useRef } from "react";
++ import { z } from "zod";
++ import type { FieldValidationResult } from "@/lib/forms/form-validator";
++ import { validateField } from "@/lib/forms/form-validator";
 + 
 + export interface UseFieldValidationOptions {
 +   /**
@@ -678,13 +678,13 @@ Lines added: 140, lines removed: 1
 + 
 +   const performValidation = useCallback(
 +     (value: unknown) =&gt; {
-+       // Skip validation if value hasn&#39;t changed
++       // Skip validation if value hasn't changed
 +       if (value === lastValidatedValueRef.current) {
 +         return;
 +       }
 + 
 +       setIsValidating(true);
-+       const result = validateField(&quot;&quot;, value, schema);
++       const result = validateField("", value, schema);
 +       setValidation(result);
 +       lastValidatedValueRef.current = value;
 +       setIsValidating(false);
@@ -763,7 +763,7 @@ Creating error display components:
 
 <tool-use data-tool-type="generic" data-tool-name="list_dir">
 <details>
-            <summary>Tool use: **list_directory** • Listed directory undefined • **0** results</summary>
+            <summary>Tool use: **list_dir** • Listed directory undefined • **0** results</summary>
         
 No results found
 </details>
@@ -773,7 +773,7 @@ No results found
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/forms/form-error-summary.tsx</summary>
+<details><summary>Tool use: **write** • Edit file: components/forms/form-error-summary.tsx</summary>
 
 **Chunk 1**
 Lines added: 79, lines removed: 1
@@ -785,10 +785,10 @@ Lines added: 79, lines removed: 1
 +  * Error summary component for displaying form validation errors
 +  */
 + 
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { AlertCircle } from &quot;lucide-react&quot;;
-+ import { cn } from &quot;@/lib/utils&quot;;
++ import { AlertCircle } from "lucide-react";
++ import { cn } from "@/lib/utils";
 + 
 + export interface FormErrorSummaryProps {
 +   /**
@@ -814,7 +814,7 @@ Lines added: 79, lines removed: 1
 +  */
 + export function FormErrorSummary({
 +   errors,
-+   title = &quot;Please fix the following errors:&quot;,
++   title = "Please fix the following errors:",
 +   className,
 +   onErrorClick,
 + }: FormErrorSummaryProps) {
@@ -827,24 +827,24 @@ Lines added: 79, lines removed: 1
 +   return (
 +     &lt;div
 +       className={cn(
-+         &quot;rounded-lg border border-red-200 bg-red-50 p-4&quot;,
++         "rounded-lg border border-red-200 bg-red-50 p-4",
 +         className
 +       )}
-+       role=&quot;alert&quot;
-+       aria-live=&quot;polite&quot;
++       role="alert"
++       aria-live="polite"
 +     &gt;
-+       &lt;div className=&quot;flex items-start gap-3&quot;&gt;
-+         &lt;AlertCircle className=&quot;h-5 w-5 shrink-0 text-red-600&quot; aria-hidden=&quot;true&quot; /&gt;
-+         &lt;div className=&quot;flex-1 space-y-2&quot;&gt;
-+           &lt;h3 className=&quot;text-sm font-medium text-red-800&quot;&gt;{title}&lt;/h3&gt;
-+           &lt;ul className=&quot;list-inside list-disc space-y-1 text-sm text-red-700&quot;&gt;
++       &lt;div className="flex items-start gap-3"&gt;
++         &lt;AlertCircle className="h-5 w-5 shrink-0 text-red-600" aria-hidden="true" /&gt;
++         &lt;div className="flex-1 space-y-2"&gt;
++           &lt;h3 className="text-sm font-medium text-red-800"&gt;{title}&lt;/h3&gt;
++           &lt;ul className="list-inside list-disc space-y-1 text-sm text-red-700"&gt;
 +             {errorEntries.map(([fieldKey, message]) =&gt; (
 +               &lt;li key={fieldKey}&gt;
 +                 {onErrorClick ? (
 +                   &lt;button
-+                     type=&quot;button&quot;
++                     type="button"
 +                     onClick={() =&gt; onErrorClick(fieldKey)}
-+                     className=&quot;text-left underline hover:text-red-900 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 rounded&quot;
++                     className="text-left underline hover:text-red-900 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 rounded"
 +                   &gt;
 +                     {message}
 +                   &lt;/button&gt;
@@ -870,7 +870,7 @@ Lines added: 79, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/forms/field-error.tsx</summary>
+<details><summary>Tool use: **write** • Edit file: components/forms/field-error.tsx</summary>
 
 **Chunk 1**
 Lines added: 49, lines removed: 1
@@ -882,10 +882,10 @@ Lines added: 49, lines removed: 1
 +  * Field error display component
 +  */
 + 
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import { AlertCircle } from &quot;lucide-react&quot;;
-+ import { cn } from &quot;@/lib/utils&quot;;
++ import { AlertCircle } from "lucide-react";
++ import { cn } from "@/lib/utils";
 + 
 + export interface FieldErrorProps {
 +   /**
@@ -917,11 +917,11 @@ Lines added: 49, lines removed: 1
 + 
 +   return (
 +     &lt;div
-+       className={cn(&quot;flex items-start gap-1.5 text-xs text-red-600&quot;, className)}
-+       role=&quot;alert&quot;
-+       aria-live=&quot;polite&quot;
++       className={cn("flex items-start gap-1.5 text-xs text-red-600", className)}
++       role="alert"
++       aria-live="polite"
 +     &gt;
-+       &lt;AlertCircle className=&quot;h-3.5 w-3.5 shrink-0 mt-0.5&quot; aria-hidden=&quot;true&quot; /&gt;
++       &lt;AlertCircle className="h-3.5 w-3.5 shrink-0 mt-0.5" aria-hidden="true" /&gt;
 +       &lt;span&gt;{error}&lt;/span&gt;
 +     &lt;/div&gt;
 +   );
@@ -1028,24 +1028,24 @@ Updating the wizard to use the new validation system with proper timing:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/forms/dynamic-form-wizard.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: components/forms/dynamic-form-wizard.tsx</summary>
 
 **Chunk 1**
 Lines added: 4, lines removed: 1
 
 ```diff
 @@ -1,9 +1,12 @@
-  &quot;use client&quot;;
+  "use client";
   
-- import { useState, useCallback } from &quot;react&quot;;
-+ import { useState, useCallback, useRef, useEffect } from &quot;react&quot;;
-  import type { FormConfigWithFields } from &quot;@/lib/forms/types&quot;;
-+ import { validateStep, getStepFieldKeys } from &quot;@/lib/forms/form-validator&quot;;
-+ import { buildFormSchema } from &quot;@/lib/form-schema&quot;;
-  import { StepIndicator } from &quot;./step-indicator&quot;;
-  import { FormStep } from &quot;./form-step&quot;;
-  import { FormNavigation } from &quot;./form-navigation&quot;;
-+ import { FormErrorSummary } from &quot;./form-error-summary&quot;;
+- import { useState, useCallback } from "react";
++ import { useState, useCallback, useRef, useEffect } from "react";
+  import type { FormConfigWithFields } from "@/lib/forms/types";
++ import { validateStep, getStepFieldKeys } from "@/lib/forms/form-validator";
++ import { buildFormSchema } from "@/lib/form-schema";
+  import { StepIndicator } from "./step-indicator";
+  import { FormStep } from "./form-step";
+  import { FormNavigation } from "./form-navigation";
++ import { FormErrorSummary } from "./form-error-summary";
   
   interface DynamicFormWizardProps {
 ```
@@ -1058,7 +1058,7 @@ Lines added: 4, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/forms/dynamic-form-wizard.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: components/forms/dynamic-form-wizard.tsx</summary>
 
 **Chunk 1**
 Lines added: 55, lines removed: undefined
@@ -1105,7 +1105,7 @@ Lines added: 55, lines removed: undefined
 +             return next;
 +           });
 +         } catch (error) {
-+           if (error instanceof Error &amp;&amp; &quot;issues&quot; in error) {
++           if (error instanceof Error &amp;&amp; "issues" in error) {
 +             const zodError = error as { issues: Array&lt;{ message: string }&gt; };
 +             const firstIssue = zodError.issues[0];
 +             if (firstIssue) {
@@ -1189,7 +1189,7 @@ Lines added: 63, lines removed: 35
 -         if (
 -           value === undefined ||
 -           value === null ||
--           value === &quot;&quot; ||
+-           value === "" ||
 -           (Array.isArray(value) &amp;&amp; value.length === 0)
 -         ) {
 -           stepErrors[field.key] = &#96;${field.label} is required&#96;;
@@ -1234,7 +1234,7 @@ Lines added: 63, lines removed: 35
 +         );
 +         if (fieldElement) {
 +           fieldElement.focus();
-+           fieldElement.scrollIntoView({ behavior: &quot;smooth&quot;, block: &quot;center&quot; });
++           fieldElement.scrollIntoView({ behavior: "smooth", block: "center" });
 +         }
 +       }
 +     }
@@ -1253,7 +1253,7 @@ Lines added: 63, lines removed: 35
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/forms/dynamic-form-wizard.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: components/forms/dynamic-form-wizard.tsx</summary>
 
 **Chunk 1**
 Lines added: 31, lines removed: 1
@@ -1262,8 +1262,8 @@ Lines added: 31, lines removed: 1
 @@ -235,5 +235,35 @@
         /&gt;
   
--       &lt;div className=&quot;min-h-[400px]&quot;&gt;
-+       &lt;div className=&quot;min-h-[400px] space-y-6&quot;&gt;
+-       &lt;div className="min-h-[400px]"&gt;
++       &lt;div className="min-h-[400px] space-y-6"&gt;
 +         {/* Error summary for current step */}
 +         {(() =&gt; {
 +           const stepFieldKeys = getStepFieldKeys(currentStep, formConfig);
@@ -1283,8 +1283,8 @@ Lines added: 31, lines removed: 1
 +                   if (fieldElement) {
 +                     fieldElement.focus();
 +                     fieldElement.scrollIntoView({
-+                       behavior: &quot;smooth&quot;,
-+                       block: &quot;center&quot;,
++                       behavior: "smooth",
++                       block: "center",
 +                     });
 +                   }
 +                 }}
@@ -1306,7 +1306,7 @@ Lines added: 31, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/forms/dynamic-form-wizard.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: components/forms/dynamic-form-wizard.tsx</summary>
 
 **Chunk 1**
 Lines added: 7, lines removed: undefined
@@ -1318,7 +1318,7 @@ Lines added: 7, lines removed: undefined
 +       // Validate current step before allowing navigation
 +       if (stepIndex !== currentStep) {
 +         if (!validateCurrentStep()) {
-+           return; // Don&#39;t allow navigation if current step is invalid
++           return; // Don't allow navigation if current step is invalid
 +         }
 +       }
 + 
@@ -1347,7 +1347,7 @@ Lines added: 1, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/forms/dynamic-form-wizard.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: components/forms/dynamic-form-wizard.tsx</summary>
 
 **Chunk 1**
 Lines added: 9, lines removed: undefined
@@ -1387,7 +1387,7 @@ Fixing validation error handling and field ID references:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/forms/dynamic-form-wizard.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: components/forms/dynamic-form-wizard.tsx</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: 1
@@ -1396,8 +1396,8 @@ Lines added: 1, lines removed: 1
 @@ -76,5 +76,5 @@
             });
           } catch (error) {
--           if (error instanceof Error &amp;&amp; &quot;issues&quot; in error) {
-+           if (error &amp;&amp; typeof error === &quot;object&quot; &amp;&amp; &quot;issues&quot; in error) {
+-           if (error instanceof Error &amp;&amp; "issues" in error) {
++           if (error &amp;&amp; typeof error === "object" &amp;&amp; "issues" in error) {
               const zodError = error as { issues: Array&lt;{ message: string }&gt; };
               const firstIssue = zodError.issues[0];
 ```
@@ -1444,7 +1444,7 @@ Fixing field focus logic to use the correct field IDs:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/forms/dynamic-form-wizard.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: components/forms/dynamic-form-wizard.tsx</summary>
 
 **Chunk 1**
 Lines added: 9, lines removed: 5
@@ -1461,12 +1461,12 @@ Lines added: 9, lines removed: 5
           );
 -         if (fieldElement) {
 -           fieldElement.focus();
--           fieldElement.scrollIntoView({ behavior: &quot;smooth&quot;, block: &quot;center&quot; });
+-           fieldElement.scrollIntoView({ behavior: "smooth", block: "center" });
 +         if (errorField) {
 +           const fieldElement = document.getElementById(errorField.id);
 +           if (fieldElement) {
 +             fieldElement.focus();
-+             fieldElement.scrollIntoView({ behavior: &quot;smooth&quot;, block: &quot;center&quot; });
++             fieldElement.scrollIntoView({ behavior: "smooth", block: "center" });
 +           }
           }
         }
@@ -1480,7 +1480,7 @@ Lines added: 9, lines removed: 5
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/forms/dynamic-form-wizard.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: components/forms/dynamic-form-wizard.tsx</summary>
 
 **Chunk 1**
 Lines added: 13, lines removed: 7
@@ -1493,8 +1493,8 @@ Lines added: 13, lines removed: 7
 -                   if (fieldElement) {
 -                     fieldElement.focus();
 -                     fieldElement.scrollIntoView({
--                       behavior: &quot;smooth&quot;,
--                       block: &quot;center&quot;,
+-                       behavior: "smooth",
+-                       block: "center",
 -                     });
 +                   // Find the field by key to get its ID
 +                   const errorField = currentSection.fields.find(
@@ -1505,8 +1505,8 @@ Lines added: 13, lines removed: 7
 +                     if (fieldElement) {
 +                       fieldElement.focus();
 +                       fieldElement.scrollIntoView({
-+                         behavior: &quot;smooth&quot;,
-+                         block: &quot;center&quot;,
++                         behavior: "smooth",
++                         block: "center",
 +                       });
 +                     }
                     }
@@ -1553,7 +1553,7 @@ Fixing the dependency issue and updating field-wrapper to use the FieldError com
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/forms/dynamic-form-wizard.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: components/forms/dynamic-form-wizard.tsx</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: 1
@@ -1576,18 +1576,18 @@ Lines added: 1, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/forms/field-wrapper.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: components/forms/field-wrapper.tsx</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: undefined
 
 ```diff
 @@ -3,4 +3,5 @@
-  import * as React from &quot;react&quot;;
-  import { Label } from &quot;@/components/ui/label&quot;;
-+ import { FieldError } from &quot;./field-error&quot;;
-  import { cn } from &quot;@/lib/utils&quot;;
-  import type { FormField } from &quot;@prisma/client&quot;;
+  import * as React from "react";
+  import { Label } from "@/components/ui/label";
++ import { FieldError } from "./field-error";
+  import { cn } from "@/lib/utils";
+  import type { FormField } from "@prisma/client";
 ```
 
 **Chunk 2**
@@ -1630,9 +1630,9 @@ Lines added: 1, lines removed: 10
 -       {hasError &amp;&amp; (
 -         &lt;p
 -           id={errorId}
--           className=&quot;text-xs text-destructive&quot;
--           role=&quot;alert&quot;
--           aria-live=&quot;polite&quot;
+-           className="text-xs text-destructive"
+-           role="alert"
+-           aria-live="polite"
 -         &gt;
 -           {error}
 -         &lt;/p&gt;
@@ -1682,7 +1682,7 @@ Adding tests for the validation system:
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: tests/form-validation.test.ts</summary>
+<details><summary>Tool use: **write** • Edit file: tests/form-validation.test.ts</summary>
 
 **Chunk 1**
 Lines added: 280, lines removed: 1
@@ -1690,23 +1690,23 @@ Lines added: 280, lines removed: 1
 ```diff
 @@ -1,1 +1,280 @@
 - 
-+ import { describe, it, expect } from &quot;vitest&quot;;
-+ import { buildFormSchema } from &quot;@/lib/form-schema&quot;;
++ import { describe, it, expect } from "vitest";
++ import { buildFormSchema } from "@/lib/form-schema";
 + import {
 +   validateField,
 +   validateStep,
 +   validateForm,
 +   isStepComplete,
-+ } from &quot;@/lib/forms/form-validator&quot;;
-+ import type { FormConfigWithFields } from &quot;@/lib/form-schema&quot;;
++ } from "@/lib/forms/form-validator";
++ import type { FormConfigWithFields } from "@/lib/form-schema";
 + 
 + const configWithValidation: FormConfigWithFields = {
-+   id: &quot;config-1&quot;,
-+   entityId: &quot;entity-1&quot;,
-+   geographyId: &quot;geo-1&quot;,
++   id: "config-1",
++   entityId: "entity-1",
++   geographyId: "geo-1",
 +   version: 1,
 +   isActive: true,
-+   title: &quot;Test Form&quot;,
++   title: "Test Form",
 +   description: null,
 +   createdAt: new Date(),
 +   updatedAt: new Date(),
@@ -1716,20 +1716,20 @@ Lines added: 280, lines removed: 1
 +   documentRules: [],
 +   sections: [
 +     {
-+       id: &quot;section-1&quot;,
-+       formConfigId: &quot;config-1&quot;,
-+       key: &quot;section1&quot;,
-+       label: &quot;Section 1&quot;,
++       id: "section-1",
++       formConfigId: "config-1",
++       key: "section1",
++       label: "Section 1",
 +       order: 1,
 +       createdAt: new Date(),
 +       updatedAt: new Date(),
 +       fields: [
 +         {
-+           id: &quot;field-1&quot;,
-+           sectionId: &quot;section-1&quot;,
-+           key: &quot;name&quot;,
-+           label: &quot;Name&quot;,
-+           type: &quot;text&quot;,
++           id: "field-1",
++           sectionId: "section-1",
++           key: "name",
++           label: "Name",
++           type: "text",
 +           placeholder: null,
 +           helpText: null,
 +           required: true,
@@ -1745,11 +1745,11 @@ Lines added: 280, lines removed: 1
 +           updatedAt: new Date(),
 +         },
 +         {
-+           id: &quot;field-2&quot;,
-+           sectionId: &quot;section-1&quot;,
-+           key: &quot;age&quot;,
-+           label: &quot;Age&quot;,
-+           type: &quot;number&quot;,
++           id: "field-2",
++           sectionId: "section-1",
++           key: "age",
++           label: "Age",
++           type: "number",
 +           placeholder: null,
 +           helpText: null,
 +           required: true,
@@ -1765,17 +1765,17 @@ Lines added: 280, lines removed: 1
 +           updatedAt: new Date(),
 +         },
 +         {
-+           id: &quot;field-3&quot;,
-+           sectionId: &quot;section-1&quot;,
-+           key: &quot;email&quot;,
-+           label: &quot;Email&quot;,
-+           type: &quot;email&quot;,
++           id: "field-3",
++           sectionId: "section-1",
++           key: "email",
++           label: "Email",
++           type: "email",
 +           placeholder: null,
 +           helpText: null,
 +           required: false,
 +           options: null,
 +           validation: {
-+             pattern: &quot;^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$&quot;,
++             pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
 +           },
 +           visibility: null,
 +           order: 3,
@@ -1786,20 +1786,20 @@ Lines added: 280, lines removed: 1
 +       ],
 +     },
 +     {
-+       id: &quot;section-2&quot;,
-+       formConfigId: &quot;config-1&quot;,
-+       key: &quot;section2&quot;,
-+       label: &quot;Section 2&quot;,
++       id: "section-2",
++       formConfigId: "config-1",
++       key: "section2",
++       label: "Section 2",
 +       order: 2,
 +       createdAt: new Date(),
 +       updatedAt: new Date(),
 +       fields: [
 +         {
-+           id: &quot;field-4&quot;,
-+           sectionId: &quot;section-2&quot;,
-+           key: &quot;optional_field&quot;,
-+           label: &quot;Optional Field&quot;,
-+           type: &quot;text&quot;,
++           id: "field-4",
++           sectionId: "section-2",
++           key: "optional_field",
++           label: "Optional Field",
++           type: "text",
 +           placeholder: null,
 +           helpText: null,
 +           required: false,
@@ -1816,76 +1816,76 @@ Lines added: 280, lines removed: 1
 +   ],
 + } as const;
 + 
-+ describe(&quot;form validation&quot;, () =&gt; {
-+   describe(&quot;buildFormSchema with validation rules&quot;, () =&gt; {
-+     it(&quot;applies minLength and maxLength validation&quot;, () =&gt; {
++ describe("form validation", () =&gt; {
++   describe("buildFormSchema with validation rules", () =&gt; {
++     it("applies minLength and maxLength validation", () =&gt; {
 +       const schema = buildFormSchema(configWithValidation);
 +       
 +       // Valid
 +       expect(() =&gt;
-+         schema.parse({ name: &quot;John Doe&quot;, age: 25 })
++         schema.parse({ name: "John Doe", age: 25 })
 +       ).not.toThrow();
 +       
 +       // Too short
-+       expect(() =&gt; schema.parse({ name: &quot;Jo&quot;, age: 25 })).toThrow();
++       expect(() =&gt; schema.parse({ name: "Jo", age: 25 })).toThrow();
 +       
 +       // Too long
 +       expect(() =&gt;
 +         schema.parse({
-+           name: &quot;A&quot;.repeat(51),
++           name: "A".repeat(51),
 +           age: 25,
 +         })
 +       ).toThrow();
 +     });
 + 
-+     it(&quot;applies min and max validation for numbers&quot;, () =&gt; {
++     it("applies min and max validation for numbers", () =&gt; {
 +       const schema = buildFormSchema(configWithValidation);
 +       
 +       // Valid
-+       expect(() =&gt; schema.parse({ name: &quot;John&quot;, age: 25 })).not.toThrow();
++       expect(() =&gt; schema.parse({ name: "John", age: 25 })).not.toThrow();
 +       
 +       // Too small
-+       expect(() =&gt; schema.parse({ name: &quot;John&quot;, age: 17 })).toThrow();
++       expect(() =&gt; schema.parse({ name: "John", age: 17 })).toThrow();
 +       
 +       // Too large
-+       expect(() =&gt; schema.parse({ name: &quot;John&quot;, age: 101 })).toThrow();
++       expect(() =&gt; schema.parse({ name: "John", age: 101 })).toThrow();
 +     });
 + 
-+     it(&quot;applies pattern validation&quot;, () =&gt; {
++     it("applies pattern validation", () =&gt; {
 +       const schema = buildFormSchema(configWithValidation);
 +       
 +       // Valid email
 +       expect(() =&gt;
-+         schema.parse({ name: &quot;John&quot;, age: 25, email: &quot;test@example.com&quot; })
++         schema.parse({ name: "John", age: 25, email: "test@example.com" })
 +       ).not.toThrow();
 +       
 +       // Invalid email
 +       expect(() =&gt;
-+         schema.parse({ name: &quot;John&quot;, age: 25, email: &quot;invalid-email&quot; })
++         schema.parse({ name: "John", age: 25, email: "invalid-email" })
 +       ).toThrow();
 +     });
 +   });
 + 
-+   describe(&quot;validateField&quot;, () =&gt; {
-+     it(&quot;validates a single field&quot;, () =&gt; {
++   describe("validateField", () =&gt; {
++     it("validates a single field", () =&gt; {
 +       const schema = buildFormSchema(configWithValidation);
 +       const nameSchema = schema.shape.name;
 + 
-+       const result1 = validateField(&quot;name&quot;, &quot;John Doe&quot;, nameSchema);
++       const result1 = validateField("name", "John Doe", nameSchema);
 +       expect(result1.isValid).toBe(true);
 + 
-+       const result2 = validateField(&quot;name&quot;, &quot;Jo&quot;, nameSchema);
++       const result2 = validateField("name", "Jo", nameSchema);
 +       expect(result2.isValid).toBe(false);
 +       expect(result2.error).toBeDefined();
 +     });
 +   });
 + 
-+   describe(&quot;validateStep&quot;, () =&gt; {
-+     it(&quot;validates all fields in a step&quot;, () =&gt; {
++   describe("validateStep", () =&gt; {
++     it("validates all fields in a step", () =&gt; {
 +       const validData = {
-+         name: &quot;John Doe&quot;,
++         name: "John Doe",
 +         age: 25,
-+         email: &quot;test@example.com&quot;,
++         email: "test@example.com",
 +       };
 + 
 +       const result = validateStep(0, validData, configWithValidation);
@@ -1893,39 +1893,39 @@ Lines added: 280, lines removed: 1
 +       expect(result.errors).toEqual({});
 +     });
 + 
-+     it(&quot;returns errors for invalid step data&quot;, () =&gt; {
++     it("returns errors for invalid step data", () =&gt; {
 +       const invalidData = {
-+         name: &quot;Jo&quot;, // Too short
++         name: "Jo", // Too short
 +         age: 17, // Too small
-+         email: &quot;invalid&quot;,
++         email: "invalid",
 +       };
 + 
 +       const result = validateStep(0, invalidData, configWithValidation);
 +       expect(result.isValid).toBe(false);
-+       expect(result.errors).toHaveProperty(&quot;name&quot;);
-+       expect(result.errors).toHaveProperty(&quot;age&quot;);
++       expect(result.errors).toHaveProperty("name");
++       expect(result.errors).toHaveProperty("age");
 +       expect(result.firstErrorField).toBeDefined();
 +     });
 + 
-+     it(&quot;validates required fields&quot;, () =&gt; {
++     it("validates required fields", () =&gt; {
 +       const missingData = {
 +         // Missing required fields
 +       };
 + 
 +       const result = validateStep(0, missingData, configWithValidation);
 +       expect(result.isValid).toBe(false);
-+       expect(result.errors).toHaveProperty(&quot;name&quot;);
-+       expect(result.errors).toHaveProperty(&quot;age&quot;);
++       expect(result.errors).toHaveProperty("name");
++       expect(result.errors).toHaveProperty("age");
 +     });
 +   });
 + 
-+   describe(&quot;validateForm&quot;, () =&gt; {
-+     it(&quot;validates entire form&quot;, () =&gt; {
++   describe("validateForm", () =&gt; {
++     it("validates entire form", () =&gt; {
 +       const validData = {
-+         name: &quot;John Doe&quot;,
++         name: "John Doe",
 +         age: 25,
-+         email: &quot;test@example.com&quot;,
-+         optional_field: &quot;value&quot;,
++         email: "test@example.com",
++         optional_field: "value",
 +       };
 + 
 +       const result = validateForm(validData, configWithValidation);
@@ -1933,35 +1933,35 @@ Lines added: 280, lines removed: 1
 +       expect(result.errors).toEqual({});
 +     });
 + 
-+     it(&quot;returns errors for invalid form data&quot;, () =&gt; {
++     it("returns errors for invalid form data", () =&gt; {
 +       const invalidData = {
-+         name: &quot;Jo&quot;,
++         name: "Jo",
 +         age: 17,
-+         email: &quot;invalid&quot;,
++         email: "invalid",
 +       };
 + 
 +       const result = validateForm(invalidData, configWithValidation);
 +       expect(result.isValid).toBe(false);
-+       expect(result.errors).toHaveProperty(&quot;name&quot;);
-+       expect(result.errors).toHaveProperty(&quot;age&quot;);
-+       expect(result.stepErrors).toHaveProperty(&quot;0&quot;);
++       expect(result.errors).toHaveProperty("name");
++       expect(result.errors).toHaveProperty("age");
++       expect(result.stepErrors).toHaveProperty("0");
 +     });
 +   });
 + 
-+   describe(&quot;isStepComplete&quot;, () =&gt; {
-+     it(&quot;returns true for complete step&quot;, () =&gt; {
++   describe("isStepComplete", () =&gt; {
++     it("returns true for complete step", () =&gt; {
 +       const validData = {
-+         name: &quot;John Doe&quot;,
++         name: "John Doe",
 +         age: 25,
-+         email: &quot;test@example.com&quot;,
++         email: "test@example.com",
 +       };
 + 
 +       expect(isStepComplete(0, validData, configWithValidation)).toBe(true);
 +     });
 + 
-+     it(&quot;returns false for incomplete step&quot;, () =&gt; {
++     it("returns false for incomplete step", () =&gt; {
 +       const invalidData = {
-+         name: &quot;Jo&quot;,
++         name: "Jo",
 +         age: 17,
 +       };
 + 
@@ -2008,7 +2008,7 @@ Fixing the FieldError component to use the correct prop:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/forms/field-error.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: components/forms/field-error.tsx</summary>
 
 **Chunk 1**
 Lines added: 4, lines removed: undefined
@@ -2045,8 +2045,8 @@ Lines added: 1, lines removed: undefined
     return (
       &lt;div
 +       id={id}
-        className={cn(&quot;flex items-start gap-1.5 text-xs text-red-600&quot;, className)}
-        role=&quot;alert&quot;
+        className={cn("flex items-start gap-1.5 text-xs text-red-600", className)}
+        role="alert"
 ```
 
 </details>
@@ -2057,7 +2057,7 @@ Lines added: 1, lines removed: undefined
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: components/forms/field-wrapper.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: components/forms/field-wrapper.tsx</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: 1
@@ -2079,7 +2079,7 @@ Lines added: 1, lines removed: 1
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm test -- tests/form-validation.test.ts</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npm test -- tests/form-validation.test.ts</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && npm test -- tests/form-validation.test.ts
@@ -2132,7 +2132,7 @@ All validation tests pass. Running existing form-schema tests to ensure nothing 
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: npm test -- tests/form-schema.test.ts</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: npm test -- tests/form-schema.test.ts</summary>
 
 ```bash
 npm test -- tests/form-schema.test.ts
@@ -2229,63 +2229,63 @@ Running a TypeScript type check:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: npx tsc --noEmit --project tsconfig.json 2>&1 | head -50</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: npx tsc --noEmit --project tsconfig.json 2>&1 | head -50</summary>
 
 ```bash
 npx tsc --noEmit --project tsconfig.json 2>&1 | head -50
 ```
 
 ```
-.next/dev/types/validator.ts(252,31): error TS2344: Type &#39;typeof import(&quot;/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/documents/[id]/route&quot;)&#39; does not satisfy the constraint &#39;RouteHandlerConfig&lt;&quot;/api/configuration/documents/[id]&quot;&gt;&#39;.                                                                  
-  Types of property &#39;PATCH&#39; are incompatible.
-    Type &#39;(request: Request, { params }: { params: { id: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ documentType: { id: string; createdAt: Date; updatedAt: Date; description: string | null; key: string; label: string; category: string; }; }&gt;&gt;&#39; is not assignable to type &#39;(request: NextRequest, context: { params: Promise&lt;{ id: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;&#39;.                                                           
-      Types of parameters &#39;__1&#39; and &#39;context&#39; are incompatible.
-        Type &#39;{ params: Promise&lt;{ id: string; }&gt;; }&#39; is not assignable to type &#39;{ params: { id: string; }; }&#39;.                                                  
-          Types of property &#39;params&#39; are incompatible.
-            Property &#39;id&#39; is missing in type &#39;Promise&lt;{ id: string; }&gt;&#39; but required in type &#39;{ id: string; }&#39;.                                                 
-.next/dev/types/validator.ts(270,31): error TS2344: Type &#39;typeof import(&quot;/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/entities/[id]/route&quot;)&#39; does not satisfy the constraint &#39;RouteHandlerConfig&lt;&quot;/api/configuration/entities/[id]&quot;&gt;&#39;.                                                                    
-  Types of property &#39;PATCH&#39; are incompatible.
-    Type &#39;(request: Request, { params }: { params: { id: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ entity: { name: string; id: string; createdAt: Date; updatedAt: Date; code: string; description: string | null; }; }&gt;&gt;&#39; is not assignable to type &#39;(request: NextRequest, context: { params: Promise&lt;{ id: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;&#39;.   
-      Types of parameters &#39;__1&#39; and &#39;context&#39; are incompatible.
-        Type &#39;{ params: Promise&lt;{ id: string; }&gt;; }&#39; is not assignable to type &#39;{ params: { id: string; }; }&#39;.                                                  
-          Types of property &#39;params&#39; are incompatible.
-            Property &#39;id&#39; is missing in type &#39;Promise&lt;{ id: string; }&gt;&#39; but required in type &#39;{ id: string; }&#39;.                                                 
-.next/dev/types/validator.ts(288,31): error TS2344: Type &#39;typeof import(&quot;/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/forms/[id]/route&quot;)&#39; does not satisfy the constraint &#39;RouteHandlerConfig&lt;&quot;/api/configuration/forms/[id]&quot;&gt;&#39;.                                                                          
-  Types of property &#39;PATCH&#39; are incompatible.
-    Type &#39;(request: Request, { params }: { params: { id: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ formConfig: { entity: { name: string; id: string; createdAt: Date; updatedAt: Date; code: string; description: string | null; }; geography: { ...; }; } &amp; { ...; }; }&gt;&gt;&#39; is not assignable to type &#39;(request: NextRequest, context: { params: Promise&lt;{ id: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;&#39;.                                  
-      Types of parameters &#39;__1&#39; and &#39;context&#39; are incompatible.
-        Type &#39;{ params: Promise&lt;{ id: string; }&gt;; }&#39; is not assignable to type &#39;{ params: { id: string; }; }&#39;.                                                  
-          Types of property &#39;params&#39; are incompatible.
-            Property &#39;id&#39; is missing in type &#39;Promise&lt;{ id: string; }&gt;&#39; but required in type &#39;{ id: string; }&#39;.                                                 
-.next/dev/types/validator.ts(297,31): error TS2344: Type &#39;typeof import(&quot;/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/forms/[id]/sections/[sectionId]/route&quot;)&#39; does not satisfy the constraint &#39;RouteHandlerConfig&lt;&quot;/api/configuration/forms/[id]/sections/[sectionId]&quot;&gt;&#39;.                                
-  Types of property &#39;PATCH&#39; are incompatible.
-    Type &#39;(request: Request, { params }: { params: { id: string; sectionId: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ section: { id: string; createdAt: Date; updatedAt: Date; formConfigId: string; key: string; label: string; order: number; }; }&gt;&gt;&#39; is not assignable to type &#39;(request: NextRequest, context: { params: Promise&lt;{ id: string; sectionId: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;&#39;.                                   
-      Types of parameters &#39;__1&#39; and &#39;context&#39; are incompatible.
-        Type &#39;{ params: Promise&lt;{ id: string; sectionId: string; }&gt;; }&#39; is not assignable to type &#39;{ params: { id: string; sectionId: string; }; }&#39;.            
-          Types of property &#39;params&#39; are incompatible.
-            Type &#39;Promise&lt;{ id: string; sectionId: string; }&gt;&#39; is missing the following properties from type &#39;{ id: string; sectionId: string; }&#39;: id, sectionId
-.next/dev/types/validator.ts(306,31): error TS2344: Type &#39;typeof import(&quot;/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/forms/[id]/sections/route&quot;)&#39; does not satisfy the constraint &#39;RouteHandlerConfig&lt;&quot;/api/configuration/forms/[id]/sections&quot;&gt;&#39;.                                                        
-  Types of property &#39;GET&#39; are incompatible.
-    Type &#39;(_request: Request, { params }: { params: { id: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ sections: { id: string; createdAt: Date; updatedAt: Date; formConfigId: string; key: string; label: string; order: number; }[]; }&gt;&gt;&#39; is not assignable to type &#39;(request: NextRequest, context: { params: Promise&lt;{ id: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;&#39;.                                                                     
-      Types of parameters &#39;__1&#39; and &#39;context&#39; are incompatible.
-        Type &#39;{ params: Promise&lt;{ id: string; }&gt;; }&#39; is not assignable to type &#39;{ params: { id: string; }; }&#39;.                                                  
-          Types of property &#39;params&#39; are incompatible.
-            Property &#39;id&#39; is missing in type &#39;Promise&lt;{ id: string; }&gt;&#39; but required in type &#39;{ id: string; }&#39;.                                                 
-.next/dev/types/validator.ts(324,31): error TS2344: Type &#39;typeof import(&quot;/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/geographies/[id]/route&quot;)&#39; does not satisfy the constraint &#39;RouteHandlerConfig&lt;&quot;/api/configuration/geographies/[id]&quot;&gt;&#39;.                                                              
-  Types of property &#39;PATCH&#39; are incompatible.
-    Type &#39;(request: Request, { params }: { params: { id: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ geography: { name: string; id: string; createdAt: Date; updatedAt: Date; code: string; }; }&gt;&gt;&#39; is not assignable to type &#39;(request: NextRequest, context: { params: Promise&lt;{ id: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;&#39;.                            
-      Types of parameters &#39;__1&#39; and &#39;context&#39; are incompatible.
-        Type &#39;{ params: Promise&lt;{ id: string; }&gt;; }&#39; is not assignable to type &#39;{ params: { id: string; }; }&#39;.                                                  
-          Types of property &#39;params&#39; are incompatible.
-            Property &#39;id&#39; is missing in type &#39;Promise&lt;{ id: string; }&gt;&#39; but required in type &#39;{ id: string; }&#39;.                                                 
-.next/dev/types/validator.ts(342,31): error TS2344: Type &#39;typeof import(&quot;/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/requirements/[id]/route&quot;)&#39; does not satisfy the constraint &#39;RouteHandlerConfig&lt;&quot;/api/configuration/requirements/[id]&quot;&gt;&#39;.                                                            
-  Types of property &#39;DELETE&#39; are incompatible.
-    Type &#39;(_request: Request, { params }: { params: { id: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ ok: boolean; }&gt;&gt;&#39; is not assignable to type &#39;(request: NextRequest, context: { params: Promise&lt;{ id: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;&#39;.                        
-      Types of parameters &#39;__1&#39; and &#39;context&#39; are incompatible.
-        Type &#39;{ params: Promise&lt;{ id: string; }&gt;; }&#39; is not assignable to type &#39;{ params: { id: string; }; }&#39;.                                                  
-          Types of property &#39;params&#39; are incompatible.
-            Property &#39;id&#39; is missing in type &#39;Promise&lt;{ id: string; }&gt;&#39; but required in type &#39;{ id: string; }&#39;.                                                 
-.next/types/app/dashboard/procurement/page.ts(34,29): error TS2344: Type &#39;ProcurementDashboardProps&#39; does not satisfy the constraint &#39;PageProps&#39;.               
+.next/dev/types/validator.ts(252,31): error TS2344: Type 'typeof import("/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/documents/[id]/route")' does not satisfy the constraint 'RouteHandlerConfig&lt;"/api/configuration/documents/[id]"&gt;'.                                                                  
+  Types of property 'PATCH' are incompatible.
+    Type '(request: Request, { params }: { params: { id: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ documentType: { id: string; createdAt: Date; updatedAt: Date; description: string | null; key: string; label: string; category: string; }; }&gt;&gt;' is not assignable to type '(request: NextRequest, context: { params: Promise&lt;{ id: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;'.                                                           
+      Types of parameters '__1' and 'context' are incompatible.
+        Type '{ params: Promise&lt;{ id: string; }&gt;; }' is not assignable to type '{ params: { id: string; }; }'.                                                  
+          Types of property 'params' are incompatible.
+            Property 'id' is missing in type 'Promise&lt;{ id: string; }&gt;' but required in type '{ id: string; }'.                                                 
+.next/dev/types/validator.ts(270,31): error TS2344: Type 'typeof import("/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/entities/[id]/route")' does not satisfy the constraint 'RouteHandlerConfig&lt;"/api/configuration/entities/[id]"&gt;'.                                                                    
+  Types of property 'PATCH' are incompatible.
+    Type '(request: Request, { params }: { params: { id: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ entity: { name: string; id: string; createdAt: Date; updatedAt: Date; code: string; description: string | null; }; }&gt;&gt;' is not assignable to type '(request: NextRequest, context: { params: Promise&lt;{ id: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;'.   
+      Types of parameters '__1' and 'context' are incompatible.
+        Type '{ params: Promise&lt;{ id: string; }&gt;; }' is not assignable to type '{ params: { id: string; }; }'.                                                  
+          Types of property 'params' are incompatible.
+            Property 'id' is missing in type 'Promise&lt;{ id: string; }&gt;' but required in type '{ id: string; }'.                                                 
+.next/dev/types/validator.ts(288,31): error TS2344: Type 'typeof import("/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/forms/[id]/route")' does not satisfy the constraint 'RouteHandlerConfig&lt;"/api/configuration/forms/[id]"&gt;'.                                                                          
+  Types of property 'PATCH' are incompatible.
+    Type '(request: Request, { params }: { params: { id: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ formConfig: { entity: { name: string; id: string; createdAt: Date; updatedAt: Date; code: string; description: string | null; }; geography: { ...; }; } &amp; { ...; }; }&gt;&gt;' is not assignable to type '(request: NextRequest, context: { params: Promise&lt;{ id: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;'.                                  
+      Types of parameters '__1' and 'context' are incompatible.
+        Type '{ params: Promise&lt;{ id: string; }&gt;; }' is not assignable to type '{ params: { id: string; }; }'.                                                  
+          Types of property 'params' are incompatible.
+            Property 'id' is missing in type 'Promise&lt;{ id: string; }&gt;' but required in type '{ id: string; }'.                                                 
+.next/dev/types/validator.ts(297,31): error TS2344: Type 'typeof import("/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/forms/[id]/sections/[sectionId]/route")' does not satisfy the constraint 'RouteHandlerConfig&lt;"/api/configuration/forms/[id]/sections/[sectionId]"&gt;'.                                
+  Types of property 'PATCH' are incompatible.
+    Type '(request: Request, { params }: { params: { id: string; sectionId: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ section: { id: string; createdAt: Date; updatedAt: Date; formConfigId: string; key: string; label: string; order: number; }; }&gt;&gt;' is not assignable to type '(request: NextRequest, context: { params: Promise&lt;{ id: string; sectionId: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;'.                                   
+      Types of parameters '__1' and 'context' are incompatible.
+        Type '{ params: Promise&lt;{ id: string; sectionId: string; }&gt;; }' is not assignable to type '{ params: { id: string; sectionId: string; }; }'.            
+          Types of property 'params' are incompatible.
+            Type 'Promise&lt;{ id: string; sectionId: string; }&gt;' is missing the following properties from type '{ id: string; sectionId: string; }': id, sectionId
+.next/dev/types/validator.ts(306,31): error TS2344: Type 'typeof import("/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/forms/[id]/sections/route")' does not satisfy the constraint 'RouteHandlerConfig&lt;"/api/configuration/forms/[id]/sections"&gt;'.                                                        
+  Types of property 'GET' are incompatible.
+    Type '(_request: Request, { params }: { params: { id: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ sections: { id: string; createdAt: Date; updatedAt: Date; formConfigId: string; key: string; label: string; order: number; }[]; }&gt;&gt;' is not assignable to type '(request: NextRequest, context: { params: Promise&lt;{ id: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;'.                                                                     
+      Types of parameters '__1' and 'context' are incompatible.
+        Type '{ params: Promise&lt;{ id: string; }&gt;; }' is not assignable to type '{ params: { id: string; }; }'.                                                  
+          Types of property 'params' are incompatible.
+            Property 'id' is missing in type 'Promise&lt;{ id: string; }&gt;' but required in type '{ id: string; }'.                                                 
+.next/dev/types/validator.ts(324,31): error TS2344: Type 'typeof import("/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/geographies/[id]/route")' does not satisfy the constraint 'RouteHandlerConfig&lt;"/api/configuration/geographies/[id]"&gt;'.                                                              
+  Types of property 'PATCH' are incompatible.
+    Type '(request: Request, { params }: { params: { id: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ geography: { name: string; id: string; createdAt: Date; updatedAt: Date; code: string; }; }&gt;&gt;' is not assignable to type '(request: NextRequest, context: { params: Promise&lt;{ id: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;'.                            
+      Types of parameters '__1' and 'context' are incompatible.
+        Type '{ params: Promise&lt;{ id: string; }&gt;; }' is not assignable to type '{ params: { id: string; }; }'.                                                  
+          Types of property 'params' are incompatible.
+            Property 'id' is missing in type 'Promise&lt;{ id: string; }&gt;' but required in type '{ id: string; }'.                                                 
+.next/dev/types/validator.ts(342,31): error TS2344: Type 'typeof import("/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/requirements/[id]/route")' does not satisfy the constraint 'RouteHandlerConfig&lt;"/api/configuration/requirements/[id]"&gt;'.                                                            
+  Types of property 'DELETE' are incompatible.
+    Type '(_request: Request, { params }: { params: { id: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ ok: boolean; }&gt;&gt;' is not assignable to type '(request: NextRequest, context: { params: Promise&lt;{ id: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;'.                        
+      Types of parameters '__1' and 'context' are incompatible.
+        Type '{ params: Promise&lt;{ id: string; }&gt;; }' is not assignable to type '{ params: { id: string; }; }'.                                                  
+          Types of property 'params' are incompatible.
+            Property 'id' is missing in type 'Promise&lt;{ id: string; }&gt;' but required in type '{ id: string; }'.                                                 
+.next/types/app/dashboard/procurement/page.ts(34,29): error TS2344: Type 'ProcurementDashboardProps' does not satisfy the constraint 'PageProps'.               
 ```
 </details>
 </tool-use>
@@ -2389,7 +2389,7 @@ Updating `docs/agent-stream-4-validation.md` to reflect completion:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/agent-stream-4-validation.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/agent-stream-4-validation.md</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: 2
@@ -2422,7 +2422,7 @@ Lines added: 2, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/agent-stream-4-validation.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/agent-stream-4-validation.md</summary>
 
 **Chunk 1**
 Lines added: 7, lines removed: 9
@@ -2460,7 +2460,7 @@ Lines added: 7, lines removed: 9
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/agent-stream-4-validation.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/agent-stream-4-validation.md</summary>
 
 **Chunk 1**
 Lines added: 20, lines removed: 6
@@ -2516,7 +2516,7 @@ Lines added: 20, lines removed: 6
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/agent-stream-4-validation.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/agent-stream-4-validation.md</summary>
 
 **Chunk 1**
 Lines added: 6, lines removed: 6
@@ -2549,7 +2549,7 @@ Lines added: 6, lines removed: 6
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: docs/agent-stream-4-validation.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: docs/agent-stream-4-validation.md</summary>
 
 **Chunk 1**
 Lines added: 59, lines removed: 5

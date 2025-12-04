@@ -55,18 +55,15 @@ export default async function FormByEntityGeographyPage({
     redirect("/dashboard");
   }
 
-  // Verify form config exists
-  const formConfig = await getFormConfigByEntityAndGeography(
-    entityCode,
-    geographyCode
-  );
+  // Parallelize form config and active application fetching
+  const [formConfig, activeApplication] = await Promise.all([
+    getFormConfigByEntityAndGeography(entityCode, geographyCode),
+    getSupplierApplication(session.user.id),
+  ]);
 
   if (!formConfig) {
     notFound();
   }
-
-  // Check for existing active application
-  const activeApplication = await getSupplierApplication(session.user.id);
 
   // If user has an active application for a DIFFERENT entity/geography, block access
   if (
@@ -93,7 +90,7 @@ export default async function FormByEntityGeographyPage({
     geographyCode
   );
 
-  // Load draft data if exists
+  // Load draft data if exists (can only load after we have application.id)
   const initialDraft = await loadDraftRecord({
     applicationId: application.id,
     organizationId: membership.organizationId,

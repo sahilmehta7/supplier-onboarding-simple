@@ -19,7 +19,7 @@ _**Agent (model default, mode Agent)**_
 
 <tool-use data-tool-type="generic" data-tool-name="list_dir">
 <details>
-            <summary>Tool use: **list_directory** • Listed directory undefined • **0** results</summary>
+            <summary>Tool use: **list_dir** • Listed directory undefined • **0** results</summary>
         
 No results found
 </details>
@@ -322,20 +322,20 @@ Parameters:
 
 ```json
 {
-  &quot;plan&quot;: &quot;# Plan\n\n1. **Verify current implementation** – Review &#96;docs/phase-4-admin-console.md&#96;, recent commits, and relevant admin UI/server files (&#96;app/dashboard/admin/*&#96;, &#96;components/admin/*&#96;, &#96;app/api/configuration/*&#96;) to confirm which objectives and modules are delivered vs pending.\n2. **Update Objectives &amp; Status sections** – Align bullet points with the verified state (e.g., form configs live, preview pending, section builder MVP scope). Highlight any new capabilities or gaps discovered.\n3. **Revise Implementation Steps &amp; Acceptance Criteria** – Reflect completed steps, call out remaining work (field editor backlog, schema propagation, preview), and ensure risks/mitigations stay accurate.\n4. **Polish documentation** – Ensure wording is consistent, actionable, and mirrors project conventions; double-check for clarity around next actions.&quot;,
-  &quot;name&quot;: &quot;update&quot;,
-  &quot;overview&quot;: &quot;Refresh Phase 4 admin console doc to match current build status and next steps&quot;
+  "plan": "# Plan\n\n1. **Verify current implementation** – Review &#96;docs/phase-4-admin-console.md&#96;, recent commits, and relevant admin UI/server files (&#96;app/dashboard/admin/*&#96;, &#96;components/admin/*&#96;, &#96;app/api/configuration/*&#96;) to confirm which objectives and modules are delivered vs pending.\n2. **Update Objectives &amp; Status sections** – Align bullet points with the verified state (e.g., form configs live, preview pending, section builder MVP scope). Highlight any new capabilities or gaps discovered.\n3. **Revise Implementation Steps &amp; Acceptance Criteria** – Reflect completed steps, call out remaining work (field editor backlog, schema propagation, preview), and ensure risks/mitigations stay accurate.\n4. **Polish documentation** – Ensure wording is consistent, actionable, and mirrors project conventions; double-check for clarity around next actions.",
+  "name": "update",
+  "overview": "Refresh Phase 4 admin console doc to match current build status and next steps"
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;status&quot;: &quot;accepted&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;Requested&quot;,
-    &quot;selectedOption&quot;: &quot;none&quot;,
-    &quot;isShowingInput&quot;: false
+  "status": "accepted",
+  "reviewData": {
+    "status": "Requested",
+    "selectedOption": "none",
+    "isShowingInput": false
   }
 }
 ```
@@ -343,7 +343,7 @@ Result:
 
 ```json
 {
-  &quot;accepted&quot;: {}
+  "accepted": {}
 }
 ```
 Status: **completed**
@@ -371,7 +371,7 @@ _**Agent (model default, mode Agent)**_
 
 <tool-use data-tool-type="generic" data-tool-name="list_dir">
 <details>
-            <summary>Tool use: **list_directory** • Listed directory undefined • **0** results</summary>
+            <summary>Tool use: **list_dir** • Listed directory undefined • **0** results</summary>
         
 No results found
 </details>

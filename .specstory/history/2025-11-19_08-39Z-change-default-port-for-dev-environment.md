@@ -58,19 +58,19 @@ Updating the dev script to use port 3005 and updating environment variables acco
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: package.json</summary>
+<details><summary>Tool use: **search_replace** • Edit file: package.json</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: 1
 
 ```diff
 @@ -4,5 +4,5 @@
-    &quot;private&quot;: true,
-    &quot;scripts&quot;: {
--     &quot;dev&quot;: &quot;next dev&quot;,
-+     &quot;dev&quot;: &quot;next dev -p 3005&quot;,
-      &quot;build&quot;: &quot;next build&quot;,
-      &quot;start&quot;: &quot;next start&quot;,
+    "private": true,
+    "scripts": {
+-     "dev": "next dev",
++     "dev": "next dev -p 3005",
+      "build": "next build",
+      "start": "next start",
 ```
 
 </details>
@@ -81,22 +81,22 @@ Lines added: 1, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: env.example</summary>
+<details><summary>Tool use: **search_replace** • Edit file: env.example</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: 2
 
 ```diff
 @@ -1,9 +1,9 @@
-  NEXTAUTH_SECRET=&quot;replace-with-strong-secret&quot;
-- NEXTAUTH_URL=&quot;http://localhost:3000&quot;
-+ NEXTAUTH_URL=&quot;http://localhost:3005&quot;
-  GOOGLE_CLIENT_ID=&quot;&quot;
-  GOOGLE_CLIENT_SECRET=&quot;&quot;
-  DATABASE_URL=&quot;postgresql://postgres:postgres@localhost:5432/supplier_onboarding?schema=public&quot;
-  DIRECT_URL=&quot;postgresql://postgres:postgres@localhost:5432/supplier_onboarding?schema=public&quot;
-- NEXT_PUBLIC_APP_URL=&quot;http://localhost:3000&quot;
-+ NEXT_PUBLIC_APP_URL=&quot;http://localhost:3005&quot;
+  NEXTAUTH_SECRET="replace-with-strong-secret"
+- NEXTAUTH_URL="http://localhost:3000"
++ NEXTAUTH_URL="http://localhost:3005"
+  GOOGLE_CLIENT_ID=""
+  GOOGLE_CLIENT_SECRET=""
+  DATABASE_URL="postgresql://postgres:postgres@localhost:5432/supplier_onboarding?schema=public"
+  DIRECT_URL="postgresql://postgres:postgres@localhost:5432/supplier_onboarding?schema=public"
+- NEXT_PUBLIC_APP_URL="http://localhost:3000"
++ NEXT_PUBLIC_APP_URL="http://localhost:3005"
   
   
 ```

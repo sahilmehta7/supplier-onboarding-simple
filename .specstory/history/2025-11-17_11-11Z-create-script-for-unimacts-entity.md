@@ -1008,7 +1008,7 @@ Reviewing the codebase structure, then drafting the plan.
 
 <tool-use data-tool-type="generic" data-tool-name="list_dir">
 <details>
-            <summary>Tool use: **list_directory** • Listed directory undefined • **0** results</summary>
+            <summary>Tool use: **list_dir** • Listed directory undefined • **0** results</summary>
         
 No results found
 </details>
@@ -1116,20 +1116,20 @@ Parameters:
 
 ```json
 {
-  &quot;plan&quot;: &quot;# Create Unimacts US Form Config Script\n\n## Overview\nCreate a standalone TypeScript script that generates a complete form configuration for entity UNX and geography US. The form includes 5 sections with all required fields mapped from the provided form images.\n\n## Implementation Steps\n\n### 1. Create scripts directory and script file\n- Create &#96;scripts/&#96; directory at project root\n- Create &#96;scripts/create-unimacts-us-form-config.ts&#96;\n- Follow the same pattern as &#96;prisma/seed.ts&#96; (uses PrismaClient, async main function)\n\n### 2. Script structure\n- Connect to database using PrismaClient\n- Look up existing Entity (code: \&quot;UNX\&quot;) and Geography (code: \&quot;US\&quot;)\n- Check for existing FormConfig for UNX/US combination\n- Handle existing config based on user&#39;s preference (TBD)\n- Create single FormConfig with version 1, title \&quot;Supplier Master Setup Form\&quot;, description\n\n### 3. Create 5 form sections in order:\n\n**Section 1: REQUESTOR (order: 1)**\n- entity (text, optional)\n- date (date, required)\n- if_updating_reason (text, optional)\n- position (text, required)\n- submitted_by (text, required)\n- signature (text, required)\n\n**Section 2: SUPPLIER INFORMATION (order: 2)**\n- supplier_name (text, required - super mandatory)\n- payment_method (select, required - super mandatory, options: Wire Transfer, ACH, Check, Other)\n- payment_terms (text, required - super mandatory)\n- payment_invoice_currency (select, required - super mandatory, options: USD, EUR, GBP, Other)\n- inco_terms (select, required - super mandatory, options: EXW, FCA, CPT, CIP, DAP, DPU, DDP, FAS, FOB, CFR, CIF)\n- named_place (text, required - super mandatory)\n- supplier_sales_contact_name (text, required - super mandatory)\n- supplier_sales_contact_email (email, required - super mandatory)\n- supplier_sales_contact_tel (text, required - super mandatory, validation: phone regex)\n- supplier_contact_fax (text, required - super mandatory)\n- supplier_notification_method (select, optional, options: Email, Fax, Portal, Other)\n- supplier_accounting_email_address_name (text, required - super mandatory)\n- inactive_date (date, optional)\n- additional_remarks (textarea, optional)\n\n**Section 3: PHYSICAL LOCATION (order: 3)**\n- physical_name_if_different (text, required)\n- physical_address_line_1 (text, required)\n- physical_address_line_2 (text, required)\n- physical_city (text, required)\n- physical_state (text, required)\n- physical_postal_code (text, required)\n- physical_county (text, required)\n- physical_country (text, required, placeholder: \&quot;US\&quot;)\n\n**Section 4: ADDITIONAL SITE (order: 4)**\n- additional_name_if_different (text, optional)\n- additional_address_line_1 (text, optional)\n- additional_address_line_2 (text, optional)\n- additional_city (text, optional)\n- additional_state (text, optional)\n- additional_postal_code (text, required)\n- additional_county (text, required)\n- additional_country (text, required, placeholder: \&quot;US\&quot;)\n\n**Section 5: BANK INFORMATION (order: 5)**\n- bank_name (text, required)\n- beneficiary_name (text, optional)\n- bank_branch (text, optional)\n- us_routing_aba_wire (text, required, validation: 9 digits, helpText: note about wire vs ACH)\n- us_routing_aba_ach (text, required, validation: 9 digits, helpText: note about wire vs ACH)\n- bank_address_line_1 (text, optional)\n- bank_account_number (text, required, isSensitive: true)\n- bank_address_line_2 (text, optional)\n- iban (text, optional, helpText reference to \&quot;See below **\&quot;)\n- bank_city (text, optional)\n- bank_state (text, optional)\n- bank_country (text, optional)\n- bic_swift (text, optional, validation: 8 or 11 alphanumeric)\n- ifsc_code (text, optional)\n- remittance_email_address (email, optional)\n\n### 4. Field configuration details\n- All fields with * in images marked as &#96;required: true&#96;\n- Map field types: text, email, date, select, textarea\n- Add validation JSON for phone numbers, routing numbers, BIC/SWIFT codes\n- Add helpText for routing numbers (note about wire vs ACH difference)\n- Mark bank_account_number as &#96;isSensitive: true&#96;\n- Use appropriate placeholders where needed\n\n### 5. Script execution\n- Add error handling with try/catch\n- Log progress messages for each section created\n- Print summary at end (entity, geography, form title, section count, field count)\n- Disconnect Prisma client in finally block\n- Exit with appropriate status codes\n\n### 6. Files to create\n- &#96;scripts/create-unimacts-us-form-config.ts&#96; - Main script file\n\n### 7. Optional enhancements (consider)\n- Add npm script in package.json: &#96;\&quot;script:create-unimacts-form\&quot;: \&quot;tsx scripts/create-unimacts-us-form-config.ts\&quot;&#96;\n- Add idempotency option (delete/recreate vs skip)\n\n## Key Implementation Notes\n- Follow existing seed.ts pattern for structure and error handling\n- Use Prisma nested creates for sections and fields (e.g., &#96;sections: { create: [...] }&#96;)\n- Ensure field keys use snake_case consistently\n- Map INCO terms from standard list\n- Include validation regex patterns for phone, routing numbers, SWIFT codes\n- All super mandatory fields (red asterisk) are required: true\n&quot;,
-  &quot;name&quot;: &quot;Create Unimacts US Form Config Script&quot;,
-  &quot;overview&quot;: &quot;Create a TypeScript script in scripts/ directory that automatically generates a complete form configuration for the Unimacts entity (UNX) and US geography with all 5 sections and fields based on the provided form images.&quot;
+  "plan": "# Create Unimacts US Form Config Script\n\n## Overview\nCreate a standalone TypeScript script that generates a complete form configuration for entity UNX and geography US. The form includes 5 sections with all required fields mapped from the provided form images.\n\n## Implementation Steps\n\n### 1. Create scripts directory and script file\n- Create &#96;scripts/&#96; directory at project root\n- Create &#96;scripts/create-unimacts-us-form-config.ts&#96;\n- Follow the same pattern as &#96;prisma/seed.ts&#96; (uses PrismaClient, async main function)\n\n### 2. Script structure\n- Connect to database using PrismaClient\n- Look up existing Entity (code: \"UNX\") and Geography (code: \"US\")\n- Check for existing FormConfig for UNX/US combination\n- Handle existing config based on user's preference (TBD)\n- Create single FormConfig with version 1, title \"Supplier Master Setup Form\", description\n\n### 3. Create 5 form sections in order:\n\n**Section 1: REQUESTOR (order: 1)**\n- entity (text, optional)\n- date (date, required)\n- if_updating_reason (text, optional)\n- position (text, required)\n- submitted_by (text, required)\n- signature (text, required)\n\n**Section 2: SUPPLIER INFORMATION (order: 2)**\n- supplier_name (text, required - super mandatory)\n- payment_method (select, required - super mandatory, options: Wire Transfer, ACH, Check, Other)\n- payment_terms (text, required - super mandatory)\n- payment_invoice_currency (select, required - super mandatory, options: USD, EUR, GBP, Other)\n- inco_terms (select, required - super mandatory, options: EXW, FCA, CPT, CIP, DAP, DPU, DDP, FAS, FOB, CFR, CIF)\n- named_place (text, required - super mandatory)\n- supplier_sales_contact_name (text, required - super mandatory)\n- supplier_sales_contact_email (email, required - super mandatory)\n- supplier_sales_contact_tel (text, required - super mandatory, validation: phone regex)\n- supplier_contact_fax (text, required - super mandatory)\n- supplier_notification_method (select, optional, options: Email, Fax, Portal, Other)\n- supplier_accounting_email_address_name (text, required - super mandatory)\n- inactive_date (date, optional)\n- additional_remarks (textarea, optional)\n\n**Section 3: PHYSICAL LOCATION (order: 3)**\n- physical_name_if_different (text, required)\n- physical_address_line_1 (text, required)\n- physical_address_line_2 (text, required)\n- physical_city (text, required)\n- physical_state (text, required)\n- physical_postal_code (text, required)\n- physical_county (text, required)\n- physical_country (text, required, placeholder: \"US\")\n\n**Section 4: ADDITIONAL SITE (order: 4)**\n- additional_name_if_different (text, optional)\n- additional_address_line_1 (text, optional)\n- additional_address_line_2 (text, optional)\n- additional_city (text, optional)\n- additional_state (text, optional)\n- additional_postal_code (text, required)\n- additional_county (text, required)\n- additional_country (text, required, placeholder: \"US\")\n\n**Section 5: BANK INFORMATION (order: 5)**\n- bank_name (text, required)\n- beneficiary_name (text, optional)\n- bank_branch (text, optional)\n- us_routing_aba_wire (text, required, validation: 9 digits, helpText: note about wire vs ACH)\n- us_routing_aba_ach (text, required, validation: 9 digits, helpText: note about wire vs ACH)\n- bank_address_line_1 (text, optional)\n- bank_account_number (text, required, isSensitive: true)\n- bank_address_line_2 (text, optional)\n- iban (text, optional, helpText reference to \"See below **\")\n- bank_city (text, optional)\n- bank_state (text, optional)\n- bank_country (text, optional)\n- bic_swift (text, optional, validation: 8 or 11 alphanumeric)\n- ifsc_code (text, optional)\n- remittance_email_address (email, optional)\n\n### 4. Field configuration details\n- All fields with * in images marked as &#96;required: true&#96;\n- Map field types: text, email, date, select, textarea\n- Add validation JSON for phone numbers, routing numbers, BIC/SWIFT codes\n- Add helpText for routing numbers (note about wire vs ACH difference)\n- Mark bank_account_number as &#96;isSensitive: true&#96;\n- Use appropriate placeholders where needed\n\n### 5. Script execution\n- Add error handling with try/catch\n- Log progress messages for each section created\n- Print summary at end (entity, geography, form title, section count, field count)\n- Disconnect Prisma client in finally block\n- Exit with appropriate status codes\n\n### 6. Files to create\n- &#96;scripts/create-unimacts-us-form-config.ts&#96; - Main script file\n\n### 7. Optional enhancements (consider)\n- Add npm script in package.json: &#96;\"script:create-unimacts-form\": \"tsx scripts/create-unimacts-us-form-config.ts\"&#96;\n- Add idempotency option (delete/recreate vs skip)\n\n## Key Implementation Notes\n- Follow existing seed.ts pattern for structure and error handling\n- Use Prisma nested creates for sections and fields (e.g., &#96;sections: { create: [...] }&#96;)\n- Ensure field keys use snake_case consistently\n- Map INCO terms from standard list\n- Include validation regex patterns for phone, routing numbers, SWIFT codes\n- All super mandatory fields (red asterisk) are required: true\n",
+  "name": "Create Unimacts US Form Config Script",
+  "overview": "Create a TypeScript script in scripts/ directory that automatically generates a complete form configuration for the Unimacts entity (UNX) and US geography with all 5 sections and fields based on the provided form images."
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;status&quot;: &quot;pending&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;Requested&quot;,
-    &quot;selectedOption&quot;: &quot;none&quot;,
-    &quot;isShowingInput&quot;: false
+  "status": "pending",
+  "reviewData": {
+    "status": "Requested",
+    "selectedOption": "none",
+    "isShowingInput": false
   }
 }
 ```
@@ -1137,7 +1137,7 @@ Result:
 
 ```json
 {
-  &quot;rejected&quot;: {}
+  "rejected": {}
 }
 ```
 Status: **completed**
@@ -1181,20 +1181,20 @@ Parameters:
 
 ```json
 {
-  &quot;plan&quot;: &quot;# Create Unimacts US Form Config Script\n\n## Overview\n\nCreate a standalone TypeScript script that generates a complete form configuration for entity UNX and geography US. The form includes 5 sections with all required fields mapped from the provided form images.\n\n## Implementation Steps\n\n### 1. Create scripts directory and script file\n\n- Create &#96;scripts/&#96; directory at project root\n- Create &#96;scripts/create-unimacts-us-form-config.ts&#96;\n- Follow the same pattern as &#96;prisma/seed.ts&#96; (uses PrismaClient, async main function)\n\n### 2. Script structure\n\n- Connect to database using PrismaClient\n- Look up existing Entity (code: \&quot;UNX\&quot;) and Geography (code: \&quot;US\&quot;)\n- Check for existing FormConfig for UNX/US combination\n- Delete existing FormConfig if found (idempotent - allows safe re-runs)\n- Create single FormConfig with version 1, title \&quot;Unimacts Supplier Onboarding\&quot;, description: \&quot;Form for setting up new suppliers, adding new supplier sites, or updating existing supplier information\&quot;\n\n### 3. Create 5 form sections in order:\n\n**Section 1: REQUESTOR (order: 1)**\n\n- entity (text, optional)\n- date (date, required)\n- if_updating_reason (text, optional)\n- position (text, required)\n- submitted_by (text, required)\n- signature (text, required)\n\n**Section 2: SUPPLIER INFORMATION (order: 2)**\n\n- supplier_name (text, required - super mandatory)\n- payment_method (select, required - super mandatory, options: Wire Transfer, ACH, Check, Other)\n- payment_terms (text, required - super mandatory)\n- payment_invoice_currency (select, required - super mandatory, options: USD, EUR, GBP, Other)\n- inco_terms (select, required - super mandatory, options: EXW, FCA, CPT, CIP, DAP, DPU, DDP, FAS, FOB, CFR, CIF)\n- named_place (text, required - super mandatory)\n- supplier_sales_contact_name (text, required - super mandatory)\n- supplier_sales_contact_email (email, required - super mandatory)\n- supplier_sales_contact_tel (text, required - super mandatory, validation: phone regex)\n- supplier_contact_fax (text, required - super mandatory)\n- supplier_notification_method (select, optional, options: Email, Fax, Portal, Other)\n- supplier_accounting_email_address_name (text, required - super mandatory)\n- inactive_date (date, optional)\n- additional_remarks (textarea, optional)\n\n**Section 3: PHYSICAL LOCATION (order: 3)**\n\n- physical_name_if_different (text, required)\n- physical_address_line_1 (text, required)\n- physical_address_line_2 (text, required)\n- physical_city (text, required)\n- physical_state (text, required)\n- physical_postal_code (text, required)\n- physical_county (text, required)\n- physical_country (text, required, placeholder: \&quot;US\&quot;)\n\n**Section 4: ADDITIONAL SITE (order: 4)**\n\n- additional_name_if_different (text, optional)\n- additional_address_line_1 (text, optional)\n- additional_address_line_2 (text, optional)\n- additional_city (text, optional)\n- additional_state (text, optional)\n- additional_postal_code (text, required)\n- additional_county (text, required)\n- additional_country (text, required, placeholder: \&quot;US\&quot;)\n\n**Section 5: BANK INFORMATION (order: 5)**\n\n- bank_name (text, required)\n- beneficiary_name (text, optional)\n- bank_branch (text, optional)\n- us_routing_aba_wire (text, required, validation: 9 digits, helpText: note about wire vs ACH)\n- us_routing_aba_ach (text, required, validation: 9 digits, helpText: note about wire vs ACH)\n- bank_address_line_1 (text, optional)\n- bank_account_number (text, required, isSensitive: true)\n- bank_address_line_2 (text, optional)\n- iban (text, optional, helpText reference to \&quot;See below **\&quot;)\n- bank_city (text, optional)\n- bank_state (text, optional)\n- bank_country (text, optional)\n- bic_swift (text, optional, validation: 8 or 11 alphanumeric)\n- ifsc_code (text, optional)\n- remittance_email_address (email, optional)\n\n### 4. Field configuration details\n\n- All fields with * in images marked as &#96;required: true&#96;\n- Map field types: text, email, date, select, textarea\n- Add validation JSON for phone numbers, routing numbers, BIC/SWIFT codes\n- Add helpText for routing numbers (note about wire vs ACH difference)\n- Mark bank_account_number as &#96;isSensitive: true&#96;\n- Use appropriate placeholders where needed\n\n### 5. Script execution\n\n- Add error handling with try/catch\n- Log progress messages for each section created\n- Print summary at end (entity, geography, form title, section count, field count)\n- Disconnect Prisma client in finally block\n- Exit with appropriate status codes\n\n### 6. Files to create\n\n- &#96;scripts/create-unimacts-us-form-config.ts&#96; - Main script file\n\n### 7. Optional enhancements (consider)\n\n- Add npm script in package.json: &#96;\&quot;script:create-unimacts-form\&quot;: \&quot;tsx scripts/create-unimacts-us-form-config.ts\&quot;&#96;\n- Add idempotency option (delete/recreate vs skip)\n\n## Key Implementation Notes\n\n- Follow existing seed.ts pattern for structure and error handling\n- Use Prisma nested creates for sections and fields (e.g., &#96;sections: { create: [...] }&#96;)\n- Ensure field keys use snake_case consistently\n- Map INCO terms from standard list\n- Include validation regex patterns for phone, routing numbers, SWIFT codes\n- All super mandatory fields (red asterisk) are required: true&quot;,
-  &quot;name&quot;: &quot;Create Unimacts US Form Config Script&quot;,
-  &quot;overview&quot;: &quot;Create a TypeScript script in scripts/ directory that automatically generates a complete form configuration for the Unimacts entity (UNX) and US geography with all 5 sections and fields based on the provided form images.&quot;
+  "plan": "# Create Unimacts US Form Config Script\n\n## Overview\n\nCreate a standalone TypeScript script that generates a complete form configuration for entity UNX and geography US. The form includes 5 sections with all required fields mapped from the provided form images.\n\n## Implementation Steps\n\n### 1. Create scripts directory and script file\n\n- Create &#96;scripts/&#96; directory at project root\n- Create &#96;scripts/create-unimacts-us-form-config.ts&#96;\n- Follow the same pattern as &#96;prisma/seed.ts&#96; (uses PrismaClient, async main function)\n\n### 2. Script structure\n\n- Connect to database using PrismaClient\n- Look up existing Entity (code: \"UNX\") and Geography (code: \"US\")\n- Check for existing FormConfig for UNX/US combination\n- Delete existing FormConfig if found (idempotent - allows safe re-runs)\n- Create single FormConfig with version 1, title \"Unimacts Supplier Onboarding\", description: \"Form for setting up new suppliers, adding new supplier sites, or updating existing supplier information\"\n\n### 3. Create 5 form sections in order:\n\n**Section 1: REQUESTOR (order: 1)**\n\n- entity (text, optional)\n- date (date, required)\n- if_updating_reason (text, optional)\n- position (text, required)\n- submitted_by (text, required)\n- signature (text, required)\n\n**Section 2: SUPPLIER INFORMATION (order: 2)**\n\n- supplier_name (text, required - super mandatory)\n- payment_method (select, required - super mandatory, options: Wire Transfer, ACH, Check, Other)\n- payment_terms (text, required - super mandatory)\n- payment_invoice_currency (select, required - super mandatory, options: USD, EUR, GBP, Other)\n- inco_terms (select, required - super mandatory, options: EXW, FCA, CPT, CIP, DAP, DPU, DDP, FAS, FOB, CFR, CIF)\n- named_place (text, required - super mandatory)\n- supplier_sales_contact_name (text, required - super mandatory)\n- supplier_sales_contact_email (email, required - super mandatory)\n- supplier_sales_contact_tel (text, required - super mandatory, validation: phone regex)\n- supplier_contact_fax (text, required - super mandatory)\n- supplier_notification_method (select, optional, options: Email, Fax, Portal, Other)\n- supplier_accounting_email_address_name (text, required - super mandatory)\n- inactive_date (date, optional)\n- additional_remarks (textarea, optional)\n\n**Section 3: PHYSICAL LOCATION (order: 3)**\n\n- physical_name_if_different (text, required)\n- physical_address_line_1 (text, required)\n- physical_address_line_2 (text, required)\n- physical_city (text, required)\n- physical_state (text, required)\n- physical_postal_code (text, required)\n- physical_county (text, required)\n- physical_country (text, required, placeholder: \"US\")\n\n**Section 4: ADDITIONAL SITE (order: 4)**\n\n- additional_name_if_different (text, optional)\n- additional_address_line_1 (text, optional)\n- additional_address_line_2 (text, optional)\n- additional_city (text, optional)\n- additional_state (text, optional)\n- additional_postal_code (text, required)\n- additional_county (text, required)\n- additional_country (text, required, placeholder: \"US\")\n\n**Section 5: BANK INFORMATION (order: 5)**\n\n- bank_name (text, required)\n- beneficiary_name (text, optional)\n- bank_branch (text, optional)\n- us_routing_aba_wire (text, required, validation: 9 digits, helpText: note about wire vs ACH)\n- us_routing_aba_ach (text, required, validation: 9 digits, helpText: note about wire vs ACH)\n- bank_address_line_1 (text, optional)\n- bank_account_number (text, required, isSensitive: true)\n- bank_address_line_2 (text, optional)\n- iban (text, optional, helpText reference to \"See below **\")\n- bank_city (text, optional)\n- bank_state (text, optional)\n- bank_country (text, optional)\n- bic_swift (text, optional, validation: 8 or 11 alphanumeric)\n- ifsc_code (text, optional)\n- remittance_email_address (email, optional)\n\n### 4. Field configuration details\n\n- All fields with * in images marked as &#96;required: true&#96;\n- Map field types: text, email, date, select, textarea\n- Add validation JSON for phone numbers, routing numbers, BIC/SWIFT codes\n- Add helpText for routing numbers (note about wire vs ACH difference)\n- Mark bank_account_number as &#96;isSensitive: true&#96;\n- Use appropriate placeholders where needed\n\n### 5. Script execution\n\n- Add error handling with try/catch\n- Log progress messages for each section created\n- Print summary at end (entity, geography, form title, section count, field count)\n- Disconnect Prisma client in finally block\n- Exit with appropriate status codes\n\n### 6. Files to create\n\n- &#96;scripts/create-unimacts-us-form-config.ts&#96; - Main script file\n\n### 7. Optional enhancements (consider)\n\n- Add npm script in package.json: &#96;\"script:create-unimacts-form\": \"tsx scripts/create-unimacts-us-form-config.ts\"&#96;\n- Add idempotency option (delete/recreate vs skip)\n\n## Key Implementation Notes\n\n- Follow existing seed.ts pattern for structure and error handling\n- Use Prisma nested creates for sections and fields (e.g., &#96;sections: { create: [...] }&#96;)\n- Ensure field keys use snake_case consistently\n- Map INCO terms from standard list\n- Include validation regex patterns for phone, routing numbers, SWIFT codes\n- All super mandatory fields (red asterisk) are required: true",
+  "name": "Create Unimacts US Form Config Script",
+  "overview": "Create a TypeScript script in scripts/ directory that automatically generates a complete form configuration for the Unimacts entity (UNX) and US geography with all 5 sections and fields based on the provided form images."
 }
 ```
 Additional data:
 
 ```json
 {
-  &quot;status&quot;: &quot;accepted&quot;,
-  &quot;reviewData&quot;: {
-    &quot;status&quot;: &quot;Done&quot;,
-    &quot;selectedOption&quot;: &quot;approve&quot;,
-    &quot;isShowingInput&quot;: false
+  "status": "accepted",
+  "reviewData": {
+    "status": "Done",
+    "selectedOption": "approve",
+    "isShowingInput": false
   }
 }
 ```
@@ -1202,7 +1202,7 @@ Result:
 
 ```json
 {
-  &quot;accepted&quot;: {}
+  "accepted": {}
 }
 ```
 Status: **completed**
@@ -1243,7 +1243,7 @@ Implementing the plan. Creating the script file in `scripts/`.
 
 <tool-use data-tool-type="generic" data-tool-name="list_dir">
 <details>
-            <summary>Tool use: **list_directory** • Listed directory undefined • **0** results</summary>
+            <summary>Tool use: **list_dir** • Listed directory undefined • **0** results</summary>
         
 No results found
 </details>
@@ -1263,7 +1263,7 @@ Creating the script file with the complete form configuration.
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: scripts/create-unimacts-us-form-config.ts</summary>
+<details><summary>Tool use: **write** • Edit file: scripts/create-unimacts-us-form-config.ts</summary>
 
 **Chunk 1**
 Lines added: 559, lines removed: 1
@@ -1271,26 +1271,26 @@ Lines added: 559, lines removed: 1
 ```diff
 @@ -1,1 +1,559 @@
 - 
-+ import { PrismaClient } from &quot;@prisma/client&quot;;
++ import { PrismaClient } from "@prisma/client";
 + 
 + const prisma = new PrismaClient();
 + 
 + async function main() {
-+   // 1. Look up existing Entity (code: &quot;UNX&quot;) and Geography (code: &quot;US&quot;)
++   // 1. Look up existing Entity (code: "UNX") and Geography (code: "US")
 +   const entity = await prisma.entity.findUnique({
-+     where: { code: &quot;UNX&quot; },
++     where: { code: "UNX" },
 +   });
 + 
 +   if (!entity) {
-+     throw new Error(&quot;Entity with code &#39;UNX&#39; not found in database&quot;);
++     throw new Error("Entity with code 'UNX' not found in database");
 +   }
 + 
 +   const geography = await prisma.geography.findUnique({
-+     where: { code: &quot;US&quot; },
++     where: { code: "US" },
 +   });
 + 
 +   if (!geography) {
-+     throw new Error(&quot;Geography with code &#39;US&#39; not found in database&quot;);
++     throw new Error("Geography with code 'US' not found in database");
 +   }
 + 
 +   console.log(&#96;Found Entity: ${entity.name} (${entity.code})&#96;);
@@ -1314,71 +1314,71 @@ Lines added: 559, lines removed: 1
 + 
 +   // 3. Delete existing FormConfig if found (idempotent)
 +   if (existingConfig) {
-+     console.log(&quot;Existing form configuration found. Deleting to recreate...&quot;);
++     console.log("Existing form configuration found. Deleting to recreate...");
 +     await prisma.formConfig.delete({
 +       where: { id: existingConfig.id },
 +     });
-+     console.log(&quot;✓ Deleted existing form configuration&quot;);
++     console.log("✓ Deleted existing form configuration");
 +   }
 + 
 +   // 4. Create single FormConfig with all sections and fields
-+   console.log(&quot;\nCreating form configuration...&quot;);
++   console.log("\nCreating form configuration...");
 +   const formConfig = await prisma.formConfig.create({
 +     data: {
 +       entityId: entity.id,
 +       geographyId: geography.id,
 +       version: 1,
-+       title: &quot;Unimacts Supplier Onboarding&quot;,
-+       description: &quot;Form for setting up new suppliers, adding new supplier sites, or updating existing supplier information&quot;,
++       title: "Unimacts Supplier Onboarding",
++       description: "Form for setting up new suppliers, adding new supplier sites, or updating existing supplier information",
 +       isActive: true,
 +       sections: {
 +         create: [
 +           {
-+             key: &quot;requestor&quot;,
-+             label: &quot;REQUESTOR&quot;,
++             key: "requestor",
++             label: "REQUESTOR",
 +             order: 1,
 +             fields: {
 +               create: [
 +                 {
-+                   key: &quot;entity&quot;,
-+                   label: &quot;ENTITY&quot;,
-+                   type: &quot;text&quot;,
++                   key: "entity",
++                   label: "ENTITY",
++                   type: "text",
 +                   required: false,
 +                   order: 1,
 +                 },
 +                 {
-+                   key: &quot;date&quot;,
-+                   label: &quot;DATE&quot;,
-+                   type: &quot;date&quot;,
++                   key: "date",
++                   label: "DATE",
++                   type: "date",
 +                   required: true,
 +                   order: 2,
 +                 },
 +                 {
-+                   key: &quot;if_updating_reason&quot;,
-+                   label: &quot;IF UPDATING, REASON :&quot;,
-+                   type: &quot;text&quot;,
++                   key: "if_updating_reason",
++                   label: "IF UPDATING, REASON :",
++                   type: "text",
 +                   required: false,
 +                   order: 3,
-+                   placeholder: &quot;Provide reason for update&quot;,
++                   placeholder: "Provide reason for update",
 +                 },
 +                 {
-+                   key: &quot;position&quot;,
-+                   label: &quot;POSITION&quot;,
-+                   type: &quot;text&quot;,
++                   key: "position",
++                   label: "POSITION",
++                   type: "text",
 +                   required: true,
 +                   order: 4,
 +                 },
 +                 {
-+                   key: &quot;submitted_by&quot;,
-+                   label: &quot;SUBMITTED BY&quot;,
-+                   type: &quot;text&quot;,
++                   key: "submitted_by",
++                   label: "SUBMITTED BY",
++                   type: "text",
 +                   required: true,
 +                   order: 5,
 +                 },
 +                 {
-+                   key: &quot;signature&quot;,
-+                   label: &quot;SIGNATURE&quot;,
-+                   type: &quot;text&quot;,
++                   key: "signature",
++                   label: "SIGNATURE",
++                   type: "text",
 +                   required: true,
 +                   order: 6,
 +                 },
@@ -1386,136 +1386,136 @@ Lines added: 559, lines removed: 1
 +             },
 +           },
 +           {
-+             key: &quot;supplier_information&quot;,
-+             label: &quot;SUPPLIER INFORMATION&quot;,
++             key: "supplier_information",
++             label: "SUPPLIER INFORMATION",
 +             order: 2,
 +             fields: {
 +               create: [
 +                 {
-+                   key: &quot;supplier_name&quot;,
-+                   label: &quot;SUPPLIER NAME&quot;,
-+                   type: &quot;text&quot;,
++                   key: "supplier_name",
++                   label: "SUPPLIER NAME",
++                   type: "text",
 +                   required: true,
 +                   order: 1,
 +                 },
 +                 {
-+                   key: &quot;payment_method&quot;,
-+                   label: &quot;PAYMENT METHOD&quot;,
-+                   type: &quot;select&quot;,
++                   key: "payment_method",
++                   label: "PAYMENT METHOD",
++                   type: "select",
 +                   required: true,
 +                   order: 2,
 +                   options: {
-+                     values: [&quot;Wire Transfer&quot;, &quot;ACH&quot;, &quot;Check&quot;, &quot;Other&quot;],
++                     values: ["Wire Transfer", "ACH", "Check", "Other"],
 +                   },
 +                 },
 +                 {
-+                   key: &quot;payment_terms&quot;,
-+                   label: &quot;PAYMENT TERMS&quot;,
-+                   type: &quot;text&quot;,
++                   key: "payment_terms",
++                   label: "PAYMENT TERMS",
++                   type: "text",
 +                   required: true,
 +                   order: 3,
 +                 },
 +                 {
-+                   key: &quot;payment_invoice_currency&quot;,
-+                   label: &quot;PAYMENT / INVOICE CURRENCY&quot;,
-+                   type: &quot;select&quot;,
++                   key: "payment_invoice_currency",
++                   label: "PAYMENT / INVOICE CURRENCY",
++                   type: "select",
 +                   required: true,
 +                   order: 4,
 +                   options: {
-+                     values: [&quot;USD&quot;, &quot;EUR&quot;, &quot;GBP&quot;, &quot;Other&quot;],
++                     values: ["USD", "EUR", "GBP", "Other"],
 +                   },
 +                 },
 +                 {
-+                   key: &quot;inco_terms&quot;,
-+                   label: &quot;INCO TERMS&quot;,
-+                   type: &quot;select&quot;,
++                   key: "inco_terms",
++                   label: "INCO TERMS",
++                   type: "select",
 +                   required: true,
 +                   order: 5,
 +                   options: {
 +                     values: [
-+                       &quot;EXW&quot;,
-+                       &quot;FCA&quot;,
-+                       &quot;CPT&quot;,
-+                       &quot;CIP&quot;,
-+                       &quot;DAP&quot;,
-+                       &quot;DPU&quot;,
-+                       &quot;DDP&quot;,
-+                       &quot;FAS&quot;,
-+                       &quot;FOB&quot;,
-+                       &quot;CFR&quot;,
-+                       &quot;CIF&quot;,
++                       "EXW",
++                       "FCA",
++                       "CPT",
++                       "CIP",
++                       "DAP",
++                       "DPU",
++                       "DDP",
++                       "FAS",
++                       "FOB",
++                       "CFR",
++                       "CIF",
 +                     ],
 +                   },
 +                 },
 +                 {
-+                   key: &quot;named_place&quot;,
-+                   label: &quot;NAMED PLACE&quot;,
-+                   type: &quot;text&quot;,
++                   key: "named_place",
++                   label: "NAMED PLACE",
++                   type: "text",
 +                   required: true,
 +                   order: 6,
-+                   placeholder: &quot;Delivery location&quot;,
++                   placeholder: "Delivery location",
 +                 },
 +                 {
-+                   key: &quot;supplier_sales_contact_name&quot;,
-+                   label: &quot;SUPPLIER SALES CONTACT NAME&quot;,
-+                   type: &quot;text&quot;,
++                   key: "supplier_sales_contact_name",
++                   label: "SUPPLIER SALES CONTACT NAME",
++                   type: "text",
 +                   required: true,
 +                   order: 7,
 +                 },
 +                 {
-+                   key: &quot;supplier_sales_contact_email&quot;,
-+                   label: &quot;SUPPLIER SALES CONTACT E-MAIL&quot;,
-+                   type: &quot;email&quot;,
++                   key: "supplier_sales_contact_email",
++                   label: "SUPPLIER SALES CONTACT E-MAIL",
++                   type: "email",
 +                   required: true,
 +                   order: 8,
 +                 },
 +                 {
-+                   key: &quot;supplier_sales_contact_tel&quot;,
-+                   label: &quot;SUPPLIER SALES CONTACT TEL&quot;,
-+                   type: &quot;text&quot;,
++                   key: "supplier_sales_contact_tel",
++                   label: "SUPPLIER SALES CONTACT TEL",
++                   type: "text",
 +                   required: true,
 +                   order: 9,
 +                   validation: {
-+                     regex: &quot;^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$&quot;,
-+                     message: &quot;Please enter a valid phone number&quot;,
++                     regex: "^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$",
++                     message: "Please enter a valid phone number",
 +                   },
 +                 },
 +                 {
-+                   key: &quot;supplier_contact_fax&quot;,
-+                   label: &quot;SUPPLIER CONTACT FAX&quot;,
-+                   type: &quot;text&quot;,
++                   key: "supplier_contact_fax",
++                   label: "SUPPLIER CONTACT FAX",
++                   type: "text",
 +                   required: true,
 +                   order: 10,
 +                 },
 +                 {
-+                   key: &quot;supplier_notification_method&quot;,
-+                   label: &quot;SUPPLIER NOTIFICATION METHOD?&quot;,
-+                   type: &quot;select&quot;,
++                   key: "supplier_notification_method",
++                   label: "SUPPLIER NOTIFICATION METHOD?",
++                   type: "select",
 +                   required: false,
 +                   order: 11,
 +                   options: {
-+                     values: [&quot;Email&quot;, &quot;Fax&quot;, &quot;Portal&quot;, &quot;Other&quot;],
++                     values: ["Email", "Fax", "Portal", "Other"],
 +                   },
 +                 },
 +                 {
-+                   key: &quot;supplier_accounting_email_address_name&quot;,
-+                   label: &quot;SUPPLIER ACCOUNTING EMAIL ADDRESS &amp; Name&quot;,
-+                   type: &quot;text&quot;,
++                   key: "supplier_accounting_email_address_name",
++                   label: "SUPPLIER ACCOUNTING EMAIL ADDRESS &amp; Name",
++                   type: "text",
 +                   required: true,
 +                   order: 12,
-+                   placeholder: &quot;email@example.com, Name&quot;,
++                   placeholder: "email@example.com, Name",
 +                 },
 +                 {
-+                   key: &quot;inactive_date&quot;,
-+                   label: &quot;INACTIVE DATE&quot;,
-+                   type: &quot;date&quot;,
++                   key: "inactive_date",
++                   label: "INACTIVE DATE",
++                   type: "date",
 +                   required: false,
 +                   order: 13,
 +                 },
 +                 {
-+                   key: &quot;additional_remarks&quot;,
-+                   label: &quot;ADDITIONAL REMARKS&quot;,
-+                   type: &quot;textarea&quot;,
++                   key: "additional_remarks",
++                   label: "ADDITIONAL REMARKS",
++                   type: "textarea",
 +                   required: false,
 +                   order: 14,
 +                 },
@@ -1523,262 +1523,262 @@ Lines added: 559, lines removed: 1
 +             },
 +           },
 +           {
-+             key: &quot;physical_location&quot;,
-+             label: &quot;PHYSICAL LOCATION&quot;,
++             key: "physical_location",
++             label: "PHYSICAL LOCATION",
 +             order: 3,
 +             fields: {
 +               create: [
 +                 {
-+                   key: &quot;physical_name_if_different&quot;,
-+                   label: &quot;NAME, IF DIFFERENT FROM ABOVE&quot;,
-+                   type: &quot;text&quot;,
++                   key: "physical_name_if_different",
++                   label: "NAME, IF DIFFERENT FROM ABOVE",
++                   type: "text",
 +                   required: true,
 +                   order: 1,
 +                 },
 +                 {
-+                   key: &quot;physical_address_line_1&quot;,
-+                   label: &quot;ADDRESS LINE 1&quot;,
-+                   type: &quot;text&quot;,
++                   key: "physical_address_line_1",
++                   label: "ADDRESS LINE 1",
++                   type: "text",
 +                   required: true,
 +                   order: 2,
 +                 },
 +                 {
-+                   key: &quot;physical_address_line_2&quot;,
-+                   label: &quot;ADDRESS LINE 2&quot;,
-+                   type: &quot;text&quot;,
++                   key: "physical_address_line_2",
++                   label: "ADDRESS LINE 2",
++                   type: "text",
 +                   required: true,
 +                   order: 3,
 +                 },
 +                 {
-+                   key: &quot;physical_city&quot;,
-+                   label: &quot;CITY&quot;,
-+                   type: &quot;text&quot;,
++                   key: "physical_city",
++                   label: "CITY",
++                   type: "text",
 +                   required: true,
 +                   order: 4,
 +                 },
 +                 {
-+                   key: &quot;physical_state&quot;,
-+                   label: &quot;STATE&quot;,
-+                   type: &quot;text&quot;,
++                   key: "physical_state",
++                   label: "STATE",
++                   type: "text",
 +                   required: true,
 +                   order: 5,
 +                 },
 +                 {
-+                   key: &quot;physical_postal_code&quot;,
-+                   label: &quot;POSTAL CODE&quot;,
-+                   type: &quot;text&quot;,
++                   key: "physical_postal_code",
++                   label: "POSTAL CODE",
++                   type: "text",
 +                   required: true,
 +                   order: 6,
 +                 },
 +                 {
-+                   key: &quot;physical_county&quot;,
-+                   label: &quot;COUNTY&quot;,
-+                   type: &quot;text&quot;,
++                   key: "physical_county",
++                   label: "COUNTY",
++                   type: "text",
 +                   required: true,
 +                   order: 7,
 +                 },
 +                 {
-+                   key: &quot;physical_country&quot;,
-+                   label: &quot;COUNTRY&quot;,
-+                   type: &quot;text&quot;,
++                   key: "physical_country",
++                   label: "COUNTRY",
++                   type: "text",
 +                   required: true,
 +                   order: 8,
-+                   placeholder: &quot;US&quot;,
++                   placeholder: "US",
 +                 },
 +               ],
 +             },
 +           },
 +           {
-+             key: &quot;additional_site&quot;,
-+             label: &quot;ADDITIONAL SITE&quot;,
++             key: "additional_site",
++             label: "ADDITIONAL SITE",
 +             order: 4,
 +             fields: {
 +               create: [
 +                 {
-+                   key: &quot;additional_name_if_different&quot;,
-+                   label: &quot;NAME, IF DIFFERENT FROM ABOVE&quot;,
-+                   type: &quot;text&quot;,
++                   key: "additional_name_if_different",
++                   label: "NAME, IF DIFFERENT FROM ABOVE",
++                   type: "text",
 +                   required: false,
 +                   order: 1,
 +                 },
 +                 {
-+                   key: &quot;additional_address_line_1&quot;,
-+                   label: &quot;ADDRESS LINE 1&quot;,
-+                   type: &quot;text&quot;,
++                   key: "additional_address_line_1",
++                   label: "ADDRESS LINE 1",
++                   type: "text",
 +                   required: false,
 +                   order: 2,
 +                 },
 +                 {
-+                   key: &quot;additional_address_line_2&quot;,
-+                   label: &quot;ADDRESS LINE 2&quot;,
-+                   type: &quot;text&quot;,
++                   key: "additional_address_line_2",
++                   label: "ADDRESS LINE 2",
++                   type: "text",
 +                   required: false,
 +                   order: 3,
 +                 },
 +                 {
-+                   key: &quot;additional_city&quot;,
-+                   label: &quot;CITY&quot;,
-+                   type: &quot;text&quot;,
++                   key: "additional_city",
++                   label: "CITY",
++                   type: "text",
 +                   required: false,
 +                   order: 4,
 +                 },
 +                 {
-+                   key: &quot;additional_state&quot;,
-+                   label: &quot;STATE&quot;,
-+                   type: &quot;text&quot;,
++                   key: "additional_state",
++                   label: "STATE",
++                   type: "text",
 +                   required: false,
 +                   order: 5,
 +                 },
 +                 {
-+                   key: &quot;additional_postal_code&quot;,
-+                   label: &quot;POSTAL CODE&quot;,
-+                   type: &quot;text&quot;,
++                   key: "additional_postal_code",
++                   label: "POSTAL CODE",
++                   type: "text",
 +                   required: true,
 +                   order: 6,
 +                 },
 +                 {
-+                   key: &quot;additional_county&quot;,
-+                   label: &quot;COUNTY&quot;,
-+                   type: &quot;text&quot;,
++                   key: "additional_county",
++                   label: "COUNTY",
++                   type: "text",
 +                   required: true,
 +                   order: 7,
 +                 },
 +                 {
-+                   key: &quot;additional_country&quot;,
-+                   label: &quot;COUNTRY&quot;,
-+                   type: &quot;text&quot;,
++                   key: "additional_country",
++                   label: "COUNTRY",
++                   type: "text",
 +                   required: true,
 +                   order: 8,
-+                   placeholder: &quot;US&quot;,
++                   placeholder: "US",
 +                 },
 +               ],
 +             },
 +           },
 +           {
-+             key: &quot;bank_information&quot;,
-+             label: &quot;BANK INFORMATION&quot;,
++             key: "bank_information",
++             label: "BANK INFORMATION",
 +             order: 5,
 +             fields: {
 +               create: [
 +                 {
-+                   key: &quot;bank_name&quot;,
-+                   label: &quot;BANK NAME&quot;,
-+                   type: &quot;text&quot;,
++                   key: "bank_name",
++                   label: "BANK NAME",
++                   type: "text",
 +                   required: true,
 +                   order: 1,
 +                 },
 +                 {
-+                   key: &quot;beneficiary_name&quot;,
-+                   label: &quot;BENEFICIARY NAME&quot;,
-+                   type: &quot;text&quot;,
++                   key: "beneficiary_name",
++                   label: "BENEFICIARY NAME",
++                   type: "text",
 +                   required: false,
 +                   order: 2,
 +                 },
 +                 {
-+                   key: &quot;bank_branch&quot;,
-+                   label: &quot;BANK BRANCH&quot;,
-+                   type: &quot;text&quot;,
++                   key: "bank_branch",
++                   label: "BANK BRANCH",
++                   type: "text",
 +                   required: false,
 +                   order: 3,
 +                 },
 +                 {
-+                   key: &quot;us_routing_aba_wire&quot;,
-+                   label: &quot;US ROUTING (ABA) # VIA WIRE&quot;,
-+                   type: &quot;text&quot;,
++                   key: "us_routing_aba_wire",
++                   label: "US ROUTING (ABA) # VIA WIRE",
++                   type: "text",
 +                   required: true,
 +                   order: 4,
 +                   helpText:
-+                     &quot;Note - larger banks in the US use a different ABA # for wires and ACH. Please check with your bank to confirm your bank account instructions.&quot;,
++                     "Note - larger banks in the US use a different ABA # for wires and ACH. Please check with your bank to confirm your bank account instructions.",
 +                   validation: {
-+                     regex: &quot;^[0-9]{9}$&quot;,
-+                     message: &quot;Must be 9 digits&quot;,
++                     regex: "^[0-9]{9}$",
++                     message: "Must be 9 digits",
 +                   },
 +                 },
 +                 {
-+                   key: &quot;us_routing_aba_ach&quot;,
-+                   label: &quot;US ROUTING (ABA) # VIA ACH&quot;,
-+                   type: &quot;text&quot;,
++                   key: "us_routing_aba_ach",
++                   label: "US ROUTING (ABA) # VIA ACH",
++                   type: "text",
 +                   required: true,
 +                   order: 5,
 +                   helpText:
-+                     &quot;Note - larger banks in the US use a different ABA # for wires and ACH. Please check with your bank to confirm your bank account instructions.&quot;,
++                     "Note - larger banks in the US use a different ABA # for wires and ACH. Please check with your bank to confirm your bank account instructions.",
 +                   validation: {
-+                     regex: &quot;^[0-9]{9}$&quot;,
-+                     message: &quot;Must be 9 digits&quot;,
++                     regex: "^[0-9]{9}$",
++                     message: "Must be 9 digits",
 +                   },
 +                 },
 +                 {
-+                   key: &quot;bank_address_line_1&quot;,
-+                   label: &quot;ADDRESS LINE 1&quot;,
-+                   type: &quot;text&quot;,
++                   key: "bank_address_line_1",
++                   label: "ADDRESS LINE 1",
++                   type: "text",
 +                   required: false,
 +                   order: 6,
 +                 },
 +                 {
-+                   key: &quot;bank_account_number&quot;,
-+                   label: &quot;BANK ACCOUNT NUMBER&quot;,
-+                   type: &quot;text&quot;,
++                   key: "bank_account_number",
++                   label: "BANK ACCOUNT NUMBER",
++                   type: "text",
 +                   required: true,
 +                   order: 7,
 +                   isSensitive: true,
 +                 },
 +                 {
-+                   key: &quot;bank_address_line_2&quot;,
-+                   label: &quot;ADDRESS LINE 2&quot;,
-+                   type: &quot;text&quot;,
++                   key: "bank_address_line_2",
++                   label: "ADDRESS LINE 2",
++                   type: "text",
 +                   required: false,
 +                   order: 8,
 +                 },
 +                 {
-+                   key: &quot;iban&quot;,
-+                   label: &quot;IBAN - International Bank Account Number (See below **)&quot;,
-+                   type: &quot;text&quot;,
++                   key: "iban",
++                   label: "IBAN - International Bank Account Number (See below **)",
++                   type: "text",
 +                   required: false,
 +                   order: 9,
 +                 },
 +                 {
-+                   key: &quot;bank_city&quot;,
-+                   label: &quot;CITY&quot;,
-+                   type: &quot;text&quot;,
++                   key: "bank_city",
++                   label: "CITY",
++                   type: "text",
 +                   required: false,
 +                   order: 10,
 +                 },
 +                 {
-+                   key: &quot;bank_state&quot;,
-+                   label: &quot;STATE&quot;,
-+                   type: &quot;text&quot;,
++                   key: "bank_state",
++                   label: "STATE",
++                   type: "text",
 +                   required: false,
 +                   order: 11,
 +                 },
 +                 {
-+                   key: &quot;bank_country&quot;,
-+                   label: &quot;COUNTRY&quot;,
-+                   type: &quot;text&quot;,
++                   key: "bank_country",
++                   label: "COUNTRY",
++                   type: "text",
 +                   required: false,
 +                   order: 12,
 +                 },
 +                 {
-+                   key: &quot;bic_swift&quot;,
-+                   label: &quot;BIC / SWIFT (8 OR 11 Alphanumeric)&quot;,
-+                   type: &quot;text&quot;,
++                   key: "bic_swift",
++                   label: "BIC / SWIFT (8 OR 11 Alphanumeric)",
++                   type: "text",
 +                   required: false,
 +                   order: 13,
 +                   validation: {
-+                     regex: &quot;^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$&quot;,
-+                     message: &quot;Must be 8 or 11 alphanumeric characters&quot;,
++                     regex: "^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$",
++                     message: "Must be 8 or 11 alphanumeric characters",
 +                   },
 +                 },
 +                 {
-+                   key: &quot;ifsc_code&quot;,
-+                   label: &quot;IFSC CODE&quot;,
-+                   type: &quot;text&quot;,
++                   key: "ifsc_code",
++                   label: "IFSC CODE",
++                   type: "text",
 +                   required: false,
 +                   order: 14,
 +                 },
 +                 {
-+                   key: &quot;remittance_email_address&quot;,
-+                   label: &quot;REMITTANCE EMAIL ADDRESS&quot;,
-+                   type: &quot;email&quot;,
++                   key: "remittance_email_address",
++                   label: "REMITTANCE EMAIL ADDRESS",
++                   type: "email",
 +                   required: false,
 +                   order: 15,
 +                 },
@@ -1797,7 +1797,7 @@ Lines added: 559, lines removed: 1
 +     },
 +   });
 + 
-+   console.log(&quot;✓ Created form configuration: &quot; + formConfig.title);
++   console.log("✓ Created form configuration: " + formConfig.title);
 +   console.log(&#96;✓ Created ${formConfig.sections.length} sections&#96;);
 +   
 +   const totalFields = formConfig.sections.reduce(
@@ -1807,8 +1807,8 @@ Lines added: 559, lines removed: 1
 +   console.log(&#96;✓ Created ${totalFields} fields&#96;);
 + 
 +   // 5. Print summary
-+   console.log(&quot;\n✅ Form configuration created successfully!&quot;);
-+   console.log(&quot;\nSummary:&quot;);
++   console.log("\n✅ Form configuration created successfully!");
++   console.log("\nSummary:");
 +   console.log(&#96;- Entity: ${entity.name} (${entity.code})&#96;);
 +   console.log(&#96;- Geography: ${geography.name} (${geography.code})&#96;);
 +   console.log(&#96;- Form Title: ${formConfig.title}&#96;);
@@ -1823,7 +1823,7 @@ Lines added: 559, lines removed: 1
 + 
 + main()
 +   .catch((error) =&gt; {
-+     console.error(&quot;Script failed:&quot;, error);
++     console.error("Script failed:", error);
 +     process.exit(1);
 +   })
 +   .finally(async () =&gt; {
@@ -1885,20 +1885,20 @@ Adding an npm script to run the script:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: package.json</summary>
+<details><summary>Tool use: **search_replace** • Edit file: package.json</summary>
 
 **Chunk 1**
 Lines added: 2, lines removed: 1
 
 ```diff
 @@ -13,5 +13,6 @@
-      &quot;db:migrate&quot;: &quot;prisma migrate dev&quot;,
-      &quot;db:seed&quot;: &quot;tsx prisma/seed.ts&quot;,
--     &quot;db:studio&quot;: &quot;prisma studio&quot;
-+     &quot;db:studio&quot;: &quot;prisma studio&quot;,
-+     &quot;script:create-unimacts-form&quot;: &quot;tsx scripts/create-unimacts-us-form-config.ts&quot;
+      "db:migrate": "prisma migrate dev",
+      "db:seed": "tsx prisma/seed.ts",
+-     "db:studio": "prisma studio"
++     "db:studio": "prisma studio",
++     "script:create-unimacts-form": "tsx scripts/create-unimacts-us-form-config.ts"
     },
-    &quot;dependencies&quot;: {
+    "dependencies": {
 ```
 
 </details>

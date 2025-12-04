@@ -3,6 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { requireRole } from "@/lib/permissions";
 
+// Cache form configuration for 30 minutes (forms change less frequently)
+export const revalidate = 1800;
+
 function badRequest(message: string) {
   return NextResponse.json({ error: message }, { status: 400 });
 }

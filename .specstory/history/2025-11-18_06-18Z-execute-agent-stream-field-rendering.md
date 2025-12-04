@@ -98,7 +98,7 @@ Reviewing existing UI components and the project structure, then building the fi
 
 <tool-use data-tool-type="generic" data-tool-name="list_dir">
 <details>
-            <summary>Tool use: **list_directory** • Listed directory undefined • **0** results</summary>
+            <summary>Tool use: **list_dir** • Listed directory undefined • **0** results</summary>
         
 No results found
 </details>
@@ -228,7 +228,7 @@ Creating the field rendering components. Starting with the base components, then
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-wrapper.tsx</summary>
+<details><summary>Tool use: **write** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-wrapper.tsx</summary>
 
 **Chunk 1**
 Lines added: 64, lines removed: 1
@@ -236,12 +236,12 @@ Lines added: 64, lines removed: 1
 ```diff
 @@ -1,1 +1,64 @@
 - 
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import * as React from &quot;react&quot;;
-+ import { Label } from &quot;@/components/ui/label&quot;;
-+ import { cn } from &quot;@/lib/utils&quot;;
-+ import type { FormField } from &quot;@prisma/client&quot;;
++ import * as React from "react";
++ import { Label } from "@/components/ui/label";
++ import { cn } from "@/lib/utils";
++ import type { FormField } from "@prisma/client";
 + 
 + interface FieldWrapperProps {
 +   field: FormField;
@@ -266,12 +266,12 @@ Lines added: 64, lines removed: 1
 +   const errorId = &#96;${fieldId}-error&#96;;
 + 
 +   return (
-+     &lt;div className={cn(&quot;space-y-2&quot;, className)}&gt;
++     &lt;div className={cn("space-y-2", className)}&gt;
 +       &lt;Label
 +         htmlFor={fieldId}
 +         className={cn(
-+           &quot;text-sm font-medium&quot;,
-+           field.required &amp;&amp; &quot;after:content-[&#39;*&#39;] after:ml-0.5 after:text-destructive&quot;
++           "text-sm font-medium",
++           field.required &amp;&amp; "after:content-['*'] after:ml-0.5 after:text-destructive"
 +         )}
 +       &gt;
 +         {field.label}
@@ -280,7 +280,7 @@ Lines added: 64, lines removed: 1
 +       {field.helpText &amp;&amp; (
 +         &lt;p
 +           id={helpTextId}
-+           className=&quot;text-xs text-muted-foreground&quot;
++           className="text-xs text-muted-foreground"
 +           aria-describedby={fieldId}
 +         &gt;
 +           {field.helpText}
@@ -289,9 +289,9 @@ Lines added: 64, lines removed: 1
 +       {hasError &amp;&amp; (
 +         &lt;p
 +           id={errorId}
-+           className=&quot;text-xs text-destructive&quot;
-+           role=&quot;alert&quot;
-+           aria-live=&quot;polite&quot;
++           className="text-xs text-destructive"
++           role="alert"
++           aria-live="polite"
 +         &gt;
 +           {error}
 +         &lt;/p&gt;
@@ -310,7 +310,7 @@ Lines added: 64, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-text.tsx</summary>
+<details><summary>Tool use: **write** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-text.tsx</summary>
 
 **Chunk 1**
 Lines added: 55, lines removed: 1
@@ -318,13 +318,13 @@ Lines added: 55, lines removed: 1
 ```diff
 @@ -1,1 +1,55 @@
 - 
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import * as React from &quot;react&quot;;
-+ import { Input } from &quot;@/components/ui/input&quot;;
-+ import { FieldWrapper } from &quot;./field-wrapper&quot;;
-+ import { cn } from &quot;@/lib/utils&quot;;
-+ import type { FormField } from &quot;@prisma/client&quot;;
++ import * as React from "react";
++ import { Input } from "@/components/ui/input";
++ import { FieldWrapper } from "./field-wrapper";
++ import { cn } from "@/lib/utils";
++ import type { FormField } from "@prisma/client";
 + 
 + interface FieldInputTextProps {
 +   field: FormField;
@@ -353,8 +353,8 @@ Lines added: 55, lines removed: 1
 +     &lt;FieldWrapper field={field} error={error}&gt;
 +       &lt;Input
 +         id={fieldId}
-+         type=&quot;text&quot;
-+         value={value ?? &quot;&quot;}
++         type="text"
++         value={value ?? ""}
 +         onChange={(e) =&gt; onChange(e.target.value)}
 +         onBlur={onBlur}
 +         placeholder={field.placeholder ?? undefined}
@@ -367,7 +367,7 @@ Lines added: 55, lines removed: 1
 +             ? &#96;${fieldId}-help&#96;
 +             : undefined
 +         }
-+         className={cn(hasError &amp;&amp; &quot;border-destructive&quot;)}
++         className={cn(hasError &amp;&amp; "border-destructive")}
 +       /&gt;
 +     &lt;/FieldWrapper&gt;
 +   );
@@ -383,7 +383,7 @@ Lines added: 55, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-email.tsx</summary>
+<details><summary>Tool use: **write** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-email.tsx</summary>
 
 **Chunk 1**
 Lines added: 55, lines removed: 1
@@ -391,13 +391,13 @@ Lines added: 55, lines removed: 1
 ```diff
 @@ -1,1 +1,55 @@
 - 
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import * as React from &quot;react&quot;;
-+ import { Input } from &quot;@/components/ui/input&quot;;
-+ import { FieldWrapper } from &quot;./field-wrapper&quot;;
-+ import { cn } from &quot;@/lib/utils&quot;;
-+ import type { FormField } from &quot;@prisma/client&quot;;
++ import * as React from "react";
++ import { Input } from "@/components/ui/input";
++ import { FieldWrapper } from "./field-wrapper";
++ import { cn } from "@/lib/utils";
++ import type { FormField } from "@prisma/client";
 + 
 + interface FieldInputEmailProps {
 +   field: FormField;
@@ -426,8 +426,8 @@ Lines added: 55, lines removed: 1
 +     &lt;FieldWrapper field={field} error={error}&gt;
 +       &lt;Input
 +         id={fieldId}
-+         type=&quot;email&quot;
-+         value={value ?? &quot;&quot;}
++         type="email"
++         value={value ?? ""}
 +         onChange={(e) =&gt; onChange(e.target.value)}
 +         onBlur={onBlur}
 +         placeholder={field.placeholder ?? undefined}
@@ -440,7 +440,7 @@ Lines added: 55, lines removed: 1
 +             ? &#96;${fieldId}-help&#96;
 +             : undefined
 +         }
-+         className={cn(hasError &amp;&amp; &quot;border-destructive&quot;)}
++         className={cn(hasError &amp;&amp; "border-destructive")}
 +       /&gt;
 +     &lt;/FieldWrapper&gt;
 +   );
@@ -456,7 +456,7 @@ Lines added: 55, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-number.tsx</summary>
+<details><summary>Tool use: **write** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-number.tsx</summary>
 
 **Chunk 1**
 Lines added: 72, lines removed: 1
@@ -464,13 +464,13 @@ Lines added: 72, lines removed: 1
 ```diff
 @@ -1,1 +1,72 @@
 - 
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import * as React from &quot;react&quot;;
-+ import { Input } from &quot;@/components/ui/input&quot;;
-+ import { FieldWrapper } from &quot;./field-wrapper&quot;;
-+ import { cn } from &quot;@/lib/utils&quot;;
-+ import type { FormField } from &quot;@prisma/client&quot;;
++ import * as React from "react";
++ import { Input } from "@/components/ui/input";
++ import { FieldWrapper } from "./field-wrapper";
++ import { cn } from "@/lib/utils";
++ import type { FormField } from "@prisma/client";
 + 
 + interface FieldInputNumberProps {
 +   field: FormField;
@@ -503,13 +503,13 @@ Lines added: 72, lines removed: 1
 +     &lt;FieldWrapper field={field} error={error}&gt;
 +       &lt;Input
 +         id={fieldId}
-+         type=&quot;number&quot;
-+         value={value ?? &quot;&quot;}
++         type="number"
++         value={value ?? ""}
 +         onChange={(e) =&gt; {
 +           const val = e.target.value;
 +           // Allow empty string for optional fields
-+           if (val === &quot;&quot;) {
-+             onChange(&quot;&quot;);
++           if (val === "") {
++             onChange("");
 +           } else {
 +             const num = Number(val);
 +             if (!isNaN(num)) {
@@ -530,7 +530,7 @@ Lines added: 72, lines removed: 1
 +             ? &#96;${fieldId}-help&#96;
 +             : undefined
 +         }
-+         className={cn(hasError &amp;&amp; &quot;border-destructive&quot;)}
++         className={cn(hasError &amp;&amp; "border-destructive")}
 +       /&gt;
 +     &lt;/FieldWrapper&gt;
 +   );
@@ -546,7 +546,7 @@ Lines added: 72, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-tel.tsx</summary>
+<details><summary>Tool use: **write** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-tel.tsx</summary>
 
 **Chunk 1**
 Lines added: 55, lines removed: 1
@@ -554,13 +554,13 @@ Lines added: 55, lines removed: 1
 ```diff
 @@ -1,1 +1,55 @@
 - 
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import * as React from &quot;react&quot;;
-+ import { Input } from &quot;@/components/ui/input&quot;;
-+ import { FieldWrapper } from &quot;./field-wrapper&quot;;
-+ import { cn } from &quot;@/lib/utils&quot;;
-+ import type { FormField } from &quot;@prisma/client&quot;;
++ import * as React from "react";
++ import { Input } from "@/components/ui/input";
++ import { FieldWrapper } from "./field-wrapper";
++ import { cn } from "@/lib/utils";
++ import type { FormField } from "@prisma/client";
 + 
 + interface FieldInputTelProps {
 +   field: FormField;
@@ -589,8 +589,8 @@ Lines added: 55, lines removed: 1
 +     &lt;FieldWrapper field={field} error={error}&gt;
 +       &lt;Input
 +         id={fieldId}
-+         type=&quot;tel&quot;
-+         value={value ?? &quot;&quot;}
++         type="tel"
++         value={value ?? ""}
 +         onChange={(e) =&gt; onChange(e.target.value)}
 +         onBlur={onBlur}
 +         placeholder={field.placeholder ?? undefined}
@@ -603,7 +603,7 @@ Lines added: 55, lines removed: 1
 +             ? &#96;${fieldId}-help&#96;
 +             : undefined
 +         }
-+         className={cn(hasError &amp;&amp; &quot;border-destructive&quot;)}
++         className={cn(hasError &amp;&amp; "border-destructive")}
 +       /&gt;
 +     &lt;/FieldWrapper&gt;
 +   );
@@ -619,7 +619,7 @@ Lines added: 55, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-textarea.tsx</summary>
+<details><summary>Tool use: **write** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-textarea.tsx</summary>
 
 **Chunk 1**
 Lines added: 63, lines removed: 1
@@ -627,12 +627,12 @@ Lines added: 63, lines removed: 1
 ```diff
 @@ -1,1 +1,63 @@
 - 
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import * as React from &quot;react&quot;;
-+ import { FieldWrapper } from &quot;./field-wrapper&quot;;
-+ import { cn } from &quot;@/lib/utils&quot;;
-+ import type { FormField } from &quot;@prisma/client&quot;;
++ import * as React from "react";
++ import { FieldWrapper } from "./field-wrapper";
++ import { cn } from "@/lib/utils";
++ import type { FormField } from "@prisma/client";
 + 
 + interface FieldTextareaProps {
 +   field: FormField;
@@ -665,7 +665,7 @@ Lines added: 63, lines removed: 1
 +     &lt;FieldWrapper field={field} error={error}&gt;
 +       &lt;textarea
 +         id={fieldId}
-+         value={value ?? &quot;&quot;}
++         value={value ?? ""}
 +         onChange={(e) =&gt; onChange(e.target.value)}
 +         onBlur={onBlur}
 +         placeholder={field.placeholder ?? undefined}
@@ -682,8 +682,8 @@ Lines added: 63, lines removed: 1
 +             : undefined
 +         }
 +         className={cn(
-+           &quot;flex min-h-[80px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs transition-[color,box-shadow] outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50&quot;,
-+           hasError &amp;&amp; &quot;border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40&quot;
++           "flex min-h-[80px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs transition-[color,box-shadow] outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50",
++           hasError &amp;&amp; "border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40"
 +         )}
 +       /&gt;
 +     &lt;/FieldWrapper&gt;
@@ -700,7 +700,7 @@ Lines added: 63, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-select.tsx</summary>
+<details><summary>Tool use: **write** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-select.tsx</summary>
 
 **Chunk 1**
 Lines added: 83, lines removed: 1
@@ -708,19 +708,19 @@ Lines added: 83, lines removed: 1
 ```diff
 @@ -1,1 +1,83 @@
 - 
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import * as React from &quot;react&quot;;
++ import * as React from "react";
 + import {
 +   Select,
 +   SelectContent,
 +   SelectItem,
 +   SelectTrigger,
 +   SelectValue,
-+ } from &quot;@/components/ui/select&quot;;
-+ import { FieldWrapper } from &quot;./field-wrapper&quot;;
-+ import { cn } from &quot;@/lib/utils&quot;;
-+ import type { FormField } from &quot;@prisma/client&quot;;
++ } from "@/components/ui/select";
++ import { FieldWrapper } from "./field-wrapper";
++ import { cn } from "@/lib/utils";
++ import type { FormField } from "@prisma/client";
 + 
 + interface FieldInputSelectProps {
 +   field: FormField;
@@ -747,11 +747,11 @@ Lines added: 83, lines removed: 1
 + 
 +   // Extract options from field.options JSON
 +   const options = React.useMemo(() =&gt; {
-+     if (!field.options || typeof field.options !== &quot;object&quot;) return [];
++     if (!field.options || typeof field.options !== "object") return [];
 +     const optionsObj = field.options as Record&lt;string, unknown&gt;;
-+     if (&quot;values&quot; in optionsObj &amp;&amp; Array.isArray(optionsObj.values)) {
++     if ("values" in optionsObj &amp;&amp; Array.isArray(optionsObj.values)) {
 +       return optionsObj.values.filter(
-+         (v): v is string =&gt; typeof v === &quot;string&quot;
++         (v): v is string =&gt; typeof v === "string"
 +       );
 +     }
 +     return [];
@@ -760,7 +760,7 @@ Lines added: 83, lines removed: 1
 +   return (
 +     &lt;FieldWrapper field={field} error={error}&gt;
 +       &lt;Select
-+         value={value ?? &quot;&quot;}
++         value={value ?? ""}
 +         onValueChange={onChange}
 +         disabled={disabled}
 +       &gt;
@@ -775,9 +775,9 @@ Lines added: 83, lines removed: 1
 +               ? &#96;${fieldId}-help&#96;
 +               : undefined
 +           }
-+           className={cn(hasError &amp;&amp; &quot;border-destructive&quot;)}
++           className={cn(hasError &amp;&amp; "border-destructive")}
 +         &gt;
-+           &lt;SelectValue placeholder={field.placeholder ?? &quot;Select an option&quot;} /&gt;
++           &lt;SelectValue placeholder={field.placeholder ?? "Select an option"} /&gt;
 +         &lt;/SelectTrigger&gt;
 +         &lt;SelectContent&gt;
 +           {options.map((option) =&gt; (
@@ -801,7 +801,7 @@ Lines added: 83, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-multi-select.tsx</summary>
+<details><summary>Tool use: **write** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-multi-select.tsx</summary>
 
 **Chunk 1**
 Lines added: 134, lines removed: 1
@@ -809,19 +809,19 @@ Lines added: 134, lines removed: 1
 ```diff
 @@ -1,1 +1,134 @@
 - 
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import * as React from &quot;react&quot;;
++ import * as React from "react";
 + import {
 +   Select,
 +   SelectContent,
 +   SelectItem,
 +   SelectTrigger,
 +   SelectValue,
-+ } from &quot;@/components/ui/select&quot;;
-+ import { FieldWrapper } from &quot;./field-wrapper&quot;;
-+ import { cn } from &quot;@/lib/utils&quot;;
-+ import type { FormField } from &quot;@prisma/client&quot;;
++ } from "@/components/ui/select";
++ import { FieldWrapper } from "./field-wrapper";
++ import { cn } from "@/lib/utils";
++ import type { FormField } from "@prisma/client";
 + 
 + interface FieldInputMultiSelectProps {
 +   field: FormField;
@@ -850,11 +850,11 @@ Lines added: 134, lines removed: 1
 + 
 +   // Extract options from field.options JSON
 +   const options = React.useMemo(() =&gt; {
-+     if (!field.options || typeof field.options !== &quot;object&quot;) return [];
++     if (!field.options || typeof field.options !== "object") return [];
 +     const optionsObj = field.options as Record&lt;string, unknown&gt;;
-+     if (&quot;values&quot; in optionsObj &amp;&amp; Array.isArray(optionsObj.values)) {
++     if ("values" in optionsObj &amp;&amp; Array.isArray(optionsObj.values)) {
 +       return optionsObj.values.filter(
-+         (v): v is string =&gt; typeof v === &quot;string&quot;
++         (v): v is string =&gt; typeof v === "string"
 +       );
 +     }
 +     return [];
@@ -864,7 +864,7 @@ Lines added: 134, lines removed: 1
 +   const displayValue =
 +     selectedValues.length &gt; 0
 +       ? &#96;${selectedValues.length} selected&#96;
-+       : field.placeholder ?? &quot;Select options&quot;;
++       : field.placeholder ?? "Select options";
 + 
 +   const handleValueChange = (newValue: string) =&gt; {
 +     const currentValues = Array.isArray(value) ? [...value] : [];
@@ -879,9 +879,9 @@ Lines added: 134, lines removed: 1
 + 
 +   return (
 +     &lt;FieldWrapper field={field} error={error}&gt;
-+       &lt;div className=&quot;space-y-2&quot;&gt;
++       &lt;div className="space-y-2"&gt;
 +         &lt;Select
-+           value=&quot;&quot;
++           value=""
 +           onValueChange={handleValueChange}
 +           disabled={disabled}
 +         &gt;
@@ -896,7 +896,7 @@ Lines added: 134, lines removed: 1
 +                 ? &#96;${fieldId}-help&#96;
 +                 : undefined
 +             }
-+             className={cn(hasError &amp;&amp; &quot;border-destructive&quot;)}
++             className={cn(hasError &amp;&amp; "border-destructive")}
 +           &gt;
 +             &lt;SelectValue placeholder={displayValue} /&gt;
 +           &lt;/SelectTrigger&gt;
@@ -906,30 +906,30 @@ Lines added: 134, lines removed: 1
 +                 key={option}
 +                 value={option}
 +                 className={cn(
-+                   selectedValues.includes(option) &amp;&amp; &quot;bg-accent&quot;
++                   selectedValues.includes(option) &amp;&amp; "bg-accent"
 +                 )}
 +               &gt;
 +                 {option}
-+                 {selectedValues.includes(option) &amp;&amp; &quot; ✓&quot;}
++                 {selectedValues.includes(option) &amp;&amp; " ✓"}
 +               &lt;/SelectItem&gt;
 +             ))}
 +           &lt;/SelectContent&gt;
 +         &lt;/Select&gt;
 +         {selectedValues.length &gt; 0 &amp;&amp; (
-+           &lt;div className=&quot;flex flex-wrap gap-2&quot;&gt;
++           &lt;div className="flex flex-wrap gap-2"&gt;
 +             {selectedValues.map((val) =&gt; (
 +               &lt;span
 +                 key={val}
-+                 className=&quot;inline-flex items-center gap-1 rounded-md bg-secondary px-2 py-1 text-xs&quot;
++                 className="inline-flex items-center gap-1 rounded-md bg-secondary px-2 py-1 text-xs"
 +               &gt;
 +                 {val}
 +                 &lt;button
-+                   type=&quot;button&quot;
++                   type="button"
 +                   onClick={() =&gt; {
 +                     const newValues = selectedValues.filter((v) =&gt; v !== val);
 +                     onChange(newValues);
 +                   }}
-+                   className=&quot;ml-1 hover:text-destructive&quot;
++                   className="ml-1 hover:text-destructive"
 +                   aria-label={&#96;Remove ${val}&#96;}
 +                 &gt;
 +                   ×
@@ -953,7 +953,7 @@ Lines added: 134, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-checkbox.tsx</summary>
+<details><summary>Tool use: **write** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-checkbox.tsx</summary>
 
 **Chunk 1**
 Lines added: 70, lines removed: 1
@@ -961,12 +961,12 @@ Lines added: 70, lines removed: 1
 ```diff
 @@ -1,1 +1,70 @@
 - 
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import * as React from &quot;react&quot;;
-+ import { FieldWrapper } from &quot;./field-wrapper&quot;;
-+ import { cn } from &quot;@/lib/utils&quot;;
-+ import type { FormField } from &quot;@prisma/client&quot;;
++ import * as React from "react";
++ import { FieldWrapper } from "./field-wrapper";
++ import { cn } from "@/lib/utils";
++ import type { FormField } from "@prisma/client";
 + 
 + interface FieldInputCheckboxProps {
 +   field: FormField;
@@ -993,10 +993,10 @@ Lines added: 70, lines removed: 1
 + 
 +   return (
 +     &lt;FieldWrapper field={field} error={error}&gt;
-+       &lt;div className=&quot;flex items-center space-x-2&quot;&gt;
++       &lt;div className="flex items-center space-x-2"&gt;
 +         &lt;input
 +           id={fieldId}
-+           type=&quot;checkbox&quot;
++           type="checkbox"
 +           checked={value ?? false}
 +           onChange={(e) =&gt; onChange(e.target.checked)}
 +           onBlur={onBlur}
@@ -1010,18 +1010,18 @@ Lines added: 70, lines removed: 1
 +               : undefined
 +           }
 +           className={cn(
-+             &quot;h-4 w-4 rounded border border-input shadow-xs transition-colors&quot;,
-+             &quot;focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2&quot;,
-+             &quot;disabled:cursor-not-allowed disabled:opacity-50&quot;,
-+             hasError &amp;&amp; &quot;border-destructive&quot;,
-+             &quot;checked:bg-primary checked:border-primary&quot;
++             "h-4 w-4 rounded border border-input shadow-xs transition-colors",
++             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
++             "disabled:cursor-not-allowed disabled:opacity-50",
++             hasError &amp;&amp; "border-destructive",
++             "checked:bg-primary checked:border-primary"
 +           )}
 +         /&gt;
 +         &lt;label
 +           htmlFor={fieldId}
 +           className={cn(
-+             &quot;text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;,
-+             !field.required &amp;&amp; &quot;cursor-pointer&quot;
++             "text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
++             !field.required &amp;&amp; "cursor-pointer"
 +           )}
 +         &gt;
 +           {field.label}
@@ -1041,7 +1041,7 @@ Lines added: 70, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-radio.tsx</summary>
+<details><summary>Tool use: **write** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-radio.tsx</summary>
 
 **Chunk 1**
 Lines added: 92, lines removed: 1
@@ -1049,12 +1049,12 @@ Lines added: 92, lines removed: 1
 ```diff
 @@ -1,1 +1,92 @@
 - 
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import * as React from &quot;react&quot;;
-+ import { FieldWrapper } from &quot;./field-wrapper&quot;;
-+ import { cn } from &quot;@/lib/utils&quot;;
-+ import type { FormField } from &quot;@prisma/client&quot;;
++ import * as React from "react";
++ import { FieldWrapper } from "./field-wrapper";
++ import { cn } from "@/lib/utils";
++ import type { FormField } from "@prisma/client";
 + 
 + interface FieldInputRadioProps {
 +   field: FormField;
@@ -1081,11 +1081,11 @@ Lines added: 92, lines removed: 1
 + 
 +   // Extract options from field.options JSON
 +   const options = React.useMemo(() =&gt; {
-+     if (!field.options || typeof field.options !== &quot;object&quot;) return [];
++     if (!field.options || typeof field.options !== "object") return [];
 +     const optionsObj = field.options as Record&lt;string, unknown&gt;;
-+     if (&quot;values&quot; in optionsObj &amp;&amp; Array.isArray(optionsObj.values)) {
++     if ("values" in optionsObj &amp;&amp; Array.isArray(optionsObj.values)) {
 +       return optionsObj.values.filter(
-+         (v): v is string =&gt; typeof v === &quot;string&quot;
++         (v): v is string =&gt; typeof v === "string"
 +       );
 +     }
 +     return [];
@@ -1093,15 +1093,15 @@ Lines added: 92, lines removed: 1
 + 
 +   return (
 +     &lt;FieldWrapper field={field} error={error}&gt;
-+       &lt;div className=&quot;space-y-2&quot; role=&quot;radiogroup&quot; aria-labelledby={&#96;${fieldId}-label&#96;}&gt;
++       &lt;div className="space-y-2" role="radiogroup" aria-labelledby={&#96;${fieldId}-label&#96;}&gt;
 +         {options.map((option) =&gt; {
 +           const optionId = &#96;${fieldId}-${option}&#96;;
 +           const isChecked = value === option;
 +           return (
-+             &lt;div key={option} className=&quot;flex items-center space-x-2&quot;&gt;
++             &lt;div key={option} className="flex items-center space-x-2"&gt;
 +               &lt;input
 +                 id={optionId}
-+                 type=&quot;radio&quot;
++                 type="radio"
 +                 name={fieldId}
 +                 value={option}
 +                 checked={isChecked}
@@ -1117,18 +1117,18 @@ Lines added: 92, lines removed: 1
 +                     : undefined
 +                 }
 +                 className={cn(
-+                   &quot;h-4 w-4 border border-input shadow-xs transition-colors&quot;,
-+                   &quot;focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2&quot;,
-+                   &quot;disabled:cursor-not-allowed disabled:opacity-50&quot;,
-+                   hasError &amp;&amp; &quot;border-destructive&quot;,
-+                   &quot;checked:bg-primary checked:border-primary&quot;
++                   "h-4 w-4 border border-input shadow-xs transition-colors",
++                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
++                   "disabled:cursor-not-allowed disabled:opacity-50",
++                   hasError &amp;&amp; "border-destructive",
++                   "checked:bg-primary checked:border-primary"
 +                 )}
 +               /&gt;
 +               &lt;label
 +                 htmlFor={optionId}
 +                 className={cn(
-+                   &quot;text-sm font-normal leading-none cursor-pointer&quot;,
-+                   &quot;peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
++                   "text-sm font-normal leading-none cursor-pointer",
++                   "peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 +                 )}
 +               &gt;
 +                 {option}
@@ -1151,7 +1151,7 @@ Lines added: 92, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-date.tsx</summary>
+<details><summary>Tool use: **write** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-date.tsx</summary>
 
 **Chunk 1**
 Lines added: 85, lines removed: 1
@@ -1159,13 +1159,13 @@ Lines added: 85, lines removed: 1
 ```diff
 @@ -1,1 +1,85 @@
 - 
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import * as React from &quot;react&quot;;
-+ import { Input } from &quot;@/components/ui/input&quot;;
-+ import { FieldWrapper } from &quot;./field-wrapper&quot;;
-+ import { cn } from &quot;@/lib/utils&quot;;
-+ import type { FormField } from &quot;@prisma/client&quot;;
++ import * as React from "react";
++ import { Input } from "@/components/ui/input";
++ import { FieldWrapper } from "./field-wrapper";
++ import { cn } from "@/lib/utils";
++ import type { FormField } from "@prisma/client";
 + 
 + interface FieldInputDateProps {
 +   field: FormField;
@@ -1198,13 +1198,13 @@ Lines added: 85, lines removed: 1
 + 
 +   // Format value for date input (YYYY-MM-DD)
 +   const formattedValue = React.useMemo(() =&gt; {
-+     if (!value) return &quot;&quot;;
++     if (!value) return "";
 +     try {
 +       const date = new Date(value);
-+       if (isNaN(date.getTime())) return &quot;&quot;;
-+       return date.toISOString().split(&quot;T&quot;)[0];
++       if (isNaN(date.getTime())) return "";
++       return date.toISOString().split("T")[0];
 +     } catch {
-+       return &quot;&quot;;
++       return "";
 +     }
 +   }, [value]);
 + 
@@ -1215,7 +1215,7 @@ Lines added: 85, lines removed: 1
 +       const date = new Date(dateValue);
 +       onChange(date.toISOString());
 +     } else {
-+       onChange(&quot;&quot;);
++       onChange("");
 +     }
 +   };
 + 
@@ -1223,7 +1223,7 @@ Lines added: 85, lines removed: 1
 +     &lt;FieldWrapper field={field} error={error}&gt;
 +       &lt;Input
 +         id={fieldId}
-+         type=&quot;date&quot;
++         type="date"
 +         value={formattedValue}
 +         onChange={handleChange}
 +         onBlur={onBlur}
@@ -1238,7 +1238,7 @@ Lines added: 85, lines removed: 1
 +             ? &#96;${fieldId}-help&#96;
 +             : undefined
 +         }
-+         className={cn(hasError &amp;&amp; &quot;border-destructive&quot;)}
++         className={cn(hasError &amp;&amp; "border-destructive")}
 +       /&gt;
 +     &lt;/FieldWrapper&gt;
 +   );
@@ -1254,7 +1254,7 @@ Lines added: 85, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/form-field-renderer.tsx</summary>
+<details><summary>Tool use: **write** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/form-field-renderer.tsx</summary>
 
 **Chunk 1**
 Lines added: 169, lines removed: 1
@@ -1262,20 +1262,20 @@ Lines added: 169, lines removed: 1
 ```diff
 @@ -1,1 +1,169 @@
 - 
-+ &quot;use client&quot;;
++ "use client";
 + 
-+ import * as React from &quot;react&quot;;
-+ import type { FormField } from &quot;@prisma/client&quot;;
-+ import { FieldInputText } from &quot;./field-input-text&quot;;
-+ import { FieldInputEmail } from &quot;./field-input-email&quot;;
-+ import { FieldInputNumber } from &quot;./field-input-number&quot;;
-+ import { FieldInputTel } from &quot;./field-input-tel&quot;;
-+ import { FieldTextarea } from &quot;./field-textarea&quot;;
-+ import { FieldInputSelect } from &quot;./field-input-select&quot;;
-+ import { FieldInputMultiSelect } from &quot;./field-input-multi-select&quot;;
-+ import { FieldInputCheckbox } from &quot;./field-input-checkbox&quot;;
-+ import { FieldInputRadio } from &quot;./field-input-radio&quot;;
-+ import { FieldInputDate } from &quot;./field-input-date&quot;;
++ import * as React from "react";
++ import type { FormField } from "@prisma/client";
++ import { FieldInputText } from "./field-input-text";
++ import { FieldInputEmail } from "./field-input-email";
++ import { FieldInputNumber } from "./field-input-number";
++ import { FieldInputTel } from "./field-input-tel";
++ import { FieldTextarea } from "./field-textarea";
++ import { FieldInputSelect } from "./field-input-select";
++ import { FieldInputMultiSelect } from "./field-input-multi-select";
++ import { FieldInputCheckbox } from "./field-input-checkbox";
++ import { FieldInputRadio } from "./field-input-radio";
++ import { FieldInputDate } from "./field-input-date";
 + 
 + interface FormFieldRendererProps {
 +   field: FormField;
@@ -1300,7 +1300,7 @@ Lines added: 169, lines removed: 1
 + }: FormFieldRendererProps) {
 +   // Handle different field types
 +   switch (field.type) {
-+     case &quot;text&quot;:
++     case "text":
 +       return (
 +         &lt;FieldInputText
 +           field={field}
@@ -1312,7 +1312,7 @@ Lines added: 169, lines removed: 1
 +         /&gt;
 +       );
 + 
-+     case &quot;email&quot;:
++     case "email":
 +       return (
 +         &lt;FieldInputEmail
 +           field={field}
@@ -1324,7 +1324,7 @@ Lines added: 169, lines removed: 1
 +         /&gt;
 +       );
 + 
-+     case &quot;number&quot;:
++     case "number":
 +       return (
 +         &lt;FieldInputNumber
 +           field={field}
@@ -1336,7 +1336,7 @@ Lines added: 169, lines removed: 1
 +         /&gt;
 +       );
 + 
-+     case &quot;tel&quot;:
++     case "tel":
 +       return (
 +         &lt;FieldInputTel
 +           field={field}
@@ -1348,7 +1348,7 @@ Lines added: 169, lines removed: 1
 +         /&gt;
 +       );
 + 
-+     case &quot;textarea&quot;:
++     case "textarea":
 +       return (
 +         &lt;FieldTextarea
 +           field={field}
@@ -1360,7 +1360,7 @@ Lines added: 169, lines removed: 1
 +         /&gt;
 +       );
 + 
-+     case &quot;select&quot;:
++     case "select":
 +       return (
 +         &lt;FieldInputSelect
 +           field={field}
@@ -1372,7 +1372,7 @@ Lines added: 169, lines removed: 1
 +         /&gt;
 +       );
 + 
-+     case &quot;multi-select&quot;:
++     case "multi-select":
 +       return (
 +         &lt;FieldInputMultiSelect
 +           field={field}
@@ -1384,8 +1384,8 @@ Lines added: 169, lines removed: 1
 +         /&gt;
 +       );
 + 
-+     case &quot;checkbox&quot;:
-+     case &quot;boolean&quot;:
++     case "checkbox":
++     case "boolean":
 +       return (
 +         &lt;FieldInputCheckbox
 +           field={field}
@@ -1397,7 +1397,7 @@ Lines added: 169, lines removed: 1
 +         /&gt;
 +       );
 + 
-+     case &quot;radio&quot;:
++     case "radio":
 +       return (
 +         &lt;FieldInputRadio
 +           field={field}
@@ -1409,7 +1409,7 @@ Lines added: 169, lines removed: 1
 +         /&gt;
 +       );
 + 
-+     case &quot;date&quot;:
++     case "date":
 +       return (
 +         &lt;FieldInputDate
 +           field={field}
@@ -1424,7 +1424,7 @@ Lines added: 169, lines removed: 1
 +     default:
 +       console.warn(&#96;Unknown field type: ${field.type}&#96;);
 +       return (
-+         &lt;div className=&quot;rounded-md border border-destructive/50 bg-destructive/10 p-3 text-sm text-destructive&quot;&gt;
++         &lt;div className="rounded-md border border-destructive/50 bg-destructive/10 p-3 text-sm text-destructive"&gt;
 +           Unknown field type: {field.type}
 +         &lt;/div&gt;
 +       );
@@ -1493,7 +1493,7 @@ Fixing a few issues: required indicator styling and label duplication in checkbo
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-wrapper.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-wrapper.tsx</summary>
 
 **Chunk 1**
 Lines added: 6, lines removed: 4
@@ -1503,14 +1503,14 @@ Lines added: 6, lines removed: 4
         &lt;Label
           htmlFor={fieldId}
 -         className={cn(
--           &quot;text-sm font-medium&quot;,
--           field.required &amp;&amp; &quot;after:content-[&#39;*&#39;] after:ml-0.5 after:text-destructive&quot;
+-           "text-sm font-medium",
+-           field.required &amp;&amp; "after:content-['*'] after:ml-0.5 after:text-destructive"
 -         )}
-+         className=&quot;text-sm font-medium&quot;
++         className="text-sm font-medium"
         &gt;
           {field.label}
 +         {field.required &amp;&amp; (
-+           &lt;span className=&quot;ml-0.5 text-destructive&quot; aria-label=&quot;required&quot;&gt;
++           &lt;span className="ml-0.5 text-destructive" aria-label="required"&gt;
 +             *
 +           &lt;/span&gt;
 +         )}
@@ -1526,7 +1526,7 @@ Lines added: 6, lines removed: 4
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-checkbox.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-checkbox.tsx</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: 1
@@ -1536,8 +1536,8 @@ Lines added: 1, lines removed: 1
   
     return (
 -     &lt;FieldWrapper field={field} error={error}&gt;
-+     &lt;div className=&quot;space-y-2&quot;&gt;
-        &lt;div className=&quot;flex items-center space-x-2&quot;&gt;
++     &lt;div className="space-y-2"&gt;
+        &lt;div className="flex items-center space-x-2"&gt;
           &lt;input
 ```
 
@@ -1552,10 +1552,10 @@ Lines added: 24, lines removed: 5
 +         &lt;Label
             htmlFor={fieldId}
             className={cn(
--             &quot;text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;,
--             !field.required &amp;&amp; &quot;cursor-pointer&quot;
-+             &quot;text-sm font-medium cursor-pointer&quot;,
-+             field.required &amp;&amp; &quot;after:content-[&#39;*&#39;] after:ml-0.5 after:text-destructive&quot;
+-             "text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+-             !field.required &amp;&amp; "cursor-pointer"
++             "text-sm font-medium cursor-pointer",
++             field.required &amp;&amp; "after:content-['*'] after:ml-0.5 after:text-destructive"
             )}
           &gt;
             {field.label}
@@ -1566,7 +1566,7 @@ Lines added: 24, lines removed: 5
 +       {field.helpText &amp;&amp; (
 +         &lt;p
 +           id={&#96;${fieldId}-help&#96;}
-+           className=&quot;text-xs text-muted-foreground&quot;
++           className="text-xs text-muted-foreground"
 +           aria-describedby={fieldId}
 +         &gt;
 +           {field.helpText}
@@ -1575,9 +1575,9 @@ Lines added: 24, lines removed: 5
 +       {hasError &amp;&amp; (
 +         &lt;p
 +           id={&#96;${fieldId}-error&#96;}
-+           className=&quot;text-xs text-destructive&quot;
-+           role=&quot;alert&quot;
-+           aria-live=&quot;polite&quot;
++           className="text-xs text-destructive"
++           role="alert"
++           aria-live="polite"
 +         &gt;
 +           {error}
 +         &lt;/p&gt;
@@ -1613,7 +1613,7 @@ Fixing the checkbox and radio components to import Label and fix the required in
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-checkbox.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-checkbox.tsx</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: 1
@@ -1621,11 +1621,11 @@ Lines added: 1, lines removed: 1
 ```diff
 @@ -2,5 +2,5 @@
   
-  import * as React from &quot;react&quot;;
-- import { FieldWrapper } from &quot;./field-wrapper&quot;;
-+ import { Label } from &quot;@/components/ui/label&quot;;
-  import { cn } from &quot;@/lib/utils&quot;;
-  import type { FormField } from &quot;@prisma/client&quot;;
+  import * as React from "react";
+- import { FieldWrapper } from "./field-wrapper";
++ import { Label } from "@/components/ui/label";
+  import { cn } from "@/lib/utils";
+  import type { FormField } from "@prisma/client";
 ```
 
 </details>
@@ -1636,7 +1636,7 @@ Lines added: 1, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-checkbox.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-checkbox.tsx</summary>
 
 **Chunk 1**
 Lines added: 6, lines removed: 4
@@ -1646,14 +1646,14 @@ Lines added: 6, lines removed: 4
           &lt;Label
             htmlFor={fieldId}
 -           className={cn(
--             &quot;text-sm font-medium cursor-pointer&quot;,
--             field.required &amp;&amp; &quot;after:content-[&#39;*&#39;] after:ml-0.5 after:text-destructive&quot;
+-             "text-sm font-medium cursor-pointer",
+-             field.required &amp;&amp; "after:content-['*'] after:ml-0.5 after:text-destructive"
 -           )}
-+           className=&quot;text-sm font-medium cursor-pointer&quot;
++           className="text-sm font-medium cursor-pointer"
           &gt;
             {field.label}
 +           {field.required &amp;&amp; (
-+             &lt;span className=&quot;ml-0.5 text-destructive&quot; aria-label=&quot;required&quot;&gt;
++             &lt;span className="ml-0.5 text-destructive" aria-label="required"&gt;
 +               *
 +             &lt;/span&gt;
 +           )}
@@ -1669,7 +1669,7 @@ Lines added: 6, lines removed: 4
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-radio.tsx</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-radio.tsx</summary>
 
 **Chunk 1**
 Lines added: 1, lines removed: undefined
@@ -1677,10 +1677,10 @@ Lines added: 1, lines removed: undefined
 ```diff
 @@ -2,4 +2,5 @@
   
-  import * as React from &quot;react&quot;;
-+ import { Label } from &quot;@/components/ui/label&quot;;
-  import { FieldWrapper } from &quot;./field-wrapper&quot;;
-  import { cn } from &quot;@/lib/utils&quot;;
+  import * as React from "react";
++ import { Label } from "@/components/ui/label";
+  import { FieldWrapper } from "./field-wrapper";
+  import { cn } from "@/lib/utils";
 ```
 
 </details>
@@ -1718,7 +1718,7 @@ Creating an index file for easier imports and verifying everything works:
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/index.ts</summary>
+<details><summary>Tool use: **write** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/components/forms/index.ts</summary>
 
 **Chunk 1**
 Lines added: 20, lines removed: 1
@@ -1733,18 +1733,18 @@ Lines added: 20, lines removed: 1
 +  * based on FormField configuration from the database.
 +  */
 + 
-+ export { FormFieldRenderer } from &quot;./form-field-renderer&quot;;
-+ export { FieldWrapper } from &quot;./field-wrapper&quot;;
-+ export { FieldInputText } from &quot;./field-input-text&quot;;
-+ export { FieldInputEmail } from &quot;./field-input-email&quot;;
-+ export { FieldInputNumber } from &quot;./field-input-number&quot;;
-+ export { FieldInputTel } from &quot;./field-input-tel&quot;;
-+ export { FieldTextarea } from &quot;./field-textarea&quot;;
-+ export { FieldInputSelect } from &quot;./field-input-select&quot;;
-+ export { FieldInputMultiSelect } from &quot;./field-input-multi-select&quot;;
-+ export { FieldInputCheckbox } from &quot;./field-input-checkbox&quot;;
-+ export { FieldInputRadio } from &quot;./field-input-radio&quot;;
-+ export { FieldInputDate } from &quot;./field-input-date&quot;;
++ export { FormFieldRenderer } from "./form-field-renderer";
++ export { FieldWrapper } from "./field-wrapper";
++ export { FieldInputText } from "./field-input-text";
++ export { FieldInputEmail } from "./field-input-email";
++ export { FieldInputNumber } from "./field-input-number";
++ export { FieldInputTel } from "./field-input-tel";
++ export { FieldTextarea } from "./field-textarea";
++ export { FieldInputSelect } from "./field-input-select";
++ export { FieldInputMultiSelect } from "./field-input-multi-select";
++ export { FieldInputCheckbox } from "./field-input-checkbox";
++ export { FieldInputRadio } from "./field-input-radio";
++ export { FieldInputDate } from "./field-input-date";
 + 
 ```
 
@@ -1755,33 +1755,33 @@ Lines added: 20, lines removed: 1
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npx tsc --noEmit --project tsconfig.json 2>&1 | grep -E "(error|components/forms)" | head -20</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npx tsc --noEmit --project tsconfig.json 2>&1 | grep -E "(error|components/forms)" | head -20</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && npx tsc --noEmit --project tsconfig.json 2>&1 | grep -E "(error|components/forms)" | head -20
 ```
 
 ```
-.next/dev/types/validator.ts(252,31): error TS2344: Type &#39;typeof import(&quot;/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/documents/[id]/route&quot;)&#39; does not satisfy the constraint &#39;RouteHandlerConfig&lt;&quot;/api/configuration/documents/[id]&quot;&gt;&#39;.                                                                  
-    Type &#39;(request: Request, { params }: { params: { id: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ documentType: { id: string; createdAt: Date; updatedAt: Date; description: string | null; key: string; label: string; category: string; }; }&gt;&gt;&#39; is not assignable to type &#39;(request: NextRequest, context: { params: Promise&lt;{ id: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;&#39;.                                                           
-.next/dev/types/validator.ts(270,31): error TS2344: Type &#39;typeof import(&quot;/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/entities/[id]/route&quot;)&#39; does not satisfy the constraint &#39;RouteHandlerConfig&lt;&quot;/api/configuration/entities/[id]&quot;&gt;&#39;.                                                                    
-    Type &#39;(request: Request, { params }: { params: { id: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ entity: { name: string; id: string; createdAt: Date; updatedAt: Date; code: string; description: string | null; }; }&gt;&gt;&#39; is not assignable to type &#39;(request: NextRequest, context: { params: Promise&lt;{ id: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;&#39;.   
-.next/dev/types/validator.ts(288,31): error TS2344: Type &#39;typeof import(&quot;/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/forms/[id]/route&quot;)&#39; does not satisfy the constraint &#39;RouteHandlerConfig&lt;&quot;/api/configuration/forms/[id]&quot;&gt;&#39;.                                                                          
-    Type &#39;(request: Request, { params }: { params: { id: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ formConfig: { entity: { name: string; id: string; createdAt: Date; updatedAt: Date; code: string; description: string | null; }; geography: { ...; }; } &amp; { ...; }; }&gt;&gt;&#39; is not assignable to type &#39;(request: NextRequest, context: { params: Promise&lt;{ id: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;&#39;.                                  
-.next/dev/types/validator.ts(297,31): error TS2344: Type &#39;typeof import(&quot;/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/forms/[id]/sections/[sectionId]/route&quot;)&#39; does not satisfy the constraint &#39;RouteHandlerConfig&lt;&quot;/api/configuration/forms/[id]/sections/[sectionId]&quot;&gt;&#39;.                                
-    Type &#39;(request: Request, { params }: { params: { id: string; sectionId: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ section: { id: string; createdAt: Date; updatedAt: Date; formConfigId: string; key: string; label: string; order: number; }; }&gt;&gt;&#39; is not assignable to type &#39;(request: NextRequest, context: { params: Promise&lt;{ id: string; sectionId: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;&#39;.                                   
-.next/dev/types/validator.ts(306,31): error TS2344: Type &#39;typeof import(&quot;/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/forms/[id]/sections/route&quot;)&#39; does not satisfy the constraint &#39;RouteHandlerConfig&lt;&quot;/api/configuration/forms/[id]/sections&quot;&gt;&#39;.                                                        
-    Type &#39;(_request: Request, { params }: { params: { id: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ sections: { id: string; createdAt: Date; updatedAt: Date; formConfigId: string; key: string; label: string; order: number; }[]; }&gt;&gt;&#39; is not assignable to type &#39;(request: NextRequest, context: { params: Promise&lt;{ id: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;&#39;.                                                                     
-.next/dev/types/validator.ts(324,31): error TS2344: Type &#39;typeof import(&quot;/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/geographies/[id]/route&quot;)&#39; does not satisfy the constraint &#39;RouteHandlerConfig&lt;&quot;/api/configuration/geographies/[id]&quot;&gt;&#39;.                                                              
-    Type &#39;(request: Request, { params }: { params: { id: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ geography: { name: string; id: string; createdAt: Date; updatedAt: Date; code: string; }; }&gt;&gt;&#39; is not assignable to type &#39;(request: NextRequest, context: { params: Promise&lt;{ id: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;&#39;.                            
-.next/dev/types/validator.ts(342,31): error TS2344: Type &#39;typeof import(&quot;/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/requirements/[id]/route&quot;)&#39; does not satisfy the constraint &#39;RouteHandlerConfig&lt;&quot;/api/configuration/requirements/[id]&quot;&gt;&#39;.                                                            
-    Type &#39;(_request: Request, { params }: { params: { id: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ ok: boolean; }&gt;&gt;&#39; is not assignable to type &#39;(request: NextRequest, context: { params: Promise&lt;{ id: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;&#39;.                        
-.next/types/app/dashboard/procurement/page.ts(34,29): error TS2344: Type &#39;ProcurementDashboardProps&#39; does not satisfy the constraint &#39;PageProps&#39;.               
-.next/types/validator.ts(252,31): error TS2344: Type &#39;typeof import(&quot;/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/documents/[id]/route&quot;)&#39; does not satisfy the constraint &#39;RouteHandlerConfig&lt;&quot;/api/configuration/documents/[id]&quot;&gt;&#39;.                                                                      
-    Type &#39;(request: Request, { params }: { params: { id: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ documentType: { id: string; createdAt: Date; updatedAt: Date; description: string | null; key: string; label: string; category: string; }; }&gt;&gt;&#39; is not assignable to type &#39;(request: NextRequest, context: { params: Promise&lt;{ id: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;&#39;.                                                           
-.next/types/validator.ts(270,31): error TS2344: Type &#39;typeof import(&quot;/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/entities/[id]/route&quot;)&#39; does not satisfy the constraint &#39;RouteHandlerConfig&lt;&quot;/api/configuration/entities/[id]&quot;&gt;&#39;.                                                                        
-    Type &#39;(request: Request, { params }: { params: { id: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ entity: { name: string; id: string; createdAt: Date; updatedAt: Date; code: string; description: string | null; }; }&gt;&gt;&#39; is not assignable to type &#39;(request: NextRequest, context: { params: Promise&lt;{ id: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;&#39;.   
-.next/types/validator.ts(288,31): error TS2344: Type &#39;typeof import(&quot;/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/forms/[id]/route&quot;)&#39; does not satisfy the constraint &#39;RouteHandlerConfig&lt;&quot;/api/configuration/forms/[id]&quot;&gt;&#39;.                                                                              
+.next/dev/types/validator.ts(252,31): error TS2344: Type 'typeof import("/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/documents/[id]/route")' does not satisfy the constraint 'RouteHandlerConfig&lt;"/api/configuration/documents/[id]"&gt;'.                                                                  
+    Type '(request: Request, { params }: { params: { id: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ documentType: { id: string; createdAt: Date; updatedAt: Date; description: string | null; key: string; label: string; category: string; }; }&gt;&gt;' is not assignable to type '(request: NextRequest, context: { params: Promise&lt;{ id: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;'.                                                           
+.next/dev/types/validator.ts(270,31): error TS2344: Type 'typeof import("/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/entities/[id]/route")' does not satisfy the constraint 'RouteHandlerConfig&lt;"/api/configuration/entities/[id]"&gt;'.                                                                    
+    Type '(request: Request, { params }: { params: { id: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ entity: { name: string; id: string; createdAt: Date; updatedAt: Date; code: string; description: string | null; }; }&gt;&gt;' is not assignable to type '(request: NextRequest, context: { params: Promise&lt;{ id: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;'.   
+.next/dev/types/validator.ts(288,31): error TS2344: Type 'typeof import("/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/forms/[id]/route")' does not satisfy the constraint 'RouteHandlerConfig&lt;"/api/configuration/forms/[id]"&gt;'.                                                                          
+    Type '(request: Request, { params }: { params: { id: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ formConfig: { entity: { name: string; id: string; createdAt: Date; updatedAt: Date; code: string; description: string | null; }; geography: { ...; }; } &amp; { ...; }; }&gt;&gt;' is not assignable to type '(request: NextRequest, context: { params: Promise&lt;{ id: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;'.                                  
+.next/dev/types/validator.ts(297,31): error TS2344: Type 'typeof import("/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/forms/[id]/sections/[sectionId]/route")' does not satisfy the constraint 'RouteHandlerConfig&lt;"/api/configuration/forms/[id]/sections/[sectionId]"&gt;'.                                
+    Type '(request: Request, { params }: { params: { id: string; sectionId: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ section: { id: string; createdAt: Date; updatedAt: Date; formConfigId: string; key: string; label: string; order: number; }; }&gt;&gt;' is not assignable to type '(request: NextRequest, context: { params: Promise&lt;{ id: string; sectionId: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;'.                                   
+.next/dev/types/validator.ts(306,31): error TS2344: Type 'typeof import("/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/forms/[id]/sections/route")' does not satisfy the constraint 'RouteHandlerConfig&lt;"/api/configuration/forms/[id]/sections"&gt;'.                                                        
+    Type '(_request: Request, { params }: { params: { id: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ sections: { id: string; createdAt: Date; updatedAt: Date; formConfigId: string; key: string; label: string; order: number; }[]; }&gt;&gt;' is not assignable to type '(request: NextRequest, context: { params: Promise&lt;{ id: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;'.                                                                     
+.next/dev/types/validator.ts(324,31): error TS2344: Type 'typeof import("/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/geographies/[id]/route")' does not satisfy the constraint 'RouteHandlerConfig&lt;"/api/configuration/geographies/[id]"&gt;'.                                                              
+    Type '(request: Request, { params }: { params: { id: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ geography: { name: string; id: string; createdAt: Date; updatedAt: Date; code: string; }; }&gt;&gt;' is not assignable to type '(request: NextRequest, context: { params: Promise&lt;{ id: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;'.                            
+.next/dev/types/validator.ts(342,31): error TS2344: Type 'typeof import("/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/requirements/[id]/route")' does not satisfy the constraint 'RouteHandlerConfig&lt;"/api/configuration/requirements/[id]"&gt;'.                                                            
+    Type '(_request: Request, { params }: { params: { id: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ ok: boolean; }&gt;&gt;' is not assignable to type '(request: NextRequest, context: { params: Promise&lt;{ id: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;'.                        
+.next/types/app/dashboard/procurement/page.ts(34,29): error TS2344: Type 'ProcurementDashboardProps' does not satisfy the constraint 'PageProps'.               
+.next/types/validator.ts(252,31): error TS2344: Type 'typeof import("/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/documents/[id]/route")' does not satisfy the constraint 'RouteHandlerConfig&lt;"/api/configuration/documents/[id]"&gt;'.                                                                      
+    Type '(request: Request, { params }: { params: { id: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ documentType: { id: string; createdAt: Date; updatedAt: Date; description: string | null; key: string; label: string; category: string; }; }&gt;&gt;' is not assignable to type '(request: NextRequest, context: { params: Promise&lt;{ id: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;'.                                                           
+.next/types/validator.ts(270,31): error TS2344: Type 'typeof import("/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/entities/[id]/route")' does not satisfy the constraint 'RouteHandlerConfig&lt;"/api/configuration/entities/[id]"&gt;'.                                                                        
+    Type '(request: Request, { params }: { params: { id: string; }; }) =&gt; Promise&lt;NextResponse&lt;{ error: string; }&gt; | NextResponse&lt;{ entity: { name: string; id: string; createdAt: Date; updatedAt: Date; code: string; description: string | null; }; }&gt;&gt;' is not assignable to type '(request: NextRequest, context: { params: Promise&lt;{ id: string; }&gt;; }) =&gt; void | Response | Promise&lt;void | Response&gt;'.   
+.next/types/validator.ts(288,31): error TS2344: Type 'typeof import("/Users/sahilmehta/supplier-onboarding-simple/app/api/configuration/forms/[id]/route")' does not satisfy the constraint 'RouteHandlerConfig&lt;"/api/configuration/forms/[id]"&gt;'.                                                                              
 ```
 </details>
 </tool-use>
@@ -1799,7 +1799,7 @@ The TypeScript errors are unrelated to the new components. Verifying the forms c
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **command** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npx tsc --noEmit components/forms/*.tsx components/forms/*.ts 2>&1</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd /Users/sahilmehta/supplier-onboarding-simple && npx tsc --noEmit components/forms/*.tsx components/forms/*.ts 2>&1</summary>
 
 ```bash
 cd /Users/sahilmehta/supplier-onboarding-simple && npx tsc --noEmit components/forms/*.tsx components/forms/*.ts 2>&1
@@ -1808,42 +1808,42 @@ cd /Users/sahilmehta/supplier-onboarding-simple && npx tsc --noEmit components/f
 ```
                                    ~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-field-renderer.tsx:8:31 - error TS6142: Module &#39;./field-input-tel&#39; was resolved to &#39;/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-tel.tsx&#39;, but &#39;--jsx&#39; is not set.                           
+components/forms/form-field-renderer.tsx:8:31 - error TS6142: Module './field-input-tel' was resolved to '/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-tel.tsx', but '--jsx' is not set.                           
 
-8 import { FieldInputTel } from &quot;./field-input-tel&quot;;
+8 import { FieldInputTel } from "./field-input-tel";
                                 ~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-field-renderer.tsx:9:31 - error TS6142: Module &#39;./field-textarea&#39; was resolved to &#39;/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-textarea.tsx&#39;, but &#39;--jsx&#39; is not set.                             
+components/forms/form-field-renderer.tsx:9:31 - error TS6142: Module './field-textarea' was resolved to '/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-textarea.tsx', but '--jsx' is not set.                             
 
-9 import { FieldTextarea } from &quot;./field-textarea&quot;;
+9 import { FieldTextarea } from "./field-textarea";
                                 ~~~~~~~~~~~~~~~~~~
 
-components/forms/form-field-renderer.tsx:10:34 - error TS6142: Module &#39;./field-input-select&#39; was resolved to &#39;/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-select.tsx&#39;, but &#39;--jsx&#39; is not set.                    
+components/forms/form-field-renderer.tsx:10:34 - error TS6142: Module './field-input-select' was resolved to '/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-select.tsx', but '--jsx' is not set.                    
 
-10 import { FieldInputSelect } from &quot;./field-input-select&quot;;
+10 import { FieldInputSelect } from "./field-input-select";
                                     ~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-field-renderer.tsx:11:39 - error TS6142: Module &#39;./field-input-multi-select&#39; was resolved to &#39;/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-multi-select.tsx&#39;, but &#39;--jsx&#39; is not set.        
+components/forms/form-field-renderer.tsx:11:39 - error TS6142: Module './field-input-multi-select' was resolved to '/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-multi-select.tsx', but '--jsx' is not set.        
 
-11 import { FieldInputMultiSelect } from &quot;./field-input-multi-select&quot;;
+11 import { FieldInputMultiSelect } from "./field-input-multi-select";
                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-field-renderer.tsx:12:36 - error TS6142: Module &#39;./field-input-checkbox&#39; was resolved to &#39;/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-checkbox.tsx&#39;, but &#39;--jsx&#39; is not set.                
+components/forms/form-field-renderer.tsx:12:36 - error TS6142: Module './field-input-checkbox' was resolved to '/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-checkbox.tsx', but '--jsx' is not set.                
 
-12 import { FieldInputCheckbox } from &quot;./field-input-checkbox&quot;;
+12 import { FieldInputCheckbox } from "./field-input-checkbox";
                                       ~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-field-renderer.tsx:13:33 - error TS6142: Module &#39;./field-input-radio&#39; was resolved to &#39;/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-radio.tsx&#39;, but &#39;--jsx&#39; is not set.                      
+components/forms/form-field-renderer.tsx:13:33 - error TS6142: Module './field-input-radio' was resolved to '/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-radio.tsx', but '--jsx' is not set.                      
 
-13 import { FieldInputRadio } from &quot;./field-input-radio&quot;;
+13 import { FieldInputRadio } from "./field-input-radio";
                                    ~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-field-renderer.tsx:14:32 - error TS6142: Module &#39;./field-input-date&#39; was resolved to &#39;/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-date.tsx&#39;, but &#39;--jsx&#39; is not set.                        
+components/forms/form-field-renderer.tsx:14:32 - error TS6142: Module './field-input-date' was resolved to '/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-date.tsx', but '--jsx' is not set.                        
 
-14 import { FieldInputDate } from &quot;./field-input-date&quot;;
+14 import { FieldInputDate } from "./field-input-date";
                                   ~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-field-renderer.tsx:41:9 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                              
+components/forms/form-field-renderer.tsx:41:9 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                              
 
  41         &lt;FieldInputText
             ~~~~~~~~~~~~~~~
@@ -1855,7 +1855,7 @@ components/forms/form-field-renderer.tsx:41:9 - error TS17004: Cannot use JSX un
  48         /&gt;
     ~~~~~~~~~~
 
-components/forms/form-field-renderer.tsx:53:9 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                              
+components/forms/form-field-renderer.tsx:53:9 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                              
 
  53         &lt;FieldInputEmail
             ~~~~~~~~~~~~~~~~
@@ -1867,7 +1867,7 @@ components/forms/form-field-renderer.tsx:53:9 - error TS17004: Cannot use JSX un
  60         /&gt;
     ~~~~~~~~~~
 
-components/forms/form-field-renderer.tsx:65:9 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                              
+components/forms/form-field-renderer.tsx:65:9 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                              
 
  65         &lt;FieldInputNumber
             ~~~~~~~~~~~~~~~~~
@@ -1879,7 +1879,7 @@ components/forms/form-field-renderer.tsx:65:9 - error TS17004: Cannot use JSX un
  72         /&gt;
     ~~~~~~~~~~
 
-components/forms/form-field-renderer.tsx:77:9 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                              
+components/forms/form-field-renderer.tsx:77:9 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                              
 
  77         &lt;FieldInputTel
             ~~~~~~~~~~~~~~
@@ -1891,7 +1891,7 @@ components/forms/form-field-renderer.tsx:77:9 - error TS17004: Cannot use JSX un
  84         /&gt;
     ~~~~~~~~~~
 
-components/forms/form-field-renderer.tsx:89:9 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                              
+components/forms/form-field-renderer.tsx:89:9 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                              
 
  89         &lt;FieldTextarea
             ~~~~~~~~~~~~~~
@@ -1903,7 +1903,7 @@ components/forms/form-field-renderer.tsx:89:9 - error TS17004: Cannot use JSX un
  96         /&gt;
     ~~~~~~~~~~
 
-components/forms/form-field-renderer.tsx:101:9 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                             
+components/forms/form-field-renderer.tsx:101:9 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                             
 
 101         &lt;FieldInputSelect
             ~~~~~~~~~~~~~~~~~
@@ -1915,7 +1915,7 @@ components/forms/form-field-renderer.tsx:101:9 - error TS17004: Cannot use JSX u
 108         /&gt;
     ~~~~~~~~~~
 
-components/forms/form-field-renderer.tsx:113:9 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                             
+components/forms/form-field-renderer.tsx:113:9 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                             
 
 113         &lt;FieldInputMultiSelect
             ~~~~~~~~~~~~~~~~~~~~~~
@@ -1927,7 +1927,7 @@ components/forms/form-field-renderer.tsx:113:9 - error TS17004: Cannot use JSX u
 120         /&gt;
     ~~~~~~~~~~
 
-components/forms/form-field-renderer.tsx:126:9 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                             
+components/forms/form-field-renderer.tsx:126:9 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                             
 
 126         &lt;FieldInputCheckbox
             ~~~~~~~~~~~~~~~~~~~
@@ -1939,7 +1939,7 @@ components/forms/form-field-renderer.tsx:126:9 - error TS17004: Cannot use JSX u
 133         /&gt;
     ~~~~~~~~~~
 
-components/forms/form-field-renderer.tsx:138:9 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                             
+components/forms/form-field-renderer.tsx:138:9 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                             
 
 138         &lt;FieldInputRadio
             ~~~~~~~~~~~~~~~~
@@ -1951,7 +1951,7 @@ components/forms/form-field-renderer.tsx:138:9 - error TS17004: Cannot use JSX u
 145         /&gt;
     ~~~~~~~~~~
 
-components/forms/form-field-renderer.tsx:150:9 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                             
+components/forms/form-field-renderer.tsx:150:9 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                             
 
 150         &lt;FieldInputDate
             ~~~~~~~~~~~~~~~
@@ -1963,373 +1963,373 @@ components/forms/form-field-renderer.tsx:150:9 - error TS17004: Cannot use JSX u
 157         /&gt;
     ~~~~~~~~~~
 
-components/forms/form-field-renderer.tsx:163:9 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                             
+components/forms/form-field-renderer.tsx:163:9 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                             
 
-163         &lt;div className=&quot;rounded-md border border-destructive/50 bg-destructive/10 p-3 text-sm text-destructive&quot;&gt;                                            
+163         &lt;div className="rounded-md border border-destructive/50 bg-destructive/10 p-3 text-sm text-destructive"&gt;                                            
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                                            
 
-components/forms/form-navigation.tsx:3:24 - error TS2307: Cannot find module &#39;@/components/ui/button&#39; or its corresponding type declarations.                   
+components/forms/form-navigation.tsx:3:24 - error TS2307: Cannot find module '@/components/ui/button' or its corresponding type declarations.                   
 
-3 import { Button } from &quot;@/components/ui/button&quot;;
+3 import { Button } from "@/components/ui/button";
                          ~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-navigation.tsx:4:26 - error TS2307: Cannot find module &#39;@/components/ui/progress&#39; or its corresponding type declarations.                 
+components/forms/form-navigation.tsx:4:26 - error TS2307: Cannot find module '@/components/ui/progress' or its corresponding type declarations.                 
 
-4 import { Progress } from &quot;@/components/ui/progress&quot;;
+4 import { Progress } from "@/components/ui/progress";
                            ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-navigation.tsx:6:27 - error TS2307: Cannot find module &#39;@/components/ui/separator&#39; or its corresponding type declarations.                
+components/forms/form-navigation.tsx:6:27 - error TS2307: Cannot find module '@/components/ui/separator' or its corresponding type declarations.                
 
-6 import { Separator } from &quot;@/components/ui/separator&quot;;
+6 import { Separator } from "@/components/ui/separator";
                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-navigation.tsx:26:5 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                  
+components/forms/form-navigation.tsx:26:5 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                  
 
-26     &lt;div className=&quot;space-y-4&quot;&gt;
+26     &lt;div className="space-y-4"&gt;
        ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-navigation.tsx:27:7 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                  
+components/forms/form-navigation.tsx:27:7 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                  
 
 27       &lt;Separator /&gt;
          ~~~~~~~~~~~~~
 
-components/forms/form-navigation.tsx:28:7 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                  
+components/forms/form-navigation.tsx:28:7 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                  
 
-28       &lt;div className=&quot;flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between&quot;&gt;                                                                   
+28       &lt;div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"&gt;                                                                   
          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                                                                   
 
-components/forms/form-navigation.tsx:29:9 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                  
+components/forms/form-navigation.tsx:29:9 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                  
 
-29         &lt;div className=&quot;flex items-center gap-3&quot;&gt;
+29         &lt;div className="flex items-center gap-3"&gt;
            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-navigation.tsx:31:13 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                 
+components/forms/form-navigation.tsx:31:13 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                 
 
  31             &lt;Button
                 ~~~~~~~
- 32               type=&quot;button&quot;
+ 32               type="button"
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ... 
- 35               className=&quot;gap-2&quot;
+ 35               className="gap-2"
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  36             &gt;
     ~~~~~~~~~~~~~
 
-components/forms/form-navigation.tsx:37:15 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                 
+components/forms/form-navigation.tsx:37:15 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                 
 
-37               &lt;ChevronLeft className=&quot;size-4&quot; /&gt;
+37               &lt;ChevronLeft className="size-4" /&gt;
                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-navigation.tsx:42:13 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                 
+components/forms/form-navigation.tsx:42:13 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                 
 
  42             &lt;Button
                 ~~~~~~~
- 43               type=&quot;button&quot;
+ 43               type="button"
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ... 
- 46               className=&quot;gap-2&quot;
+ 46               className="gap-2"
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  47             &gt;
     ~~~~~~~~~~~~~
 
-components/forms/form-navigation.tsx:48:15 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                 
+components/forms/form-navigation.tsx:48:15 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                 
 
-48               &lt;Save className=&quot;size-4&quot; /&gt;
+48               &lt;Save className="size-4" /&gt;
                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-navigation.tsx:53:9 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                  
+components/forms/form-navigation.tsx:53:9 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                  
 
  53         &lt;Button
             ~~~~~~~
- 54           type=&quot;button&quot;
+ 54           type="button"
     ~~~~~~~~~~~~~~~~~~~~~~~
 ... 
- 56           className=&quot;gap-2&quot;
+ 56           className="gap-2"
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~
  57         &gt;
     ~~~~~~~~~
 
-components/forms/form-navigation.tsx:59:27 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                 
+components/forms/form-navigation.tsx:59:27 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                 
 
-59           {!isLastStep &amp;&amp; &lt;ChevronRight className=&quot;size-4&quot; /&gt;}
+59           {!isLastStep &amp;&amp; &lt;ChevronRight className="size-4" /&gt;}
                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-navigation.tsx:62:7 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                  
+components/forms/form-navigation.tsx:62:7 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                  
 
-62       &lt;div className=&quot;space-y-2&quot;&gt;
+62       &lt;div className="space-y-2"&gt;
          ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-navigation.tsx:63:9 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                  
+components/forms/form-navigation.tsx:63:9 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                  
 
-63         &lt;div className=&quot;flex items-center justify-between text-xs text-muted-foreground&quot;&gt;                                                                    
+63         &lt;div className="flex items-center justify-between text-xs text-muted-foreground"&gt;                                                                    
            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                                                                    
 
-components/forms/form-navigation.tsx:64:11 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                 
+components/forms/form-navigation.tsx:64:11 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                 
 
 64           &lt;span&gt;Progress&lt;/span&gt;
              ~~~~~~
 
-components/forms/form-navigation.tsx:65:11 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                 
+components/forms/form-navigation.tsx:65:11 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                 
 
 65           &lt;span&gt;{Math.round(progress)}%&lt;/span&gt;
              ~~~~~~
 
-components/forms/form-navigation.tsx:67:9 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                  
+components/forms/form-navigation.tsx:67:9 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                  
 
 67         &lt;Progress value={progress} /&gt;
            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:4:23 - error TS2307: Cannot find module &#39;@/components/ui/input&#39; or its corresponding type declarations.                          
+components/forms/form-step.tsx:4:23 - error TS2307: Cannot find module '@/components/ui/input' or its corresponding type declarations.                          
 
-4 import { Input } from &quot;@/components/ui/input&quot;;
+4 import { Input } from "@/components/ui/input";
                         ~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:5:23 - error TS2307: Cannot find module &#39;@/components/ui/label&#39; or its corresponding type declarations.                          
+components/forms/form-step.tsx:5:23 - error TS2307: Cannot find module '@/components/ui/label' or its corresponding type declarations.                          
 
-5 import { Label } from &quot;@/components/ui/label&quot;;
+5 import { Label } from "@/components/ui/label";
                         ~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:12:8 - error TS2307: Cannot find module &#39;@/components/ui/select&#39; or its corresponding type declarations.                         
+components/forms/form-step.tsx:12:8 - error TS2307: Cannot find module '@/components/ui/select' or its corresponding type declarations.                         
 
-12 } from &quot;@/components/ui/select&quot;;
+12 } from "@/components/ui/select";
           ~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:13:20 - error TS2307: Cannot find module &#39;@/lib/utils&#39; or its corresponding type declarations.                                   
+components/forms/form-step.tsx:13:20 - error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.                                   
 
-13 import { cn } from &quot;@/lib/utils&quot;;
+13 import { cn } from "@/lib/utils";
                       ~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:53:11 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                       
+components/forms/form-step.tsx:53:11 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                       
 
-53           &lt;div key={field.id} className=&quot;space-y-2&quot;&gt;
+53           &lt;div key={field.id} className="space-y-2"&gt;
              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:54:13 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                       
+components/forms/form-step.tsx:54:13 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                       
 
 54             &lt;Label htmlFor={field.id}&gt;
                ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:57:17 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                       
+components/forms/form-step.tsx:57:17 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                       
 
-57                 &lt;span className=&quot;text-destructive ml-1&quot;&gt;*&lt;/span&gt;
+57                 &lt;span className="text-destructive ml-1"&gt;*&lt;/span&gt;
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:60:13 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                       
+components/forms/form-step.tsx:60:13 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                       
 
  60             &lt;Input
                 ~~~~~~
  61               {...commonProps}
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ... 
- 67               className={cn(showError &amp;&amp; &quot;border-destructive&quot;)}
+ 67               className={cn(showError &amp;&amp; "border-destructive")}
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  68             /&gt;
     ~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:70:15 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                       
+components/forms/form-step.tsx:70:15 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                       
 
-70               &lt;p className=&quot;text-xs text-muted-foreground&quot;&gt;{field.helpText}&lt;/p&gt;                                                                              
+70               &lt;p className="text-xs text-muted-foreground"&gt;{field.helpText}&lt;/p&gt;                                                                              
                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:73:15 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                       
+components/forms/form-step.tsx:73:15 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                       
 
-73               &lt;p id={&#96;${field.id}-error&#96;} className=&quot;text-xs text-destructive&quot;&gt;                                                                              
+73               &lt;p id={&#96;${field.id}-error&#96;} className="text-xs text-destructive"&gt;                                                                              
                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                                                                              
 
-components/forms/form-step.tsx:82:11 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                       
+components/forms/form-step.tsx:82:11 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                       
 
-82           &lt;div key={field.id} className=&quot;space-y-2&quot;&gt;
+82           &lt;div key={field.id} className="space-y-2"&gt;
              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:83:13 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                       
+components/forms/form-step.tsx:83:13 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                       
 
 83             &lt;Label htmlFor={field.id}&gt;
                ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:86:17 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                       
+components/forms/form-step.tsx:86:17 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                       
 
-86                 &lt;span className=&quot;text-destructive ml-1&quot;&gt;*&lt;/span&gt;
+86                 &lt;span className="text-destructive ml-1"&gt;*&lt;/span&gt;
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:89:13 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                       
+components/forms/form-step.tsx:89:13 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                       
 
  89             &lt;Input
                 ~~~~~~
  90               {...commonProps}
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ... 
-101               className={cn(showError &amp;&amp; &quot;border-destructive&quot;)}
+101               className={cn(showError &amp;&amp; "border-destructive")}
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 102             /&gt;
     ~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:104:15 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:104:15 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
-104               &lt;p className=&quot;text-xs text-muted-foreground&quot;&gt;{field.helpText}&lt;/p&gt;                                                                             
+104               &lt;p className="text-xs text-muted-foreground"&gt;{field.helpText}&lt;/p&gt;                                                                             
                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:107:15 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:107:15 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
-107               &lt;p id={&#96;${field.id}-error&#96;} className=&quot;text-xs text-destructive&quot;&gt;                                                                             
+107               &lt;p id={&#96;${field.id}-error&#96;} className="text-xs text-destructive"&gt;                                                                             
                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                                                                             
 
-components/forms/form-step.tsx:121:11 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:121:11 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
-121           &lt;div key={field.id} className=&quot;space-y-2&quot;&gt;
+121           &lt;div key={field.id} className="space-y-2"&gt;
               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:122:13 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:122:13 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
 122             &lt;Label htmlFor={field.id}&gt;
                 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:125:17 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:125:17 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
-125                 &lt;span className=&quot;text-destructive ml-1&quot;&gt;*&lt;/span&gt;
+125                 &lt;span className="text-destructive ml-1"&gt;*&lt;/span&gt;
                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:128:13 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:128:13 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
 128             &lt;Select
                 ~~~~~~~
-129               value={(value as string) ?? &quot;&quot;}
+129               value={(value as string) ?? ""}
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 130               onValueChange={(newValue) =&gt; onFieldChange(field.key, newValue)}                                                                              
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                                                                              
 131             &gt;
     ~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:132:15 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:132:15 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
 132               &lt;SelectTrigger
                   ~~~~~~~~~~~~~~
 133                 {...commonProps}
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-134                 className={cn(showError &amp;&amp; &quot;border-destructive&quot;)}
+134                 className={cn(showError &amp;&amp; "border-destructive")}
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 135               &gt;
     ~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:136:17 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:136:17 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
-136                 &lt;SelectValue placeholder={field.placeholder ?? &quot;Select an option&quot;} /&gt;                                                                       
+136                 &lt;SelectValue placeholder={field.placeholder ?? "Select an option"} /&gt;                                                                       
                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                                                                       
 
-components/forms/form-step.tsx:138:15 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:138:15 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
 138               &lt;SelectContent&gt;
                   ~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:140:19 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:140:19 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
 140                   &lt;SelectItem key={option} value={option}&gt;
                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:147:15 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:147:15 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
-147               &lt;p className=&quot;text-xs text-muted-foreground&quot;&gt;{field.helpText}&lt;/p&gt;                                                                             
+147               &lt;p className="text-xs text-muted-foreground"&gt;{field.helpText}&lt;/p&gt;                                                                             
                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:150:15 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:150:15 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
-150               &lt;p id={&#96;${field.id}-error&#96;} className=&quot;text-xs text-destructive&quot;&gt;                                                                             
+150               &lt;p id={&#96;${field.id}-error&#96;} className="text-xs text-destructive"&gt;                                                                             
                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                                                                             
 
-components/forms/form-step.tsx:160:11 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:160:11 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
-160           &lt;div key={field.id} className=&quot;flex items-start space-x-3 space-y-0&quot;&gt;                                                                             
+160           &lt;div key={field.id} className="flex items-start space-x-3 space-y-0"&gt;                                                                             
               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                                                                             
 
-components/forms/form-step.tsx:161:13 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:161:13 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
 161             &lt;input
                 ~~~~~~
 162               {...commonProps}
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ... 
-167               className=&quot;mt-1 size-4 rounded border-input&quot;
+167               className="mt-1 size-4 rounded border-input"
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 168             /&gt;
     ~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:169:13 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:169:13 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
-169             &lt;div className=&quot;space-y-1&quot;&gt;
+169             &lt;div className="space-y-1"&gt;
                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:170:15 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:170:15 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
-170               &lt;Label htmlFor={field.id} className=&quot;cursor-pointer&quot;&gt;
+170               &lt;Label htmlFor={field.id} className="cursor-pointer"&gt;
                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:173:19 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:173:19 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
-173                   &lt;span className=&quot;text-destructive ml-1&quot;&gt;*&lt;/span&gt;
+173                   &lt;span className="text-destructive ml-1"&gt;*&lt;/span&gt;
                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:177:17 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:177:17 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
-177                 &lt;p className=&quot;text-xs text-muted-foreground&quot;&gt;{field.helpText}&lt;/p&gt;                                                                           
+177                 &lt;p className="text-xs text-muted-foreground"&gt;{field.helpText}&lt;/p&gt;                                                                           
                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:180:17 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:180:17 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
-180                 &lt;p id={&#96;${field.id}-error&#96;} className=&quot;text-xs text-destructive&quot;&gt;                                                                           
+180                 &lt;p id={&#96;${field.id}-error&#96;} className="text-xs text-destructive"&gt;                                                                           
                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                                                                           
 
-components/forms/form-step.tsx:190:11 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:190:11 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
-190           &lt;div key={field.id} className=&quot;space-y-2&quot;&gt;
+190           &lt;div key={field.id} className="space-y-2"&gt;
               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:191:13 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:191:13 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
 191             &lt;Label htmlFor={field.id}&gt;
                 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:194:17 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:194:17 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
-194                 &lt;span className=&quot;text-destructive ml-1&quot;&gt;*&lt;/span&gt;
+194                 &lt;span className="text-destructive ml-1"&gt;*&lt;/span&gt;
                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:197:13 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:197:13 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
 197             &lt;Input
                 ~~~~~~
 198               {...commonProps}
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ... 
-203               className={cn(showError &amp;&amp; &quot;border-destructive&quot;)}
+203               className={cn(showError &amp;&amp; "border-destructive")}
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 204             /&gt;
     ~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:206:15 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:206:15 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
-206               &lt;p className=&quot;text-xs text-muted-foreground&quot;&gt;{field.helpText}&lt;/p&gt;                                                                             
+206               &lt;p className="text-xs text-muted-foreground"&gt;{field.helpText}&lt;/p&gt;                                                                             
                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:209:15 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:209:15 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
-209               &lt;p id={&#96;${field.id}-error&#96;} className=&quot;text-xs text-destructive&quot;&gt;                                                                             
+209               &lt;p id={&#96;${field.id}-error&#96;} className="text-xs text-destructive"&gt;                                                                             
                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                                                                             
 
-components/forms/form-step.tsx:218:11 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:218:11 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
-218           &lt;div key={field.id} className=&quot;space-y-2&quot;&gt;
+218           &lt;div key={field.id} className="space-y-2"&gt;
               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:219:13 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:219:13 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
 219             &lt;Label htmlFor={field.id}&gt;
                 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:222:17 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:222:17 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
-222                 &lt;span className=&quot;text-destructive ml-1&quot;&gt;*&lt;/span&gt;
+222                 &lt;span className="text-destructive ml-1"&gt;*&lt;/span&gt;
                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:225:13 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:225:13 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
 225             &lt;textarea
                 ~~~~~~~~~
@@ -2341,154 +2341,154 @@ components/forms/form-step.tsx:225:13 - error TS17004: Cannot use JSX unless the
 238             /&gt;
     ~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:240:15 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:240:15 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
-240               &lt;p className=&quot;text-xs text-muted-foreground&quot;&gt;{field.helpText}&lt;/p&gt;                                                                             
+240               &lt;p className="text-xs text-muted-foreground"&gt;{field.helpText}&lt;/p&gt;                                                                             
                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:243:15 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:243:15 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
-243               &lt;p id={&#96;${field.id}-error&#96;} className=&quot;text-xs text-destructive&quot;&gt;                                                                             
+243               &lt;p id={&#96;${field.id}-error&#96;} className="text-xs text-destructive"&gt;                                                                             
                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                                                                             
 
-components/forms/form-step.tsx:252:11 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:252:11 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
-252           &lt;div key={field.id} className=&quot;space-y-2&quot;&gt;
+252           &lt;div key={field.id} className="space-y-2"&gt;
               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:253:13 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:253:13 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
 253             &lt;Label htmlFor={field.id}&gt;
                 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:256:17 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:256:17 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
-256                 &lt;span className=&quot;text-destructive ml-1&quot;&gt;*&lt;/span&gt;
+256                 &lt;span className="text-destructive ml-1"&gt;*&lt;/span&gt;
                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:259:13 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:259:13 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
 259             &lt;Input
                 ~~~~~~
 260               {...commonProps}
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ... 
-266               className={cn(showError &amp;&amp; &quot;border-destructive&quot;)}
+266               className={cn(showError &amp;&amp; "border-destructive")}
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 267             /&gt;
     ~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:269:15 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:269:15 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
-269               &lt;p className=&quot;text-xs text-muted-foreground&quot;&gt;{field.helpText}&lt;/p&gt;                                                                             
+269               &lt;p className="text-xs text-muted-foreground"&gt;{field.helpText}&lt;/p&gt;                                                                             
                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:272:15 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:272:15 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
-272               &lt;p id={&#96;${field.id}-error&#96;} className=&quot;text-xs text-destructive&quot;&gt;                                                                             
+272               &lt;p id={&#96;${field.id}-error&#96;} className="text-xs text-destructive"&gt;                                                                             
                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                                                                             
 
-components/forms/form-step.tsx:282:5 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                       
+components/forms/form-step.tsx:282:5 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                       
 
-282     &lt;div className=&quot;space-y-6&quot;&gt;
+282     &lt;div className="space-y-6"&gt;
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:283:7 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                       
+components/forms/form-step.tsx:283:7 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                       
 
 283       &lt;div&gt;
           ~~~~~
 
-components/forms/form-step.tsx:284:9 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                       
+components/forms/form-step.tsx:284:9 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                       
 
-284         &lt;h2 className=&quot;text-2xl font-semibold&quot;&gt;{section.label}&lt;/h2&gt;
+284         &lt;h2 className="text-2xl font-semibold"&gt;{section.label}&lt;/h2&gt;
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:286:11 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                      
+components/forms/form-step.tsx:286:11 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                      
 
-286           &lt;p className=&quot;mt-2 text-sm text-muted-foreground&quot;&gt;
+286           &lt;p className="mt-2 text-sm text-muted-foreground"&gt;
               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/form-step.tsx:292:9 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                       
+components/forms/form-step.tsx:292:9 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                       
 
-292         &lt;div className=&quot;space-y-6&quot;&gt;{sortedFields.map(renderField)}&lt;/div&gt;
+292         &lt;div className="space-y-6"&gt;{sortedFields.map(renderField)}&lt;/div&gt;
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/index.ts:8:35 - error TS6142: Module &#39;./form-field-renderer&#39; was resolved to &#39;/Users/sahilmehta/supplier-onboarding-simple/components/forms/form-field-renderer.tsx&#39;, but &#39;--jsx&#39; is not set.                                  
+components/forms/index.ts:8:35 - error TS6142: Module './form-field-renderer' was resolved to '/Users/sahilmehta/supplier-onboarding-simple/components/forms/form-field-renderer.tsx', but '--jsx' is not set.                                  
 
-8 export { FormFieldRenderer } from &quot;./form-field-renderer&quot;;
+8 export { FormFieldRenderer } from "./form-field-renderer";
                                     ~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/index.ts:9:30 - error TS6142: Module &#39;./field-wrapper&#39; was resolved to &#39;/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-wrapper.tsx&#39;, but &#39;--jsx&#39; is not set.                                              
+components/forms/index.ts:9:30 - error TS6142: Module './field-wrapper' was resolved to '/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-wrapper.tsx', but '--jsx' is not set.                                              
 
-9 export { FieldWrapper } from &quot;./field-wrapper&quot;;
+9 export { FieldWrapper } from "./field-wrapper";
                                ~~~~~~~~~~~~~~~~~
 
-components/forms/index.ts:10:32 - error TS6142: Module &#39;./field-input-text&#39; was resolved to &#39;/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-text.tsx&#39;, but &#39;--jsx&#39; is not set.                                       
+components/forms/index.ts:10:32 - error TS6142: Module './field-input-text' was resolved to '/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-text.tsx', but '--jsx' is not set.                                       
 
-10 export { FieldInputText } from &quot;./field-input-text&quot;;
+10 export { FieldInputText } from "./field-input-text";
                                   ~~~~~~~~~~~~~~~~~~~~
 
-components/forms/index.ts:11:33 - error TS6142: Module &#39;./field-input-email&#39; was resolved to &#39;/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-email.tsx&#39;, but &#39;--jsx&#39; is not set.                                     
+components/forms/index.ts:11:33 - error TS6142: Module './field-input-email' was resolved to '/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-email.tsx', but '--jsx' is not set.                                     
 
-11 export { FieldInputEmail } from &quot;./field-input-email&quot;;
+11 export { FieldInputEmail } from "./field-input-email";
                                    ~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/index.ts:12:34 - error TS6142: Module &#39;./field-input-number&#39; was resolved to &#39;/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-number.tsx&#39;, but &#39;--jsx&#39; is not set.                                   
+components/forms/index.ts:12:34 - error TS6142: Module './field-input-number' was resolved to '/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-number.tsx', but '--jsx' is not set.                                   
 
-12 export { FieldInputNumber } from &quot;./field-input-number&quot;;
+12 export { FieldInputNumber } from "./field-input-number";
                                     ~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/index.ts:13:31 - error TS6142: Module &#39;./field-input-tel&#39; was resolved to &#39;/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-tel.tsx&#39;, but &#39;--jsx&#39; is not set.                                         
+components/forms/index.ts:13:31 - error TS6142: Module './field-input-tel' was resolved to '/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-tel.tsx', but '--jsx' is not set.                                         
 
-13 export { FieldInputTel } from &quot;./field-input-tel&quot;;
+13 export { FieldInputTel } from "./field-input-tel";
                                  ~~~~~~~~~~~~~~~~~~~
 
-components/forms/index.ts:14:31 - error TS6142: Module &#39;./field-textarea&#39; was resolved to &#39;/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-textarea.tsx&#39;, but &#39;--jsx&#39; is not set.                                           
+components/forms/index.ts:14:31 - error TS6142: Module './field-textarea' was resolved to '/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-textarea.tsx', but '--jsx' is not set.                                           
 
-14 export { FieldTextarea } from &quot;./field-textarea&quot;;
+14 export { FieldTextarea } from "./field-textarea";
                                  ~~~~~~~~~~~~~~~~~~
 
-components/forms/index.ts:15:34 - error TS6142: Module &#39;./field-input-select&#39; was resolved to &#39;/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-select.tsx&#39;, but &#39;--jsx&#39; is not set.                                   
+components/forms/index.ts:15:34 - error TS6142: Module './field-input-select' was resolved to '/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-select.tsx', but '--jsx' is not set.                                   
 
-15 export { FieldInputSelect } from &quot;./field-input-select&quot;;
+15 export { FieldInputSelect } from "./field-input-select";
                                     ~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/index.ts:16:39 - error TS6142: Module &#39;./field-input-multi-select&#39; was resolved to &#39;/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-multi-select.tsx&#39;, but &#39;--jsx&#39; is not set.                       
+components/forms/index.ts:16:39 - error TS6142: Module './field-input-multi-select' was resolved to '/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-multi-select.tsx', but '--jsx' is not set.                       
 
-16 export { FieldInputMultiSelect } from &quot;./field-input-multi-select&quot;;
+16 export { FieldInputMultiSelect } from "./field-input-multi-select";
                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/index.ts:17:36 - error TS6142: Module &#39;./field-input-checkbox&#39; was resolved to &#39;/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-checkbox.tsx&#39;, but &#39;--jsx&#39; is not set.                               
+components/forms/index.ts:17:36 - error TS6142: Module './field-input-checkbox' was resolved to '/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-checkbox.tsx', but '--jsx' is not set.                               
 
-17 export { FieldInputCheckbox } from &quot;./field-input-checkbox&quot;;
+17 export { FieldInputCheckbox } from "./field-input-checkbox";
                                       ~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/index.ts:18:33 - error TS6142: Module &#39;./field-input-radio&#39; was resolved to &#39;/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-radio.tsx&#39;, but &#39;--jsx&#39; is not set.                                     
+components/forms/index.ts:18:33 - error TS6142: Module './field-input-radio' was resolved to '/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-radio.tsx', but '--jsx' is not set.                                     
 
-18 export { FieldInputRadio } from &quot;./field-input-radio&quot;;
+18 export { FieldInputRadio } from "./field-input-radio";
                                    ~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/index.ts:19:32 - error TS6142: Module &#39;./field-input-date&#39; was resolved to &#39;/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-date.tsx&#39;, but &#39;--jsx&#39; is not set.                                       
+components/forms/index.ts:19:32 - error TS6142: Module './field-input-date' was resolved to '/Users/sahilmehta/supplier-onboarding-simple/components/forms/field-input-date.tsx', but '--jsx' is not set.                                       
 
-19 export { FieldInputDate } from &quot;./field-input-date&quot;;
+19 export { FieldInputDate } from "./field-input-date";
                                   ~~~~~~~~~~~~~~~~~~~~
 
-components/forms/step-indicator.tsx:4:20 - error TS2307: Cannot find module &#39;@/lib/utils&#39; or its corresponding type declarations.                               
+components/forms/step-indicator.tsx:4:20 - error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.                               
 
-4 import { cn } from &quot;@/lib/utils&quot;;
+4 import { cn } from "@/lib/utils";
                      ~~~~~~~~~~~~~
 
-components/forms/step-indicator.tsx:5:29 - error TS2307: Cannot find module &#39;@/hooks/use-mobile&#39; or its corresponding type declarations.                        
+components/forms/step-indicator.tsx:5:29 - error TS2307: Cannot find module '@/hooks/use-mobile' or its corresponding type declarations.                        
 
-5 import { useIsMobile } from &quot;@/hooks/use-mobile&quot;;
+5 import { useIsMobile } from "@/hooks/use-mobile";
                               ~~~~~~~~~~~~~~~~~~~~
 
-components/forms/step-indicator.tsx:29:12 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                  
+components/forms/step-indicator.tsx:29:12 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                  
 
 29     return &lt;MobileStepIndicator steps={steps} currentStep={currentStep} /&gt;;
               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/step-indicator.tsx:33:5 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                   
+components/forms/step-indicator.tsx:33:5 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                   
 
  33     &lt;DesktopStepIndicator
         ~~~~~~~~~~~~~~~~~~~~~
@@ -2500,38 +2500,38 @@ components/forms/step-indicator.tsx:33:5 - error TS17004: Cannot use JSX unless 
  38     /&gt;
     ~~~~~~
 
-components/forms/step-indicator.tsx:49:5 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                   
+components/forms/step-indicator.tsx:49:5 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                   
 
-49     &lt;nav aria-label=&quot;Progress&quot; className=&quot;w-full&quot;&gt;
+49     &lt;nav aria-label="Progress" className="w-full"&gt;
        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/step-indicator.tsx:50:7 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                   
+components/forms/step-indicator.tsx:50:7 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                   
 
-50       &lt;ol className=&quot;flex items-center justify-between&quot;&gt;
+50       &lt;ol className="flex items-center justify-between"&gt;
          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/step-indicator.tsx:58:13 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                  
+components/forms/step-indicator.tsx:58:13 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                  
 
  58             &lt;li
                 ~~~
  59               key={step.id}
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ... 
- 61               aria-current={isCurrent ? &quot;step&quot; : undefined}
+ 61               aria-current={isCurrent ? "step" : undefined}
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  62             &gt;
     ~~~~~~~~~~~~~
 
-components/forms/step-indicator.tsx:63:15 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                  
+components/forms/step-indicator.tsx:63:15 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                  
 
-63               &lt;div className=&quot;flex flex-col items-center flex-1&quot;&gt;
+63               &lt;div className="flex flex-col items-center flex-1"&gt;
                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/step-indicator.tsx:64:17 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                  
+components/forms/step-indicator.tsx:64:17 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                  
 
  64                 &lt;button
                     ~~~~~~~
- 65                   type=&quot;button&quot;
+ 65                   type="button"
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ... 
  78                   aria-label={&#96;Step ${index + 1}: ${step.label}&#96;}
@@ -2539,17 +2539,17 @@ components/forms/step-indicator.tsx:64:17 - error TS17004: Cannot use JSX unless
  79                 &gt;
     ~~~~~~~~~~~~~~~~~
 
-components/forms/step-indicator.tsx:81:21 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                  
+components/forms/step-indicator.tsx:81:21 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                  
 
-81                     &lt;Check className=&quot;size-5&quot; /&gt;
+81                     &lt;Check className="size-5" /&gt;
                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/step-indicator.tsx:83:21 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                  
+components/forms/step-indicator.tsx:83:21 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                  
 
-83                     &lt;span className=&quot;text-sm font-semibold&quot;&gt;{index + 1}&lt;/span&gt;                                                                               
+83                     &lt;span className="text-sm font-semibold"&gt;{index + 1}&lt;/span&gt;                                                                               
                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/step-indicator.tsx:86:17 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                  
+components/forms/step-indicator.tsx:86:17 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                  
 
  86                 &lt;span
                     ~~~~~
@@ -2561,57 +2561,57 @@ components/forms/step-indicator.tsx:86:17 - error TS17004: Cannot use JSX unless
  95                 &gt;
     ~~~~~~~~~~~~~~~~~
 
-components/forms/step-indicator.tsx:100:17 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                 
+components/forms/step-indicator.tsx:100:17 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                 
 
 100                 &lt;div
                     ~~~~
 101                   className={cn(
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ... 
-107                   aria-hidden=&quot;true&quot;
+107                   aria-hidden="true"
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 108                 /&gt;
     ~~~~~~~~~~~~~~~~~~
 
-components/forms/step-indicator.tsx:129:5 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                  
+components/forms/step-indicator.tsx:129:5 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                  
 
-129     &lt;div className=&quot;space-y-2&quot;&gt;
+129     &lt;div className="space-y-2"&gt;
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/step-indicator.tsx:130:7 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                  
+components/forms/step-indicator.tsx:130:7 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                  
 
-130       &lt;div className=&quot;flex items-center justify-between text-sm&quot;&gt;
+130       &lt;div className="flex items-center justify-between text-sm"&gt;
           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/step-indicator.tsx:131:9 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                  
+components/forms/step-indicator.tsx:131:9 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                  
 
-131         &lt;span className=&quot;font-medium text-muted-foreground&quot;&gt;
+131         &lt;span className="font-medium text-muted-foreground"&gt;
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/step-indicator.tsx:134:9 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                  
+components/forms/step-indicator.tsx:134:9 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                  
 
-134         &lt;span className=&quot;text-muted-foreground/60&quot;&gt;
+134         &lt;span className="text-muted-foreground/60"&gt;
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-components/forms/step-indicator.tsx:138:7 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                  
+components/forms/step-indicator.tsx:138:7 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                  
 
-138       &lt;div className=&quot;relative h-2 w-full overflow-hidden rounded-full bg-muted&quot;&gt;                                                                           
+138       &lt;div className="relative h-2 w-full overflow-hidden rounded-full bg-muted"&gt;                                                                           
           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                                                                           
 
-components/forms/step-indicator.tsx:139:9 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                  
+components/forms/step-indicator.tsx:139:9 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                  
 
 139         &lt;div
             ~~~~
-140           className=&quot;h-full bg-primary transition-all duration-300&quot;
+140           className="h-full bg-primary transition-all duration-300"
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 141           style={{ width: &#96;${progress}%&#96; }}
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 142         /&gt;
     ~~~~~~~~~~
 
-components/forms/step-indicator.tsx:144:7 - error TS17004: Cannot use JSX unless the &#39;--jsx&#39; flag is provided.                                                  
+components/forms/step-indicator.tsx:144:7 - error TS17004: Cannot use JSX unless the '--jsx' flag is provided.                                                  
 
-144       &lt;p className=&quot;text-sm font-medium&quot;&gt;{currentStepData?.label}&lt;/p&gt;
+144       &lt;p className="text-sm font-medium"&gt;{currentStepData?.label}&lt;/p&gt;
           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 node_modules/@prisma/client/runtime/library.d.ts:73:5 - error TS18028: Private identifiers are only available when targeting ECMAScript 2015 and higher.        
@@ -2671,7 +2671,7 @@ These TypeScript errors are expected when running `tsc` directly on TSX files wi
 
 <tool-use data-tool-type="generic" data-tool-name="list_dir">
 <details>
-            <summary>Tool use: **list_directory** • Listed directory undefined • **0** results</summary>
+            <summary>Tool use: **list_dir** • Listed directory undefined • **0** results</summary>
         
 No results found
 </details>
@@ -2787,7 +2787,7 @@ Updating the document to mark all tasks as completed:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/agent-stream-2-field-rendering.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/agent-stream-2-field-rendering.md</summary>
 
 **Chunk 1**
 Lines added: 3, lines removed: 2
@@ -2815,7 +2815,7 @@ Lines added: 3, lines removed: 2
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/agent-stream-2-field-rendering.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/agent-stream-2-field-rendering.md</summary>
 
 **Chunk 1**
 Lines added: 7, lines removed: 9
@@ -2852,7 +2852,7 @@ Lines added: 7, lines removed: 9
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/agent-stream-2-field-rendering.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/agent-stream-2-field-rendering.md</summary>
 
 **Chunk 1**
 Lines added: 7, lines removed: 7
@@ -2887,7 +2887,7 @@ Lines added: 7, lines removed: 7
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/agent-stream-2-field-rendering.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/agent-stream-2-field-rendering.md</summary>
 
 **Chunk 1**
 Lines added: 13, lines removed: 5
@@ -2936,7 +2936,7 @@ Updating the "Files to Create" section to indicate completion:
 
 <tool-use data-tool-type="write" data-tool-name="search_replace">
 
-<details><summary>Tool use: **code_edit** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/agent-stream-2-field-rendering.md</summary>
+<details><summary>Tool use: **search_replace** • Edit file: /Users/sahilmehta/supplier-onboarding-simple/docs/agent-stream-2-field-rendering.md</summary>
 
 **Chunk 1**
 Lines added: 16, lines removed: 13

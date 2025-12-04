@@ -6,7 +6,21 @@ import { z } from "zod";
  */
 const envSchema = z.object({
     // Database
-    DATABASE_URL: z.string().url("DATABASE_URL must be a valid URL"),
+    // For Supabase: Use "Transaction" pooler connection string for DATABASE_URL
+    // and "Session" or direct connection for DIRECT_URL
+    DATABASE_URL: z.string().url("DATABASE_URL must be a valid URL").refine(
+        (url) => {
+            // Warn if using Supabase without pooler in production
+            if (process.env.NODE_ENV === "production" && url.includes("supabase.co") && !url.includes("pooler.supabase.com")) {
+                console.warn(
+                    "⚠️  Warning: DATABASE_URL appears to be a direct Supabase connection. " +
+                    "For better performance on Vercel, use the Transaction pooler connection string. " +
+                    "See: https://supabase.com/docs/guides/database/connecting-to-postgres#connection-pooler"
+                );
+            }
+            return true;
+        }
+    ),
     DIRECT_URL: z.string().url("DIRECT_URL must be a valid URL").optional(),
 
     // NextAuth
