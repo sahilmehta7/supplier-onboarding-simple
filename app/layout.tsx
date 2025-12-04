@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
-import { auth } from "@/lib/auth";
 import { AuthProvider } from "@/components/providers/session-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { SkipLinks } from "@/components/navigation/skip-links";
@@ -22,13 +21,11 @@ export const metadata: Metadata = {
   description: "Internal supplier onboarding workspace",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await auth();
-
   return (
     <html lang="en">
       <body
@@ -36,7 +33,7 @@ export default async function RootLayout({
       >
         <SkipLinks />
         <NuqsAdapter>
-          <AuthProvider session={session}>{children}</AuthProvider>
+          <AuthProvider>{children}</AuthProvider>
         </NuqsAdapter>
         <Toaster />
       </body>

@@ -1,6 +1,13 @@
 import { prisma } from "@/lib/prisma";
 import type { Application, Entity, Geography, Supplier } from "@prisma/client";
 
+// Simple in-memory cache for available form configs (rarely change)
+let availableFormConfigsCache: {
+    data: AvailableFormConfig[] | null;
+    timestamp: number;
+} | null = null;
+const FORM_CONFIGS_CACHE_TTL = 30 * 60 * 1000; // 30 minutes
+
 export interface ApplicationState {
     status: "DRAFT" | "SUBMITTED" | "IN_REVIEW" | "PENDING_SUPPLIER" | "APPROVED" | "REJECTED";
     canEdit: boolean;
@@ -142,10 +149,20 @@ export function getApplicationState(
 /**
  * Get all available form configurations (entity/geography combinations)
  * Returns only active configurations
+ * Results are cached for 30 minutes
  */
 export async function getAvailableFormConfigs(): Promise<
     AvailableFormConfig[]
 > {
+    // Check cache
+    if (availableFormConfigsCache) {
+        const isExpired = Date.now() - availableFormConfigsCache.timestamp > FORM_CONFIGS_CACHE_TTL;
+        if (!isExpired && availableFormConfigsCache.data) {
+            return availableFormConfigsCache.data;
+        }
+    }
+
+    // Fetch from database
     const configs = await prisma.formConfig.findMany({
         where: {
             isActive: true,
@@ -157,7 +174,7 @@ export async function getAvailableFormConfigs(): Promise<
         orderBy: [{ entity: { name: "asc" } }, { geography: { name: "asc" } }],
     });
 
-    return configs.map((config) => ({
+    const result = configs.map((config) => ({
         entityCode: config.entity.code,
         entityName: config.entity.name,
         geographyCode: config.geography.code,
@@ -166,6 +183,14 @@ export async function getAvailableFormConfigs(): Promise<
         title: config.title,
         description: config.description,
     }));
+
+    // Update cache
+    availableFormConfigsCache = {
+        data: result,
+        timestamp: Date.now(),
+    };
+
+    return result;
 }
 
 /**

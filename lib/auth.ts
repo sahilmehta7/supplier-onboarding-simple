@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import EmailProvider from "next-auth/providers/email";
+import { cache } from "react";
 import { prisma } from "@/lib/prisma";
 import { sendOTP } from "@/lib/auth/otp-service";
 
@@ -131,7 +132,6 @@ export const authOptions: NextAuthOptions = {
   },
 };
 
-export function auth() {
-  return getServerSession(authOptions);
-}
+// Wrap auth with React cache to ensure getServerSession runs once per request
+export const auth = cache(() => getServerSession(authOptions));
 

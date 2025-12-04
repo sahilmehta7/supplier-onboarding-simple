@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { getCurrentUserMembership } from "@/lib/permissions";
 import { getFormConfigByEntityAndGeography } from "@/lib/forms/form-config-fetcher";
+import { calculateFormMetadata } from "@/lib/forms/form-metadata";
 
 interface Params {
     formSlug: string;
@@ -39,22 +40,32 @@ export default async function FormPreparePage({
         notFound();
     }
 
-    // Fetch form metadata
-    const metadataUrl = new URL(
-        `/api/forms/${formConfig.id}/metadata`,
-        process.env.NEXTAUTH_URL || "http://localhost:3005"
-    );
+    // Calculate metadata directly (no HTTP round-trip)
+    const calculatedMetadata = calculateFormMetadata(formConfig);
 
-    const response = await fetch(metadataUrl.toString());
-
-    if (!response.ok) {
-        if (response.status === 404) {
-            notFound();
-        }
-        throw new Error("Failed to fetch form metadata");
-    }
-
-    const metadata = await response.json();
+    // Build metadata object
+    const metadata = {
+        id: formConfig.id,
+        title: formConfig.title,
+        description: formConfig.description,
+        entity: {
+            code: formConfig.entity.code,
+            name: formConfig.entity.name,
+        },
+        geography: {
+            code: formConfig.geography.code,
+            name: formConfig.geography.name,
+        },
+        sectionCount: calculatedMetadata.sectionCount,
+        totalFieldCount: calculatedMetadata.totalFieldCount,
+        requiredFieldCount: calculatedMetadata.requiredFieldCount,
+        estimatedTimeMinutes: calculatedMetadata.estimatedTimeMinutes,
+        sectionSummary: calculatedMetadata.sectionSummary,
+        documentRequirements: {
+            required: calculatedMetadata.requiredDocuments,
+            optional: calculatedMetadata.optionalDocuments,
+        },
+    };
 
     // Dynamic import to avoid SSR issues with client component
     const { FormPreparation } = await import(

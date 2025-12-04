@@ -1,7 +1,9 @@
+import { cache } from "react";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 
-export async function getCurrentUserWithMembership() {
+// Wrap with cache to ensure user+membership query runs once per request
+export const getCurrentUserWithMembership = cache(async () => {
   const session = await auth();
   if (!session?.user?.id) {
     return null;
@@ -18,7 +20,7 @@ export async function getCurrentUserWithMembership() {
   });
 
   return user;
-}
+});
 
 export async function getCurrentUserMembership(organizationId?: string) {
   const user = await getCurrentUserWithMembership();

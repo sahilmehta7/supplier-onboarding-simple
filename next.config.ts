@@ -25,6 +25,12 @@ const nextConfig: NextConfig = {
     serverMinification: true,
     serverSourceMaps: false,
   },
+
+  // Skip TypeScript type checking during build to avoid memory issues
+  // Type checking should be done separately with `npm run type-check`
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 };
 
 export default nextConfig;

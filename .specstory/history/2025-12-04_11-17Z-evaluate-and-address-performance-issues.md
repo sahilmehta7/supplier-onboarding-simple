@@ -67,7 +67,547 @@ Now let me verify if these issues are genuine by checking the referenced code. I
 
 1. app/layout.tsx - to verify global auth call
 2. lib/auth.ts - to verify database sessions and membership lookups
-3. app</details></think>
+3. app/dashboard/layout.tsx - to check duplicate auth calls
+4. lib/permissions.ts - to verify isSupplier implementation
+5. Form prepare pages - to verify internal HTTP fetches
+6. lib/supplier-access.ts and lib/forms/form-config-fetcher.ts - to check uncached queries
+
+Let me read these files in parallel to verify the issues.</details></think>
+
+---
+
+Now let me verify if these issues are genuine by examining the referenced code files:
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="read_file_v2">
+<details>
+<summary>Tool use: **read_file_v2**</summary>
+
+
+Parameters:
+
+```json
+{
+  "targetFile": "/Users/sahilmehta/supplier-onboarding-simple/app/layout.tsx",
+  "charsLimit": 1000000,
+  "effectiveUri": "/Users/sahilmehta/supplier-onboarding-simple/app/layout.tsx"
+}
+```
+Result:
+
+```json
+{
+  "contents": "import type { Metadata } from \"next\";\nimport { Geist, Geist_Mono } from \"next/font/google\";\nimport { NuqsAdapter } from \"nuqs/adapters/next/app\";\nimport { auth } from \"@/lib/auth\";\nimport { AuthProvider } from \"@/components/providers/session-provider\";\nimport { Toaster } from \"@/components/ui/toaster\";\nimport { SkipLinks } from \"@/components/navigation/skip-links\";\nimport \"./globals.css\";\n\nconst geistSans = Geist({\n  variable: \"--font-geist-sans\",\n  subsets: [\"latin\"],\n});\n\nconst geistMono = Geist_Mono({\n  variable: \"--font-geist-mono\",\n  subsets: [\"latin\"],\n});\n\nexport const metadata: Metadata = {\n  title: \"Supplier Hub\",\n  description: \"Internal supplier onboarding workspace\",\n};\n\nexport default async function RootLayout({\n  children,\n}: Readonly&lt;{\n  children: React.ReactNode;\n}&gt;) {\n  const session = await auth();\n\n  return (\n    &lt;html lang=\"en\"&gt;\n      &lt;body\n        className={&#96;${geistSans.variable} ${geistMono.variable} antialiased&#96;}\n      &gt;\n        &lt;SkipLinks /&gt;\n        &lt;NuqsAdapter&gt;\n          &lt;AuthProvider session={session}&gt;{children}&lt;/AuthProvider&gt;\n        &lt;/NuqsAdapter&gt;\n        &lt;Toaster /&gt;\n      &lt;/body&gt;\n    &lt;/html&gt;\n  );\n}\n",
+  "totalLinesInFile": 46
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="read_file_v2">
+<details>
+<summary>Tool use: **read_file_v2**</summary>
+
+
+Parameters:
+
+```json
+{
+  "targetFile": "/Users/sahilmehta/supplier-onboarding-simple/lib/auth.ts",
+  "charsLimit": 1000000,
+  "effectiveUri": "/Users/sahilmehta/supplier-onboarding-simple/lib/auth.ts"
+}
+```
+Result:
+
+```json
+{
+  "contents": "import { PrismaAdapter } from \"@next-auth/prisma-adapter\";\nimport { getServerSession } from \"next-auth\";\nimport type { NextAuthOptions } from \"next-auth\";\nimport GoogleProvider from \"next-auth/providers/google\";\nimport EmailProvider from \"next-auth/providers/email\";\nimport { prisma } from \"@/lib/prisma\";\nimport { sendOTP } from \"@/lib/auth/otp-service\";\n\nfunction getGoogleProvider() {\n  const clientId = process.env.GOOGLE_CLIENT_ID;\n  const clientSecret = process.env.GOOGLE_CLIENT_SECRET;\n\n  // During build phase, allow missing credentials to prevent build failures\n  const isBuildPhase = process.env.NEXT_PHASE === \"phase-production-build\";\n\n  if (!clientId || !clientSecret) {\n    if (isBuildPhase) {\n      console.warn(\n        \"Warning: GOOGLE_CLIENT_ID or GOOGLE_CLIENT_SECRET not set during build. Google auth will not work until configured.\"\n      );\n      // Return a minimal provider config that won't break the build\n      // but will fail at runtime if actually used\n      return GoogleProvider({\n        clientId: \"placeholder\",\n        clientSecret: \"placeholder\",\n      });\n    }\n    throw new Error(\n      \"Missing GOOGLE_CLIENT_ID or GOOGLE_CLIENT_SECRET environment variables.\"\n    );\n  }\n\n  return GoogleProvider({\n    clientId,\n    clientSecret,\n  });\n}\n\nconst googleProvider = getGoogleProvider();\n\n// Email provider configuration with custom OTP verification\nconst emailProvider = EmailProvider({\n  from: process.env.EMAIL_FROM || \"noreply@localhost\",\n  // Override the default magic link behavior with our OTP system\n  sendVerificationRequest: async ({ identifier: email }) =&gt; {\n    // Use our custom OTP service instead of the default magic link\n    await sendOTP(email);\n  },\n  // Customize the email verification process\n  maxAge: 10 * 60, // 10 minutes (matches OTP expiry)\n});\n\nexport const authOptions: NextAuthOptions = {\n  adapter: PrismaAdapter(prisma),\n  providers: [googleProvider, emailProvider],\n  session: {\n    strategy: \"database\",\n  },\n  pages: {\n    signIn: \"/signin\",\n  },\n  callbacks: {\n    async jwt({ token, user }) {\n      if (user) {\n        const memberships = await prisma.membership.findMany({\n          where: { userId: user.id },\n          select: {\n            organizationId: true,\n            role: true,\n          },\n        });\n\n        token.organizationRoles = memberships.map((membership) =&gt; ({\n          organizationId: membership.organizationId,\n          role: membership.role,\n        }));\n      }\n\n      return token;\n    },\n    async session({ session, token, user }) {\n      if (!session.user) {\n        return session;\n      }\n\n      const resolvedUserId =\n        token?.sub ??\n        user?.id ??\n        session.user.id ??\n        (session.user.email\n          ? (\n            await prisma.user.findUnique({\n              where: { email: session.user.email },\n              select: { id: true },\n            })\n          )?.id\n          : undefined);\n\n      if (resolvedUserId) {\n        session.user.id = resolvedUserId;\n      }\n\n      if (token?.organizationRoles) {\n        session.user.organizationRoles = token.organizationRoles as Array&lt;{\n          organizationId: string;\n          role: string;\n        }&gt;;\n        return session;\n      }\n\n      if (!resolvedUserId) {\n        session.user.organizationRoles = [];\n        return session;\n      }\n\n      const memberships = await prisma.membership.findMany({\n        where: { userId: resolvedUserId },\n        select: {\n          organizationId: true,\n          role: true,\n        },\n      });\n\n      session.user.organizationRoles = memberships.map((membership) =&gt; ({\n        organizationId: membership.organizationId,\n        role: membership.role,\n      }));\n\n      return session;\n    },\n  },\n};\n\nexport function auth() {\n  return getServerSession(authOptions);\n}\n\n",
+  "totalLinesInFile": 138
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="read_file_v2">
+<details>
+<summary>Tool use: **read_file_v2**</summary>
+
+
+Parameters:
+
+```json
+{
+  "targetFile": "/Users/sahilmehta/supplier-onboarding-simple/app/dashboard/layout.tsx",
+  "charsLimit": 1000000,
+  "effectiveUri": "/Users/sahilmehta/supplier-onboarding-simple/app/dashboard/layout.tsx"
+}
+```
+Result:
+
+```json
+{
+  "contents": "import { redirect } from \"next/navigation\";\nimport { auth } from \"@/lib/auth\";\nimport { SidebarProvider } from \"@/components/providers/sidebar-provider\";\nimport { AppSidebar } from \"@/components/navigation/app-sidebar\";\nimport { SidebarInset, SidebarTrigger } from \"@/components/ui/sidebar\";\nimport { Separator } from \"@/components/ui/separator\";\nimport { UserMenu } from \"@/components/navigation/user-menu\";\nimport { prisma } from \"@/lib/prisma\";\nimport { ensureUserMembership } from \"@/lib/organizations\";\nimport { isSupplier } from \"@/lib/permissions\";\n\nexport default async function DashboardLayout({\n  children,\n}: {\n  children: React.ReactNode;\n}) {\n  const session = await auth();\n\n  if (!session?.user?.id) {\n    redirect(\"/signin\");\n  }\n\n  // Block SUPPLIER users from internal dashboard\n  const hasSupplierRole = await isSupplier();\n  if (hasSupplierRole) {\n    redirect(\"/supplier\");\n  }\n\n  let user = await prisma.user.findUnique({\n    where: { id: session.user.id },\n    include: {\n      memberships: {\n        include: { organization: true },\n        orderBy: { createdAt: \"asc\" },\n      },\n    },\n  });\n\n  // DISABLED: Auto-org creation for multi-tenant preparation\n  // All users should be manually added to organizations\n  // if (user &amp;&amp; user.memberships.length === 0) {\n  //   ...\n  // }\n\n  // Block access if no membership exists\n  if (!user || user.memberships.length === 0) {\n    // Redirect to supplier page where they might get auto-assigned if they have a pending application\n    // Or just redirect to signin if they are truly lost\n    redirect(\"/supplier\");\n  }\n\n  const activeOrganization = user?.memberships[0]?.organization;\n  const organizationName = activeOrganization?.name ?? \"Supplier Hub\";\n\n  return (\n    &lt;SidebarProvider&gt;\n      &lt;AppSidebar organizationName={organizationName} /&gt;\n      &lt;SidebarInset&gt;\n        &lt;header className=\"flex h-16 shrink-0 items-center gap-2 border-b px-4\"&gt;\n          &lt;SidebarTrigger className=\"-ml-1\" /&gt;\n          &lt;Separator orientation=\"vertical\" className=\"mr-2 h-4\" /&gt;\n          &lt;div className=\"flex flex-1 items-center justify-between\"&gt;\n            &lt;div className=\"flex items-center gap-2\"&gt;\n              &lt;span className=\"text-sm font-medium text-muted-foreground\"&gt;\n                {organizationName}\n              &lt;/span&gt;\n            &lt;/div&gt;\n            &lt;UserMenu\n              name={session.user.name}\n              email={session.user.email}\n              image={session.user.image}\n            /&gt;\n          &lt;/div&gt;\n        &lt;/header&gt;\n        &lt;div className=\"flex flex-1 flex-col gap-4 p-4 md:p-6\"&gt;\n          {children}\n        &lt;/div&gt;\n      &lt;/SidebarInset&gt;\n    &lt;/SidebarProvider&gt;\n  );\n}\n",
+  "totalLinesInFile": 82
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="read_file_v2">
+<details>
+<summary>Tool use: **read_file_v2**</summary>
+
+
+Parameters:
+
+```json
+{
+  "targetFile": "/Users/sahilmehta/supplier-onboarding-simple/lib/permissions.ts",
+  "charsLimit": 1000000,
+  "effectiveUri": "/Users/sahilmehta/supplier-onboarding-simple/lib/permissions.ts"
+}
+```
+Result:
+
+```json
+{
+  "contents": "import { prisma } from \"@/lib/prisma\";\nimport { auth } from \"@/lib/auth\";\n\nexport async function getCurrentUserWithMembership() {\n  const session = await auth();\n  if (!session?.user?.id) {\n    return null;\n  }\n\n  const user = await prisma.user.findUnique({\n    where: { id: session.user.id },\n    include: {\n      memberships: {\n        include: { organization: true },\n        orderBy: { createdAt: \"asc\" },\n      },\n    },\n  });\n\n  return user;\n}\n\nexport async function getCurrentUserMembership(organizationId?: string) {\n  const user = await getCurrentUserWithMembership();\n  if (!user) {\n    return null;\n  }\n\n  if (organizationId) {\n    return user.memberships.find((m) =&gt; m.organizationId === organizationId);\n  }\n\n  return user.memberships[0] ?? null;\n}\n\nexport async function isAdmin(organizationId?: string): Promise&lt;boolean&gt; {\n  const membership = await getCurrentUserMembership(organizationId);\n  return membership?.role === \"ADMIN\" || false;\n}\n\nexport async function canManageUsers(\n  organizationId?: string\n): Promise&lt;boolean&gt; {\n  return isAdmin(organizationId);\n}\n\nexport async function requireAdmin(organizationId?: string) {\n  const isUserAdmin = await isAdmin(organizationId);\n  if (!isUserAdmin) {\n    throw new Error(\"Unauthorized: Admin access required\");\n  }\n}\n\nexport async function requireRole(\n  roles: string[],\n  organizationId?: string\n) {\n  const membership = await getCurrentUserMembership(organizationId);\n  if (!membership || !roles.includes(membership.role)) {\n    throw new Error(\"Unauthorized: insufficient role\");\n  }\n  return membership;\n}\n\nexport async function isSupplier(organizationId?: string): Promise&lt;boolean&gt; {\n  const membership = await getCurrentUserMembership(organizationId);\n  return membership?.role === \"SUPPLIER\" || false;\n}\n\nexport async function requireSupplierRole(organizationId?: string) {\n  const isUserSupplier = await isSupplier(organizationId);\n  if (!isUserSupplier) {\n    throw new Error(\"Unauthorized: SUPPLIER role required\");\n  }\n}\n\nexport async function requireAuth() {\n  const session = await auth();\n  if (!session?.user) {\n    throw new Error(\"Unauthorized: Authentication required\");\n  }\n  return session;\n}\n\n/**\n * Validates that a user has access to an application\n * Checks if user is creator or belongs to the application's organization\n */\nexport async function validateApplicationAccess(\n  applicationId: string,\n  userId: string\n): Promise&lt;boolean&gt; {\n  const application = await prisma.application.findFirst({\n    where: {\n      id: applicationId,\n      OR: [\n        { createdById: userId },\n        {\n          organization: {\n            members: {\n              some: { userId },\n            },\n          },\n        },\n      ],\n    },\n    select: { id: true },\n  });\n\n  return !!application;\n}\n\n/**\n * Requires that a user has access to an application\n * Throws error if access is denied\n */\nexport async function requireApplicationAccess(\n  applicationId: string,\n  userId: string\n): Promise&lt;void&gt; {\n  const hasAccess = await validateApplicationAccess(applicationId, userId);\n  if (!hasAccess) {\n    throw new Error(\"Forbidden: Access to this application is not allowed\");\n  }\n}\n\n/**\n * Validates that a user has access to a document\n * Checks document ownership through application access\n */\nexport async function validateDocumentAccess(\n  fileId: string,\n  userId: string\n): Promise&lt;boolean&gt; {\n  const document = await prisma.applicationDocument.findFirst({\n    where: {\n      fileUrl: fileId,\n      OR: [\n        { uploadedById: userId },\n        {\n          application: {\n            organization: {\n              members: {\n                some: { userId },\n              },\n            },\n          },\n        },\n      ],\n    },\n    select: { id: true },\n  });\n\n  return !!document;\n}\n\n/**\n * Requires that a user has access to a document\n * Throws error if access is denied\n */\nexport async function requireDocumentAccess(\n  fileId: string,\n  userId: string\n): Promise&lt;void&gt; {\n  const hasAccess = await validateDocumentAccess(fileId, userId);\n  if (!hasAccess) {\n    throw new Error(\"Forbidden: Access to this document is not allowed\");\n  }\n}\n\n/**\n * Gets user's organization membership\n * Validates user belongs to specified organization\n */\nexport async function requireOrganizationMembership(\n  organizationId: string,\n  userId: string\n) {\n  const membership = await prisma.membership.findFirst({\n    where: {\n      userId,\n      organizationId,\n    },\n  });\n\n  if (!membership) {\n    throw new Error(\"Forbidden: Not a member of this organization\");\n  }\n\n  return membership;\n}\n\n",
+  "totalLinesInFile": 193
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="read_file_v2">
+<details>
+<summary>Tool use: **read_file_v2**</summary>
+
+
+Parameters:
+
+```json
+{
+  "targetFile": "/Users/sahilmehta/supplier-onboarding-simple/app/supplier/layout.tsx",
+  "charsLimit": 1000000,
+  "effectiveUri": "/Users/sahilmehta/supplier-onboarding-simple/app/supplier/layout.tsx"
+}
+```
+Result:
+
+```json
+{
+  "contents": "import { ReactNode } from \"react\";\nimport { auth } from \"@/lib/auth\";\nimport { redirect } from \"next/navigation\";\nimport { isSupplier } from \"@/lib/permissions\";\nimport { ensureZetwerkMembership } from \"@/lib/zetwerk-org\";\n\nexport default async function SupplierLayout({\n  children,\n}: {\n  children: ReactNode;\n}) {\n  const session = await auth();\n\n  if (!session?.user?.id) {\n    redirect(\"/signin\");\n  }\n\n  // Enforce SUPPLIER role\n  const hasSupplierRole = await isSupplier();\n  if (!hasSupplierRole) {\n    redirect(\"/dashboard\");\n  }\n\n  // Ensure user is in Zetwerk organization (single-tenant mode)\n  try {\n    await ensureZetwerkMembership({\n      userId: session.user.id,\n      role: \"SUPPLIER\",\n    });\n  } catch (error) {\n    console.error(\"Failed to ensure Zetwerk membership:\", error);\n    // Continue anyway - user might already be in org\n  }\n\n  return (\n    &lt;div className=\"min-h-screen bg-background\"&gt;\n      &lt;div className=\"mx-auto flex w-full max-w-5xl flex-col gap-8 py-8 px-4 md:px-8\"&gt;\n        {children}\n      &lt;/div&gt;\n    &lt;/div&gt;\n  );\n}\n",
+  "totalLinesInFile": 43
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<think><details><summary>Thought Process</summary>
+Let me now check form prepare pages to verify internal HTTP fetches, and look at caching issues in supplier-access and form-config-fetcher.</details></think>
+
+---
+
+<tool-use data-tool-type="generic" data-tool-name="glob_file_search">
+<details>
+<summary>Tool use: **glob_file_search** • Searched codebase "undefined" • **2** results in **1** directory</summary>
+
+Directory: **undefined** (2 files)
+
+| File |
+|------|
+| `./app/forms/(by-entity)/[formSlug]/[geographyCode]/prepare/page.tsx` |
+| `./app/forms/(by-config)/[formSlug]/prepare/page.tsx` |
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="read_file_v2">
+<details>
+<summary>Tool use: **read_file_v2**</summary>
+
+
+Parameters:
+
+```json
+{
+  "targetFile": "/Users/sahilmehta/supplier-onboarding-simple/lib/supplier-access.ts",
+  "charsLimit": 1000000,
+  "effectiveUri": "/Users/sahilmehta/supplier-onboarding-simple/lib/supplier-access.ts"
+}
+```
+Result:
+
+```json
+{
+  "contents": "import { prisma } from \"@/lib/prisma\";\nimport type { Application, Entity, Geography, Supplier } from \"@prisma/client\";\n\nexport interface ApplicationState {\n    status: \"DRAFT\" | \"SUBMITTED\" | \"IN_REVIEW\" | \"PENDING_SUPPLIER\" | \"APPROVED\" | \"REJECTED\";\n    canEdit: boolean;\n    canSubmit: boolean;\n    canView: boolean;\n    requiresAction: boolean;\n    actionText: string;\n    application: Application &amp; {\n        entity: Entity;\n        geography: Geography;\n        supplier?: Supplier | null;\n    };\n}\n\nexport interface AvailableFormConfig {\n    entityCode: string;\n    entityName: string;\n    geographyCode: string;\n    geographyName: string;\n    formConfigId: string;\n    title?: string | null;\n    description?: string | null;\n}\n\n/**\n * Check if a user has the SUPPLIER role\n */\nexport async function isSupplier(userId: string): Promise&lt;boolean&gt; {\n    const membership = await prisma.membership.findFirst({\n        where: {\n            userId,\n            role: \"SUPPLIER\",\n        },\n    });\n\n    return !!membership;\n}\n\n/**\n * Get a supplier user's active application (any non-approved status)\n * Returns null if no active application exists\n */\nexport async function getSupplierApplication(\n    userId: string\n): Promise&lt;\n    | (Application &amp; {\n        entity: Entity;\n        geography: Geography;\n        supplier?: Supplier | null;\n    })\n    | null\n&gt; {\n    const membership = await prisma.membership.findFirst({\n        where: { userId },\n    });\n\n    if (!membership) {\n        return null;\n    }\n\n    // Get the most recent application that is not approved\n    // Once approved, a new application can be started\n    const application = await prisma.application.findFirst({\n        where: {\n            organizationId: membership.organizationId,\n            createdById: userId,\n            status: {\n                in: [\"DRAFT\", \"SUBMITTED\", \"IN_REVIEW\", \"PENDING_SUPPLIER\", \"REJECTED\"],\n            },\n        },\n        include: {\n            entity: true,\n            geography: true,\n            supplier: true,\n        },\n        orderBy: {\n            updatedAt: \"desc\",\n        },\n    });\n\n    return application;\n}\n\n/**\n * Get structured application state with allowed actions\n */\nexport function getApplicationState(\n    application: Application &amp; {\n        entity: Entity;\n        geography: Geography;\n        supplier?: Supplier | null;\n    }\n): ApplicationState {\n    const status = application.status;\n\n    // Determine permissions based on status\n    const canEdit = status === \"DRAFT\";\n    const canSubmit = status === \"DRAFT\";\n    const canView = true; // Can always view own application\n\n    let requiresAction = false;\n    let actionText = \"\";\n\n    switch (status) {\n        case \"DRAFT\":\n            requiresAction = true;\n            actionText = \"Continue Application\";\n            break;\n        case \"SUBMITTED\":\n            actionText = \"View Application\";\n            break;\n        case \"IN_REVIEW\":\n            actionText = \"View Status\";\n            break;\n        case \"PENDING_SUPPLIER\":\n            requiresAction = true;\n            actionText = \"Action Required\";\n            break;\n        case \"APPROVED\":\n            actionText = \"View Profile\";\n            break;\n        case \"REJECTED\":\n            requiresAction = true;\n            actionText = \"Start New Application\";\n            break;\n    }\n\n    return {\n        status,\n        canEdit,\n        canSubmit,\n        canView,\n        requiresAction,\n        actionText,\n        application,\n    };\n}\n\n/**\n * Get all available form configurations (entity/geography combinations)\n * Returns only active configurations\n */\nexport async function getAvailableFormConfigs(): Promise&lt;\n    AvailableFormConfig[]\n&gt; {\n    const configs = await prisma.formConfig.findMany({\n        where: {\n            isActive: true,\n        },\n        include: {\n            entity: true,\n            geography: true,\n        },\n        orderBy: [{ entity: { name: \"asc\" } }, { geography: { name: \"asc\" } }],\n    });\n\n    return configs.map((config) =&gt; ({\n        entityCode: config.entity.code,\n        entityName: config.entity.name,\n        geographyCode: config.geography.code,\n        geographyName: config.geography.name,\n        formConfigId: config.id,\n        title: config.title,\n        description: config.description,\n    }));\n}\n\n/**\n * Check if user can start a new application\n * Returns false if user already has an active (non-approved) application\n */\nexport async function canStartNewApplication(\n    userId: string\n): Promise&lt;boolean&gt; {\n    const activeApplication = await getSupplierApplication(userId);\n    return !activeApplication;\n}\n\n/**\n * Require that user has SUPPLIER role\n * Throws error if not a supplier\n */\nexport async function requireSupplierRole(userId: string): Promise&lt;void&gt; {\n    const hasSupplierRole = await isSupplier(userId);\n\n    if (!hasSupplierRole) {\n        throw new Error(\"Forbidden: SUPPLIER role required\");\n    }\n}\n\n/**\n * Check if a user has an active application for a specific entity/geography\n */\nexport async function hasApplicationForEntityGeography(\n    userId: string,\n    entityCode: string,\n    geographyCode: string\n): Promise&lt;boolean&gt; {\n    const membership = await prisma.membership.findFirst({\n        where: { userId },\n    });\n\n    if (!membership) {\n        return false;\n    }\n\n    const application = await prisma.application.findFirst({\n        where: {\n            organizationId: membership.organizationId,\n            createdById: userId,\n            entity: {\n                code: {\n                    equals: entityCode,\n                    mode: \"insensitive\",\n                }\n            },\n            geography: {\n                code: {\n                    equals: geographyCode,\n                    mode: \"insensitive\",\n                }\n            },\n            status: {\n                in: [\"DRAFT\", \"SUBMITTED\", \"IN_REVIEW\", \"PENDING_SUPPLIER\"],\n            },\n        },\n    });\n\n    return !!application;\n}\n",
+  "totalLinesInFile": 234
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="read_file_v2">
+<details>
+<summary>Tool use: **read_file_v2**</summary>
+
+
+Parameters:
+
+```json
+{
+  "targetFile": "/Users/sahilmehta/supplier-onboarding-simple/lib/forms/form-config-fetcher.ts",
+  "charsLimit": 1000000,
+  "effectiveUri": "/Users/sahilmehta/supplier-onboarding-simple/lib/forms/form-config-fetcher.ts"
+}
+```
+Result:
+
+```json
+{
+  "contents": "import { prisma } from \"@/lib/prisma\";\nimport type { FormConfigWithFields } from \"./types\";\n\n// Simple in-memory cache for form configs (they rarely change)\n// Cache entries expire after 30 minutes\nconst formConfigCache = new Map&lt;\n  string,\n  { data: FormConfigWithFields | null; timestamp: number }\n&gt;();\nconst CACHE_TTL = 30 * 60 * 1000; // 30 minutes\n\nfunction getCacheKey(type: \"entity-geo\" | \"id\", ...args: string[]): string {\n  return &#96;${type}:${args.join(\":\")}&#96;;\n}\n\nfunction getFromCache(key: string): FormConfigWithFields | null | undefined {\n  const cached = formConfigCache.get(key);\n  if (!cached) return undefined;\n\n  const isExpired = Date.now() - cached.timestamp &gt; CACHE_TTL;\n  if (isExpired) {\n    formConfigCache.delete(key);\n    return undefined;\n  }\n\n  return cached.data;\n}\n\nfunction setCache(key: string, data: FormConfigWithFields | null): void {\n  formConfigCache.set(key, { data, timestamp: Date.now() });\n}\n\n/**\n * Fetches the active form config by entity code and geography code\n * Returns the most recent active version\n * Results are cached for 30 minutes\n */\nexport async function getFormConfigByEntityAndGeography(\n  entityCode: string,\n  geographyCode: string\n): Promise&lt;FormConfigWithFields | null&gt; {\n  const cacheKey = getCacheKey(\"entity-geo\", entityCode, geographyCode);\n  const cached = getFromCache(cacheKey);\n  if (cached !== undefined) {\n    return cached;\n  }\n\n  const formConfig = await prisma.formConfig.findFirst({\n    where: {\n      isActive: true,\n      entity: {\n        code: {\n          equals: entityCode,\n          mode: \"insensitive\",\n        },\n      },\n      geography: {\n        code: {\n          equals: geographyCode,\n          mode: \"insensitive\",\n        },\n      },\n    },\n    select: {\n      id: true,\n      entityId: true,\n      geographyId: true,\n      version: true,\n      title: true,\n      description: true,\n      isActive: true,\n      createdAt: true,\n      updatedAt: true,\n      entity: {\n        select: {\n          id: true,\n          code: true,\n          name: true,\n          description: true,\n        },\n      },\n      geography: {\n        select: {\n          id: true,\n          code: true,\n          name: true,\n        },\n      },\n      sections: {\n        select: {\n          id: true,\n          formConfigId: true,\n          title: true,\n          description: true,\n          order: true,\n          fields: {\n            select: {\n              id: true,\n              sectionId: true,\n              name: true,\n              label: true,\n              type: true,\n              placeholder: true,\n              helpText: true,\n              validationRules: true,\n              options: true,\n              order: true,\n              visibilityConditions: true,\n            },\n            orderBy: {\n              order: \"asc\",\n            },\n          },\n        },\n        orderBy: {\n          order: \"asc\",\n        },\n      },\n      documentRules: {\n        select: {\n          id: true,\n          formConfigId: true,\n          documentTypeId: true,\n          required: true,\n          validationRules: true,\n          documentType: {\n            select: {\n              id: true,\n              key: true,\n              label: true,\n              category: true,\n              description: true,\n            },\n          },\n        },\n      },\n    },\n    orderBy: {\n      version: \"desc\",\n    },\n  });\n\n  const result = formConfig as FormConfigWithFields | null;\n  setCache(cacheKey, result);\n  return result;\n}\n\n/**\n * Fetches a form config by its ID\n * Results are cached for 30 minutes\n */\nexport async function getFormConfigById(\n  formConfigId: string\n): Promise&lt;FormConfigWithFields | null&gt; {\n  const cacheKey = getCacheKey(\"id\", formConfigId);\n  const cached = getFromCache(cacheKey);\n  if (cached !== undefined) {\n    return cached;\n  }\n\n  const formConfig = await prisma.formConfig.findUnique({\n    where: {\n      id: formConfigId,\n    },\n    select: {\n      id: true,\n      entityId: true,\n      geographyId: true,\n      version: true,\n      title: true,\n      description: true,\n      isActive: true,\n      createdAt: true,\n      updatedAt: true,\n      entity: {\n        select: {\n          id: true,\n          code: true,\n          name: true,\n          description: true,\n        },\n      },\n      geography: {\n        select: {\n          id: true,\n          code: true,\n          name: true,\n        },\n      },\n      sections: {\n        select: {\n          id: true,\n          formConfigId: true,\n          title: true,\n          description: true,\n          order: true,\n          fields: {\n            select: {\n              id: true,\n              sectionId: true,\n              name: true,\n              label: true,\n              type: true,\n              placeholder: true,\n              helpText: true,\n              validationRules: true,\n              options: true,\n              order: true,\n              visibilityConditions: true,\n            },\n            orderBy: {\n              order: \"asc\",\n            },\n          },\n        },\n        orderBy: {\n          order: \"asc\",\n        },\n      },\n      documentRules: {\n        select: {\n          id: true,\n          formConfigId: true,\n          documentTypeId: true,\n          required: true,\n          validationRules: true,\n          documentType: {\n            select: {\n              id: true,\n              key: true,\n              label: true,\n              category: true,\n              description: true,\n            },\n          },\n        },\n      },\n    },\n  });\n\n  const result = formConfig as FormConfigWithFields | null;\n  setCache(cacheKey, result);\n  return result;\n}\n\n/**\n * Validates that a form config exists and is active (if required)\n */\nexport async function validateFormConfig(\n  formConfigId: string,\n  requireActive: boolean = false\n): Promise&lt;{ valid: boolean; formConfig: FormConfigWithFields | null }&gt; {\n  const formConfig = await getFormConfigById(formConfigId);\n\n  if (!formConfig) {\n    return { valid: false, formConfig: null };\n  }\n\n  if (requireActive &amp;&amp; !formConfig.isActive) {\n    return { valid: false, formConfig: null };\n  }\n\n  return { valid: true, formConfig };\n}\n\n",
+  "totalLinesInFile": 266
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<think><details><summary>Thought Process</summary>
+Good. Now let me check the form prepare pages to verify the internal HTTP fetch issue:</details></think>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="read_file_v2">
+<details>
+<summary>Tool use: **read_file_v2**</summary>
+
+
+Parameters:
+
+```json
+{
+  "targetFile": "/Users/sahilmehta/supplier-onboarding-simple/app/forms/(by-entity)/[formSlug]/[geographyCode]/prepare/page.tsx",
+  "charsLimit": 1000000,
+  "effectiveUri": "/Users/sahilmehta/supplier-onboarding-simple/app/forms/(by-entity)/[formSlug]/[geographyCode]/prepare/page.tsx"
+}
+```
+Result:
+
+```json
+{
+  "contents": "import { redirect } from \"next/navigation\";\nimport { notFound } from \"next/navigation\";\nimport { auth } from \"@/lib/auth\";\nimport { getCurrentUserMembership } from \"@/lib/permissions\";\nimport { getFormConfigByEntityAndGeography } from \"@/lib/forms/form-config-fetcher\";\n\ninterface Params {\n    formSlug: string;\n    geographyCode: string;\n}\n\nexport default async function FormPreparePage({\n    params,\n}: {\n    params: Promise&lt;Params&gt;;\n}) {\n    const { formSlug, geographyCode } = await params;\n    const entityCode = formSlug;\n    const session = await auth();\n\n    // Authentication check\n    if (!session?.user?.id) {\n        const callbackUrl = &#96;/forms/${entityCode}/${geographyCode}/prepare&#96;;\n        redirect(&#96;/signin?callbackUrl=${encodeURIComponent(callbackUrl)}&#96;);\n    }\n\n    const membership = await getCurrentUserMembership();\n    if (!membership) {\n        redirect(\"/signin\");\n    }\n\n    // Fetch form config\n    const formConfig = await getFormConfigByEntityAndGeography(\n        entityCode,\n        geographyCode\n    );\n\n    if (!formConfig) {\n        notFound();\n    }\n\n    // Fetch form metadata\n    const metadataUrl = new URL(\n        &#96;/api/forms/${formConfig.id}/metadata&#96;,\n        process.env.NEXTAUTH_URL || \"http://localhost:3005\"\n    );\n\n    const response = await fetch(metadataUrl.toString());\n\n    if (!response.ok) {\n        if (response.status === 404) {\n            notFound();\n        }\n        throw new Error(\"Failed to fetch form metadata\");\n    }\n\n    const metadata = await response.json();\n\n    // Dynamic import to avoid SSR issues with client component\n    const { FormPreparation } = await import(\n        \"@/components/forms/form-preparation\"\n    );\n\n    return (\n        &lt;FormPreparation\n            formId={metadata.id}\n            formUrl={&#96;/forms/${entityCode}/${geographyCode}&#96;}\n            title={metadata.title || \"Form Configuration\"}\n            description={metadata.description}\n            entity={metadata.entity}\n            geography={metadata.geography}\n            estimatedTimeMinutes={metadata.estimatedTimeMinutes}\n            sectionCount={metadata.sectionCount}\n            sectionSummary={metadata.sectionSummary}\n            requiredDocuments={metadata.documentRequirements.required}\n            optionalDocuments={metadata.documentRequirements.optional}\n        /&gt;\n    );\n}\n",
+  "totalLinesInFile": 80
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="read_file_v2">
+<details>
+<summary>Tool use: **read_file_v2**</summary>
+
+
+Parameters:
+
+```json
+{
+  "targetFile": "/Users/sahilmehta/supplier-onboarding-simple/app/forms/(by-config)/[formSlug]/prepare/page.tsx",
+  "charsLimit": 1000000,
+  "effectiveUri": "/Users/sahilmehta/supplier-onboarding-simple/app/forms/(by-config)/[formSlug]/prepare/page.tsx"
+}
+```
+Result:
+
+```json
+{
+  "contents": "import { redirect } from \"next/navigation\";\nimport { notFound } from \"next/navigation\";\nimport { auth } from \"@/lib/auth\";\nimport { getCurrentUserMembership } from \"@/lib/permissions\";\n\ninterface Params {\n    formSlug: string;\n}\n\nexport default async function FormPreparePage({\n    params,\n}: {\n    params: Promise&lt;Params&gt;;\n}) {\n    const { formSlug } = await params;\n    const formConfigId = formSlug;\n    const session = await auth();\n\n    // Authentication check\n    if (!session?.user?.id) {\n        redirect(\"/signin\");\n    }\n\n    const membership = await getCurrentUserMembership();\n    if (!membership) {\n        redirect(\"/signin\");\n    }\n\n    // Fetch form metadata\n    const metadataUrl = new URL(\n        &#96;/api/forms/${formConfigId}/metadata&#96;,\n        process.env.NEXTAUTH_URL || \"http://localhost:3000\"\n    );\n\n    const response = await fetch(metadataUrl.toString());\n\n    if (!response.ok) {\n        if (response.status === 404) {\n            notFound();\n        }\n        throw new Error(\"Failed to fetch form  metadata\");\n    }\n\n    const metadata = await response.json();\n\n    // Dynamic import to avoid SSR issues with client component\n    const { FormPreparation } = await import(\n        \"@/components/forms/form-preparation\"\n    );\n\n    return (\n        &lt;FormPreparation\n            formId={metadata.id}\n            title={metadata.title || \"Form Configuration\"}\n            description={metadata.description}\n            entity={metadata.entity}\n            geography={metadata.geography}\n            estimatedTimeMinutes={metadata.estimatedTimeMinutes}\n            sectionCount={metadata.sectionCount}\n            sectionSummary={metadata.sectionSummary}\n            requiredDocuments={metadata.documentRequirements.required}\n            optionalDocuments={metadata.documentRequirements.optional}\n        /&gt;\n    );\n}\n",
+  "totalLinesInFile": 66
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<think><details><summary>Thought Process</summary>
+Perfect! Now let me check the API endpoint to see what it's doing, and also check if there's any caching configuration in the next.config or elsewhere.</details></think>
+
+---
+
+<tool-use data-tool-type="generic" data-tool-name="glob_file_search">
+<details>
+<summary>Tool use: **glob_file_search** • Searched codebase "undefined" • **1** result in **1** directory</summary>
+
+Directory: **undefined** (1 file)
+
+| File |
+|------|
+| `./app/api/forms/[formId]/metadata/route.ts` |
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="read_file_v2">
+<details>
+<summary>Tool use: **read_file_v2**</summary>
+
+
+Parameters:
+
+```json
+{
+  "targetFile": "/Users/sahilmehta/supplier-onboarding-simple/app/dashboard/settings/page.tsx",
+  "charsLimit": 1000000,
+  "effectiveUri": "/Users/sahilmehta/supplier-onboarding-simple/app/dashboard/settings/page.tsx"
+}
+```
+Result:
+
+```json
+{
+  "contents": "import {\n  Card,\n  CardContent,\n  CardDescription,\n  CardHeader,\n  CardTitle,\n} from \"@/components/ui/card\";\nimport { prisma } from \"@/lib/prisma\";\nimport { updateIntegrationsAction } from \"../admin/actions\";\n\nexport default async function SettingsPage() {\n  const organizations = await prisma.organization.findMany({\n    orderBy: { name: \"asc\" },\n  });\n\n  return (\n    &lt;div className=\"space-y-6\"&gt;\n      &lt;div className=\"space-y-1\"&gt;\n        &lt;p className=\"text-xs uppercase tracking-[0.3em] text-muted-foreground\"&gt;\n          Workspace\n        &lt;/p&gt;\n        &lt;h1 className=\"text-2xl font-semibold\"&gt;Settings&lt;/h1&gt;\n        &lt;p className=\"text-sm text-muted-foreground\"&gt;\n          Configure notifications and integrations for each organization.\n        &lt;/p&gt;\n      &lt;/div&gt;\n\n      &lt;Card&gt;\n        &lt;CardHeader&gt;\n          &lt;CardTitle&gt;Workspace Settings&lt;/CardTitle&gt;\n          &lt;CardDescription&gt;\n            Additional preferences (notifications, SLAs, automation) will land here soon.\n          &lt;/CardDescription&gt;\n        &lt;/CardHeader&gt;\n        &lt;CardContent&gt;\n          &lt;p className=\"text-sm text-muted-foreground\"&gt;\n            Looking for Freshdesk or email templates? Manage them below per organization.\n          &lt;/p&gt;\n        &lt;/CardContent&gt;\n      &lt;/Card&gt;\n\n      &lt;Card&gt;\n        &lt;CardHeader&gt;\n          &lt;CardTitle&gt;Freshdesk integration&lt;/CardTitle&gt;\n          &lt;CardDescription&gt;\n            Connect each organization to its Freshdesk workspace and customize outbound email templates.\n          &lt;/CardDescription&gt;\n        &lt;/CardHeader&gt;\n        &lt;CardContent className=\"grid gap-4 md:grid-cols-2 text-sm text-muted-foreground\"&gt;\n          {organizations.length === 0 ? (\n            &lt;p&gt;No organizations available yet. Provision a workspace to enable integrations.&lt;/p&gt;\n          ) : (\n            organizations.map((org) =&gt; (\n              &lt;div\n                key={org.id}\n                className=\"space-y-3 rounded-xl border border-slate-200 bg-white p-4 text-slate-600\"\n              &gt;\n                &lt;p className=\"text-sm font-semibold text-slate-900\"&gt;{org.name}&lt;/p&gt;\n                &lt;form action={updateIntegrationsAction} className=\"space-y-2\"&gt;\n                  &lt;input type=\"hidden\" name=\"integration-org\" value={org.id} /&gt;\n                  &lt;label className=\"text-xs font-semibold text-slate-500\"&gt;\n                    Freshdesk domain\n                  &lt;/label&gt;\n                  &lt;input\n                    name=\"freshdesk-domain\"\n                    defaultValue={org.freshdeskDomain ?? \"\"}\n                    placeholder=\"yourcompany.freshdesk.com\"\n                    className=\"w-full rounded-lg border border-slate-200 px-3 py-2\"\n                  /&gt;\n                  &lt;label className=\"text-xs font-semibold text-slate-500\"&gt;\n                    Freshdesk API key\n                  &lt;/label&gt;\n                  &lt;input\n                    name=\"freshdesk-api-key\"\n                    defaultValue={org.freshdeskApiKey ?? \"\"}\n                    className=\"w-full rounded-lg border border-slate-200 px-3 py-2\"\n                    placeholder=\"****\"\n                  /&gt;\n                  &lt;label className=\"text-xs font-semibold text-slate-500\"&gt;\n                    Email template\n                  &lt;/label&gt;\n                  &lt;textarea\n                    name=\"email-template\"\n                    defaultValue={org.emailTemplate ?? \"\"}\n                    className=\"w-full rounded-lg border border-slate-200 px-3 py-2\"\n                    rows={3}\n                    placeholder=\"Notification email body...\"\n                  /&gt;\n                  &lt;button className=\"w-full rounded-full bg-slate-900 px-4 py-2 text-sm font-medium text-white\"&gt;\n                    Save settings\n                  &lt;/button&gt;\n                &lt;/form&gt;\n              &lt;/div&gt;\n            ))\n          )}\n        &lt;/CardContent&gt;\n      &lt;/Card&gt;\n    &lt;/div&gt;\n  );\n}\n",
+  "totalLinesInFile": 101
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="read_file_v2">
+<details>
+<summary>Tool use: **read_file_v2**</summary>
+
+
+Parameters:
+
+```json
+{
+  "targetFile": "/Users/sahilmehta/supplier-onboarding-simple/next.config.ts",
+  "charsLimit": 1000000,
+  "effectiveUri": "/Users/sahilmehta/supplier-onboarding-simple/next.config.ts"
+}
+```
+Result:
+
+```json
+{
+  "contents": "import type { NextConfig } from \"next\";\n\nconst nextConfig: NextConfig = {\n  // Enable standalone output for smaller, more efficient deployments on Vercel\n  output: \"standalone\",\n\n  // Optimize images for better performance\n  images: {\n    formats: [\"image/avif\", \"image/webp\"],\n    minimumCacheTTL: 60,\n  },\n\n  // Reduce bundle size by removing console logs in production\n  compiler: {\n    removeConsole:\n      process.env.NODE_ENV === \"production\"\n        ? {\n            exclude: [\"error\", \"warn\"],\n          }\n        : false,\n  },\n\n  // Optimize serverless function size and performance\n  experimental: {\n    serverMinification: true,\n    serverSourceMaps: false,\n  },\n};\n\nexport default nextConfig;\n",
+  "totalLinesInFile": 31
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<think><details><summary>Thought Process</summary>
+Now let me check the API endpoint to see what it's doing with the metadata:</details></think>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="read_file_v2">
+<details>
+<summary>Tool use: **read_file_v2**</summary>
+
+
+Parameters:
+
+```json
+{
+  "targetFile": "/Users/sahilmehta/supplier-onboarding-simple/app/api/forms/[formId]/metadata/route.ts",
+  "charsLimit": 1000000,
+  "effectiveUri": "/Users/sahilmehta/supplier-onboarding-simple/app/api/forms/[formId]/metadata/route.ts"
+}
+```
+Result:
+
+```json
+{
+  "contents": "import { NextResponse } from \"next/server\";\nimport { getFormConfigById } from \"@/lib/forms/form-config-fetcher\";\nimport { calculateFormMetadata } from \"@/lib/forms/form-metadata\";\n\n// Cache form metadata for 1 hour (metadata is derived from form config which rarely changes)\nexport const revalidate = 3600;\n\nexport async function GET(\n    request: Request,\n    { params }: { params: Promise&lt;{ formId: string }&gt; }\n) {\n    const { formId } = await params;\n\n    try {\n        // Fetch form configuration\n        const formConfig = await getFormConfigById(formId);\n\n        if (!formConfig) {\n            return NextResponse.json(\n                { error: \"Form configuration not found\" },\n                { status: 404 }\n            );\n        }\n\n        // Calculate metadata\n        const metadata = calculateFormMetadata(formConfig);\n\n        // Build response\n        const response = {\n            id: formConfig.id,\n            title: formConfig.title,\n            description: formConfig.description,\n            entity: {\n                code: formConfig.entity.code,\n                name: formConfig.entity.name,\n            },\n            geography: {\n                code: formConfig.geography.code,\n                name: formConfig.geography.name,\n            },\n            sectionCount: metadata.sectionCount,\n            totalFieldCount: metadata.totalFieldCount,\n            requiredFieldCount: metadata.requiredFieldCount,\n            estimatedTimeMinutes: metadata.estimatedTimeMinutes,\n            sectionSummary: metadata.sectionSummary,\n            documentRequirements: {\n                required: metadata.requiredDocuments,\n                optional: metadata.optionalDocuments,\n            },\n        };\n\n        return NextResponse.json(response);\n    } catch (error) {\n        console.error(\"Error fetching form metadata:\", error);\n        return NextResponse.json(\n            { error: \"Failed to fetch form metadata\" },\n            { status: 500 }\n        );\n    }\n}\n",
+  "totalLinesInFile": 61
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<think><details><summary>Thought Process</summary>
+Excellent! Now I have a complete picture. Let me check the dashboard page to verify the duplicate queries pattern:</details></think>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="read_file_v2">
+<details>
+<summary>Tool use: **read_file_v2**</summary>
+
+
+Parameters:
+
+```json
+{
+  "targetFile": "/Users/sahilmehta/supplier-onboarding-simple/app/dashboard/page.tsx",
+  "charsLimit": 1000000,
+  "effectiveUri": "/Users/sahilmehta/supplier-onboarding-simple/app/dashboard/page.tsx"
+}
+```
+Result:
+
+```json
+{
+  "contents": "import { redirect } from \"next/navigation\";\nimport { auth } from \"@/lib/auth\";\nimport { prisma } from \"@/lib/prisma\";\nimport { Badge } from \"@/components/ui/badge\";\nimport {\n  Card,\n  CardContent,\n  CardDescription,\n  CardHeader,\n  CardTitle,\n} from \"@/components/ui/card\";\nimport { Separator } from \"@/components/ui/separator\";\nimport { Skeleton } from \"@/components/ui/skeleton\";\nimport { DiscardDraftButton } from \"@/components/dashboard/discard-draft-button\";\nimport Link from \"next/link\";\nimport { formatDistanceToNow } from \"date-fns\";\n\ninterface SummaryMetric {\n  id: string;\n  label: string;\n  value: string;\n  trend: string;\n}\n\nconst currencyFormatter = new Intl.NumberFormat(\"en-US\", {\n  style: \"currency\",\n  currency: \"USD\",\n  maximumFractionDigits: 0,\n});\n\nexport default async function Home() {\n  const session = await auth();\n\n  if (!session?.user?.id) {\n    redirect(\"/signin\");\n  }\n\n  // Get user's organization (assuming single org for now or picking the first one)\n  const membership = await prisma.membership.findFirst({\n    where: { userId: session.user.id },\n    include: { organization: true },\n  });\n\n  if (!membership) {\n    // Handle case where user has no organization\n    return (\n      &lt;div className=\"flex flex-col items-center justify-center p-8\"&gt;\n        &lt;h2 className=\"text-xl font-semibold\"&gt;No Organization Found&lt;/h2&gt;\n        &lt;p className=\"text-muted-foreground\"&gt;\n          You need to belong to an organization to view the dashboard.\n        &lt;/p&gt;\n      &lt;/div&gt;\n    );\n  }\n\n  const organizationId = membership.organizationId;\n\n  // Fetch draft applications\n  const draftApplications = await prisma.application.findMany({\n    where: {\n      organizationId,\n      createdById: session.user.id,\n      status: \"DRAFT\",\n    },\n    include: {\n      formConfig: true,\n      supplier: true,\n    },\n    orderBy: { updatedAt: \"desc\" },\n  });\n\n  const metrics: SummaryMetric[] = [\n    {\n      id: \"applications\",\n      label: \"Active Applications\",\n      value: String(18),\n      trend: \"+3 vs last week\",\n    },\n    {\n      id: \"processing-time\",\n      label: \"Median Processing Time\",\n      value: \"6.2 days\",\n      trend: \"-1.4 days vs target\",\n    },\n    {\n      id: \"spend\",\n      label: \"Approved Spend\",\n      value: currencyFormatter.format(480000),\n      trend: \"+12% vs plan\",\n    },\n  ];\n\n  const workflowTasks = [\n    {\n      id: \"cta\",\n      title: \"Review newly submitted profiles\",\n      description: \"Validate completeness and assign risk reviewers.\",\n      action: \"Assign reviewers\",\n    },\n    {\n      id: \"policies\",\n      title: \"Align policy pack for EU suppliers\",\n      description: \"Update requirement set to include 2025 compliance docs.\",\n      action: \"Update requirements\",\n    },\n  ];\n\n  return (\n    &lt;div className=\"flex flex-col gap-6\"&gt;\n      &lt;section className=\"grid gap-4 sm:grid-cols-2 lg:grid-cols-3\"&gt;\n        {metrics.map((metric) =&gt; (\n          &lt;Card key={metric.id} className=\"shadow-none\"&gt;\n            &lt;CardHeader className=\"pb-3\"&gt;\n              &lt;CardDescription&gt;{metric.label}&lt;/CardDescription&gt;\n              &lt;CardTitle className=\"text-2xl font-semibold\"&gt;\n                {metric.value}\n              &lt;/CardTitle&gt;\n            &lt;/CardHeader&gt;\n            &lt;CardContent&gt;\n              &lt;p className=\"text-xs font-medium text-emerald-600 dark:text-emerald-400\"&gt;\n                {metric.trend}\n              &lt;/p&gt;\n            &lt;/CardContent&gt;\n          &lt;/Card&gt;\n        ))}\n      &lt;/section&gt;\n\n      &lt;section className=\"grid gap-4 lg:grid-cols-[2fr_1fr]\"&gt;\n        &lt;Card className=\"shadow-none\"&gt;\n          &lt;CardHeader className=\"flex-row items-center justify-between space-y-0 pb-4\"&gt;\n            &lt;div&gt;\n              &lt;CardTitle className=\"text-base font-semibold\"&gt;\n                Your Draft Applications\n              &lt;/CardTitle&gt;\n              &lt;CardDescription&gt;\n                Resume where you left off or discard unwanted drafts.\n              &lt;/CardDescription&gt;\n            &lt;/div&gt;\n            &lt;Badge variant=\"outline\"&gt;\n              {draftApplications.length} in progress\n            &lt;/Badge&gt;\n          &lt;/CardHeader&gt;\n          &lt;CardContent className=\"space-y-4\"&gt;\n            {draftApplications.length === 0 ? (\n              &lt;div className=\"flex h-32 items-center justify-center rounded-lg border border-dashed text-sm text-muted-foreground\"&gt;\n                No draft applications found.\n              &lt;/div&gt;\n            ) : (\n              draftApplications.map((application) =&gt; (\n                &lt;article\n                  key={application.id}\n                  className=\"grid grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)] items-center gap-3 rounded-lg border border-border/60 px-4 py-3 text-sm transition hover:border-border hover:bg-muted/40\"\n                &gt;\n                  &lt;div className=\"flex flex-col gap-1\"&gt;\n                    &lt;Link\n                      href={&#96;/supplier/onboarding/${application.id}&#96;}\n                      className=\"font-medium text-foreground hover:underline\"\n                    &gt;\n                      {application.formConfig?.title || \"Untitled Application\"}\n                    &lt;/Link&gt;\n                    &lt;span className=\"text-xs text-muted-foreground\"&gt;\n                      ID: {application.id.slice(-8)}\n                    &lt;/span&gt;\n                  &lt;/div&gt;\n                  &lt;span className=\"text-xs font-medium text-muted-foreground\"&gt;\n                    Last saved {formatDistanceToNow(application.updatedAt)} ago\n                  &lt;/span&gt;\n                  &lt;div className=\"flex items-center justify-end gap-3 text-xs text-muted-foreground\"&gt;\n                    &lt;Link\n                      href={&#96;/supplier/onboarding/${application.id}&#96;}\n                      className=\"text-primary hover:underline\"\n                    &gt;\n                      Resume\n                    &lt;/Link&gt;\n                    &lt;Separator orientation=\"vertical\" className=\"h-4\" /&gt;\n                    &lt;DiscardDraftButton\n                      applicationId={application.id}\n                      organizationId={organizationId}\n                    /&gt;\n                  &lt;/div&gt;\n                &lt;/article&gt;\n              ))\n            )}\n          &lt;/CardContent&gt;\n        &lt;/Card&gt;\n\n        &lt;Card className=\"shadow-none\"&gt;\n          &lt;CardHeader className=\"pb-4\"&gt;\n            &lt;CardTitle className=\"text-base font-semibold\"&gt;\n              Next Actions\n            &lt;/CardTitle&gt;\n            &lt;CardDescription&gt;\n              Suggested tasks to keep onboarding moving.\n            &lt;/CardDescription&gt;\n          &lt;/CardHeader&gt;\n          &lt;CardContent className=\"space-y-4\"&gt;\n            {workflowTasks.map((task) =&gt; (\n              &lt;div\n                key={task.id}\n                className=\"rounded-lg border border-border/60 p-4 text-sm\"\n              &gt;\n                &lt;div className=\"flex items-start justify-between gap-3\"&gt;\n                  &lt;div className=\"space-y-1\"&gt;\n                    &lt;p className=\"font-medium text-foreground\"&gt;{task.title}&lt;/p&gt;\n                    &lt;p className=\"text-xs text-muted-foreground\"&gt;\n                      {task.description}\n                    &lt;/p&gt;\n                  &lt;/div&gt;\n                  &lt;Badge variant=\"outline\"&gt;{task.action}&lt;/Badge&gt;\n                &lt;/div&gt;\n              &lt;/div&gt;\n            ))}\n          &lt;/CardContent&gt;\n        &lt;/Card&gt;\n      &lt;/section&gt;\n\n      &lt;section&gt;\n        &lt;Card className=\"shadow-none\"&gt;\n          &lt;CardHeader className=\"pb-4\"&gt;\n            &lt;CardTitle className=\"text-base font-semibold\"&gt;\n              Integration Health\n            &lt;/CardTitle&gt;\n            &lt;CardDescription&gt;\n              Summary of connected systems powering onboarding.\n            &lt;/CardDescription&gt;\n          &lt;/CardHeader&gt;\n          &lt;CardContent className=\"grid gap-4 md:grid-cols-2\"&gt;\n            &lt;div className=\"flex items-center gap-4 rounded-lg border border-border/60 p-4\"&gt;\n              &lt;div className=\"flex h-10 w-10 items-center justify-center rounded-full bg-emerald-50 text-emerald-600\"&gt;\n                ERP\n              &lt;/div&gt;\n              &lt;div className=\"space-y-1\"&gt;\n                &lt;p className=\"text-sm font-semibold text-foreground\"&gt;\n                  SAP Integration\n                &lt;/p&gt;\n                &lt;p className=\"text-xs text-muted-foreground\"&gt;\n                  Syncing supplier master data nightly at 02:00.\n                &lt;/p&gt;\n              &lt;/div&gt;\n            &lt;/div&gt;\n            &lt;div className=\"flex items-center gap-4 rounded-lg border border-border/60 p-4\"&gt;\n              &lt;Skeleton className=\"h-10 w-10 rounded-full\" /&gt;\n              &lt;div className=\"space-y-1\"&gt;\n                &lt;p className=\"text-sm font-semibold text-foreground\"&gt;\n                  Slack Alerts\n                &lt;/p&gt;\n                &lt;p className=\"text-xs text-muted-foreground\"&gt;\n                  Routing clarifications to #supplier-ops (healthy).\n                &lt;/p&gt;\n              &lt;/div&gt;\n            &lt;/div&gt;\n          &lt;/CardContent&gt;\n        &lt;/Card&gt;\n      &lt;/section&gt;\n    &lt;/div&gt;\n  );\n}\n",
+  "totalLinesInFile": 258
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<think><details><summary>Thought Process</summary>
+Perfect! I now have a complete picture of all the performance issues. Let me summarize what I've verified:
+
+**VERIFIED ISSUES:**
+
+1. **Global auth in root layout** - CONFIRMED: `app/layout.tsx:30` calls `auth()` for every route, including public pages and signin. This forces dynamic rendering.
+
+2. **Database-backed sessions** - CONFIRMED: `lib/auth.ts:56-57` uses `session: { strategy: "database" }` and the session callback (lines 81-129) fetches memberships from Prisma on every auth() call.
+
+3. **Duplicate auth calls** - CONFIRMED: 
+   - Root layout calls `auth()` (line 30)
+   - Dashboard layout calls `auth()` (line 17) and `isSupplier()` (line 24) which internally calls `auth()` again via `getCurrentUserWithMembership()` 
+   - Dashboard layout then calls `prisma.user.findUnique` (line 29) 
+   - Dashboard page calls `auth()` again (line 32) and `prisma.membership.findFirst` (line 39)
+   - Similar pattern in supplier layout (line 12 auth(), line 19 isSupplier())
+
+4. **Internal HTTP fetches** - CONFIRMED: Both prepare pages (`app/forms/(by-entity)/[formSlug]/[geographyCode]/prepare/page.tsx:43-55` and `app/forms/(by-config)/[formSlug]/prepare/page.tsx:30-42`) fetch metadata via HTTP instead of calling the function directly. The API endpoint already has caching (`revalidate = 3600`) but this still introduces an unnecessary HTTP round-trip.
+
+5. **Uncached read-mostly data** - PARTIALLY ADDRESSED: 
+   - `lib/forms/form-config-fetcher.ts` actually HAS in-memory caching (lines 4-31) with 30min TTL
+   - `lib/supplier-access.ts:146-169` lacks caching for `getAvailableFormConfigs()`
+   - `app/dashboard/settings/page.tsx:12-14` fetches organizations without any caching
+
+I see two additional uncached data sources that need attention. The form config fetcher has good caching, but other critical data retrieval methods remain non-cached. These uncached queries could significantly impact performance, especially for frequently accessed data like form configurations and organizational settings.
+
+The next optimization phase will focus on implementing lightweight caching strategies for these remaining data access points to reduce unnecessary database hits and improve overall application responsiveness.
+
+**HIGH IMPACT, LOW EFFORT OPTIMIZATIONS:**
+1. Modify root layout authentication to enable static rendering for public routes
+2. Implement React's `cache()` for authentication and membership context
+3. Replace internal HTTP requests with direct function calls
+4. Introduce caching mechanisms for form configurations and organization queries
+
+These targeted improvements will streamline data retrieval, reduce redundant computations, and enhance the application's performance with minimal development overhead.</details></think>
+
+---
+
+Perfect! I've verified all the issues documented in the performance analysis. Let me create a comprehensive plan to address them, prioritizing low effort, high impact fixes.
+
+## Verification Summary
+
+All major issues are **genuine and confirmed**:
+
+1. ✅ **Global auth in root layout** - `app/layout.tsx:30` calls `auth()` on every route
+2. ✅ **Database-backed sessions** - `lib/auth.ts:56-57` uses database strategy with membership queries in session callback
+3. ✅ **Duplicate auth/DB calls** - Multiple `auth()` and membership queries per request (verified in dashboard/supplier layouts + pages)
+4. ✅ **Internal HTTP fetches** - Both form prepare pages make unnecessary HTTP calls instead of direct function calls
+5. ✅ **Uncached data** - Organizations and form configs queries lack caching (though `form-config-fetcher` does have in-memory cache)
+
+Now I'll create a prioritized plan focusing on low effort, high impact fixes:
+
+---
+
+Cancelled
+
+---
+
+_**User (2025-12-04 10:48Z)**_
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+---
+
+_**Agent (model claude-4.5-sonnet-thinking, mode Agent)**_
+
+<think><details><summary>Thought Process</summary>
+The user wants me to implement the performance optimization plan that's attached. Let me review what needs to be done:
+
+1. Priority 1: Eliminate Duplicate Auth/Membership Calls - wrap auth() and getCurrentUserWithMembership() with React's cache()
+2. Priority 2: Remove Global Auth from Root Layout - remove auth() call from app/layout.tsx
+3. Priority 3: Replace Internal HTTP Fetches with Direct Function Calls - update form prepare pages
+4. Priority 4: Add Caching to Uncached Read-Mostly Queries - add revalidate to settings page and cache to supplier-access
+
+The user says to-dos have already been created, so I should mark them as in_progress as I work and complete them. Let me start implementing these changes.
+
+First, let me update the todos and start with Priority 1.</details></think>
+
+---
+
+I'll implement the performance optimization plan. Let me start by marking the first todo as in progress and then
 
 ---
 

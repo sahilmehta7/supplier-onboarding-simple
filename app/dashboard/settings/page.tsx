@@ -8,6 +8,9 @@ import {
 import { prisma } from "@/lib/prisma";
 import { updateIntegrationsAction } from "../admin/actions";
 
+// Cache organizations list for 1 hour (rarely changes)
+export const revalidate = 3600;
+
 export default async function SettingsPage() {
   const organizations = await prisma.organization.findMany({
     orderBy: { name: "asc" },
