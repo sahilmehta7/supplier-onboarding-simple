@@ -15,8 +15,8 @@ const nextConfig: NextConfig = {
     removeConsole:
       process.env.NODE_ENV === "production"
         ? {
-            exclude: ["error", "warn"],
-          }
+          exclude: ["error", "warn"],
+        }
         : false,
   },
 
@@ -31,6 +31,9 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+
+  // Exclude native modules from bundling
+  serverExternalPackages: ["@napi-rs/canvas", "pdfjs-dist"],
 };
 
 export default nextConfig;

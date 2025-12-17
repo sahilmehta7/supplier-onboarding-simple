@@ -1,6 +1,7 @@
 import OpenAI from "openai";
-import { convert } from "pdf-img-convert";
 import { OCR_CONFIG, validateOCRConfig } from "./config";
+import { createCanvas } from "@napi-rs/canvas";
+import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
 
 /**
  * OpenAI Vision extraction result
@@ -48,7 +49,6 @@ export async function extractDataFromDocument(
             apiKey: OCR_CONFIG.apiKey,
         });
 
-
         // Detect MIME type
         let mimeType = detectMimeType(documentBuffer);
         let base64Image = "";
@@ -58,22 +58,9 @@ export async function extractDataFromDocument(
             console.log(`[OCR] Converting PDF to image for processing...`);
             try {
                 // Convert first page of PDF to image
-                // returns an array of Uint8Array (images)
-                const images = await convert(documentBuffer, {
-                    width: 1024, // Resize to reasonable width for OCR
-                    page_numbers: [1], // Only first page
-                    base64: true // Return as base64 strings
-                });
-
-                if (images.length > 0) {
-                    // pdf-img-convert returns base64 string directly if base64: true is set
-                    // but types might say string | Uint8Array, so let's handle it
-                    const firstPage = images[0];
-                    base64Image = typeof firstPage === 'string' ? firstPage : Buffer.from(firstPage).toString('base64');
-                    mimeType = "image/png"; // Converted images are PNGs by default usually, or we treat as such for data URI
-                } else {
-                    throw new Error("PDF conversion produced no images");
-                }
+                const imageBuffer = await convertPdfToImage(documentBuffer);
+                base64Image = imageBuffer.toString("base64");
+                mimeType = "image/png";
             } catch (convError) {
                 console.error("[OCR] PDF conversion failed:", convError);
                 return {
@@ -87,7 +74,7 @@ export async function extractDataFromDocument(
             base64Image = documentBuffer.toString("base64");
         }
 
-        // Check if MIME type is supported by OpenAI Vision (now including our converted PDF->PNG)
+        // Check if MIME type is supported by OpenAI Vision
         const supportedMimeTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
         if (!supportedMimeTypes.includes(mimeType)) {
             console.log(`[OCR] Skipping OCR for unsupported MIME type: ${mimeType}`);
@@ -183,3 +170,43 @@ function detectMimeType(buffer: Buffer): string {
     // Default to PDF as most documents are PDFs
     return "application/pdf";
 }
+
+/**
+ * Converts the first page of a PDF buffer to a PNG image buffer using pdfjs-dist and @napi-rs/canvas
+ */
+async function convertPdfToImage(pdfBuffer: Buffer): Promise<Buffer> {
+    // Determine the path to the standard font files for pdfjs
+    // In a serverless/node environment, this might need adjustment if fonts are needed.
+    // For basic rendering to image, standard fonts might be sufficient or we might need to configure this.
+
+    // Load the document using Uint8Array
+    const uint8Array = new Uint8Array(pdfBuffer);
+    const loadingTask = pdfjsLib.getDocument({
+        data: uint8Array,
+        verbosity: 0,
+        standardFontDataUrl: `node_modules/pdfjs-dist/standard_fonts/`, // attempt to point to standard fonts if needed
+    });
+
+    const pdfDocument = await loadingTask.promise;
+    const page = await pdfDocument.getPage(1);
+
+    // Set scale for quality (e.g., 2.0 for higher res)
+    const scale = 2.0;
+    const viewport = page.getViewport({ scale });
+
+    // Create a canvas with the viewport dimensions
+    const canvas = createCanvas(viewport.width, viewport.height);
+    const context = canvas.getContext("2d");
+
+    // Render the page structure into the canvas
+    const renderContext = {
+        canvasContext: context as any, // Cast to any to satisfy pdfjs types vs napi-rs types mismatch
+        viewport: viewport,
+    };
+
+    await page.render(renderContext as any).promise;
+
+    // Export to PNG buffer
+    return canvas.toBuffer("image/png");
+}
+
